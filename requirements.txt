@@ -1,0 +1,7 @@
+jupyter-book
+ghp-import
+sphinxcontrib-mermaid
+sphinxcontrib-wavedrom
+sphinxcontrib-plantuml
+sphinxcontrib-tikz
+sphinxcontrib-blockdiag
