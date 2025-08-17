@@ -1,0 +1,31 @@
+title: Search-Based Software Engineering - A Course in PT-BR
+author: Jackson Antonio do Prado Lima
+copyright: "2025"
+only_build_toc_files: true
+
+execute:
+  execute_notebooks: cache
+  allow_errors: true
+  timeout: -1  
+parse:
+  myst_dmath_double_inline: true
+
+repository:
+  url: https://github.com/jacksonpradolima/SBSEBrazilianCourse
+  path_to_book: / 
+  branch: main 
+
+sphinx:
+  config:
+    html_copy_source: false
+    html_js_files:
+    - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+    - https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js
+  mermaid_version: 11.9.0
+  myst_fence_as_directive: ["mermaid"]
+  extra_extensions:
+    - sphinxcontrib.mermaid
+    - sphinxcontrib.wavedrom
+    - sphinxcontrib.plantuml
+    - sphinxcontrib.tikz
+    - sphinxcontrib.blockdiag

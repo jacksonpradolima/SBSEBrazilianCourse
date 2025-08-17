@@ -1,0 +1,11 @@
+format: jb-book
+root: README
+parts:
+  - caption: Aulas da Disciplina
+    chapters:
+      - file: docs/aulas/aula01_overview.ipynb
+      - file: docs/aulas/aula02_introduction.ipynb
+      - file: docs/aulas/aula03_SBSE_techniques.ipynb
+      - file: docs/aulas/aula04_MOO.ipynb
+      - file: docs/aulas/aula05_study_case.ipynb
+      - file: docs/aulas/aula06_final_project.ipynb

@@ -1,11 +1,7 @@
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/pradolima)
 
 # Search-Based Software Engineering - A Course in PT-BR
-![](https://img.shields.io/badge/python-3.11.4+-blue.svg)
-
-## Sobre
-
-Este repositório abriga os recursos e materiais utilizados no curso de SBBE na Universidade Federal do Amazonas (UFAM) nos anos de 2023/2024.
+![](https://img.shields.io/badge/python-3.12+-blue.svg)
 
 ## Descrição do Curso
 
