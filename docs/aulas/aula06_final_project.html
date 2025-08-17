@@ -1,0 +1,688 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 6: Projeto Final &#8212; Search-Based Software Engineering - A Course in PT-BR</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula06_final_project';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)" href="aula05_study_case.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Search-Based Software Engineering - A Course in PT-BR</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Search-Based Software Engineering - A Course in PT-BR
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aula01_overview.html">Aula 1: Overview do Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula02_introduction.html">Aula 2: Introdução à SBSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula03_SBSE_techniques.html">Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula04_MOO.html">Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula05_study_case.html">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</a></li>
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Aula 6: Projeto Final</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 6: Projeto Final</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Aula 6: Projeto Final</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicao">Definição</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trabalho-em-grupo-1-tg1-automatizacao-na-criacao-de-testes-para-sistemas-baseados-em-java">Trabalho em Grupo 1 (TG1): Automatização na criação de testes para sistemas baseados em Java</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trabalho-em-grupo-2-tg2-priorizacao-de-casos-de-teste-em-integracao-continua">Trabalho em Grupo 2 (TG2): Priorização de casos de teste em integração contínua</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forma-de-entrega">Forma de Entrega</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avaliacao">Avaliação</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cronograma">Cronograma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apresentacoes">Apresentações</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#projeto-da-disciplina-recuperacao">Projeto da Disciplina - Recuperação</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contexto">Contexto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descricao-do-projeto">Descrição do Projeto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-esperados">Resultados Esperados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Avaliação</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cronograma</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-6-projeto-final">
+<h1>Aula 6: Projeto Final<a class="headerlink" href="#aula-6-projeto-final" title="Link to this heading">#</a></h1>
+<p><strong>Professor</strong> PhD Jackson Antonio do Prado Lima</p>
+<p><strong>Contato:</strong> <code class="docutils literal notranslate"><span class="pre">[jacksonpradolima</span> <span class="pre">at</span> <span class="pre">&#64;gmail.com]</span></code> - Por favor, use o prefixo <code class="docutils literal notranslate"><span class="pre">[SBSE-CursoBR]</span></code> no assunto</p>
+<hr class="docutils" />
+<section id="objetivo">
+<h2>Objetivo<a class="headerlink" href="#objetivo" title="Link to this heading">#</a></h2>
+<p>O objetivo deste trabalho é capacitar o discente a compreender a relação entre a parte prática e teórica do tema <strong>“Search-Based Software Engineering”</strong> e sua relação com a indústria. Para isso, o trabalho é organizado em dois subprojetos com enfoque em:</p>
+<ol class="arabic simple">
+<li><p>Automatização na criação de testes para sistemas baseados em Java;</p></li>
+<li><p>Priorização de casos de teste em integração contínua.</p></li>
+</ol>
+<p>O discente irá realizar a aplicação e avaliação para ambos os subprojetos. Sendo que, o discente deverá alterar a abordagem do segundo subprojeto e avaliar o seu impacto. Ao final, o(s) artefatos(s) utilizado(s) e um relatório para cada subprojeto deverão ser entregues e apresentados.</p>
+</section>
+<section id="definicao">
+<h2>Definição<a class="headerlink" href="#definicao" title="Link to this heading">#</a></h2>
+<section id="trabalho-em-grupo-1-tg1-automatizacao-na-criacao-de-testes-para-sistemas-baseados-em-java">
+<h3>Trabalho em Grupo 1 (TG1): Automatização na criação de testes para sistemas baseados em Java<a class="headerlink" href="#trabalho-em-grupo-1-tg1-automatizacao-na-criacao-de-testes-para-sistemas-baseados-em-java" title="Link to this heading">#</a></h3>
+<p>A utilização de ferramentas e bibliotecas para a geração automática de dados de teste é uma atividade prática importante para aprender a aplicar as técnicas aprendidas de forma mais eficiente. Ferramentas e bibliotecas como <a class="reference external" href="https://www.evosuite.org/">EvoSuite</a> podem simplificar o processo de geração de dados de teste e permitir que o discente se concentre na análise e interpretação dos resultados.</p>
+<p>Neste subprojeto, o discente deve seguir os passos abaixo:</p>
+<ol class="arabic simple">
+<li><p><strong>Instalar e configurar o <a class="reference external" href="https://www.evosuite.org/">EvoSuite</a></strong>: Instale a ferramenta e configure-a de acordo com as instruções fornecidas pela documentação da ferramenta.</p></li>
+<li><p><strong>Estudar a documentação e exemplos</strong>: Familiarize-se com a ferramenta estudando a documentação e analisando exemplos de uso. Isso ajudará o discente a entender como aplicar a ferramenta em um projeto de software.</p></li>
+<li><p><strong>Aplicar a ferramenta em um projeto de software</strong>: Escolha um projeto de software real aplique a ferramenta para gerar dados de teste automaticamente. Siga as diretrizes e recomendações fornecidas pela documentação para obter os melhores resultados.</p></li>
+<li><p><strong>Analisar os resultados obtidos</strong>: Examine os dados de teste gerados e determine se eles são eficazes na cobertura de código e detecção de defeitos. Considere ajustar os parâmetros da ferramenta ou modificar a configuração, se necessário, para obter melhores resultados.</p></li>
+</ol>
+</section>
+<section id="trabalho-em-grupo-2-tg2-priorizacao-de-casos-de-teste-em-integracao-continua">
+<h3>Trabalho em Grupo 2 (TG2): Priorização de casos de teste em integração contínua<a class="headerlink" href="#trabalho-em-grupo-2-tg2-priorizacao-de-casos-de-teste-em-integracao-continua" title="Link to this heading">#</a></h3>
+<p>Comumente, empresas precisam se reinventar para estarem competitivas no mercado. Por exemplo, ChatGPT e seu impacto na comunidade. Nesse sentido, utilizando abordagens, bibliotecas e ferramentas disponíveis para melhoria de processos e produtos. O segundo subprojeto visa analisar uma abordagem do estado da arte para teste de regressão denominada <a class="reference external" href="https://github.com/jacksonpradolima/coleman4hcs">COLEMAN</a>, considerando um tópico em alta na indústria (integração contínua), e alterá-la de modo a obter uma possível melhoria nos resultados. Assim, provendo uma experiência da conexão entre indústria e academia, os quais andam lado a lado.</p>
+<p>Neste subprojeto, o discente deve seguir os passos abaixo:</p>
+<ol class="arabic simple">
+<li><p><strong>Instalar e configurar o <a class="reference external" href="https://github.com/jacksonpradolima/coleman4hcs">COLEMAN</a></strong>: Instale a abordagem e configure-a de acordo com as instruções fornecidas pela documentação da abordagem.</p></li>
+<li><p><strong>Estudar a documentação e exemplos</strong>: Familiarize-se com a abordagem estudando a documentação, artigos relacionados, e analisando exemplos de uso. Isso ajudará o discente a entender como aplicar a abordagem em um projeto de software.</p></li>
+<li><p><strong>Alterar a abordagem</strong>: Analise a abordagem e proponha alterações visando a melhoria dos resultados para o problema que a abordagem visa a solucionar: priorização de casos de tese em ambiente de integração contínua.</p></li>
+<li><p><strong>Analisar os resultados obtidos</strong>: Examine os resultados gerados e determine se eles são superiores aos resultados da abordagem sem alterações. Considere ajustar os parâmetros da abordagem ou modificar a configuração, se necessário, para obter melhores resultados.</p></li>
+</ol>
+</section>
+</section>
+<section id="forma-de-entrega">
+<h2>Forma de Entrega<a class="headerlink" href="#forma-de-entrega" title="Link to this heading">#</a></h2>
+<p>O trabalho pode ser feito em grupos de no mínimo dois e no máximo quatro alunos. Salvo exceções. Cada grupo pode definir um nome, o qual será utilizado para identificar o grupo.</p>
+<p>A equipe deverá criar um <strong>relatório</strong> detalhado dos dois subprojetos. Pode-se utilizar o modelo de SBC de artigos. Nesse relatório deverá contar:</p>
+<ul class="simple">
+<li><p>Capa (Título, Nome dos alunos, etc.)</p></li>
+<li><p>Resumo</p></li>
+<li><p>Listas de figuras, tabelas, etc., utilizadas no trabalho</p></li>
+<li><p>Sumário</p></li>
+<li><p>Introdução</p>
+<ul>
+<li><p>Contendo a descrição do trabalho com o problema abordado, motivação, objetivos</p></li>
+</ul>
+</li>
+<li><p>Fundamentação teórica</p>
+<ul>
+<li><p>Quanto mais detalhes melhor.</p></li>
+</ul>
+</li>
+<li><p>Metodologia</p>
+<ul>
+<li><p>Bibliotecas utilizadas</p></li>
+<li><p>Funções criadas</p></li>
+<li><p>Mostrar cada parte implementada (por exemplo, a função e o que ela faz linha por linha)</p></li>
+</ul>
+</li>
+<li><p>Resultados obtidos com a implementação</p></li>
+<li><p>Dificuldades encontradas durante o trabalho</p></li>
+<li><p>Identificação da contribuição de cada participante</p>
+<ul>
+<li><p>O que cada integrante realizou no trabalho</p></li>
+</ul>
+</li>
+</ul>
+<p>Além do relatório a equipe deverá confeccionar uma <strong>apresentação</strong> para mostrar o que fora desenvolvido no projeto. O relatório e a apresentação deverão estar disponíveis em formato PDF.</p>
+</section>
+<section id="avaliacao">
+<h2>Avaliação<a class="headerlink" href="#avaliacao" title="Link to this heading">#</a></h2>
+<p>Serão avaliados os seguintes pontos:</p>
+<ul class="simple">
+<li><p>Dificuldade/Complexidade do desenvolvimento do trabalho.</p></li>
+<li><p>Contribuição de cada integrante da equipe no desenvolvimento do trabalho.</p></li>
+<li><p>Entrega dos artefatos.</p></li>
+<li><p>Entrega do relatório.</p>
+<ul>
+<li><p>O trabalho deve ser entregue no formato que foi especificado na Seção <strong>Forma de Entrega</strong>.</p></li>
+</ul>
+</li>
+<li><p>Entrega da apresentação</p>
+<ul>
+<li><p>Apresentação do trabalho para a turma.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="cronograma">
+<h2>Cronograma<a class="headerlink" href="#cronograma" title="Link to this heading">#</a></h2>
+<p>O arquivo comprimido (zip) contendo o <strong>relatório</strong>, a <strong>apresentação</strong> e os <strong>artefatos</strong>, devem ser enviados via e-mail até a data informada na atividade. Pode-se utilizar link do Google Drive e/ou repositório do GitHub.</p>
+</section>
+<section id="apresentacoes">
+<h2>Apresentações<a class="headerlink" href="#apresentacoes" title="Link to this heading">#</a></h2>
+<p>Após a determinação da quantidade de grupos, será determinada uma ordem e um tempo limite de apresentação para cada equipe. Observações:</p>
+<ul class="simple">
+<li><p>Todos os membros da equipe devem apresentar, salvo atestado médico.</p>
+<ul>
+<li><p>Dica:</p>
+<ol class="arabic simple">
+<li><p>Separem a apresentação para que cada aluno apresente o mesmo tempo</p></li>
+<li><p>A apresentação deve focar em apenas falar sobre as mudanças nos projetos em relação às versões originais e os resultados obtidos.</p></li>
+<li><p>Nos slides da apresentação não é necessário mostrar o código. Realize uma apresentação em uma perspectiva mais macro</p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>Se não haver todos os membros presentes, salvo atestado médico, a nota atribuída <strong>ao membro faltante será zero</strong>.</p></li>
+<li><p>Todos os membros presentes devem estar preparados para responderem questões sobre o trabalho.</p></li>
+<li><p>Todos os itens solicitados: apresentação, relatório e artefatos; devem ser entregues. Na falta de um dos itens a nota atribuída será <strong>zero</strong>.</p></li>
+<li><p>Se o relatório ou a apresentação não estiver no formato PDF a nota atribuída será <strong>zero</strong>.</p></li>
+<li><p>Se uma equipe não apresentar, a próxima equipe será chamada. Se a próxima equipe não estiver pronta a nota atribuída será <strong>zero</strong>.</p></li>
+<li><p>Durante as apresentações cada grupo deverá efetuar pelo menos uma pergunta às outras equipes.</p>
+<ul>
+<li><p>Esse item faz parte da avaliação dos grupos.</p></li>
+<li><p>A pergunta deve ser de cunho relevante, caso contrário a equipe perderá nota.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="projeto-da-disciplina-recuperacao">
+<h1>Projeto da Disciplina - Recuperação<a class="headerlink" href="#projeto-da-disciplina-recuperacao" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>Objetivo<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>O principal objetivo deste projeto é desenvolver uma abordagem simples para aprimorar o planejamento de sprints no desenvolvimento ágil de software, utilizando técnicas de Engenharia de Software Baseada em Busca (<em>Search-Based Software Engineering, SBSE</em>). O foco será encontrar alocações de tarefas adequadas que equilibrem a carga de trabalho entre os membros da equipe e otimizem o tempo de conclusão do sprint.</p>
+</section>
+<section id="contexto">
+<h2>Contexto<a class="headerlink" href="#contexto" title="Link to this heading">#</a></h2>
+<p>SBSE é uma área emergente que combina algoritmos de busca com tarefas de engenharia de software para otimizar a qualidade e os processos de desenvolvimento de software. No desenvolvimento ágil de software, o planejamento de sprints é uma atividade crucial que envolve a estimativa da complexidade das tarefas e a alocação de tarefas aos membros da equipe. Um planejamento de sprint eficaz pode levar a uma maior produtividade da equipe e melhores resultados no projeto.</p>
+</section>
+<section id="descricao-do-projeto">
+<h2>Descrição do Projeto<a class="headerlink" href="#descricao-do-projeto" title="Link to this heading">#</a></h2>
+<p>Este projeto consistirá nas seguintes etapas:</p>
+<ol class="arabic simple">
+<li><p><strong>Revisão da Literatura</strong>: Realizar uma revisão básica da literatura sobre técnicas de SBSE, desenvolvimento ágil de software e algoritmos de busca relevantes para o projeto. A revisão deve fornecer uma base para o projeto e ajudar a identificar algoritmos de busca adequados para a otimização do planejamento de sprints.</p></li>
+<li><p><strong>Formulação do Problema</strong>: Definir o problema de otimização em termos de objetivos e variáveis de decisão. Os objetivos podem incluir minimizar o tempo de conclusão do sprint e equilibrar a carga de trabalho entre os membros da equipe. As variáveis de decisão podem ser a alocação de tarefas aos membros da equipe.</p></li>
+<li><p><strong>Seleção e Implementação do Algoritmo</strong>: Selecione um algoritmo de busca apropriado (por exemplo, Algoritmo Genético, NSGA-II) que possa lidar com o problema de otimização. Implemente o algoritmo escolhido em uma linguagem de programação compatível com os requisitos do projeto.</p></li>
+<li><p><strong>Desenvolvimento e Avaliação de Casos de Teste</strong>: Desenvolva casos de teste que representem diferentes cenários de planejamento de sprint com complexidades de tarefa e tamanhos de equipe variados. Aplique o algoritmo implementado nesses casos de teste e avalie seu desempenho com base nos objetivos identificados.</p></li>
+<li><p><strong>Documentação e Apresentação</strong>: Documente todo o processo, incluindo revisão da literatura, formulação do problema, seleção e implementação do algoritmo e desenvolvimento e avaliação de casos de teste. Prepare um relatório final e uma apresentação gravada (um vídeo) para mostrar as descobertas e contribuições do projeto para o campo do desenvolvimento ágil de software.</p></li>
+</ol>
+</section>
+<section id="resultados-esperados">
+<h2>Resultados Esperados<a class="headerlink" href="#resultados-esperados" title="Link to this heading">#</a></h2>
+<p>Ao concluir este projeto, os seguintes resultados são esperados:</p>
+<ol class="arabic simple">
+<li><p>Uma compreensão básica das técnicas de SBSE e sua aplicação na otimização do planejamento de sprints para o desenvolvimento ágil de software.</p></li>
+<li><p>Um algoritmo de busca implementado que possa aprimorar o planejamento de sprints, equilibrando a carga de trabalho entre os membros da equipe e otimizando o tempo de conclusão do sprint.</p></li>
+<li><p>Um conjunto de casos de teste que demonstre a eficácia do algoritmo implementado em diferentes cenários de planejamento de sprint.</p></li>
+<li><p>Um relatório final e apresentação que destacam as descobertas e contribuições do projeto para o campo do desenvolvimento ágil de software.</p></li>
+</ol>
+</section>
+<section id="id2">
+<h2>Avaliação<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Serão avaliados os seguintes pontos:</p>
+<ul class="simple">
+<li><p>Dificuldade/Complexidade do desenvolvimento do trabalho.</p></li>
+<li><p>Contribuição de cada integrante da equipe no desenvolvimento do trabalho.</p></li>
+<li><p>Entrega dos artefatos.</p></li>
+<li><p>Entrega do relatório.</p></li>
+<li><p>Entrega da apresentação</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>Cronograma<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>O arquivo comprimido (zip) contendo o <strong>relatório</strong>, a <strong>apresentação</strong> e os <strong>artefatos</strong>, devem ser enviados via e-mail até a data informada na atividade. Pode-se utilizar link do Google Drive e/ou repositório do GitHub.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="aula05_study_case.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Aula 6: Projeto Final</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicao">Definição</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trabalho-em-grupo-1-tg1-automatizacao-na-criacao-de-testes-para-sistemas-baseados-em-java">Trabalho em Grupo 1 (TG1): Automatização na criação de testes para sistemas baseados em Java</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trabalho-em-grupo-2-tg2-priorizacao-de-casos-de-teste-em-integracao-continua">Trabalho em Grupo 2 (TG2): Priorização de casos de teste em integração contínua</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forma-de-entrega">Forma de Entrega</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avaliacao">Avaliação</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cronograma">Cronograma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apresentacoes">Apresentações</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#projeto-da-disciplina-recuperacao">Projeto da Disciplina - Recuperação</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contexto">Contexto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descricao-do-projeto">Descrição do Projeto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-esperados">Resultados Esperados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Avaliação</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cronograma</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

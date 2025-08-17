@@ -1,0 +1,790 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações &#8212; Search-Based Software Engineering - A Course in PT-BR</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula04_MOO';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)" href="aula05_study_case.html" />
+    <link rel="prev" title="Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)" href="aula03_SBSE_techniques.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Search-Based Software Engineering - A Course in PT-BR</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Search-Based Software Engineering - A Course in PT-BR
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aula01_overview.html">Aula 1: Overview do Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula02_introduction.html">Aula 2: Introdução à SBSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula03_SBSE_techniques.html">Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula05_study_case.html">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="aula06_final_project.html">Aula 6: Projeto Final</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducao">Introdução</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivacao">Motivação</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencas-mono-x-multi-objetivo">Diferenças Mono x Multi-Objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-objetivos">Multi-Objetivos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceitos">Conceitos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-e-solucoes">Problema e Soluções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classificacao-das-solucoes">Classificação das Soluções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fronteira-de-pareto-otima">Fronteira de Pareto - Ótima</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conceitos-basicos">Conceitos Básicos</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dominancia">Dominância</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solucao-eficiente">Solução Eficiente</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fronteira">Fronteira</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otimizacao-multiobjetivos">Otimização Multiobjetivos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estabelecer-prioridades">Estabelecer Prioridades</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quando-decidir">Quando Decidir</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-em-multiobjetivos">2 Objetivos em Multiobjetivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porque-algoritmos-evolutivos">Porque Algoritmos Evolutivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classificacao-algoritmos">Classificação Algoritmos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmos-evolutivos">Algoritmos Evolutivos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmos-geneticos-mono-objetivo">Algoritmos genéticos mono-objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregacao-de-funcoes">Agregação de Funções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aptidao-em-ae-s-multiobjetivo">Aptidão em AE’s Multiobjetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rankings">Rankings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atribuicao-de-aptidao">Atribuição de Aptidão</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nsga-ii">NSGA-II</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spea2">SPEA2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spea2-diversidade">SPEA2 - Diversidade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nsga-ii-e-spea2">NSGA-II e SPEA2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-avaliar">Como Avaliar?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-onde-comecar">Por onde começar?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comunidade-emo">Comunidade EMO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#livros">Livros</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-04-algoritmos-evolutivos-multiobjetivo-teoria-e-aplicacoes">
+<h1>Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações<a class="headerlink" href="#aula-04-algoritmos-evolutivos-multiobjetivo-teoria-e-aplicacoes" title="Link to this heading">#</a></h1>
+<p><strong>Professor</strong> PhD Jackson Antonio do Prado Lima</p>
+<p><strong>Contato:</strong> <code class="docutils literal notranslate"><span class="pre">[jacksonpradolima</span> <span class="pre">at</span> <span class="pre">&#64;gmail.com]</span></code> - Por favor, use o prefixo <code class="docutils literal notranslate"><span class="pre">[SBSE-CursoBR]</span></code> no assunto</p>
+<hr class="docutils" />
+<p><strong>Agenda:</strong></p>
+<ul class="simple">
+<li><p>Motivação</p></li>
+<li><p>Conceitos Básicos</p></li>
+<li><p>Otimização  Multiobjetivos</p></li>
+<li><p>Algoritmos Evolutivos Multiobjetivos</p></li>
+<li><p>Aplicação</p></li>
+<li><p>Conclusões</p></li>
+<li><p>Comunidade EMO</p></li>
+<li><p>Livros</p></li>
+</ul>
+<hr class="docutils" />
+<section id="introducao">
+<h2>Introdução<a class="headerlink" href="#introducao" title="Link to this heading">#</a></h2>
+<section id="motivacao">
+<h3>Motivação<a class="headerlink" href="#motivacao" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Porque Otimização Multiobjetivo ?</p></li>
+<li><p>A maior parte dos problemas possuem vários objetivos, normalmente conflitantes.</p></li>
+</ul>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="diferencas-mono-x-multi-objetivo">
+<h3>Diferenças Mono x Multi-Objetivo<a class="headerlink" href="#diferencas-mono-x-multi-objetivo" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<ul class="simple">
+<li><p>Mono: soluções X no espaço de decisão factível traduzidos em espaço de objetivos f(x)</p></li>
+<li><p>Multi: multiplas soluções em vários vetores de objetivos</p></li>
+</ul>
+</section>
+<section id="multi-objetivos">
+<h3>Multi-Objetivos<a class="headerlink" href="#multi-objetivos" title="Link to this heading">#</a></h3>
+<p>Problemas com múltiplos objetivos (Multi-Objetive Problem, MOP) tipicamente colocarão para o projetista um problema de tomada de decisão que envolve a analise das trocas (ou trade-offs) entre objetivos.</p>
+</section>
+</section>
+<section id="conceitos">
+<h2>Conceitos<a class="headerlink" href="#conceitos" title="Link to this heading">#</a></h2>
+<section id="problema-e-solucoes">
+<h3>Problema e Soluções<a class="headerlink" href="#problema-e-solucoes" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="classificacao-das-solucoes">
+<h3>Classificação das Soluções<a class="headerlink" href="#classificacao-das-solucoes" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" />
+<img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+</section>
+<section id="fronteira-de-pareto-otima">
+<h3>Fronteira de Pareto - Ótima<a class="headerlink" href="#fronteira-de-pareto-otima" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="conceitos-basicos">
+<h3>Conceitos Básicos<a class="headerlink" href="#conceitos-basicos" title="Link to this heading">#</a></h3>
+<p>Problema de Otimização Multiobjetivo:</p>
+<p>Encontrar o vetor:</p>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<p>sujeito:</p>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+<p><img alt="image-3.png" src="docs/aulas/attachment:image-3.png" /></p>
+<p>que otimize:</p>
+<p><img alt="image-4.png" src="docs/aulas/attachment:image-4.png" /></p>
+<section id="dominancia">
+<h4>Dominância<a class="headerlink" href="#dominancia" title="Link to this heading">#</a></h4>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+</section>
+<section id="solucao-eficiente">
+<h4>Solução Eficiente<a class="headerlink" href="#solucao-eficiente" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="fronteira">
+<h4>Fronteira<a class="headerlink" href="#fronteira" title="Link to this heading">#</a></h4>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+</section>
+</section>
+</section>
+<section id="otimizacao-multiobjetivos">
+<h2>Otimização Multiobjetivos<a class="headerlink" href="#otimizacao-multiobjetivos" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Há dois ou mais objetivos na busca;</p></li>
+<li><p>Busca-se encontrar soluções que possibilitem bons <em>trade-offs</em> entre os objetivos;</p></li>
+<li><p>Existem diversas formas de tratar um problema multiobjetivo.</p></li>
+</ul>
+<section id="estabelecer-prioridades">
+<h3>Estabelecer Prioridades<a class="headerlink" href="#estabelecer-prioridades" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="quando-decidir">
+<h3>Quando Decidir<a class="headerlink" href="#quando-decidir" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Antes de otimizar</p>
+<ul>
+<li><p>Ranquear objetivos</p></li>
+<li><p>Definir restrições</p></li>
+<li><p>Buscar uma solução</p></li>
+</ul>
+</li>
+<li><p>Depois de otimizar</p>
+<ul>
+<li><p>Buscar por um conjunto de soluções</p></li>
+<li><p>Selecionar uma solução considerando restrições</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="objetivos-em-multiobjetivos">
+<h3>2 Objetivos em Multiobjetivos<a class="headerlink" href="#objetivos-em-multiobjetivos" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="porque-algoritmos-evolutivos">
+<h3>Porque Algoritmos Evolutivos<a class="headerlink" href="#porque-algoritmos-evolutivos" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="classificacao-algoritmos">
+<h3>Classificação Algoritmos<a class="headerlink" href="#classificacao-algoritmos" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Não Pareto</strong>: não produzem certas porções da Fronteira, são eficientes e fáceis de implementar:</p>
+<ul>
+<li><p>Agregação de funções</p></li>
+<li><p>VEGA</p></li>
+</ul>
+</li>
+<li><p><strong>Pareto</strong>: Usam um ranking baseado em dominância e técnicas para manter a diversidade</p></li>
+</ul>
+</section>
+</section>
+<section id="algoritmos-evolutivos">
+<h2>Algoritmos Evolutivos<a class="headerlink" href="#algoritmos-evolutivos" title="Link to this heading">#</a></h2>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<section id="algoritmos-geneticos-mono-objetivo">
+<h3>Algoritmos genéticos mono-objetivo<a class="headerlink" href="#algoritmos-geneticos-mono-objetivo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Os operadores genéticos de mutação e de cruzamento exercem a função de mecanismos de variação.</p></li>
+<li><p>Dependendo do mecanismo de seleção empregado, a atribuição de aptidão pode ser feita com a atribuição do próprio valor da função-objetivo</p></li>
+<li><p>Seleção</p></li>
+<li><p>Solução melhor individuo (arq. Implicito)</p></li>
+</ul>
+</section>
+<section id="agregacao-de-funcoes">
+<h3>Agregação de Funções<a class="headerlink" href="#agregacao-de-funcoes" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+</section>
+<section id="aptidao-em-ae-s-multiobjetivo">
+<h3>Aptidão em AE’s Multiobjetivo<a class="headerlink" href="#aptidao-em-ae-s-multiobjetivo" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="rankings">
+<h3>Rankings<a class="headerlink" href="#rankings" title="Link to this heading">#</a></h3>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+</section>
+<section id="atribuicao-de-aptidao">
+<h3>Atribuição de Aptidão<a class="headerlink" href="#atribuicao-de-aptidao" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+</section>
+<section id="nsga-ii">
+<h3>NSGA-II<a class="headerlink" href="#nsga-ii" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="spea2">
+<h3>SPEA2<a class="headerlink" href="#spea2" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>O SPEA2 (<em>Strength Pareto Evolutionary Algorithm</em>), alem de ter sua população regular, mantém um arquivo externo que armazena soluções não-dominadas;</p></li>
+<li><p>Para cada solução que esta no arquivo e na população e calculado um valor de <em>strength</em>, que e usado no cálculo do <em>fitness</em> do indivíduo;</p></li>
+<li><p>O valor de <em>strength</em> de uma solução i corresponde a quantidade de indivíduos j, pertencentes ao arquivo e a população, dominados por i;</p></li>
+<li><p>R = ∑ Strength dos dominadores.</p></li>
+</ul>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="spea2-diversidade">
+<h3>SPEA2 - Diversidade<a class="headerlink" href="#spea2-diversidade" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="nsga-ii-e-spea2">
+<h3>NSGA-II e SPEA2<a class="headerlink" href="#nsga-ii-e-spea2" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+</section>
+<section id="como-avaliar">
+<h2>Como Avaliar?<a class="headerlink" href="#como-avaliar" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Avaliações  Baseadas em Indicadores</p>
+<ul>
+<li><p>Hypervolume</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+</section>
+<section id="por-onde-comecar">
+<h2>Por onde começar?<a class="headerlink" href="#por-onde-comecar" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>JMetal</p>
+<ul>
+<li><p><a class="reference external" href="http://jmetal.sourceforge.net/">http://jmetal.sourceforge.net/</a></p></li>
+<li><p>NSGA-II, SPEA2, PAES, PESA-II, OMOPSO, MOCell, AbYSS, MOEA/D, Densea, CellDE, GDE3, FastPGA, IBEA, SMPSO, SMS-EMOA, dMOPSO, SMPSOhv</p></li>
+<li><p>Quality indicators: hypervolume, spread, generational distance, inverted generational distance, additive epsilon.</p></li>
+<li><p>Variable representations: binary, real, binary-coded real, integer, permutation.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="comunidade-emo">
+<h2>Comunidade EMO<a class="headerlink" href="#comunidade-emo" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Links:</p>
+<ul>
+<li><p>EMO mailing list:</p></li>
+<li><p><a class="reference external" href="http://w3.ualg.pt/lists/emo-list/">http://w3.ualg.pt/lists/emo-list/</a></p></li>
+</ul>
+</li>
+<li><p>EMO bibliografia: <a class="reference external" href="http://www.lania.mx/~ccoello/EMOO/">http://www.lania.mx/~ccoello/EMOO/</a></p></li>
+<li><p>EMO conferencias: <a class="reference external" href="http://www.mat.ufmg.br/emo2011/">http://www.mat.ufmg.br/emo2011/</a></p></li>
+</ul>
+</section>
+<section id="livros">
+<h2>Livros<a class="headerlink" href="#livros" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Multi-Objective Optimization using Evolutionary Algorithms. Kalyanmoy Deb, Wiley, 2001</p></li>
+<li><p>Evolutionary Algorithms for Solving Multi -Objective Problems, Carlos A. Coello Coello, David A. Van Veldhuizen &amp; Gary B. Lamont, Kluwer, 2nd Ed. 2007</p></li>
+<li><p>Multiobjective Optimization—Interactive and Evolutionary Approaches, J. Branke, K. Deb, K. Miettinen, and R. Slowinski, editors, volume 5252 of LNCS. Springer, 2008</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="aula03_SBSE_techniques.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="aula05_study_case.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducao">Introdução</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivacao">Motivação</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencas-mono-x-multi-objetivo">Diferenças Mono x Multi-Objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-objetivos">Multi-Objetivos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceitos">Conceitos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-e-solucoes">Problema e Soluções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classificacao-das-solucoes">Classificação das Soluções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fronteira-de-pareto-otima">Fronteira de Pareto - Ótima</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conceitos-basicos">Conceitos Básicos</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dominancia">Dominância</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solucao-eficiente">Solução Eficiente</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fronteira">Fronteira</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otimizacao-multiobjetivos">Otimização Multiobjetivos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estabelecer-prioridades">Estabelecer Prioridades</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quando-decidir">Quando Decidir</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-em-multiobjetivos">2 Objetivos em Multiobjetivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porque-algoritmos-evolutivos">Porque Algoritmos Evolutivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classificacao-algoritmos">Classificação Algoritmos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmos-evolutivos">Algoritmos Evolutivos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmos-geneticos-mono-objetivo">Algoritmos genéticos mono-objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregacao-de-funcoes">Agregação de Funções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aptidao-em-ae-s-multiobjetivo">Aptidão em AE’s Multiobjetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rankings">Rankings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atribuicao-de-aptidao">Atribuição de Aptidão</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nsga-ii">NSGA-II</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spea2">SPEA2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spea2-diversidade">SPEA2 - Diversidade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nsga-ii-e-spea2">NSGA-II e SPEA2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-avaliar">Como Avaliar?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-onde-comecar">Por onde começar?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comunidade-emo">Comunidade EMO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#livros">Livros</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

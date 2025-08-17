@@ -1,0 +1,889 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 2: Introdução à SBSE &#8212; Search-Based Software Engineering - A Course in PT-BR</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula02_introduction';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)" href="aula03_SBSE_techniques.html" />
+    <link rel="prev" title="Aula 1: Overview do Curso" href="aula01_overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Search-Based Software Engineering - A Course in PT-BR</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Search-Based Software Engineering - A Course in PT-BR
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aula01_overview.html">Aula 1: Overview do Curso</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Aula 2: Introdução à SBSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula03_SBSE_techniques.html">Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula04_MOO.html">Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula05_study_case.html">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="aula06_final_project.html">Aula 6: Projeto Final</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 2: Introdução à SBSE</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-sbse">O que é SBSE?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-otimizacao">O que é Otimização?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-metaheuristica">O que é Metaheurística?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-de-avaliacao">Função de Avaliação</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplos-de-metaheuristicas">Exemplos de Metaheurísticas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-sbse">Por quê SBSE?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porque-sbse">Porque SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-das-8-rainhas">Problema das 8 Rainhas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verificando-vs-gerando">Verificando vs Gerando</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ingredientes-do-sbse">Ingredientes do SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-os-engenheiros-dizem">O que os engenheiros dizem?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historia-do-sbse">História do SBSE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crescimento-do-sbse">Crescimento do SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algumas-aplicacoes-de-sbse">Algumas Aplicações de SBSE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direcoes-de-sbse">Direções de SBSE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vantagens-sbse">Vantagens SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitacoes-desafios-em-sbse">Limitações &amp; Desafios em SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#futuro">Futuro</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-2-introducao-a-sbse">
+<h1>Aula 2: Introdução à SBSE<a class="headerlink" href="#aula-2-introducao-a-sbse" title="Link to this heading">#</a></h1>
+<p><strong>Professor</strong> PhD Jackson Antonio do Prado Lima</p>
+<p><strong>Contato:</strong> <code class="docutils literal notranslate"><span class="pre">[jacksonpradolima</span> <span class="pre">at</span> <span class="pre">&#64;gmail.com]</span></code> - Por favor, use o prefixo <code class="docutils literal notranslate"><span class="pre">[SBSE-CursoBR]</span></code> no assunto</p>
+<hr class="docutils" />
+<section id="agenda">
+<h2>Agenda<a class="headerlink" href="#agenda" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>O que é SBSE?</p></li>
+<li><p>Por quê SBSE?</p></li>
+<li><p>História</p></li>
+<li><p>Direções de SBSE</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="o-que-e-sbse">
+<h2>O que é SBSE?<a class="headerlink" href="#o-que-e-sbse" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Muitas atividades na Engenharia de Software (ES) envolvem um <strong>elemento de busca</strong>;</p></li>
+<li><p>Alguns exemplos incluem seleção de requisitos, localização e correção de defeitos, e a otimização da cobertura de testes;</p></li>
+<li><p>Como resolver tais problemas complexos de forma automática?</p>
+<ul>
+<li><p>Engenharia de Software Baseada em Busca <em><strong>(Search-Based Software Engineering, SBSE)</strong></em>.</p></li>
+</ul>
+</li>
+<li><p>SBSE aplica <strong>recursos computacionais</strong> nesses problemas de busca para <strong>melhorar a eficiência e qualidade</strong> dos processos de ES;</p></li>
+<li><p>Para isso, remodelamos os problemas de ES como <strong>problemas de otimização</strong> e aplicamos <strong>técnicas de busca, guiados por uma função de avaliação <em>(fitness function)</em></strong>, para encontrar soluções aceitáveis em grandes espaços de busca.</p></li>
+</ul>
+<blockquote>
+<div><p>Otimização em Engenharia de Software = Search-based Software Engineering (SBSE)</p>
+</div></blockquote>
+<section id="o-que-e-otimizacao">
+<h3>O que é Otimização?<a class="headerlink" href="#o-que-e-otimizacao" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Otimização é o <strong>processo de encontrar</strong> uma ou mais soluções válidas para um problema a partir de um conjunto de soluções possíveis, levando em consideração restrições e objetivos.</p>
+<ul>
+<li><p>Envolve a identificação dos valores ideais (ou ótimos) de uma ou mais variáveis, geralmente minimizando ou maximizando uma função objetivo.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="o-que-e-metaheuristica">
+<h3>O que é Metaheurística?<a class="headerlink" href="#o-que-e-metaheuristica" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Metaheurística é um tipo de algoritmo de otimização que utiliza estratégias de <strong>alto nível</strong> para buscar soluções ótimas.</p>
+<ul>
+<li><p>Os algoritmos de metaheurística são frequentemente inspirados por fenômenos naturais, como evolução, comportamento de enxames ou sistemas físicos, e podem ser usados para resolver uma ampla gama de problemas de otimização, incluindo aqueles que são difíceis de resolver com métodos de otimização tradicionais.</p></li>
+</ul>
+</li>
+<li><p>Ao contrário dos métodos de <strong>otimização tradicionais</strong>, que dependem de <strong>modelos matemáticos e algoritmos determinísticos</strong>, os algoritmos de metaheurística podem explorar eficientemente um grande espaço de busca e convergir rapidamente para boas soluções.</p>
+<ul>
+<li><p>No entanto, como os algoritmos de metaheurística são baseados em <strong>heurísticas e aleatoriedade</strong>, eles podem não encontrar sempre a melhor solução, mas sim uma boa aproximação dela.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="funcao-de-avaliacao">
+<h3>Função de Avaliação<a class="headerlink" href="#funcao-de-avaliacao" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A função de avaliação captura propriedades da soluções procuradas.</p></li>
+<li><p>Convertem as características desejadas em algo que pode ser medido:</p>
+<ul>
+<li><p>Coesão</p></li>
+<li><p>Consumo de Memória</p></li>
+<li><p>Cobertura de Teste</p></li>
+<li><p>Segurança</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="exemplos-de-metaheuristicas">
+<h3>Exemplos de Metaheurísticas<a class="headerlink" href="#exemplos-de-metaheuristicas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Mono-objetivas</p>
+<ul>
+<li><p>Uma única função a ser otimizada e uma única solução a ser buscada</p></li>
+<li><p>Exemplo: Genetic Algorithm</p></li>
+</ul>
+</li>
+<li><p>Multi-objetivos</p>
+<ul>
+<li><p>Duas ou mais funções a serem otimizadas</p></li>
+<li><p>Busca um conjunto de soluções (maior complexidade)</p></li>
+<li><p>Exemplo: NSGA-II</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="por-que-sbse">
+<h2>Por quê SBSE?<a class="headerlink" href="#por-que-sbse" title="Link to this heading">#</a></h2>
+<section id="porque-sbse">
+<h3>Porque SBSE<a class="headerlink" href="#porque-sbse" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Problemas difíceis e complexos, não há uma solução exata e simples</p></li>
+<li><p>Não determinismo</p></li>
+<li><p>Aceitam-se aproximações.</p></li>
+<li><p>Necessidade de automação</p></li>
+</ul>
+</section>
+<section id="problema-das-8-rainhas">
+<h3>Problema das 8 Rainhas<a class="headerlink" href="#problema-das-8-rainhas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Queremos dispor 8 rainhas em um tabuleiro de xadrez de forma que elas não se ataquem.</p></li>
+<li><p>Função objetivo <strong>h(X) = número de ataques que a rainha X está sofrendo</strong>.</p></li>
+<li><p>Contando por coluna:</p>
+<ul>
+<li><p>h(1) = 2</p></li>
+<li><p>h(2) = 2</p></li>
+<li><p>h(3) = 4</p></li>
+<li><p>h(4) = 2</p></li>
+<li><p>h(5) = 2</p></li>
+<li><p>h(6) = 3</p></li>
+<li><p>h(7) = 2</p></li>
+<li><p>h(8) = 1</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<ul class="simple">
+<li><p>Podemos movimentar apenas 1 rainha por vez.</p></li>
+<li><p>Movimentaremos a rainha 2 (que está na segunda coluna).</p></li>
+<li><p>Contando por coluna:</p>
+<ul>
+<li><p>h(1) = 2</p></li>
+<li><p>h(2) = 2</p></li>
+<li><p>h(3) = 4</p></li>
+<li><p>h(4) = 2</p></li>
+<li><p>h(5) = 2</p></li>
+<li><p>h(6) = 3</p></li>
+<li><p>h(7) = 2</p></li>
+<li><p>h(8) = 1</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="image-2.png" src="docs/aulas/attachment:image-2.png" /></p>
+<ul class="simple">
+<li><p>Para isso, iremos calcular o custo de sua movimentação para todas as posição, e então escolheremos a melhor.</p></li>
+<li><p>Contando por coluna:</p>
+<ul>
+<li><p>h(1) = 2</p></li>
+<li><p>h(2) = 2</p></li>
+<li><p>h(3) = 4</p></li>
+<li><p>h(4) = 2</p></li>
+<li><p>h(5) = 2</p></li>
+<li><p>h(6) = 3</p></li>
+<li><p>h(7) = 2</p></li>
+<li><p>h(8) = 1</p></li>
+</ul>
+</li>
+<li><p>Para isso, iremos calcular o custo de sua movimentação para todas as posição, e então escolheremos a melhor.</p></li>
+<li><p>Assim, a rainha 2 migrará da linha 4 para a linha 6 ou 8 (escolhemos 6)</p></li>
+</ul>
+<p><img alt="image-3.png" src="docs/aulas/attachment:image-3.png" /></p>
+<blockquote>
+<div><p>Isso foi fácil! Vamos aumentar a dificuldade</p>
+</div></blockquote>
+<p>Disponha 44 rainhas no tabuleiro de modo que elas não se ataquem</p>
+<p><img alt="image-4.png" src="docs/aulas/attachment:image-4.png" /></p>
+<p>Disponha 10^12^ rainhas no tabuleiro de modo que elas não se ataquem</p>
+<p><img alt="image-5.png" src="docs/aulas/attachment:image-5.png" /></p>
+</section>
+<section id="verificando-vs-gerando">
+<h3>Verificando vs Gerando<a class="headerlink" href="#verificando-vs-gerando" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Tarefa 1: Escreva um método para determinar qual é o melhor de duas colocações de N rainhas</p></li>
+<li><p>Tarefa 2: Escreva um método para construir uma placa colocação com N rainhas não atacantes</p></li>
+</ul>
+<blockquote>
+<div><p>SBSE: Escreva um método para determinar qual é o melhor de duas colocações de N rainhas<br>
+ES Convencional: Escreva um método para construir uma solução perfeita</p>
+</div></blockquote>
+<p><br><br>
+SBSE</p>
+<ul class="simple">
+<li><p>Escreva um <em><strong>fitness function</strong></em> para guiar uma busca <strong>automatizada</strong>.
+<br><br></p></li>
+</ul>
+</section>
+<section id="ingredientes-do-sbse">
+<h3>Ingredientes do SBSE<a class="headerlink" href="#ingredientes-do-sbse" title="Link to this heading">#</a></h3>
+<p>Em SBSE, podemos dizer que o objetivo é transformar um problema de ES em um problema de busca (ou otimização).</p>
+<p>Para isso é importante três principais componentes.</p>
+<ol class="arabic simple">
+<li><p>Uma representação adequada para o problema;</p></li>
+<li><p>Uma função de avaliação da qualidade das soluções geradas (fitness function); e</p></li>
+<li><p>Operadores de busca, que provocam alterações nas soluções.</p></li>
+</ol>
+</section>
+<section id="o-que-os-engenheiros-dizem">
+<h3>O que os engenheiros dizem?<a class="headerlink" href="#o-que-os-engenheiros-dizem" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Requisitos</p>
+<ul>
+<li><p>Precisamos satisfazer as preocupações comerciais e técnicas</p></li>
+</ul>
+</li>
+<li><p>Gerenciamento</p>
+<ul>
+<li><p>Precisamos reduzir o risco enquanto mantemos o tempo de conclusão</p></li>
+</ul>
+</li>
+<li><p>Design</p>
+<ul>
+<li><p>Precisamos de maior coesão e menor acoplamento</p></li>
+</ul>
+</li>
+<li><p>Teste</p>
+<ul>
+<li><p>Precisamos de menos testes que encontrem bugs mais desagradáveis</p></li>
+</ul>
+</li>
+<li><p>Refatoração</p>
+<ul>
+<li><p>Precisamos automatizar todas as métricas M1,…, Mn</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Todos foram abordados na literatura SBSE</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="historia-do-sbse">
+<h2>História do SBSE<a class="headerlink" href="#historia-do-sbse" title="Link to this heading">#</a></h2>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+<section id="crescimento-do-sbse">
+<h3>Crescimento do SBSE<a class="headerlink" href="#crescimento-do-sbse" title="Link to this heading">#</a></h3>
+<p>Do repositório de SBSE (Julho de 2013)</p>
+<ul class="simple">
+<li><p>1250 autores</p></li>
+<li><p>1150 trabalhos</p></li>
+<li><p>390 instituições</p></li>
+<li><p>50 países</p></li>
+</ul>
+<p>Da principal conferência de SBSE (Simpósio em  SBSE – 2009-2019):</p>
+<ul class="simple">
+<li><p>290 autores</p></li>
+<li><p>134 trabalhos</p></li>
+<li><p>25 países</p></li>
+</ul>
+<p>Para comprovar esse crescimento, podemos citar diversos surveys da área que mostram a evolução de sub-áreas da Engenharia de Software Baseada em Busca e que servem de referências, tanto para entender o contexto atual quanto as tendências de cada sub-área como teste, refatoração e projeto de software.</p>
+<ul class="simple">
+<li><p>Search-Based Testing (SBT)</p>
+<ul>
+<li><p>P. McMinn, Search-Based Software Testing: Past, Present and Future ICSTW 2011.</p></li>
+</ul>
+</li>
+<li><p>Search Based Software Refactoring (SBSR)</p>
+<ul>
+<li><p>T. Mariani, S.R. Vergilio, A systematic review on search-based refactoring (IST, 2017).</p></li>
+</ul>
+</li>
+<li><p>Search-Based Software Design (SBSD)</p>
+<ul>
+<li><p>O. Rhaia, Survey: A survey on search-based software design, Computer Science Review, 2010</p></li>
+</ul>
+</li>
+<li><p>Engenharia de Linha de Produto de Software</p>
+<ul>
+<li><p>M. Harman et al. Search based software engineering for software product line engineering: A survey and directions for future work, SPLC’14.</p></li>
+</ul>
+</li>
+<li><p>Requisitos</p>
+<ul>
+<li><p>Y. Zhang, A. Finkelstein, M. Harman, Search based requirements optimisation: Existing work and challenges, REFSQ’08.</p></li>
+</ul>
+</li>
+<li><p>Manutenção</p>
+<ul>
+<li><p>M. O’Keee, M. O 725 Cinneide, Search-based software maintenance, CSMR’06.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="algumas-aplicacoes-de-sbse">
+<h3>Algumas Aplicações de SBSE<a class="headerlink" href="#algumas-aplicacoes-de-sbse" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Orientado ao agente</p></li>
+<li><p>Aspecto Orientado</p></li>
+<li><p>Geração de Asserção</p></li>
+<li><p>Corrigindo erro</p></li>
+<li><p>Componente Orientado</p></li>
+<li><p>Projeto</p></li>
+<li><p>Estimativa de Esforço</p></li>
+<li><p>Verificação de modelo</p></li>
+<li><p>Modelagem preditiva</p></li>
+<li><p>Distribuição da sonda</p></li>
+<li><p>Análise do Programa</p></li>
+<li><p>Compreensão do programa</p></li>
+<li><p>Transformação do programa</p></li>
+<li><p>Gerenciamento de projetos</p></li>
+<li><p>Otimização de protocolo</p></li>
+<li><p>QoS</p></li>
+<li><p>Refatoração</p></li>
+<li><p>Teste de Regressão</p></li>
+<li><p>Requisitos</p></li>
+<li><p>Engenharia reversa</p></li>
+<li><p>SOA</p></li>
+<li><p>Manutenção e Evolução de Software</p></li>
+<li><p>Geração de teste</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="direcoes-de-sbse">
+<h2>Direções de SBSE<a class="headerlink" href="#direcoes-de-sbse" title="Link to this heading">#</a></h2>
+<section id="vantagens-sbse">
+<h3>Vantagens SBSE<a class="headerlink" href="#vantagens-sbse" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="docs/aulas/attachment:image.png" /></p>
+</section>
+<section id="limitacoes-desafios-em-sbse">
+<h3>Limitações &amp; Desafios em SBSE<a class="headerlink" href="#limitacoes-desafios-em-sbse" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>As abordagens geralmente são projetadas para uma instância particular de um problema.</p>
+<ul>
+<li><p>Existem diferentes abordagens para um mesmo problema. Qual utilizar?</p></li>
+</ul>
+</li>
+<li><p>As abordagens geralmente são projetadas para uma instância particular de um problema.</p>
+<ul>
+<li><p>Existem similaridades entre estas instâncias e entre diferentes problemas da ES.</p></li>
+</ul>
+</li>
+<li><p>As soluções possuem o foco em alguns nichos da ES</p>
+<ul>
+<li><p>As decisões envolvem diferentes atividades</p></li>
+</ul>
+</li>
+<li><p>Muitas das abordagens não consideram a participação do usuário.</p>
+<ul>
+<li><p>Usuários diferentes podem ter opiniões divergentes.</p></li>
+<li><p>Problemas com muitos objetivos (multi/many objetivos)</p></li>
+<li><p>Fadiga na interação</p></li>
+</ul>
+</li>
+<li><p>Realizar experimentos para avaliar escalabilidade e robustez</p></li>
+<li><p>Aplicabilidade na indústria</p></li>
+<li><p>Funções de avaliação adaptáveis e dinâmicas</p></li>
+<li><p>E outros …</p></li>
+</ul>
+</section>
+<section id="futuro">
+<h3>Futuro<a class="headerlink" href="#futuro" title="Link to this heading">#</a></h3>
+<p>Aprendizado de Máquina é o novo SBSE</p>
+<blockquote>
+<div><p>“As origens da engenharia de software baseada em pesquisa (SBSE) decorrem da comunidade de inteligência artificial (IA), onde os pesquisadores desenvolveram uma infinidade de algoritmos de otimização que imitam fenômenos no mundo natural, algo que foi reconhecido pelos primeiros adotantes do SBSE.
+SBSE cresceu de uma pequena comunidade de visionários que estavam convencidos de que problemas computacionais difíceis em engenharia de software deveriam ser resolvidos heuristicamente, para uma próspera e ampla comunidade de pesquisa. Como tal, nos últimos 15-20 anos, a comunidade SBSE produziu ferramentas de geração de teste maduras, gerou o campo de APR (Reparação de programas automático) e GI (Melhoria Genética) e se incorporou em quase todos os principais locais de engenharia de software. Como isso aconteceu, o local do SSBSE evoluiu como um lugar único para falar sobre essas técnicas poderosas, diversificar nossas ideias e convergir para novas abordagens, ao mesmo tempo em que treina a próxima geração de pesquisadores do SBSE.
+No entanto, há uma nova maré surgindo na comunidade de IA e agora vemos o aprendizado de máquina (ML) como sua face representativa, talvez deixando o SBSE (e talvez o SSBSE) para trás. Mas isso não significa necessariamente o fim do SSBSE. Na verdade, o ML pode alavancar o SBSE e o SBSE deve incorporar o ML.
+Portanto, vejo um futuro com abordagens híbridas de ML/SBSE, algoritmos hiper-heurísticos (auto*) e a mistura de inteligência humana com automação.” – Tradução livre</p>
+<p>- Myra Cohen</p>
+<p><a class="reference external" href="https://www.ppopp.org/details/ssbse-2022/ssbse-2022-future-of-sbse/1/ML-is-the-new-SBSE">https://www.ppopp.org/details/ssbse-2022/ssbse-2022-future-of-sbse/1/ML-is-the-new-SBSE</a></p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="aula01_overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Aula 1: Overview do Curso</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="aula03_SBSE_techniques.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-sbse">O que é SBSE?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-otimizacao">O que é Otimização?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-metaheuristica">O que é Metaheurística?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-de-avaliacao">Função de Avaliação</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplos-de-metaheuristicas">Exemplos de Metaheurísticas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-sbse">Por quê SBSE?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porque-sbse">Porque SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-das-8-rainhas">Problema das 8 Rainhas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verificando-vs-gerando">Verificando vs Gerando</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ingredientes-do-sbse">Ingredientes do SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-os-engenheiros-dizem">O que os engenheiros dizem?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historia-do-sbse">História do SBSE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crescimento-do-sbse">Crescimento do SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algumas-aplicacoes-de-sbse">Algumas Aplicações de SBSE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direcoes-de-sbse">Direções de SBSE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vantagens-sbse">Vantagens SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitacoes-desafios-em-sbse">Limitações &amp; Desafios em SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#futuro">Futuro</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

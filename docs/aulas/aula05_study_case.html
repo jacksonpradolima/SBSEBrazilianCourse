@@ -1,0 +1,1882 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 5: Aplicações em Engenharia de Software (Estudos de Caso) &#8212; Search-Based Software Engineering - A Course in PT-BR</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula05_study_case';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Aula 6: Projeto Final" href="aula06_final_project.html" />
+    <link rel="prev" title="Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações" href="aula04_MOO.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Search-Based Software Engineering - A Course in PT-BR</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Search-Based Software Engineering - A Course in PT-BR
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aula01_overview.html">Aula 1: Overview do Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula02_introduction.html">Aula 2: Introdução à SBSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula03_SBSE_techniques.html">Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula04_MOO.html">Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="aula06_final_project.html">Aula 6: Projeto Final</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#geracao-de-casos-de-teste">Geração de casos de teste</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e">O que é</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#necessidade">Necessidade</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cobertura-de-codigo">Cobertura de código</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-objetivo">Função objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ferramentas-e-bibliotecas-para-geracao-automatica-de-dados-de-teste">Ferramentas e bibliotecas para Geração Automática de Dados de Teste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo">Código</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplo-1">Exemplo 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplo-2">Exemplo 2</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#melhores-praticas-e-ferramentas-para-aplicar-o-sbse-na-industria">Melhores práticas e ferramentas para aplicar o SBSE na indústria</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplos">Exemplos</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#priorizacao-de-casos-de-teste">Priorização de Casos de Teste</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ferramentas-para-priorizacao-de-casos-de-teste">Ferramentas para Priorização de Casos de Teste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sugestao-de-leitura">Sugestão de Leitura</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#search-based-refactoring">Search-Based Refactoring</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-smells">Code Smells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tecnicas-de-refactoring">Técnicas de Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otimizacao-em-refactoring">Otimização em Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Código</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exemplo 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Exemplo 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ferramentas-de-refactoring">Ferramentas de Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Sugestão de Leitura</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-5-aplicacoes-em-engenharia-de-software-estudos-de-caso">
+<h1>Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)<a class="headerlink" href="#aula-5-aplicacoes-em-engenharia-de-software-estudos-de-caso" title="Link to this heading">#</a></h1>
+<p><strong>Professor</strong> PhD Jackson Antonio do Prado Lima</p>
+<p><strong>Contato:</strong> <code class="docutils literal notranslate"><span class="pre">[jacksonpradolima</span> <span class="pre">at</span> <span class="pre">&#64;gmail.com]</span></code> - Por favor, use o prefixo <code class="docutils literal notranslate"><span class="pre">[SBSE-CursoBR]</span></code> no assunto</p>
+<hr class="docutils" />
+<p><strong>Agenda:</strong></p>
+<ul class="simple">
+<li><p>Como o SBSE é utilizado na melhoria de processos de desenvolvimento de software (Estudos de Caso)</p></li>
+<li><p>Como é utilizado:</p>
+<ul>
+<li><p>Search-Based Testing</p>
+<ul>
+<li><p>Geração e Priorização de Casos de Teste</p></li>
+</ul>
+</li>
+<li><p>Search-Based Software Maintenance</p>
+<ul>
+<li><p>Refatoração de código</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>A aplicação de SBSE em testes de software é um dos campos mais explorados atualmente na área de engenharia de software. Isso se deve ao fato de que a testagem é uma etapa crucial do processo de desenvolvimento de software, e métodos tradicionais de testes, como testes manuais ou baseados em especificações, podem ser limitados em termos de eficácia e eficiência.</p>
+<p>Com o uso de técnicas de SBSE, é possível gerar automaticamente casos de teste eficazes e eficientes, melhorando a qualidade do software e reduzindo o tempo e custo envolvidos no processo de testagem.</p>
+<p>Entre as principais técnicas de SBSE aplicadas em testes de software, destacam-se a geração e priorização de casos de teste.</p>
+<p>Além disso, outras aplicações de SBSE em testes de software incluem a identificação automática de defeitos no código-fonte, refatoração de código (<em><strong>code smells</strong></em>), e a geração de casos de teste para testes de segurança.</p>
+<p>A SBSE tem potencial para melhorar significativamente a eficácia e eficiência dos testes de software, reduzindo o tempo e o custo envolvidos no processo e melhorando a qualidade do software produzido.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="geracao-de-casos-de-teste">
+<h1>Geração de casos de teste<a class="headerlink" href="#geracao-de-casos-de-teste" title="Link to this heading">#</a></h1>
+<section id="o-que-e">
+<h2>O que é<a class="headerlink" href="#o-que-e" title="Link to this heading">#</a></h2>
+<p>A geração de casos de teste consiste na criação de dados de entrada para um software, com o objetivo de exercitar as funcionalidades do sistema, maximizando a cobertura de código e revelando defeitos no software de maneira eficiente e automática. Desse modo, a qualidade do software é verificada semm a necessidade de criação manual de dados pelos testadores ou desenvolvedores.</p>
+</section>
+<section id="necessidade">
+<h2>Necessidade<a class="headerlink" href="#necessidade" title="Link to this heading">#</a></h2>
+<p>A geração manual de dados de teste é um processo que pode ser demorado, trabalhoso e propenso a erros. Os testadores e desenvolvedores precisam criar dados de entrada para os casos de teste com o objetivo de cobrir o máximo possível de cenários, ramos e caminhos do código-fonte. No entanto, criar um conjunto de dados de teste eficiente e eficaz manualmente pode ser uma tarefa desafiadora, especialmente em sistemas de software complexos e de grande porte.</p>
+<p>A seguir estão algumas das razões pelas quais a geração automática de dados de teste é necessária:</p>
+<ol class="arabic simple">
+<li><p><strong>Economia de tempo e recursos</strong>: A geração manual de dados de teste é um processo demorado que exige esforço e habilidades consideráveis por parte dos testadores e desenvolvedores. A geração automática de dados de teste pode reduzir significativamente o tempo e os recursos necessários para criar conjuntos de dados de teste, permitindo que os testadores e desenvolvedores se concentrem em outras atividades essenciais de teste e desenvolvimento.</p></li>
+<li><p><strong>Melhoria na cobertura de código</strong>: A geração manual de dados de teste pode levar a conjuntos de dados de teste subótimos, com cobertura de código insuficiente. A geração automática de dados de teste, usando técnicas de otimização baseadas em busca, pode maximizar a cobertura de código, garantindo que mais caminhos, ramos e condições sejam testados no software.</p></li>
+<li><p><strong>Detecção aprimorada de defeitos</strong>: A geração automática de dados de teste pode revelar defeitos que talvez não fossem descobertos com a geração manual de dados de teste. As técnicas de geração automática de dados de teste podem identificar casos de teste que exploram cenários e condições incomuns ou de borda, aumentando a probabilidade de detectar defeitos no software.</p></li>
+<li><p><strong>Redução do viés humano</strong>: A geração manual de dados de teste pode ser influenciada pelo viés humano, levando a conjuntos de dados de teste que não exploram adequadamente todas as possibilidades e cenários. A geração automática de dados de teste pode criar conjuntos de dados de teste mais diversificados e imparciais, aumentando a eficácia dos testes.</p></li>
+<li><p><strong>Adaptabilidade a mudanças no software</strong>: À medida que o software evolui, os dados de teste também precisam ser atualizados e adaptados às novas funcionalidades e requisitos. A geração automática de dados de teste pode facilitar esse processo, permitindo a rápida adaptação e atualização dos conjuntos de dados de teste conforme as mudanças no software ocorrem.</p></li>
+</ol>
+</section>
+<section id="cobertura-de-codigo">
+<h2>Cobertura de código<a class="headerlink" href="#cobertura-de-codigo" title="Link to this heading">#</a></h2>
+<p>A cobertura de código é uma métrica importante no processo de teste de software que indica a porcentagem do código-fonte do programa que é executada durante os testes. O objetivo da cobertura de código é garantir que todos os aspectos do software sejam testados, incluindo caminhos, ramos e condições. Uma cobertura de código mais alta geralmente leva a uma melhor detecção de defeitos e a uma maior qualidade do software.</p>
+<p>A geração automática de dados de teste tem como objetivo maximizar a cobertura de código. Normalmente, usa-se análise estática e dinâmica para identificar os caminhos e ramos do código-fonte que não foram cobertos pelos testes existentes. Isso permite que novos dados de teste sejam gerados para cobrir essas áreas não cobertas do código.</p>
+</section>
+<section id="funcao-objetivo">
+<h2>Função objetivo<a class="headerlink" href="#funcao-objetivo" title="Link to this heading">#</a></h2>
+<p>As métricas comuns incluem:</p>
+<ul class="simple">
+<li><p>cobertura de código</p></li>
+<li><p>taxa de detecção de defeitos</p></li>
+<li><p>tempo de execução do teste</p></li>
+<li><p>complexidade dos dados de teste</p></li>
+</ul>
+</section>
+<section id="ferramentas-e-bibliotecas-para-geracao-automatica-de-dados-de-teste">
+<h2>Ferramentas e bibliotecas para Geração Automática de Dados de Teste<a class="headerlink" href="#ferramentas-e-bibliotecas-para-geracao-automatica-de-dados-de-teste" title="Link to this heading">#</a></h2>
+<p>Existem várias ferramentas e bibliotecas disponíveis que podem ser utilizadas para facilitar a geração automática de dados de teste. Elas ajudam a simplificar o processo e a implementar algoritmos de busca eficientes e eficazes. Algumas das ferramentas e bibliotecas mais populares incluem:</p>
+<ul class="simple">
+<li><p><strong>EvoSuite</strong>: O EvoSuite é uma ferramenta de código aberto escrita em Java para a geração automática de casos de teste para programas Java. Ele utiliza algoritmos de busca, como algoritmos genéticos e algoritmos baseados em busca local, para gerar casos de teste que maximizam a cobertura de código e a detecção de defeitos.</p></li>
+<li><p><strong>pytest-quickcheck</strong>: O pytest-quickcheck é um plugin Python para a biblioteca pytest que permite a geração automática de dados de teste baseada em propriedades. Ele utiliza o conceito de testes baseados em propriedades, onde os dados de teste são gerados automaticamente para satisfazer as propriedades especificadas pelo desenvolvedor.</p></li>
+<li><p><strong>DEAP (Distributed Evolutionary Algorithms in Python)</strong>: O DEAP é uma biblioteca Python de código aberto que fornece uma estrutura para a implementação de algoritmos evolutivos, incluindo algoritmos genéticos. Ele pode ser usado para implementar algoritmos de busca personalizados para a geração automática de dados de teste.</p></li>
+<li><p><strong>jMetalPy</strong>: O jMetalPy é uma biblioteca Python que oferece uma estrutura para o desenvolvimento de algoritmos de otimização multiobjetivo, incluindo algoritmos genéticos e algoritmos de enxame de partículas. A jMetalPy pode ser usada para implementar algoritmos de busca que otimizem múltiplos critérios de adequação ao mesmo tempo, como a cobertura de código e a taxa de detecção de defeitos.</p></li>
+<li><p><strong>KLEE</strong>: O KLEE é uma ferramenta de execução simbólica para programas C e C++ que gera automaticamente casos de teste para alcançar alta cobertura de código. A execução simbólica é uma técnica que explora todas as possíveis execuções de um programa, substituindo as entradas por valores simbólicos e gerando restrições para as condições de controle. O KLEE utiliza solucionadores de restrições para encontrar entradas concretas que satisfaçam as restrições e maximizem a cobertura de código.</p></li>
+</ul>
+</section>
+<section id="codigo">
+<h2>Código<a class="headerlink" href="#codigo" title="Link to this heading">#</a></h2>
+<p>As técnicas de SBSE utilizadas para esse fim envolvem a busca por soluções ótimas ou próximas da ótima, considerando restrições e objetivos específicos.</p>
+</section>
+<section id="exemplo-1">
+<h2>Exemplo 1<a class="headerlink" href="#exemplo-1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="c1"># Define the function to be tested</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="c1"># Define the fitness function to evaluate the quality of test cases</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness_function</span><span class="p">(</span><span class="n">test_case</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">expected_output</span> <span class="o">=</span> <span class="n">test_case</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="n">expected_output</span> <span class="k">else</span> <span class="mi">0</span>
+
+<span class="c1"># Define a function to generate a random test case</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_test_case</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">expected_output</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">expected_output</span><span class="p">)</span>
+
+<span class="c1"># Define a function to generate an initial population of test cases</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_initial_population</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+        <span class="n">population</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">generate_test_case</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">population</span>
+
+<span class="c1"># Define the selection operator to select test cases based on their fitness values</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">selection</span><span class="p">(</span><span class="n">population</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+
+<span class="c1"># Define the crossover operator to generate new test cases from two parent test cases</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">crossover</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">):</span>
+    <span class="n">a1</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parent1</span>
+    <span class="n">a2</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parent2</span>
+    <span class="n">child1</span> <span class="o">=</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">b2</span><span class="p">))</span>
+    <span class="n">child2</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">child1</span><span class="p">,</span> <span class="n">child2</span><span class="p">]</span>
+
+<span class="c1"># Define the mutation operator to make small changes to a test case</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mutation</span><span class="p">(</span><span class="n">test_case</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">expected_output</span> <span class="o">=</span> <span class="n">test_case</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">expected_output</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">expected_output</span><span class="p">)</span>
+
+<span class="c1"># Define the main genetic algorithm function to generate high-quality test cases</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">genetic_algorithm</span><span class="p">():</span>
+    <span class="n">population_size</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="n">generate_initial_population</span><span class="p">(</span><span class="n">population_size</span><span class="p">)</span>
+    <span class="n">best_test_case</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_fitness</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">num_generations</span> <span class="o">=</span> <span class="mi">100</span>
+    
+    <span class="c1"># Iterate over a fixed number of generations</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_generations</span><span class="p">):</span>
+        <span class="n">new_population</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Generate a new population of test cases from the existing population</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span><span class="p">):</span>
+            <span class="n">parent1</span> <span class="o">=</span> <span class="n">selection</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+            <span class="n">parent2</span> <span class="o">=</span> <span class="n">selection</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="n">crossover</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">)</span>
+            <span class="n">child1</span> <span class="o">=</span> <span class="n">mutation</span><span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">child2</span> <span class="o">=</span> <span class="n">mutation</span><span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">new_population</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child1</span><span class="p">)</span>
+            <span class="n">new_population</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child2</span><span class="p">)</span>
+        <span class="n">population</span> <span class="o">=</span> <span class="n">new_population</span>
+        <span class="c1"># Evaluate the fitness of each test case and select the best test case</span>
+        <span class="k">for</span> <span class="n">test_case</span> <span class="ow">in</span> <span class="n">population</span><span class="p">:</span>
+            <span class="n">fitness</span> <span class="o">=</span> <span class="n">fitness_function</span><span class="p">(</span><span class="n">test_case</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fitness</span> <span class="o">&gt;</span> <span class="n">best_fitness</span><span class="p">:</span>
+                <span class="n">best_fitness</span> <span class="o">=</span> <span class="n">fitness</span>
+                <span class="n">best_test_case</span> <span class="o">=</span> <span class="n">test_case</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New best test case: </span><span class="si">{</span><span class="n">test_case</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">best_test_case</span>
+
+<span class="c1"># Call the genetic algorithm function to generate the best test case</span>
+<span class="n">best_test_case</span> <span class="o">=</span> <span class="n">genetic_algorithm</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best test case: </span><span class="si">{</span><span class="n">best_test_case</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>New best test case: (8, 10, 18)
+Best test case: (8, 10, 18)
+</pre></div>
+</div>
+</div>
+</div>
+<p>This code example demonstrates how a Genetic Algorithm can be used to automatically generate test cases for a simple Python function. The algorithm uses the selection, crossover, and mutation operators to generate new test cases from existing test cases. The fitness_function evaluates the quality of each test case based on the function output and selects the best test case. The example demonstrates how SBST can be used to automate test case generation activities, which can help reduce the time and cost of software testing while improving</p>
+</section>
+<section id="exemplo-2">
+<h2>Exemplo 2<a class="headerlink" href="#exemplo-2" title="Link to this heading">#</a></h2>
+<p>Neste exemplo, utilizaremos um Algoritmo Genético simples para resolver o problema de gerar dados de teste que maximizem a cobertura de ramos de uma função fictícia. A função tem três ramos condicionais e recebe três parâmetros inteiros.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="c1"># Função fictícia com três ramos condicionais</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">funcao_ficticia</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 1</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 2</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 3</span>
+
+<span class="c1"># Função de adequação (fitness) que calcula a cobertura de ramos</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">individuo</span>
+    <span class="n">cobertura</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">cobertura</span>
+
+<span class="c1"># Parâmetros do Algoritmo Genético</span>
+<span class="n">TAMANHO_POPULACAO</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">TAXA_CRUZAMENTO</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">TAXA_MUTACAO</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">NUMERO_GERACOES</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="c1"># Inicialização da população</span>
+<span class="n">populacao</span> <span class="o">=</span> <span class="p">[[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">TAMANHO_POPULACAO</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">geracao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUMERO_GERACOES</span><span class="p">):</span>
+    <span class="c1"># Avaliação da população</span>
+    <span class="n">fitness_populacao</span> <span class="o">=</span> <span class="p">[</span><span class="n">fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">)</span> <span class="k">for</span> <span class="n">individuo</span> <span class="ow">in</span> <span class="n">populacao</span><span class="p">]</span>
+
+    <span class="c1"># Seleção dos pais</span>
+    <span class="n">pais</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">fitness_populacao</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">TAMANHO_POPULACAO</span><span class="p">)</span>
+
+    <span class="c1"># Cruzamento (Crossover)</span>
+    <span class="n">descendentes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">TAMANHO_POPULACAO</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">pai1</span><span class="p">,</span> <span class="n">pai2</span> <span class="o">=</span> <span class="n">pais</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pais</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">TAXA_CRUZAMENTO</span><span class="p">:</span>
+            <span class="n">ponto_corte</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">descendente1</span> <span class="o">=</span> <span class="n">pai1</span><span class="p">[:</span><span class="n">ponto_corte</span><span class="p">]</span> <span class="o">+</span> <span class="n">pai2</span><span class="p">[</span><span class="n">ponto_corte</span><span class="p">:]</span>
+            <span class="n">descendente2</span> <span class="o">=</span> <span class="n">pai2</span><span class="p">[:</span><span class="n">ponto_corte</span><span class="p">]</span> <span class="o">+</span> <span class="n">pai1</span><span class="p">[</span><span class="n">ponto_corte</span><span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">descendente1</span><span class="p">,</span> <span class="n">descendente2</span> <span class="o">=</span> <span class="n">pai1</span><span class="p">,</span> <span class="n">pai2</span>
+        <span class="n">descendentes</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">descendente1</span><span class="p">,</span> <span class="n">descendente2</span><span class="p">])</span>
+
+    <span class="c1"># Mutação</span>
+    <span class="k">for</span> <span class="n">descendente</span> <span class="ow">in</span> <span class="n">descendentes</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">TAXA_MUTACAO</span><span class="p">:</span>
+                <span class="n">descendente</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+    <span class="c1"># Substituição da população</span>
+    <span class="n">populacao</span> <span class="o">=</span> <span class="n">descendentes</span>
+
+<span class="c1"># Encontrando o melhor indivíduo</span>
+<span class="n">melhor_individuo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">fitness</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Melhor indivíduo:&quot;</span><span class="p">,</span> <span class="n">melhor_individuo</span><span class="p">,</span> <span class="s2">&quot;Fitness:&quot;</span><span class="p">,</span> <span class="n">fitness</span><span class="p">(</span><span class="n">melhor_individuo</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Melhor indivíduo: [12, 4, 7] Fitness: 3
+</pre></div>
+</div>
+</div>
+</div>
+<p>Este exemplo utiliza um Algoritmo Genético para gerar dados de teste que maximizem a cobertura de ramos da função fictícia. A função de adequação (fitness) simplesmente conta quantos ramos são cobertos pelos dados de teste. Os operadores de cruzamento e mutação são aplicados para gerar novos conjuntos de dados de teste, e a população é atualizada a cada geração. O exemplo termina exibindo o melhor conjunto de dados de teste</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip3<span class="w"> </span>install<span class="w"> </span>deap<span class="w"> </span>numpy
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting deap
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading deap-1.4.3-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (13 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting numpy
+  Downloading numpy-2.3.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading deap-1.4.3-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (135 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading numpy-2.3.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.6 MB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/16.6 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">16.5/16.6 MB</span> <span class=" -Color -Color-Red">261.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">16.6/16.6 MB</span> <span class=" -Color -Color-Red">54.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: numpy, deap
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed deap-1.4.3 numpy-2.3.2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.0.1</span> -&gt; <span class=" -Color -Color-Green">25.2</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">tools</span>
+
+<span class="c1"># Função fictícia com três ramos condicionais</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">funcao_ficticia</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 1</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 2</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 3</span>
+
+<span class="c1"># Função de adequação (fitness) que calcula a cobertura de ramos</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">individuo</span>
+    <span class="n">cobertura</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">cobertura</span><span class="p">,</span>
+
+<span class="c1"># Parâmetros do Algoritmo Genético</span>
+<span class="n">TAMANHO_POPULACAO</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">TAXA_CRUZAMENTO</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">TAXA_MUTACAO</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">NUMERO_GERACOES</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMax&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,))</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individuo&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMax</span><span class="p">)</span>
+
+<span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;attr_int&quot;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individuo&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individuo</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">attr_int</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;populacao&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individuo</span><span class="p">)</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">fitness</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxOnePoint</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutUniformInt</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">up</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span> <span class="n">tournsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">populacao</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">populacao</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">TAMANHO_POPULACAO</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">geracao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUMERO_GERACOES</span><span class="p">):</span>
+    <span class="c1"># Avaliação da população</span>
+    <span class="n">fitness_populacao</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">toolbox</span><span class="o">.</span><span class="n">evaluate</span><span class="p">,</span> <span class="n">populacao</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">fit</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="n">fitness_populacao</span><span class="p">):</span>
+        <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">fit</span>
+
+    <span class="c1"># Seleção dos pais</span>
+    <span class="n">pais</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">populacao</span><span class="p">))</span>
+
+    <span class="c1"># Cruzamento (Crossover)</span>
+    <span class="n">pais</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">toolbox</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">toolbox</span><span class="o">.</span><span class="n">clone</span><span class="p">,</span> <span class="n">pais</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">pai1</span><span class="p">,</span> <span class="n">pai2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pais</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">pais</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">TAXA_CRUZAMENTO</span><span class="p">:</span>
+            <span class="n">toolbox</span><span class="o">.</span><span class="n">mate</span><span class="p">(</span><span class="n">pai1</span><span class="p">,</span> <span class="n">pai2</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">pai1</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span>
+            <span class="k">del</span> <span class="n">pai2</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Mutação</span>
+    <span class="k">for</span> <span class="n">mutant</span> <span class="ow">in</span> <span class="n">pais</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">TAXA_MUTACAO</span><span class="p">:</span>
+            <span class="n">toolbox</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">mutant</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">mutant</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Substituição da população</span>
+    <span class="n">populacao</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">pais</span>
+
+<span class="c1"># Encontrando o melhor indivíduo</span>
+<span class="n">melhor_individuo</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">selBest</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Melhor indivíduo:&quot;</span><span class="p">,</span> <span class="n">melhor_individuo</span><span class="p">,</span> <span class="s2">&quot;Fitness:&quot;</span><span class="p">,</span> <span class="n">melhor_individuo</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Melhor indivíduo: [11, 2, 7] Fitness: 3.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">algorithms</span>
+
+<span class="c1"># Função fictícia com três ramos condicionais</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">funcao_ficticia</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 1</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 2</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Ramo 3</span>
+
+<span class="c1"># Função de adequação (fitness) que calcula a cobertura de ramos</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">individuo</span>
+    <span class="n">cobertura</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="n">cobertura</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">cobertura</span><span class="p">,</span>
+
+<span class="c1"># Parâmetros do Algoritmo Genético</span>
+<span class="n">TAMANHO_POPULACAO</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">TAXA_CRUZAMENTO</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">TAXA_MUTACAO</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">NUMERO_GERACOES</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMax&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,))</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individuo&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMax</span><span class="p">)</span>
+
+<span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;attr_int&quot;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individuo&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individuo</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">attr_int</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;populacao&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individuo</span><span class="p">)</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">fitness</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxOnePoint</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutUniformInt</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">up</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selNSGA2</span><span class="p">)</span>
+
+<span class="n">populacao</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">populacao</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">TAMANHO_POPULACAO</span><span class="p">)</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span>
+
+<span class="n">logbook</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Logbook</span><span class="p">()</span>
+
+<span class="n">populacao</span><span class="p">,</span> <span class="n">logbook</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
+    <span class="n">populacao</span><span class="p">,</span>
+    <span class="n">toolbox</span><span class="p">,</span>
+    <span class="n">cxpb</span><span class="o">=</span><span class="n">TAXA_CRUZAMENTO</span><span class="p">,</span>
+    <span class="n">mutpb</span><span class="o">=</span><span class="n">TAXA_MUTACAO</span><span class="p">,</span>
+    <span class="n">ngen</span><span class="o">=</span><span class="n">NUMERO_GERACOES</span><span class="p">,</span>
+    <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Encontrando o melhor indivíduo</span>
+<span class="n">melhor_individuo</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">selBest</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Melhor indivíduo:&quot;</span><span class="p">,</span> <span class="n">melhor_individuo</span><span class="p">,</span> <span class="s2">&quot;Fitness:&quot;</span><span class="p">,</span> <span class="n">melhor_individuo</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	avg 	min   	max   
+0  	100   	0.84	(0.0,)	(3.0,)
+1  	69    	0.82	(0.0,)	(3.0,)
+2  	87    	0.82	(0.0,)	(3.0,)
+3  	86    	0.83	(0.0,)	(3.0,)
+4  	82    	0.84	(0.0,)	(3.0,)
+5  	74    	0.84	(0.0,)	(3.0,)
+6  	84    	0.82	(0.0,)	(3.0,)
+7  	80    	0.81	(0.0,)	(3.0,)
+8  	88    	0.81	(0.0,)	(3.0,)
+9  	83    	0.8 	(0.0,)	(3.0,)
+10 	81    	0.8 	(0.0,)	(3.0,)
+11 	92    	0.8 	(0.0,)	(3.0,)
+12 	86    	0.8 	(0.0,)	(3.0,)
+13 	70    	0.79	(0.0,)	(3.0,)
+14 	88    	0.79	(0.0,)	(3.0,)
+15 	81    	0.79	(0.0,)	(3.0,)
+16 	92    	0.79	(0.0,)	(3.0,)
+17 	78    	0.79	(0.0,)	(3.0,)
+18 	85    	0.8 	(0.0,)	(3.0,)
+19 	94    	0.8 	(0.0,)	(3.0,)
+20 	82    	0.82	(0.0,)	(3.0,)
+21 	91    	0.82	(0.0,)	(3.0,)
+22 	78    	0.83	(0.0,)	(3.0,)
+23 	77    	0.83	(0.0,)	(3.0,)
+24 	76    	0.83	(0.0,)	(3.0,)
+25 	73    	0.82	(0.0,)	(3.0,)
+26 	81    	0.82	(0.0,)	(3.0,)
+27 	93    	0.82	(0.0,)	(3.0,)
+28 	80    	0.82	(0.0,)	(3.0,)
+29 	80    	0.82	(0.0,)	(3.0,)
+30 	86    	0.81	(0.0,)	(3.0,)
+31 	83    	0.81	(0.0,)	(3.0,)
+32 	77    	0.81	(0.0,)	(3.0,)
+33 	76    	0.81	(0.0,)	(3.0,)
+34 	80    	0.81	(0.0,)	(3.0,)
+35 	85    	0.8 	(0.0,)	(3.0,)
+36 	82    	0.8 	(0.0,)	(3.0,)
+37 	84    	0.8 	(0.0,)	(3.0,)
+38 	95    	0.82	(0.0,)	(3.0,)
+39 	81    	0.82	(0.0,)	(3.0,)
+40 	89    	0.82	(0.0,)	(3.0,)
+41 	83    	0.84	(0.0,)	(3.0,)
+42 	73    	0.84	(0.0,)	(3.0,)
+43 	74    	0.83	(0.0,)	(3.0,)
+44 	81    	0.82	(0.0,)	(3.0,)
+45 	88    	0.82	(0.0,)	(3.0,)
+46 	85    	0.81	(0.0,)	(3.0,)
+47 	87    	0.81	(0.0,)	(3.0,)
+48 	79    	0.81	(0.0,)	(3.0,)
+49 	85    	0.81	(0.0,)	(3.0,)
+50 	86    	0.79	(0.0,)	(3.0,)
+Melhor indivíduo: [14, 1, 7] Fitness: 3.0
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/vscode/.local/lib/python3.12/site-packages/deap/creator.py:185: RuntimeWarning: A class named &#39;FitnessMax&#39; has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  warnings.warn(&quot;A class named &#39;{0}&#39; has already been created and it &quot;
+/home/vscode/.local/lib/python3.12/site-packages/deap/creator.py:185: RuntimeWarning: A class named &#39;Individuo&#39; has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  warnings.warn(&quot;A class named &#39;{0}&#39; has already been created and it &quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="melhores-praticas-e-ferramentas-para-aplicar-o-sbse-na-industria">
+<h1>Melhores práticas e ferramentas para aplicar o SBSE na indústria<a class="headerlink" href="#melhores-praticas-e-ferramentas-para-aplicar-o-sbse-na-industria" title="Link to this heading">#</a></h1>
+<p>Ao aplicar técnicas de SBSE em ambientes industriais, existem várias práticas recomendadas e ferramentas que podem ser usadas para melhorar a eficácia e a eficiência do processo de SBSE.</p>
+<ul class="simple">
+<li><p>Definir objetivos claros e critérios de sucesso: Antes de iniciar o processo SBSE, é importante definir objetivos claros e critérios de sucesso para o problema em questão. Isso ajudará a garantir que o processo SBSE esteja focado na solução do problema certo e que os resultados possam ser avaliados e comparados com os padrões de referência estabelecidos.</p></li>
+<li><p>Use representações apropriadas do problema: A escolha da representação do problema é crucial para a eficácia e eficiência do processo SBSE. É importante usar representações que sejam adequadas para o problema em questão e que possam ser manipuladas de forma eficiente pelos algoritmos de otimização.</p></li>
+<li><p>Use algoritmos e metaheurísticas de otimização apropriados: A escolha do algoritmo de otimização ou metaheurística também é crucial para a eficácia e eficiência do processo SBSE. É importante usar algoritmos e metaheurísticas que sejam adequados para o problema em questão e que possam explorar o espaço de busca de forma eficiente.</p></li>
+<li><p>Use métricas de desempenho e análises estatísticas apropriadas: Para avaliar os resultados do processo SBSE, é importante usar métricas de desempenho e análises estatísticas apropriadas. Isso ajudará a garantir que os resultados sejam confiáveis e que o processo SBSE esteja fazendo um progresso significativo em direção aos objetivos.</p></li>
+<li><p>Use ferramentas e bibliotecas apropriadas: Existem várias ferramentas e bibliotecas de código aberto que podem ser usadas para implementar técnicas de SBSE em configurações da indústria. Alguns exemplos dessas ferramentas incluem EvoSuite, DEAP, Optunity e PyGMO. Essas ferramentas fornecem componentes e funções pré-construídos que podem ser usados para implementar técnicas de SBSE, o que pode ajudar a reduzir o tempo de desenvolvimento e o esforço necessário.</p></li>
+<li><p>Monitore e adapte o processo: É importante monitorar o progresso do processo SBSE e adaptá-lo conforme necessário. Isso pode envolver ajustar os parâmetros dos algoritmos de otimização ou metaheurísticas, ajustar a representação do problema ou ajustar as métricas de desempenho e análise estatística.</p></li>
+<li><p>Comunicar os resultados: É importante comunicar os resultados do processo SBSE às partes interessadas relevantes. Isso pode envolver o fornecimento de relatórios detalhados, visualizações ou painéis interativos que fornecem informações sobre os resultados e o progresso do processo SBSE.</p></li>
+<li><p>Melhorar continuamente o processo: SBSE é um processo contínuo e é importante melhorar continuamente o processo com base nos resultados e feedback. Isso pode envolver a incorporação de novas técnicas, ferramentas ou práticas recomendadas ao processo, ou fazer ajustes no processo para melhorar sua eficácia e eficiência.</p></li>
+</ul>
+<section id="exemplos">
+<h2>Exemplos<a class="headerlink" href="#exemplos" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Defina objetivos claros e critérios de sucesso: por exemplo, uma empresa deseja otimizar o desempenho de seu sistema de software. Os objetivos do processo SBSE seriam melhorar o desempenho do sistema de software e o critério de sucesso seria um certo aumento de desempenho, como reduzir o tempo de resposta em 30%.</p></li>
+<li><p>Use representações de problemas apropriadas: por exemplo, representando o sistema de software como um gráfico, onde os nós representam componentes e as arestas representam as interações entre os componentes. Essa representação é adequada para o problema em questão, pois permite a otimização das interações entre os componentes, o que pode melhorar o desempenho do sistema de software.</p></li>
+<li><p>Use algoritmos de otimização apropriados e metaheurísticas: Por exemplo, usando um algoritmo genético para otimizar o desempenho do sistema de software. Algoritmos genéticos são adequados para este problema, pois podem explorar de forma eficiente o grande espaço de busca de possíveis interações entre os componentes.</p></li>
+<li><p>Use métricas de desempenho e análises estatísticas apropriadas: por exemplo, usando o tempo de resposta como métrica de desempenho e usando técnicas estatísticas como ANOVA para comparar os resultados do processo SBSE com os resultados de um grupo de controle.</p></li>
+<li><p>Use ferramentas e bibliotecas apropriadas: Por exemplo, usando a biblioteca DEAP em Python para implementar o algoritmo genético. O DEAP fornece componentes e funções pré-construídos para a implementação de algoritmos genéticos, que podem ajudar a reduzir o tempo de desenvolvimento e o esforço necessário.</p></li>
+<li><p>Monitorar e adaptar o processo: por exemplo, monitorar o progresso do processo SBSE rastreando o tempo de resposta do sistema de software ao longo do tempo. Caso o tempo de resposta não esteja diminuindo conforme o esperado, pode ser necessário adaptar o processo ajustando os parâmetros do algoritmo genético ou ajustando a representação do problema.</p></li>
+<li><p>Comunique os resultados: por exemplo, fornecendo um painel que mostra o tempo de resposta do sistema de software ao longo do tempo e o impacto do processo SBSE no tempo de resposta. Isso pode ajudar as partes interessadas a entender o progresso do processo SBSE e os resultados alcançados.</p></li>
+<li><p>Melhore continuamente o processo: por exemplo, incorporando feedback das partes interessadas no processo SBSE e experimentando diferentes algoritmos de otimização e metaheurísticas para encontrar a melhor abordagem para o problema em questão.</p></li>
+</ul>
+<p>É importante observar que esses exemplos são gerais e casos específicos podem ter necessidades diferentes, mas a ideia geral é adaptar o processo ao contexto específico.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="priorizacao-de-casos-de-teste">
+<h1>Priorização de Casos de Teste<a class="headerlink" href="#priorizacao-de-casos-de-teste" title="Link to this heading">#</a></h1>
+<p>A priorização de casos de teste baseada em busca é uma técnica de engenharia de software que utiliza algoritmos de busca para ordenar os casos de teste de acordo com critérios específicos, visando maximizar a eficácia do processo de teste. Essa abordagem é particularmente útil em situações em que o tempo e os recursos para a execução de testes são limitados, permitindo que os testadores se concentrem nos casos de teste mais relevantes e informativos.</p>
+<section id="ferramentas-para-priorizacao-de-casos-de-teste">
+<h2>Ferramentas para Priorização de Casos de Teste<a class="headerlink" href="#ferramentas-para-priorizacao-de-casos-de-teste" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>TestPrioritizer</strong>: É uma ferramenta de código aberto que usa algoritmos genéticos para priorizar casos de teste com base em critérios como cobertura de código, complexidade do caso de teste e frequência de falhas. Ele suporta várias linguagens de programação, incluindo Java, C ++ e C #.</p></li>
+<li><p><strong>OptimizeTest</strong>: É uma ferramenta de priorização de casos de teste baseada em algoritmos genéticos que considera tanto a cobertura de código quanto a importância do requisito do sistema. Ele é projetado para trabalhar com projetos de software em C ++.</p></li>
+<li><p><strong>Tarantula</strong>: É uma técnica de priorização de casos de teste que usa a fórmula de Tarantula para calcular a pontuação de cada caso de teste com base na frequência com que o caso de teste falha nos testes de sucesso e falha. Ele foi originalmente desenvolvido para projetos em Java, mas pode ser usado com outras linguagens de programação.</p></li>
+<li><p><strong>DeSTInE</strong>: É uma ferramenta de priorização de casos de teste baseada em algoritmos genéticos que considera a cobertura de código, a complexidade do caso de teste e a frequência com que o caso de teste falha nos testes de sucesso e falha. Ele suporta vários idiomas, incluindo Java, C ++ e C #.</p></li>
+<li><p><strong>AETG</strong>: É uma ferramenta de priorização de casos de teste baseada em um algoritmo determinístico que usa técnicas de planejamento experimental para selecionar uma subconjunto de casos de teste que maximize a cobertura de parâmetros de entrada. Ele é usado principalmente para testar software com entradas configuráveis, como sistemas de controle de processos ou sistemas de gerenciamento de banco de dados.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">attrgetter</span>
+
+<span class="c1"># Dados do exemplo</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">matriz que representa a relação entre os casos de teste e os </span>
+<span class="sd">requisitos do software que eles cobrem. </span>
+<span class="sd">Cada linha da matriz corresponde a um caso de teste e </span>
+<span class="sd">cada coluna corresponde a um requisito. </span>
+<span class="sd">Se um caso de teste cobre um determinado requisito,</span>
+<span class="sd">o valor na posição correspondente na matriz será 1; caso contrário, será 0.</span>
+
+<span class="sd">Por exemplo, o primeiro caso de teste (primeira linha) </span>
+<span class="sd">cobre os requisitos 1, 3 e 5, enquanto o segundo caso de teste (segunda linha)</span>
+<span class="sd">cobre os requisitos 2 e 4.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">cobertura</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">importancia_requisitos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># Configurações do GA</span>
+<span class="n">num_geracoes</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">tam_populacao</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">taxa_cruzamento</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">taxa_mutacao</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Função para calcular o fitness de um indivíduo</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calcular_fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">):</span>
+    <span class="n">cobertura_total</span> <span class="o">=</span> <span class="n">cobertura</span><span class="p">[</span><span class="n">individuo</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">importancia_total</span> <span class="o">=</span> <span class="p">(</span><span class="n">cobertura_total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">importancia_requisitos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">importancia_total</span>
+
+<span class="c1"># Função para gerar a população inicial</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gerar_populacao_inicial</span><span class="p">():</span>
+    <span class="n">populacao</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tam_populacao</span><span class="p">):</span>
+        <span class="c1"># Permutação que indica a ordem em que os casos de teste devem </span>
+        <span class="c1"># ser executados para maximizar a cobertura de código e a importância dos requisitos.</span>
+        <span class="n">individuo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cobertura</span><span class="p">))</span>
+        <span class="n">populacao</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">individuo</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">populacao</span>
+
+<span class="c1"># Função para selecionar pais usando seleção por torneio</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">selecao_torneio</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">pais</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">competidores</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">vencedor</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">competidores</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">calcular_fitness</span><span class="p">)</span>
+        <span class="n">pais</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vencedor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pais</span>
+
+<span class="c1"># Função para aplicar o cruzamento ordenado (OX - Ordered Crossover)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">crossover</span><span class="p">(</span><span class="n">pais</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">taxa_cruzamento</span><span class="p">:</span>
+        <span class="n">tamanho</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pais</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">corte1</span><span class="p">,</span> <span class="n">corte2</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">tamanho</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">filho</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">tamanho</span>
+        <span class="n">filho</span><span class="p">[</span><span class="n">corte1</span><span class="p">:</span><span class="n">corte2</span><span class="p">]</span> <span class="o">=</span> <span class="n">pais</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">corte1</span><span class="p">:</span><span class="n">corte2</span><span class="p">]</span>
+        
+        <span class="n">pos_filho</span> <span class="o">=</span> <span class="n">corte2</span>
+        <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">pais</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">gene</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filho</span><span class="p">:</span>
+                <span class="k">while</span> <span class="n">filho</span><span class="p">[</span><span class="n">pos_filho</span> <span class="o">%</span> <span class="n">tamanho</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">pos_filho</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">filho</span><span class="p">[</span><span class="n">pos_filho</span> <span class="o">%</span> <span class="n">tamanho</span><span class="p">]</span> <span class="o">=</span> <span class="n">gene</span>
+                <span class="n">pos_filho</span> <span class="o">+=</span> <span class="mi">1</span>
+                
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">filho</span> <span class="o">=</span> <span class="n">pais</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">filho</span>
+
+<span class="c1"># Função para aplicar mutação por troca</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mutacao</span><span class="p">(</span><span class="n">individuo</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">taxa_mutacao</span><span class="p">:</span>
+        <span class="n">pos1</span><span class="p">,</span> <span class="n">pos2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">individuo</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">individuo</span><span class="p">[</span><span class="n">pos1</span><span class="p">],</span> <span class="n">individuo</span><span class="p">[</span><span class="n">pos2</span><span class="p">]</span> <span class="o">=</span> <span class="n">individuo</span><span class="p">[</span><span class="n">pos2</span><span class="p">],</span> <span class="n">individuo</span><span class="p">[</span><span class="n">pos1</span><span class="p">]</span>
+
+<span class="c1"># Execução do GA</span>
+<span class="n">populacao</span> <span class="o">=</span> <span class="n">gerar_populacao_inicial</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">geracao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_geracoes</span><span class="p">):</span>
+    <span class="n">nova_populacao</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tam_populacao</span><span class="p">):</span>
+        <span class="n">pais</span> <span class="o">=</span> <span class="n">selecao_torneio</span><span class="p">(</span><span class="n">populacao</span><span class="p">)</span>
+        <span class="n">filho</span> <span class="o">=</span> <span class="n">crossover</span><span class="p">(</span><span class="n">pais</span><span class="p">)</span>
+        <span class="n">mutacao</span><span class="p">(</span><span class="n">filho</span><span class="p">)</span>
+        <span class="n">nova_populacao</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filho</span><span class="p">)</span>
+    <span class="n">populacao</span> <span class="o">=</span> <span class="n">nova_populacao</span>
+       
+<span class="n">melhor_individuo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">calcular_fitness</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Melhor solução encontrada:&quot;</span><span class="p">,</span> <span class="n">melhor_individuo</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitness:&quot;</span><span class="p">,</span> <span class="n">calcular_fitness</span><span class="p">(</span><span class="n">melhor_individuo</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Melhor solução encontrada: [np.int64(3), np.int64(1), np.int64(0), np.int64(4), np.int64(2)]
+Fitness: 15
+</pre></div>
+</div>
+</div>
+</div>
+<p>Este exemplo demonstra uma implementação básica de um algoritmo genético para resolver o problema de priorização de casos de teste. Note que o algoritmo pode ser aprimorado e adaptado para abordar cenários mais complexos e realistas, como a consideração de restrições de tempo, recursos e dependências entre casos de teste. Além disso, é importante ajustar os parâmetros do algoritmo, como o tamanho da população, o número de gerações e as taxas de cruzamento e mutação, para obter os melhores resultados para o seu problema específico.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">algorithms</span>
+
+<span class="c1"># Dados do exemplo</span>
+<span class="n">cobertura</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">importancia_requisitos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># Adicionando tempo de execução fictício para cada caso de teste</span>
+<span class="n">tempos_execucao</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+
+<span class="c1"># Configurações do GA</span>
+<span class="n">num_geracoes</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">tam_populacao</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">taxa_cruzamento</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">taxa_mutacao</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Função para calcular o fitness de um indivíduo</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calcular_fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">):</span>
+    <span class="n">cobertura_total</span> <span class="o">=</span> <span class="n">cobertura</span><span class="p">[</span><span class="n">individuo</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">importancia_total</span> <span class="o">=</span> <span class="p">(</span><span class="n">cobertura_total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">importancia_requisitos</span><span class="p">)</span>
+    
+    <span class="n">tempo_execucao_total</span> <span class="o">=</span> <span class="n">tempos_execucao</span><span class="p">[</span><span class="n">individuo</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">importancia_total</span><span class="p">,</span> <span class="o">-</span><span class="n">tempo_execucao_total</span>
+
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMulti&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individuo&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMulti</span><span class="p">)</span>
+
+<span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;indices&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cobertura</span><span class="p">))</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individuo&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initIterate</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individuo</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;populacao&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individuo</span><span class="p">)</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">calcular_fitness</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxOrdered</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutShuffleIndexes</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selNSGA2</span><span class="p">)</span> <span class="c1"># </span>
+
+<span class="n">populacao</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">populacao</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">tam_populacao</span><span class="p">)</span>
+
+<span class="c1"># Estatísticas</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">populacao</span><span class="p">,</span> <span class="n">logbook</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
+    <span class="n">populacao</span><span class="p">,</span>
+    <span class="n">toolbox</span><span class="p">,</span>
+    <span class="n">cxpb</span><span class="o">=</span><span class="n">taxa_cruzamento</span><span class="p">,</span>
+    <span class="n">mutpb</span><span class="o">=</span><span class="n">taxa_mutacao</span><span class="p">,</span>
+    <span class="n">ngen</span><span class="o">=</span><span class="n">num_geracoes</span><span class="p">,</span>
+    <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">melhor_individuo</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">selBest</span><span class="p">(</span><span class="n">populacao</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Melhor solução encontrada:&quot;</span><span class="p">,</span> <span class="n">melhor_individuo</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitness:&quot;</span><span class="p">,</span> <span class="n">calcular_fitness</span><span class="p">(</span><span class="n">melhor_individuo</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	min        	max        	avg        
+0  	50    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+1  	39    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+2  	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+3  	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+4  	46    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+5  	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+6  	47    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+7  	37    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+8  	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+9  	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+10 	36    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+11 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+12 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+13 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+14 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+15 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+16 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+17 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+18 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+19 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+20 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+21 	37    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+22 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+23 	37    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+24 	33    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+25 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+26 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+27 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+28 	48    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+29 	47    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+30 	33    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+31 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+32 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+33 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+34 	37    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+35 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+36 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+37 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+38 	45    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+39 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+40 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+41 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+42 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+43 	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+44 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+45 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+46 	32    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+47 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+48 	33    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+49 	37    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+50 	48    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+51 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+52 	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+53 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+54 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+55 	39    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+56 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+57 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+58 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+59 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+61 	34    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+62 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+63 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+64 	43    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+65 	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>66 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+67 	45    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+68 	47    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+69 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+70 	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+71 	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+72 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+73 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+74 	46    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+75 	39    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+76 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+77 	37    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+78 	39    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+79 	35    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+80 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+81 	47    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+82 	33    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+83 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+84 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+85 	37    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+86 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+87 	33    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+88 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+89 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+90 	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+91 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+92 	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+93 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+94 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+95 	41    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+96 	46    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+97 	42    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+98 	40    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+99 	38    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+100	44    	[ 15. -21.]	[ 15. -21.]	[ 15. -21.]
+Melhor solução encontrada: [np.int64(0), np.int64(2), np.int64(1), np.int64(4), np.int64(3)]
+Fitness: (np.int64(15), np.float64(-21.0))
+</pre></div>
+</div>
+</div>
+</div>
+<p>Neste exemplo, adicionamos uma lista <code class="docutils literal notranslate"><span class="pre">tempos_execucao</span></code> que contém os tempos de execução fictícios de cada caso de teste. Em seguida, modificamos a função <code class="docutils literal notranslate"><span class="pre">calcular_fitness</span></code> para calcular o tempo de execução total e retornar uma tupla com dois elementos: importância total e tempo (negativo, para minimizar)</p>
+<p>Além disso, o código foi adaptado para utilizar o algoritmo NSGA-II da biblioteca DEAP. A função de seleção foi substituída por <code class="docutils literal notranslate"><span class="pre">tools.selNSGA2</span></code>, que implementa o algoritmo NSGA-II. Bem como utilizamos a função <code class="docutils literal notranslate"><span class="pre">algorithms.eaSimple</span></code> para realizar a evolução da população. Essa função simplifica o processo de evolução, gerenciando as iterações e a aplicação das operações genéticas (cruzamento, mutação e seleção) ao longo das gerações.</p>
+</section>
+<section id="sugestao-de-leitura">
+<h2>Sugestão de Leitura<a class="headerlink" href="#sugestao-de-leitura" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A. Bajaj and O. P. Sangwan, <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/8819910">A Systematic Literature Review of Test Case Prioritization Using Genetic Algorithms</a> in IEEE Access, vol. 7, pp. 126355-126375, 2019, doi: 10.1109/ACCESS.2019.2938260.</p>
+<ul>
+<li><p>Artigo aberto</p></li>
+</ul>
+</li>
+<li><p>Michael, C. C., McGraw, G., &amp; Schatz, M. A. (2001). Generating software test data by evolution. IEEE Transactions on software engineering, 27(12), 1085-1110.</p></li>
+<li><p>Yoo, S., &amp; Harman, M. (2012). Regression testing minimization, selection and prioritization: a survey. Software testing, verification and reliability, 22(2), 67-120.</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="search-based-refactoring">
+<h1>Search-Based Refactoring<a class="headerlink" href="#search-based-refactoring" title="Link to this heading">#</a></h1>
+<p>“Search-based Software Refactoring” (Refatoração de Software Baseada em Busca) é uma técnica que usa algoritmos de busca para automatizar o processo de refatoração de software. A refatoração de software é o processo de melhorar a estrutura interna do código-fonte sem alterar seu comportamento externo. O objetivo é tornar o código mais legível, fácil de entender, fácil de manter e mais eficiente em termos de desempenho.</p>
+<section id="code-smells">
+<h2>Code Smells<a class="headerlink" href="#code-smells" title="Link to this heading">#</a></h2>
+<p>A refatoração de software é um processo importante na manutenção e evolução de um software. Para ajudar os desenvolvedores a identificar oportunidades de refatoração, foram criados os “code smells” (maus cheiros de código), que são indicações de que o código-fonte precisa ser refatorado. Esses “code smells” incluem, por exemplo, código duplicado, métodos muito grandes, classes muito complexas, entre outros.</p>
+<p>Existem várias técnicas de refatoração que podem ser aplicadas para corrigir os “code smells”. Algumas das técnicas mais comuns incluem a extração de métodos, a extração de classes, a renomeação de variáveis, a eliminação de código duplicado, entre outras.</p>
+<p>A tabela a seguir compara diferentes tipos de “code smells” que podem ser encontrados em projetos de software. Cada “code smell” é descrito em termos de sua definição geral e pode ser usado como uma indicação de que o código-fonte precisa ser refatorado para melhorar sua qualidade e facilidade de manutenção. Cada “code smell” pode ser detectado usando técnicas de análise de código-fonte ou inspeção manual de código. Ao identificar esses “code smells”, os desenvolvedores podem tomar medidas para corrigi-los usando técnicas de refatoração de software adequadas.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Code Smell</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Duplicação de código</p></td>
+<td><p>Código idêntico ou semelhante em vários lugares no software</p></td>
+</tr>
+<tr class="row-odd"><td><p>Métodos longos</p></td>
+<td><p>Métodos com muitas linhas de código ou muitas responsabilidades</p></td>
+</tr>
+<tr class="row-even"><td><p>Classes grandes</p></td>
+<td><p>Classes com muitas linhas de código ou muitas responsabilidades</p></td>
+</tr>
+<tr class="row-odd"><td><p>Métodos com muitos parâmetros</p></td>
+<td><p>Métodos com muitos argumentos</p></td>
+</tr>
+<tr class="row-even"><td><p>Complexidade condicional</p></td>
+<td><p>Estruturas de controle de fluxo complexas (if, switch, etc.)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Código inalcançável</p></td>
+<td><p>Código que nunca é executado ou acessado</p></td>
+</tr>
+<tr class="row-even"><td><p>Comentários excessivos</p></td>
+<td><p>Comentários que não são úteis para entender o código</p></td>
+</tr>
+<tr class="row-odd"><td><p>Nomes inadequados</p></td>
+<td><p>Nomes de variáveis, métodos ou classes que não são descritivos</p></td>
+</tr>
+<tr class="row-even"><td><p>Má organização do código</p></td>
+<td><p>Código que não segue padrões de organização ou convenções</p></td>
+</tr>
+<tr class="row-odd"><td><p>Classes não coesas</p></td>
+<td><p>Classes com responsabilidades não relacionadas ou conflitantes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tecnicas-de-refactoring">
+<h2>Técnicas de Refactoring<a class="headerlink" href="#tecnicas-de-refactoring" title="Link to this heading">#</a></h2>
+<p>As técnicas de refatoração são usadas para melhorar a qualidade do código-fonte, tornando-o mais legível, mais fácil de manter e mais eficiente em termos de desempenho. A refatoração é o processo de modificar o código-fonte sem alterar seu comportamento externo. Algumas das técnicas de refatoração mais comuns incluem:</p>
+<ul class="simple">
+<li><p><strong>Extração de método</strong>: Consiste em extrair uma seção de código de um método e transformá-la em um novo método para melhorar a legibilidade e a organização do código.</p></li>
+<li><p><strong>Extração de classe</strong>: Consiste em criar uma nova classe para mover métodos e dados relacionados a uma nova classe para melhorar a organização do código e reduzir a complexidade.</p></li>
+<li><p><strong>Renomeação de variáveis e métodos</strong>: Consiste em renomear variáveis e métodos para tornar seu nome mais significativo e descritivo.</p></li>
+<li><p><strong>Eliminação de código duplicado</strong>: Consiste em remover códigos que são iguais ou muito semelhantes em diferentes partes do código.</p></li>
+<li><p><strong>Simplificação de estruturas de controle de fluxo</strong>: Consiste em simplificar estruturas de controle de fluxo complexas, como loops aninhados, para melhorar a legibilidade do código.</p></li>
+<li><p><strong>Reorganização de parâmetros</strong>: Consiste em reorganizar os parâmetros de um método para torná-lo mais fácil de entender e utilizar.</p></li>
+</ul>
+<p>Essas técnicas de refatoração podem ser aplicadas manualmente ou com o auxílio de ferramentas de refatoração, como o Eclipse e o Visual Studio. A aplicação de técnicas de refatoração pode ajudar a melhorar a qualidade do código-fonte, reduzindo a complexidade e tornando-o mais fácil de manter e evoluir ao longo do tempo.</p>
+</section>
+<section id="otimizacao-em-refactoring">
+<h2>Otimização em Refactoring<a class="headerlink" href="#otimizacao-em-refactoring" title="Link to this heading">#</a></h2>
+<p>A técnica de “Search-based Software Refactoring” pode ser usada para automatizar a identificação de oportunidades de refatoração e a seleção das melhores técnicas de refatoração para corrigir os “code smells”. Ela pode usar técnicas de busca como algoritmos genéticos, busca local e otimização multiobjetivo para encontrar soluções de refatoração que atendam a critérios específicos, como melhorar a qualidade do código, reduzir a complexidade ou melhorar a performance.</p>
+<p>A otimização multiobjetivo é uma técnica de busca que permite otimizar vários objetivos simultaneamente. Na refatoração de software, isso pode ser útil para encontrar soluções que atendam a vários critérios de qualidade, como legibilidade do código, eficiência, manutenibilidade e simplicidade.</p>
+<p>Existem várias ferramentas de refatoração de software baseadas em busca disponíveis atualmente, como o ReFacTo, o JCharon e o Opt4J. Essas ferramentas usam diferentes técnicas de busca e critérios de avaliação para identificar e implementar soluções de refatoração em projetos de software. Alguns exemplos de soluções de refatoração implementadas por essas ferramentas incluem a eliminação de código duplicado, a extração de classes e a renomeação de variáveis.</p>
+<p>Em resumo, a técnica de “Search-based Software Refactoring” pode ser uma abordagem eficaz para automatizar o processo de refatoração de software, identificando oportunidades de refatoração e selecionando as melhores técnicas de refatoração para corrigir os “code smells”. Além disso, a otimização multiobjetivo e as ferramentas de refatoração baseadas em busca podem ser úteis para otimizar vários objetivos simultaneamente e implementar soluções de refatoração em projetos de software de forma mais eficiente.</p>
+</section>
+<section id="id1">
+<h2>Código<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Exemplo 1<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Suponha que temos uma função que calcula o fatorial de um número e queremos refatorá-la para melhorar a legibilidade e reduzir o tamanho do código. Aqui está a função original:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Para refatorar essa função, podemos usar um algoritmo genético para otimizar o código. Podemos definir o tamanho do código e a legibilidade como nossos objetivos de otimização, e usar as operações de mutação e crossover para gerar novos indivíduos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">algorithms</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">tools</span>
+
+<span class="c1"># Definição dos objetivos</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMulti&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+
+<span class="c1"># Definição da estrutura do indivíduo</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individual&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMulti</span><span class="p">)</span>
+
+<span class="c1"># Definição das operações genéticas</span>
+<span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+
+<span class="c1"># Operação de mutação</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mutShuffle</span><span class="p">(</span><span class="n">individual</span><span class="p">):</span>
+    <span class="n">idx1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">idx2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">individual</span><span class="p">[</span><span class="n">idx1</span><span class="p">],</span> <span class="n">individual</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span> <span class="o">=</span> <span class="n">individual</span><span class="p">[</span><span class="n">idx2</span><span class="p">],</span> <span class="n">individual</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">individual</span><span class="p">,</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">mutShuffle</span><span class="p">)</span>
+
+<span class="c1"># Operação de seleção</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selNSGA2</span><span class="p">)</span>
+
+<span class="c1"># Operação de crossover</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxUniform</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Definição da função de avaliação dos objetivos</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">individual</span><span class="p">):</span>
+    <span class="c1"># Transforma o indivíduo em código-fonte</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;if n == 0: return 1</span><span class="se">\n</span><span class="s1">    else: return n * factorial(n-1)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;return&#39;</span><span class="p">)</span>
+    <span class="c1"># Executa o código e captura exceções</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">exec</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">1000000</span>
+    <span class="c1"># Ajuste do tamanho do código</span>
+    <span class="n">code_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span>
+    <span class="c1"># Avaliação da legibilidade do código</span>
+    <span class="n">readability</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">individual</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">]])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span>
+    <span class="c1"># Retorna uma tupla com os objetivos</span>
+    <span class="k">return</span> <span class="n">code_size</span><span class="p">,</span> <span class="n">readability</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">)</span>
+
+<span class="c1"># Definição da população inicial</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generateIndividual</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initIterate</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">,</span> <span class="n">generateIndividual</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span>
+
+<span class="c1"># Definição dos parâmetros do algoritmo</span>
+<span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">hof</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">HallOfFame</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;std&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Roda o algoritmo de otimização multiobjetivo</span>
+<span class="n">algorithms</span><span class="o">.</span><span class="n">eaMuPlusLambda</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lambda_</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mutpb</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ngen</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">)</span>
+
+<span class="c1"># Imprime a melhor solução encontrada</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hof</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	avg        	std    	min        	max        
+0  	100   	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/vscode/.local/lib/python3.12/site-packages/deap/creator.py:185: RuntimeWarning: A class named &#39;FitnessMulti&#39; has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  warnings.warn(&quot;A class named &#39;{0}&#39; has already been created and it &quot;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  	77    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+2  	63    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+3  	65    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+4  	75    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+5  	75    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+6  	63    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+7  	65    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8  	76    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9  	61    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+10 	75    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+11 	73    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+12 	67    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+13 	77    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+14 	62    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+15 	70    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16 	70    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17 	72    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+18 	67    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+19 	69    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+20 	67    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+21 	76    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+22 	69    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+23 	65    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+24 	64    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+25 	73    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>26 	67    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>27 	69    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+28 	79    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+29 	62    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+30 	69    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+31 	73    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+32 	66    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+33 	69    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+34 	68    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+35 	72    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+36 	75    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+37 	66    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+38 	69    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+39 	66    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+40 	70    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+41 	66    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42 	73    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+43 	58    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>44 	74    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+45 	66    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+46 	70    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+47 	75    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+48 	70    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+49 	70    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+50 	67    	[100.   1.]	[0. 0.]	[100.   1.]	[100.   1.]
+[&#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;i&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;i&#39;, &#39;i&#39;, &#39;r&#39;, &#39;i&#39;, &#39;r&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Este código usa a biblioteca DEAP para implementar um algoritmo genético que refatora uma função Python. O algoritmo é executado por 50 gerações e usa uma população de 100 indivíduos. As operações genéticas definidas incluem mutação e crossover, e os objetivos de otimização são o tamanho do código e a legibilidade do código. A função evaluate avalia cada indivíduo em relação</p>
+</section>
+<section id="id3">
+<h3>Exemplo 2<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Suponha que temos um código com dois objetivos conflitantes: reduzir o tamanho do código e melhorar a legibilidade do código. Queremos encontrar uma solução que otimize ambos os objetivos simultaneamente.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">algorithms</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">tools</span>
+
+<span class="c1"># Definição dos objetivos</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMulti&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+
+<span class="c1"># Definição da estrutura do indivíduo</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individual&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMulti</span><span class="p">)</span>
+
+<span class="c1"># Definição das operações genéticas</span>
+<span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+
+<span class="c1"># Operação de mutação</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mutShuffle</span><span class="p">(</span><span class="n">individual</span><span class="p">):</span>
+    <span class="n">idx1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">idx2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">individual</span><span class="p">[</span><span class="n">idx1</span><span class="p">],</span> <span class="n">individual</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span> <span class="o">=</span> <span class="n">individual</span><span class="p">[</span><span class="n">idx2</span><span class="p">],</span> <span class="n">individual</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">individual</span><span class="p">,</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">mutShuffle</span><span class="p">)</span>
+
+<span class="c1"># Operação de seleção</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selNSGA2</span><span class="p">)</span>
+
+<span class="c1"># Operação de crossover</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxUniform</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Definição da função de avaliação dos objetivos</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">individual</span><span class="p">):</span>
+    <span class="c1"># Ajuste do tamanho do código</span>
+    <span class="n">code_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">individual</span><span class="p">))</span>
+    <span class="c1"># Avaliação da legibilidade do código</span>
+    <span class="n">readability</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">individual</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]])</span>
+    <span class="c1"># Retorna uma tupla com os objetivos</span>
+    <span class="k">return</span> <span class="n">code_size</span><span class="p">,</span> <span class="n">readability</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">)</span>
+
+<span class="c1"># Definição da população inicial</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generateIndividual</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
+
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initIterate</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">,</span> <span class="n">generateIndividual</span><span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span>
+
+<span class="c1"># Definição dos parâmetros do algoritmo</span>
+<span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">hof</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">HallOfFame</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;std&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Roda o algoritmo de otimização multiobjetivo</span>
+<span class="n">algorithms</span><span class="o">.</span><span class="n">eaMuPlusLambda</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">lambda_</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mutpb</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ngen</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">)</span>
+
+<span class="c1"># Exibe a melhor solução encontrada</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Melhor solução: &quot;</span><span class="p">,</span> <span class="n">hof</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	avg            	std                    	min        	max        
+0  	100   	[100.    18.59]	[0.         3.89639577]	[100.  10.]	[100.  26.]
+1  	35    	[100.   14.4]  	[0.         2.24499443]	[100.  10.]	[100.  17.]
+2  	31    	[100.    12.42]	[0.         1.85569394]	[100.   7.]	[100.  15.]
+3  	38    	[100.    10.74]	[0.         1.39728308]	[100.   7.]	[100.  12.]
+4  	39    	[100.     9.46]	[0.         1.40299679]	[100.   6.]	[100.  11.]
+5  	36    	[100.     8.18]	[0.         1.29135588]	[100.   5.]	[100.  10.]
+6  	31    	[100.     6.96]	[0.         0.91564185]	[100.   5.]	[100.   8.]
+7  	33    	[100.     6.04]	[0.         0.63118935]	[100.   5.]	[100.   7.]
+8  	30    	[100.     5.36]	[0.        0.8428523]  	[100.   2.]	[100.   6.]
+9  	41    	[100.     4.54]	[0.         0.85346353]	[100.   2.]	[100.   5.]
+10 	34    	[100.     4.02]	[0.         0.98974744]	[100.   2.]	[100.   5.]
+11 	38    	[100.     3.24]	[0.         0.73647811]	[100.   2.]	[100.   4.]
+12 	37    	[100.     2.52]	[0.         0.67052218]	[100.   0.]	[100.   3.]
+13 	27    	[100.    2.2]  	[0.         0.66332496]	[100.   0.]	[100.   3.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14 	33    	[100.     1.72]	[0.         0.49152823]	[100.   0.]	[100.   2.]
+15 	35    	[100.     1.38]	[0.         0.59632206]	[100.   0.]	[100.   2.]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/vscode/.local/lib/python3.12/site-packages/deap/creator.py:185: RuntimeWarning: A class named &#39;Individual&#39; has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  warnings.warn(&quot;A class named &#39;{0}&#39; has already been created and it &quot;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16 	37    	[100.     0.82]	[0.         0.38418745]	[100.   0.]	[100.   1.]
+17 	38    	[100.     0.56]	[0.         0.49638695]	[100.   0.]	[100.   1.]
+18 	34    	[1.e+02 8.e-02]	[0.        0.2712932]  	[100.   0.]	[100.   1.]
+19 	38    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+20 	39    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+21 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+22 	34    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+23 	37    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+24 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+25 	29    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+26 	39    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+27 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+28 	38    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+29 	38    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+30 	32    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+31 	32    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+32 	37    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+33 	41    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+34 	38    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+35 	29    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+36 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+37 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+38 	29    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+39 	32    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+40 	40    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+41 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+42 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+43 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+44 	31    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+45 	32    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+46 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+47 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+48 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+49 	32    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+51 	38    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+52 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+53 	34    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+54 	30    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+55 	43    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+56 	30    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+57 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+58 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+59 	37    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+60 	38    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+61 	34    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+62 	39    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+63 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+64 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+65 	37    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>66 	25    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+67 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+68 	34    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+69 	32    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>70 	40    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+71 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+72 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+73 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+74 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+75 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+76 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+77 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+78 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+79 	39    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+80 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+81 	29    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+82 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+83 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+84 	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+85 	32    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+86 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+87 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+88 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+89 	34    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+90 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+91 	36    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+92 	39    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+93 	38    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+94 	37    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+95 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+96 	37    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+97 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+98 	41    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+99 	33    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+100	35    	[100.   0.]    	[0. 0.]                	[100.   0.]	[100.   0.]
+Melhor solução:  [&#39;h&#39;, &#39;g&#39;, &#39;w&#39;, &#39;k&#39;, &#39;p&#39;, &#39;z&#39;, &#39;x&#39;, &#39;x&#39;, &#39;l&#39;, &#39;p&#39;, &#39;h&#39;, &#39;x&#39;, &#39; &#39;, &#39;u&#39;, &#39;w&#39;, &#39;o&#39;, &#39;z&#39;, &#39;l&#39;, &#39;y&#39;, &#39;g&#39;, &#39;n&#39;, &#39;x&#39;, &#39;d&#39;, &#39;i&#39;, &#39;m&#39;, &#39;b&#39;, &#39;v&#39;, &#39;h&#39;, &#39;u&#39;, &#39;g&#39;, &#39;d&#39;, &#39;p&#39;, &#39;x&#39;, &#39;b&#39;, &#39;b&#39;, &#39;k&#39;, &#39;m&#39;, &#39;h&#39;, &#39;n&#39;, &#39;i&#39;, &#39;d&#39;, &#39;b&#39;, &#39;y&#39;, &#39;m&#39;, &#39;a&#39;, &#39;k&#39;, &#39;f&#39;, &#39;i&#39;, &#39;b&#39;, &#39;o&#39;, &#39;y&#39;, &#39;j&#39;, &#39;k&#39;, &#39;d&#39;, &#39; &#39;, &#39;j&#39;, &#39;c&#39;, &#39;e&#39;, &#39;w&#39;, &#39;r&#39;, &#39; &#39;, &#39;p&#39;, &#39;e&#39;, &#39;w&#39;, &#39;v&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;r&#39;, &#39;i&#39;, &#39;w&#39;, &#39;c&#39;, &#39;e&#39;, &#39;r&#39;, &#39;r&#39;, &#39;l&#39;, &#39;x&#39;, &#39;r&#39;, &#39;s&#39;, &#39;d&#39;, &#39;a&#39;, &#39;k&#39;, &#39; &#39;, &#39;p&#39;, &#39;n&#39;, &#39;z&#39;, &#39;v&#39;, &#39;b&#39;, &#39;r&#39;, &#39;f&#39;, &#39;l&#39;, &#39;d&#39;, &#39;f&#39;, &#39;r&#39;, &#39;l&#39;, &#39;u&#39;, &#39;w&#39;, &#39;o&#39;, &#39;g&#39;, &#39; &#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Neste exemplo, usamos o algoritmo NSGA-II para otimizar simultaneamente o tamanho do código e a legibilidade do código.</p>
+<ul class="simple">
+<li><p>O indivíduo é uma lista de caracteres que representa o código-fonte após a aplicação de uma técnica de refatoração. Cada posição na lista corresponde a um caractere no código-fonte, incluindo letras, espaços, quebras de linha, parênteses, chaves e dois-pontos. O comprimento da lista representa o tamanho total do código-fonte refatorado.</p></li>
+<li><p>A função de avaliação avalia o tamanho do código e a legibilidade do código e retorna uma tupla com os objetivos.</p></li>
+<li><p>As operações genéticas definidas incluem a mutação e o crossover.</p></li>
+<li><p>A população inicial é gerada aleatoriamente e o algoritmo de otimização é executado por um determinado número de gerações. No final, a melhor solução é exibida.</p></li>
+</ul>
+<p>Durante o processo de otimização multiobjetivo, cada indivíduo é avaliado em relação a dois objetivos conflitantes: reduzir o tamanho do código e melhorar a legibilidade do código. A função de avaliação avalia cada indivíduo em relação a esses dois objetivos, retornando uma tupla com os valores de cada objetivo.</p>
+<p>Cada indivíduo é submetido a operações genéticas, como mutação e crossover, que visam gerar novos indivíduos com características semelhantes ou melhores que os indivíduos pais. O algoritmo de otimização busca encontrar a melhor combinação de indivíduos que otimize simultaneamente ambos os objetivos de refatoração.</p>
+</section>
+</section>
+<section id="ferramentas-de-refactoring">
+<h2>Ferramentas de Refactoring<a class="headerlink" href="#ferramentas-de-refactoring" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Suporte à refatoração do Eclipse IDE</p></li>
+<li><p><strong>Ref-Finder</strong>: Ref-Finder identifica refatorações entre duas versões de programas Java. É um plugin do Eclipse capaz de mostrar quais refatorações foram utilizadas dentre as 96 refatorações do catálogo de Fowler.</p></li>
+<li><p><strong>Code-Imp</strong>: uma ferramenta automatizada de refatoração baseada em pesquisa, que suporta um conjunto de refatorações, métricas e algoritmos de pesquisa. A ferramenta funciona aplicando refatorações a uma representação AST de programas Java. Um conjunto de 14 refatorações é utilizado no nível de métodos, campos e classes. O usuário deve escolher as métricas a serem utilizadas na função fitness e a técnica de busca a ser executada. As técnicas de busca disponíveis são Hill Climbing,
+Recozimento Simulado e Algoritmo Genético. Para compor a função fitness, estão disponíveis 28 métricas e o usuário pode fazer qualquer combinação delas. Eles podem ser combinados usando uma soma ponderada ou otimização de Pareto, o primeiro define um peso para cada métrica e o segundo considera uma melhoria se pelo menos um valor da métrica for aumentado sem diminuir os outros</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>Sugestão de Leitura<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fowler, M. (2018). Refactoring: improving the design of existing code. Addison-Wesley Professional.</p></li>
+<li><p>Ouni, A., Kessentini, M., Sahraoui, H., &amp; Hamdi, M. S. (2012). Search-based refactoring: Towards semantics preservation. In 2012 28th IEEE International Conference on Software Maintenance (ICSM) (pp. 347-356). IEEE.</p></li>
+<li><p><strong>Mariani, Thainá, and Silvia Regina Vergilio. “A systematic review on search-based refactoring.” Information and Software Technology 83 (2017): 14-34.</strong></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="aula04_MOO.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="aula06_final_project.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aula 6: Projeto Final</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#geracao-de-casos-de-teste">Geração de casos de teste</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e">O que é</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#necessidade">Necessidade</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cobertura-de-codigo">Cobertura de código</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-objetivo">Função objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ferramentas-e-bibliotecas-para-geracao-automatica-de-dados-de-teste">Ferramentas e bibliotecas para Geração Automática de Dados de Teste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo">Código</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplo-1">Exemplo 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplo-2">Exemplo 2</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#melhores-praticas-e-ferramentas-para-aplicar-o-sbse-na-industria">Melhores práticas e ferramentas para aplicar o SBSE na indústria</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exemplos">Exemplos</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#priorizacao-de-casos-de-teste">Priorização de Casos de Teste</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ferramentas-para-priorizacao-de-casos-de-teste">Ferramentas para Priorização de Casos de Teste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sugestao-de-leitura">Sugestão de Leitura</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#search-based-refactoring">Search-Based Refactoring</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-smells">Code Smells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tecnicas-de-refactoring">Técnicas de Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otimizacao-em-refactoring">Otimização em Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Código</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exemplo 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Exemplo 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ferramentas-de-refactoring">Ferramentas de Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Sugestão de Leitura</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

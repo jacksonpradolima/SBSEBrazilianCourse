@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 1: Overview do Curso &#8212; Search-Based Software Engineering - A Course in PT-BR</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula01_overview';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Aula 2: Introdução à SBSE" href="aula02_introduction.html" />
+    <link rel="prev" title="Search-Based Software Engineering - A Course in PT-BR" href="../../README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Search-Based Software Engineering - A Course in PT-BR</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Search-Based Software Engineering - A Course in PT-BR
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Aula 1: Overview do Curso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula02_introduction.html">Aula 2: Introdução à SBSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula03_SBSE_techniques.html">Aula 03: Técnicas de Otimização em Search-Based Software Engineering (SBSE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula04_MOO.html">Aula 04: Algoritmos Evolutivos Multiobjetivo: Teoria e Aplicações</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aula05_study_case.html">Aula 5: Aplicações em Engenharia de Software (Estudos de Caso)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="aula06_final_project.html">Aula 6: Projeto Final</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 1: Overview do Curso</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos">Requisitos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ementa">Ementa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-especificos">Objetivos Específicos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conteudo-programatico">Conteúdo Programático</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avaliacao">Avaliação</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliografia-basica">Bibliografia Básica</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-1-overview-do-curso">
+<h1>Aula 1: Overview do Curso<a class="headerlink" href="#aula-1-overview-do-curso" title="Link to this heading">#</a></h1>
+<p><strong>Professor</strong> PhD Jackson Antonio do Prado Lima</p>
+<p><strong>Contato:</strong> <code class="docutils literal notranslate"><span class="pre">[jacksonpradolima</span> <span class="pre">at</span> <span class="pre">&#64;gmail.com]</span></code> - Por favor, use o prefixo <code class="docutils literal notranslate"><span class="pre">[SBSE-CursoBR]</span></code> no assunto</p>
+<hr class="docutils" />
+<section id="requisitos">
+<h2>Requisitos<a class="headerlink" href="#requisitos" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Conhecimento básico de otimização objetivo, tal como Algoritmos Genéticos.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="agenda">
+<h2>Agenda<a class="headerlink" href="#agenda" title="Link to this heading">#</a></h2>
+<p>Apresentação do Curso:</p>
+<ul class="simple">
+<li><p>Ementa</p></li>
+<li><p>Objetivos</p></li>
+<li><p>Conteúdo Programático</p></li>
+<li><p>Avaliação</p></li>
+<li><p>Bibliografia</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ementa">
+<h2>Ementa<a class="headerlink" href="#ementa" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Apresentação</p></li>
+<li><p>Introdução a SBSE</p></li>
+<li><p>Técnicas de Otimização em SBSE</p></li>
+<li><p>Aplicações em Engenharia de Software</p></li>
+<li><p>SBSE na Prática</p></li>
+<li><p>Técnicas avançadas em SBSE</p></li>
+<li><p>Projeto Final</p></li>
+</ul>
+</section>
+<section id="objetivo">
+<h2>Objetivo<a class="headerlink" href="#objetivo" title="Link to this heading">#</a></h2>
+<p>Demonstrar ao aluno técnicas de otimização de pesquisa para resolver problemas em teste de software.</p>
+<section id="objetivos-especificos">
+<h3>Objetivos Específicos<a class="headerlink" href="#objetivos-especificos" title="Link to this heading">#</a></h3>
+<p>Ao final do curso, os alunos serão capazes de:</p>
+<ul class="simple">
+<li><p>Entender os conceitos fundamentais e técnicas de SBSE;</p></li>
+<li><p>Identificar diferentes tipos de técnicas de SBSE e suas aplicações;</p></li>
+<li><p>Criar, implementar e avaliar soluções de SBSE;</p></li>
+<li><p>Aplicar técnicas de SBSE para resolver problemas de engenharia de software;</p></li>
+<li><p>Analisar o impacto de SBSE nas práticas e processos de SBSE.</p></li>
+</ul>
+</section>
+</section>
+<section id="conteudo-programatico">
+<h2>Conteúdo Programático<a class="headerlink" href="#conteudo-programatico" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>CH</p></th>
+<th class="head"><p>Tópico</p></th>
+<th class="head"><p>Conteúdo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2h</p></td>
+<td><p>Apresentação</p></td>
+<td><p>Apresentação do Módulo; <br>Metodologia de Ensino;<br>Avaliação.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4h</p></td>
+<td><p>Introdução a SBSE</p></td>
+<td><p>Definição e história; <br> Importância de SBSE na Engenharia de Software;<br> Overview e Aplicações de técnicas de SBSE na Engenharia de Software.</p></td>
+</tr>
+<tr class="row-even"><td><p>4h</p></td>
+<td><p>Técnicas de Otimização em SBSE</p></td>
+<td><p>Overview de algoritmos de otimização e metaheurísticas usadas em SBSE; <br> Técnicas de Representação de Problemas de Engenharia de Software em formas adequadas para otimização (Codificação de soluções e definição de funções de aptidão).</p></td>
+</tr>
+<tr class="row-odd"><td><p>3h</p></td>
+<td><p>Técnicas Avançadas de SBSE</p></td>
+<td><p>Otimização Multi-Objetivo.</p></td>
+</tr>
+<tr class="row-even"><td><p>14h</p></td>
+<td><p>Aplicações em Engenharia de Software</p></td>
+<td><p>Como o SBSE é utilizado na melhoria de processos de desenvolvimento de software (Estudos de Caso); <br> Como é utilizado: Search-Based Testing (Geração e Priorização de casos de teste); e Search-Based Software Maintenance (Refatoração de código); <br> Ferramentas/frameworks que são usados para aplicar SBSE na indústria.</p></td>
+</tr>
+<tr class="row-odd"><td><p>3h</p></td>
+<td><p>Projeto Final</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="avaliacao">
+<h2>Avaliação<a class="headerlink" href="#avaliacao" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Avaliação</p></th>
+<th class="head"><p>Peso</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Trabalho em Grupo 1 (TG1)</p></td>
+<td><p>40%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Trabalho em Grupo 1 (TG2)</p></td>
+<td><p>60%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Cálculo da Nota Final: TG1*0.4+ TG2*0.6</p>
+</section>
+<section id="bibliografia-basica">
+<h2>Bibliografia Básica<a class="headerlink" href="#bibliografia-basica" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>“A Survey of Search-Based Software Engineering” de Carlos A. Coello Coello e Gary B. Lamont</p></li>
+<li><p>“An Introduction to Evolutionary Algorithms for Software Engineers” de David B. Leake</p></li>
+<li><p>Colanzi, T.E., Assunção, W.K.G., Farah, P.R., Vergilio, S.R., Guizzo, G. (2019). A Review of Ten Years of the Symposium on Search-Based Software Engineering. In: Nejati, S., Gay, G. (eds) Search-Based Software Engineering. SSBSE 2019. Lecture Notes in Computer Science(), vol 11664. Springer, Cham. <a class="reference external" href="https://doi.org/10.1007/978-3-030-27455-9_4">https://doi.org/10.1007/978-3-030-27455-9_4</a></p></li>
+<li><p>Assunção, W.K., Barros, M.d.O., Colanzi, T.E. et al. A mapping study of the Brazilian SBSE community. J Softw Eng Res Dev 2, 3 (2014). <a class="reference external" href="https://doi.org/10.1186/2195-1721-2-3">https://doi.org/10.1186/2195-1721-2-3</a></p></li>
+<li><p>COLANZI, Thelma Elita et al. The symposium on search-based software engineering: Past, present and future. Information and Software Technology, v. 127, p. 106372, 2020. <a class="reference external" href="https://doi.org/10.1016/j.infsof.2020.106372">https://doi.org/10.1016/j.infsof.2020.106372</a></p></li>
+<li><p>“Search-Based Software Testing: A Survey” de A. Arcuri and L. Briand</p></li>
+<li><p>“Search-Based Software Engineering: Trends, Techniques, and Applications” de A. M. Memon, N. M. R. B. Ahmad, and M. Harman</p></li>
+<li><p>Código de exemplo em uma das ferramentas de SBSE (ex: jMetal, HeuristicLab) disponível no GitHub</p></li>
+<li><p>Site da SSBSE: <a class="reference external" href="https://ssbse.info/">https://ssbse.info/</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Search-Based Software Engineering - A Course in PT-BR</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="aula02_introduction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aula 2: Introdução à SBSE</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos">Requisitos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ementa">Ementa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-especificos">Objetivos Específicos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conteudo-programatico">Conteúdo Programático</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avaliacao">Avaliação</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliografia-basica">Bibliografia Básica</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
