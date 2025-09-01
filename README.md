@@ -1,7 +1,7 @@
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/pradolima)
+# Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)
 
-# Search-Based Software Engineering - A Course in PT-BR
-![](https://img.shields.io/badge/python-3.12+-blue.svg)
+[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Descrição do Curso
 
@@ -27,12 +27,3 @@ Este material foi elaborado com base em:
 - Contribuições de renomadas figuras no campo de SBSE e otimização, como as Professoras Silvia Regina Vergilio e Aurora T. Ramirez Pozo.
 
 Tal como na versão original em inglês, sinta-se à vontade para utilizar este conteúdo. Pedimos apenas que, ao reutilizá-lo, forneça a URL deste repositório como referência.
-
-Para dúvidas, comentários ou sugestões, crie uma `issue` neste repositório. Dessa forma, outros interessados também poderão participar da discussão sobre o tema.
-
-
-# Contribuidores
-
-<a href="https://github.com/jacksonpradolima/SBSEBrazilianCourse/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=jacksonpradolima/SBSEBrazilianCourse" />
-</a>
