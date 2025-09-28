@@ -23,15 +23,6 @@ Criar a estrutura de diretórios e arquivos para as aulas da seguinte maneira:
 docs/aulas/aula-XX-nome_da_aula/
 ├── README.md                  # Conteúdo principal da aula
 ├── plano_aula.md              # Plano de Aula relacionado
-├── exercicios/                # Atividades práticas
-│   ├── README.md              # Instruções dos exercícios
-│   ├── nivel1/                # Exercícios básicos
-│   ├── nivel2/                # Exercícios intermediários
-│   └── nivel3/                # Exercícios avançados
-└── solucoes/                  # Gabaritos (pasta privada/opcional)
-│   ├── nivel1/                # Soluções dos Exercícios básicos
-│   ├── nivel2/                # Soluções dos Exercícios intermediários
-│   └── nivel3/                # Soluções dos Exercícios avançados
 ```
 
 2. Criar um arquivo `README.md` dentro do diretório da aula, preenchendo o frontmatter YAML com as variáveis extraídas do plano de aula.
