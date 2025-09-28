@@ -1,0 +1,1 @@
+@workspace agora, crie o workshop prático para a aula que acabamos de fazer. Leia o README.md dela e use as instruções do arquivo .github/copilot/agente-pratica.md para gerar o notebook

@@ -1,0 +1,1 @@
+@workspace preciso criar a próxima aula do meu plano_ensino.md. Use as instruções do arquivo .github/copilot/agente-teoria.md para me ajudar.
