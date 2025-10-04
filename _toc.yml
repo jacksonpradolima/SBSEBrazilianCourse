@@ -4,6 +4,45 @@ parts:
   - caption: Aulas da Disciplina
     chapters:
       - file: docs/aulas/aula-01-introducao-sbse/README.md
+        sections:
+          - file: docs/aulas/aula-01-introducao-sbse/workshop.ipynb
       - file: docs/aulas/aula-02-tecnicas-otimizacao-sbse/README.md
+        sections:
+          - file: docs/aulas/aula-02-tecnicas-otimizacao-sbse/workshop.ipynb
       - file: docs/aulas/aula-03-formulacao-problemas-representacoes/README.md
-
+        sections:
+          - file: docs/aulas/aula-03-formulacao-problemas-representacoes/workshop.ipynb
+      - file: docs/aulas/aula-04-laboratorio-deap/README.md
+        sections:
+          - file: docs/aulas/aula-04-laboratorio-deap/workshop.ipynb
+      - file: docs/aulas/aula-05-sinergia-ia/README.md
+        sections:
+          - file: docs/aulas/aula-05-sinergia-ia/workshop.ipynb
+      - file: docs/aulas/aula-06-teste-baseado-busca/README.md
+        sections:
+          - file: docs/aulas/aula-06-teste-baseado-busca/workshop.ipynb
+      - file: docs/aulas/aula-07-sbst-lab/README.md
+        sections:
+          - file: docs/aulas/aula-07-sbst-lab/workshop.ipynb
+      - file: docs/aulas/aula-08-refatoracao-busca/README.md
+        sections:
+          - file: docs/aulas/aula-08-refatoracao-busca/workshop.ipynb
+      - file: docs/aulas/aula-09-fairness-testing-ml/README.md
+        sections:
+          - file: docs/aulas/aula-09-fairness-testing-ml/workshop.ipynb
+      - file: docs/aulas/aula-10-fairness-testing-lab/README.md
+        sections:
+          - file: docs/aulas/aula-10-fairness-testing-lab/workshop.ipynb
+      - file: docs/aulas/aula-11-otimizacao-hiperparametros-prompts/README.md
+        sections:
+          - file: docs/aulas/aula-11-otimizacao-hiperparametros-prompts/workshop.ipynb
+      - file: docs/aulas/aula-12-projeto-final-especificacao/README.md
+        sections:
+          - file: docs/aulas/aula-12-projeto-final-especificacao/workshop.ipynb
+      - file: docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/README.md
+        sections:
+          - file: docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/workshop.ipynb
+      - file: docs/aulas/aula-14-etica-lado-sombrio-otimizacao/README.md
+        sections:
+          - file: docs/aulas/aula-14-etica-lado-sombrio-otimizacao/workshop.ipynb
+      - file: docs/aulas/aula-15-16-projeto-final-desenvolvimento/README.md
