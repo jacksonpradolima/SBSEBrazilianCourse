@@ -5,5 +5,6 @@ Leia TODO o arquivo de instruções (guia mestre) .github/copilot-instructions.m
 
 Sua Tarefa:
 [SECOES_ALVO]: Título da Aula, o Sumário Completo, a Seção 1 e a Seção 2 de forma completa e detalhada, especialmente a Seção 2.
+[TIPO_DE_AULA]: **"Aprofundamento Teórico":** Foco na teoria, na matemática, na implementação "do zero" e na exploração conceitual exaustiva.
 
 Não sumarize ou encurte o conteúdo. Se você ficar sem tokens ou se a resposta atingir o limite de comprimento, então por favor, me espere dizer 'Go' para continuar gerando o conteúdo.
