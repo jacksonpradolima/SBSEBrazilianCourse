@@ -193,7 +193,6 @@ Este material foi desenvolvido como uma **evolução moderna** dos fundamentos c
 ## 📞 Contato e Suporte
 
 **Autor Principal:** Prof. Dr. Jackson Antonio do Prado Lima  
-**Instituição:** Universidade Federal do Paraná (UFPR)  
 **Email:** jacksonpradolima@gmail.com  
 **GitHub:** [@jacksonpradolima](https://github.com/jacksonpradolima)
 
