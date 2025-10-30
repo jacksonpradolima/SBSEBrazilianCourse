@@ -80,7 +80,7 @@ mindmap
 
 ### 2.2. Classificação por Características de Problema
 
-Different algorithms excel at different problem characteristics:
+Diferentes algoritmos se destacam em diferentes características do problema:
 
 | Característica do Problema | Algoritmo Recomendado | Porquê |
 |----------------------------|----------------------|---------|
