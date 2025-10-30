@@ -18,7 +18,7 @@ prerequisitos:
   - "Familiaridade com conceitos de engenharia de software"
 ---
 
-# Introdução à Engenharia de Software Baseada em Busca
+# Introdução à Engenharia de Software Baseada em Busca (SBSE)
 
 ## Seção 1: Abertura e Engajamento
 
@@ -40,11 +40,14 @@ Ao final desta aula, você será capaz de:
 
 ## Seção 2: Fundamentos Teóricos
 
-### 2.1. O que é Engenharia de Software Baseada em Busca?
+### 2.1. O que é Engenharia de Software Baseada em Busca (SBSE)?
 
 **Intuição Inicial:** Pense na SBSE como um "GPS inteligente" para problemas de engenharia de software. Assim como um GPS encontra a melhor rota entre dois pontos considerando múltiplos fatores (distância, trânsito, pedágios), a SBSE usa algoritmos de busca para encontrar as melhores soluções para problemas complexos de software, considerando múltiplos critérios simultaneamente.
 
 **Definição Formal:** Search-Based Software Engineering (SBSE) é a aplicação de técnicas de otimização e algoritmos de busca para resolver problemas de engenharia de software. Foi formalmente definida por Mark Harman em 2001 como uma abordagem que reformula problemas de engenharia de software como problemas de otimização.
+
+**O que é Otimização?** Otimização é o processo de encontrar uma ou mais soluções válidas para um problema a partir de um conjunto de soluções possíveis, levando em consideração restrições e objetivos.
+Envolve a identificação dos valores ideais (ou ótimos) de uma ou mais variáveis, geralmente minimizando ou maximizando uma função objetivo.
 
 ### 2.2. Por que SBSE Funciona para Problemas de Software?
 
