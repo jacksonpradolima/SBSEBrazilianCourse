@@ -1,0 +1,1564 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Workshop Prático: Auditoria Ética de Sistemas de Otimização &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-14-etica-lado-sombrio-otimizacao/workshop';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma" href="../aula-15-16-projeto-final-desenvolvimento/README.html" />
+    <link rel="prev" title="Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências" href="README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Workshop Prático: Auditoria Ética de Sistemas de Otimização</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contexto-e-objetivo">Contexto e Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-voce-vai-aprender">O que você vai aprender:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrutura-do-workshop-210-min">Estrutura do Workshop (210 min)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusoes-e-proximos-passos">🎓 Conclusões e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-aprendemos">O que aprendemos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checklist-para-seus-projetos">Checklist para seus projetos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos">Recursos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mensagem-final">Mensagem final:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Configuração de Ambiente</span>
+<span class="o">!</span>pip<span class="w"> </span>-q<span class="w"> </span>install<span class="w"> </span>scikit-learn<span class="w"> </span>deap<span class="w"> </span>pandas<span class="w"> </span>seaborn<span class="w"> </span>matplotlib<span class="w"> </span>numpy
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">algorithms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="c1"># Configuração para forçar CPU e silenciar logs</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CUDA_VISIBLE_DEVICES&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;-1&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="c1"># Seeds para reprodutibilidade</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Configuração de estilo para visualizações</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✅ Ambiente configurado com sucesso!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;📦 Bibliotecas: scikit-learn, DEAP, pandas, seaborn, matplotlib, numpy&#39;</span><span class="p">)</span>
+<span class="c1"># Saída Esperada: ✅ Ambiente configurado com sucesso!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.2</span> -&gt; <span class=" -Color -Color-Green">25.3</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Ambiente configurado com sucesso!
+📦 Bibliotecas: scikit-learn, DEAP, pandas, seaborn, matplotlib, numpy
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="workshop-pratico-auditoria-etica-de-sistemas-de-otimizacao">
+<h1>Workshop Prático: Auditoria Ética de Sistemas de Otimização<a class="headerlink" href="#workshop-pratico-auditoria-etica-de-sistemas-de-otimizacao" title="Link to this heading">#</a></h1>
+<section id="contexto-e-objetivo">
+<h2>Contexto e Objetivo<a class="headerlink" href="#contexto-e-objetivo" title="Link to this heading">#</a></h2>
+<p>Neste laboratório prático, você implementará um <strong>sistema completo de auditoria ética</strong> para analisar e mitigar problemas em sistemas de otimização. O caso de estudo é realista: um sistema de recomendação de vagas de emprego que, apesar de aparentar ser neutro, pode perpetuar vieses históricos.</p>
+</section>
+<section id="o-que-voce-vai-aprender">
+<h2>O que você vai aprender:<a class="headerlink" href="#o-que-voce-vai-aprender" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Demonstrar a Lei de Goodhart na prática:</strong> Como diferentes métricas de otimização levam a comportamentos problemáticos</p></li>
+<li><p><strong>Implementar métricas de fairness:</strong> Demographic Parity, Equalized Odds, Individual Fairness e Counterfactual Fairness</p></li>
+<li><p><strong>Realizar Red Team Exercises:</strong> Testar adversarialmente sistemas para encontrar vulnerabilidades éticas</p></li>
+<li><p><strong>Projetar mitigações:</strong> Implementar três abordagens para tornar sistemas mais éticos</p></li>
+<li><p><strong>Analisar trade-offs:</strong> Entender os custos de performance vs. fairness</p></li>
+</ol>
+</section>
+<section id="estrutura-do-workshop-210-min">
+<h2>Estrutura do Workshop (210 min)<a class="headerlink" href="#estrutura-do-workshop-210-min" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Parte 1:</strong> Setup do sistema de recomendação (30 min)</p></li>
+<li><p><strong>Parte 2:</strong> Análise da Lei de Goodhart (30 min)</p></li>
+<li><p><strong>Parte 3:</strong> Framework de auditoria ética (30 min)</p></li>
+<li><p><strong>Parte 4:</strong> Métricas de fairness (30 min)</p></li>
+<li><p><strong>Parte 5:</strong> Red team exercises (30 min)</p></li>
+<li><p><strong>Parte 6:</strong> Design de mitigações (30 min)</p></li>
+<li><p><strong>Parte 7:</strong> Análise de trade-offs (20 min)</p></li>
+<li><p><strong>Parte 8:</strong> Relatório automatizado (10 min)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Definição de Estruturas de Dados</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Candidato</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Representa um candidato no sistema de recomendação.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id: Identificador único</span>
+<span class="sd">        experiencia_anos: Anos de experiência profissional</span>
+<span class="sd">        educacao: Nível educacional (0-4)</span>
+<span class="sd">        habilidades_tecnicas: Score 0-100</span>
+<span class="sd">        habilidades_soft: Score 0-100</span>
+<span class="sd">        genero: &#39;M&#39; ou &#39;F&#39; (atributo protegido)</span>
+<span class="sd">        etnia: Categoria étnica (atributo protegido)</span>
+<span class="sd">        idade: Idade em anos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">experiencia_anos</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">educacao</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># 0: Fund, 1: Médio, 2: Superior, 3: Mestrado, 4: Doutorado</span>
+    <span class="n">habilidades_tecnicas</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">habilidades_soft</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">genero</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># Atributo protegido</span>
+    <span class="n">etnia</span><span class="p">:</span> <span class="nb">str</span>   <span class="c1"># Atributo protegido</span>
+    <span class="n">idade</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Vaga</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Representa uma vaga de emprego.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id: Identificador único</span>
+<span class="sd">        requisito_exp_min: Anos mínimos de experiência</span>
+<span class="sd">        requisito_educacao: Nível educacional mínimo</span>
+<span class="sd">        requisito_habilidades_tecnicas: Score mínimo</span>
+<span class="sd">        salario: Faixa salarial oferecida</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">requisito_exp_min</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">requisito_educacao</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">requisito_habilidades_tecnicas</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">salario</span><span class="p">:</span> <span class="nb">float</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResultadoRecomendacao</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Resultado de uma recomendação.&quot;&quot;&quot;</span>
+    <span class="n">candidato_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">vaga_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">recomendado</span><span class="p">:</span> <span class="nb">bool</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✅ Estruturas definidas: Candidato, Vaga, ResultadoRecomendacao&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Estruturas definidas: Candidato, Vaga, ResultadoRecomendacao
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 1: Geração de Dataset com Vieses Históricos</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gerar_candidatos_com_vieses</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Candidato</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gera candidatos sintéticos com vieses históricos implícitos.</span>
+<span class="sd">    </span>
+<span class="sd">    Os vieses simulam padrões históricos reais:</span>
+<span class="sd">    - Mulheres têm, em média, menos anos de experiência devido a gaps de carreira</span>
+<span class="sd">    - Pessoas negras têm, em média, menor acesso a educação superior</span>
+<span class="sd">    - Habilidades correlacionadas com oportunidades desiguais</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        n: Número de candidatos a gerar</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Lista de objetos Candidato</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">candidatos</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1"># Atributos protegidos gerados primeiro</span>
+        <span class="n">genero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+        <span class="n">etnia</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+            <span class="p">[</span><span class="s1">&#39;Branca&#39;</span><span class="p">,</span> <span class="s1">&#39;Parda&#39;</span><span class="p">,</span> <span class="s1">&#39;Preta&#39;</span><span class="p">,</span> <span class="s1">&#39;Amarela&#39;</span><span class="p">,</span> <span class="s1">&#39;Indigena&#39;</span><span class="p">],</span>
+            <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
+        <span class="p">)</span>
+        
+        <span class="n">idade</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+        
+        <span class="c1"># VIÉS 1: Experiência afetada por gênero (gaps de carreira)</span>
+        <span class="n">exp_base</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">idade</span> <span class="o">-</span> <span class="mi">22</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">genero</span> <span class="o">==</span> <span class="s1">&#39;F&#39;</span><span class="p">:</span>
+            <span class="c1"># Mulheres: -15% experiência média (gaps de carreira)</span>
+            <span class="n">experiencia_anos</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">exp_base</span> <span class="o">*</span> <span class="mf">0.85</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">experiencia_anos</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">exp_base</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        
+        <span class="c1"># VIÉS 2: Educação afetada por etnia</span>
+        <span class="k">if</span> <span class="n">etnia</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Preta&#39;</span><span class="p">,</span> <span class="s1">&#39;Indigena&#39;</span><span class="p">]:</span>
+            <span class="n">educacao</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">etnia</span> <span class="o">==</span> <span class="s1">&#39;Parda&#39;</span><span class="p">:</span>
+            <span class="n">educacao</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Branca, Amarela</span>
+            <span class="n">educacao</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">])</span>
+        
+        <span class="c1"># Habilidades técnicas correlacionadas com educação e experiência</span>
+        <span class="n">hab_tec_base</span> <span class="o">=</span> <span class="p">(</span><span class="n">educacao</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">experiencia_anos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">habilidades_tecnicas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">hab_tec_base</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        
+        <span class="c1"># Habilidades soft: menos enviesadas</span>
+        <span class="n">habilidades_soft</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        
+        <span class="n">candidato</span> <span class="o">=</span> <span class="n">Candidato</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+            <span class="n">experiencia_anos</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">experiencia_anos</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">educacao</span><span class="o">=</span><span class="n">educacao</span><span class="p">,</span>
+            <span class="n">habilidades_tecnicas</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">habilidades_tecnicas</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">habilidades_soft</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">habilidades_soft</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">genero</span><span class="o">=</span><span class="n">genero</span><span class="p">,</span>
+            <span class="n">etnia</span><span class="o">=</span><span class="n">etnia</span><span class="p">,</span>
+            <span class="n">idade</span><span class="o">=</span><span class="n">idade</span>
+        <span class="p">)</span>
+        <span class="n">candidatos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">candidato</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">candidatos</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gerar_vagas</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Vaga</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gera vagas de emprego com requisitos variados.&quot;&quot;&quot;</span>
+    <span class="n">vagas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;junior&#39;</span><span class="p">,</span> <span class="s1">&#39;pleno&#39;</span><span class="p">,</span> <span class="s1">&#39;senior&#39;</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">nivel</span> <span class="o">==</span> <span class="s1">&#39;junior&#39;</span><span class="p">:</span>
+            <span class="n">exp_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">educacao_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span>
+            <span class="n">hab_tec_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="n">salario</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">6000</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">nivel</span> <span class="o">==</span> <span class="s1">&#39;pleno&#39;</span><span class="p">:</span>
+            <span class="n">exp_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+            <span class="n">educacao_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+            <span class="n">hab_tec_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="n">salario</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">6000</span><span class="p">,</span> <span class="mi">12000</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># senior</span>
+            <span class="n">exp_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">educacao_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+            <span class="n">hab_tec_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+            <span class="n">salario</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">12000</span><span class="p">,</span> <span class="mi">25000</span><span class="p">)</span>
+        
+        <span class="n">vaga</span> <span class="o">=</span> <span class="n">Vaga</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+            <span class="n">requisito_exp_min</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">exp_min</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">requisito_educacao</span><span class="o">=</span><span class="n">educacao_min</span><span class="p">,</span>
+            <span class="n">requisito_habilidades_tecnicas</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">hab_tec_min</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">salario</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">salario</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">vagas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vaga</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">vagas</span>
+
+<span class="c1"># Gerar dados</span>
+<span class="n">candidatos</span> <span class="o">=</span> <span class="n">gerar_candidatos_com_vieses</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">vagas</span> <span class="o">=</span> <span class="n">gerar_vagas</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># Converter para DataFrame para análise</span>
+<span class="n">df_candidatos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">asdict</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="p">])</span>
+<span class="n">df_vagas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">asdict</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vagas</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;✅ Gerados </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">candidatos</span><span class="p">)</span><span class="si">}</span><span class="s1"> candidatos e </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vagas</span><span class="p">)</span><span class="si">}</span><span class="s1"> vagas&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">📊 Distribuição por gênero:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_candidatos</span><span class="p">[</span><span class="s1">&#39;genero&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">📊 Distribuição por etnia:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_candidatos</span><span class="p">[</span><span class="s1">&#39;etnia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">📊 Experiência média por gênero (evidência de viés):&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_candidatos</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;genero&#39;</span><span class="p">)[</span><span class="s1">&#39;experiencia_anos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">📊 Educação superior (&gt;=2) por etnia:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">df_candidatos</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;etnia&#39;</span><span class="p">)[</span><span class="s1">&#39;educacao&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># Saída Esperada: Estatísticas evidenciando vieses históricos nos dados</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Gerados 1000 candidatos e 20 vagas
+
+📊 Distribuição por gênero:
+genero
+M    533
+F    467
+Name: count, dtype: int64
+
+📊 Distribuição por etnia:
+etnia
+Branca      441
+Parda       349
+Preta       163
+Amarela      33
+Indigena     14
+Name: count, dtype: int64
+
+📊 Experiência média por gênero (evidência de viés):
+genero
+F    16.66
+M    18.35
+Name: experiencia_anos, dtype: float64
+
+📊 Educação superior (&gt;=2) por etnia:
+etnia
+Amarela     84.8
+Branca      83.7
+Indigena    64.3
+Parda       70.8
+Preta       64.4
+Name: educacao, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 2: Demonstração da Lei de Goodhart</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness_cliques</span><span class="p">(</span><span class="n">candidato</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Métrica 1: Maximizar cliques.</span>
+<span class="sd">    </span>
+<span class="sd">    PROBLEMA: Candidatos MENOS qualificados clicam MAIS (desespero).</span>
+<span class="sd">    Otimizar para cliques incentiva recomendar para quem NÃO deveria.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gap_exp</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_exp_min</span> <span class="o">-</span> <span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="p">)</span>
+    <span class="n">gap_edu</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_educacao</span> <span class="o">-</span> <span class="n">candidato</span><span class="o">.</span><span class="n">educacao</span><span class="p">)</span>
+    <span class="n">gap_hab</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_habilidades_tecnicas</span> <span class="o">-</span> <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span><span class="p">)</span>
+    
+    <span class="c1"># Quanto MAIOR o gap, MAIOR o score (perverso!)</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span><span class="n">gap_exp</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="n">gap_edu</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">gap_hab</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness_contratacao</span><span class="p">(</span><span class="n">candidato</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Métrica 2: Maximizar taxa de contratação.</span>
+<span class="sd">    </span>
+<span class="sd">    PROBLEMA: Incentiva recomendar apenas overqualified (aposta segura),</span>
+<span class="sd">    perpetuando desigualdades.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bonus_exp</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span> <span class="o">-</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_exp_min</span><span class="p">)</span>
+    <span class="n">bonus_edu</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">educacao</span> <span class="o">-</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_educacao</span><span class="p">)</span>
+    <span class="n">bonus_hab</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span> <span class="o">-</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_habilidades_tecnicas</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="p">(</span><span class="n">bonus_exp</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="n">bonus_edu</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">bonus_hab</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness_fit_cultural</span><span class="p">(</span><span class="n">candidato</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Métrica 3: &#39;Fit cultural&#39; baseado em histórico.</span>
+<span class="sd">    </span>
+<span class="sd">    PROBLEMA: &#39;Fit cultural&#39; é proxy para &#39;similar a nós&#39;,</span>
+<span class="sd">    perpetuando homogeneidade via vieses implícitos.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mf">0.5</span>
+    
+    <span class="c1"># VIÉS: &#39;fit&#39; favorece grupos majoritários</span>
+    <span class="k">if</span> <span class="n">candidato</span><span class="o">.</span><span class="n">genero</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+    <span class="k">if</span> <span class="n">candidato</span><span class="o">.</span><span class="n">etnia</span> <span class="o">==</span> <span class="s1">&#39;Branca&#39;</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+    
+    <span class="n">score</span> <span class="o">+=</span> <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_soft</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="mf">0.3</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness_balanced</span><span class="p">(</span><span class="n">candidato</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Função balanceada (baseline).&quot;&quot;&quot;</span>
+    <span class="n">score_exp</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span> <span class="o">&gt;=</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_exp_min</span> <span class="k">else</span> <span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span> <span class="o">/</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_exp_min</span>
+    <span class="n">score_edu</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">candidato</span><span class="o">.</span><span class="n">educacao</span> <span class="o">&gt;=</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_educacao</span> <span class="k">else</span> <span class="mf">0.5</span>
+    <span class="n">score_hab</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span> <span class="o">&gt;=</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_habilidades_tecnicas</span> <span class="k">else</span> <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span> <span class="o">/</span> <span class="n">vaga</span><span class="o">.</span><span class="n">requisito_habilidades_tecnicas</span>
+    
+    <span class="k">return</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">score_exp</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">score_edu</span> <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">score_hab</span>
+
+<span class="c1"># Demonstração comparativa</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;🔬 Lei de Goodhart: Diferentes métricas → Diferentes comportamentos</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">vaga_teste</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vagas</span> <span class="k">if</span> <span class="mi">4</span> <span class="o">&lt;</span> <span class="n">v</span><span class="o">.</span><span class="n">requisito_exp_min</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cand_under</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidatos</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">experiencia_anos</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cand_qualified</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidatos</span> <span class="k">if</span> <span class="mi">3</span> <span class="o">&lt;</span> <span class="n">c</span><span class="o">.</span><span class="n">experiencia_anos</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cand_over</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidatos</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">experiencia_anos</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">resultados</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">nome</span><span class="p">,</span> <span class="n">cand</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;Underqualified&#39;</span><span class="p">,</span> <span class="n">cand_under</span><span class="p">),</span>
+                    <span class="p">(</span><span class="s1">&#39;Qualified&#39;</span><span class="p">,</span> <span class="n">cand_qualified</span><span class="p">),</span>
+                    <span class="p">(</span><span class="s1">&#39;Overqualified&#39;</span><span class="p">,</span> <span class="n">cand_over</span><span class="p">)]:</span>
+    <span class="n">resultados</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;Candidato&#39;</span><span class="p">:</span> <span class="n">nome</span><span class="p">,</span>
+        <span class="s1">&#39;Exp&#39;</span><span class="p">:</span> <span class="n">cand</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="p">,</span>
+        <span class="s1">&#39;Cliques&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">fitness_cliques</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga_teste</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s1">&#39;Contratação&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">fitness_contratacao</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga_teste</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s1">&#39;Fit Cultural&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">fitness_fit_cultural</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga_teste</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s1">&#39;Balanced&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">fitness_balanced</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga_teste</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Vaga: </span><span class="si">{</span><span class="n">vaga_teste</span><span class="o">.</span><span class="n">requisito_exp_min</span><span class="si">}</span><span class="s1"> anos exp mín.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">⚠️ OBSERVE os incentivos perversos de cada métrica!&#39;</span><span class="p">)</span>
+<span class="c1"># Saída Esperada: Tabela mostrando comportamentos contraditórios por métrica</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔬 Lei de Goodhart: Diferentes métricas → Diferentes comportamentos
+
+Vaga: 5.9 anos exp mín.
+     Candidato  Exp  Cliques  Contratação  Fit Cultural  Balanced
+Underqualified  0.6    0.217        0.700         0.966     0.648
+     Qualified  3.2    0.016        0.709         0.875     0.863
+ Overqualified 29.8    0.000        0.749         0.859     1.000
+
+⚠️ OBSERVE os incentivos perversos de cada métrica!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 3: Implementação de Métricas de Fairness</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calcular_demographic_parity</span><span class="p">(</span><span class="n">recomendacoes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ResultadoRecomendacao</span><span class="p">],</span> 
+                                <span class="n">candidatos</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Candidato</span><span class="p">],</span>
+                                <span class="n">atributo_protegido</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula Demographic Parity: taxa de recomendações deve ser igual entre grupos.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        recomendacoes: Lista de resultados</span>
+<span class="sd">        candidatos: Lista de candidatos</span>
+<span class="sd">        atributo_protegido: &#39;genero&#39; ou &#39;etnia&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dicionário com taxas por grupo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cand_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="p">}</span>
+    <span class="n">grupos</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;recomendados&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+    
+    <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">recomendacoes</span><span class="p">:</span>
+        <span class="n">cand</span> <span class="o">=</span> <span class="n">cand_map</span><span class="p">[</span><span class="n">rec</span><span class="o">.</span><span class="n">candidato_id</span><span class="p">]</span>
+        <span class="n">grupo</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">atributo_protegido</span><span class="p">)</span>
+        <span class="n">grupos</span><span class="p">[</span><span class="n">grupo</span><span class="p">][</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">rec</span><span class="o">.</span><span class="n">recomendado</span><span class="p">:</span>
+            <span class="n">grupos</span><span class="p">[</span><span class="n">grupo</span><span class="p">][</span><span class="s1">&#39;recomendados&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="n">taxas</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">grupo</span><span class="p">,</span> <span class="n">stats</span> <span class="ow">in</span> <span class="n">grupos</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">taxas</span><span class="p">[</span><span class="n">grupo</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;recomendados&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+    
+    <span class="k">return</span> <span class="n">taxas</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calcular_disparate_impact</span><span class="p">(</span><span class="n">taxas</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula disparate impact: razão entre menor e maior taxa.</span>
+<span class="sd">    </span>
+<span class="sd">    Valor &gt;= 0.8 é considerado aceitável pela regra dos 80%.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Valor entre 0 e 1 (1 = perfeita paridade)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">taxas</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">taxas</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span>
+    
+    <span class="n">valores</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">taxas</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">min_taxa</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">valores</span><span class="p">)</span>
+    <span class="n">max_taxa</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">valores</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">max_taxa</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span>
+    
+    <span class="k">return</span> <span class="n">min_taxa</span> <span class="o">/</span> <span class="n">max_taxa</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calcular_individual_fairness</span><span class="p">(</span><span class="n">candidato1</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">candidato2</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span>
+                                 <span class="n">score1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">score2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula Individual Fairness: candidatos similares devem ter scores similares.</span>
+<span class="sd">    </span>
+<span class="sd">    Usa distância euclidiana normalizada de atributos não-protegidos.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Diferença entre similaridade e diferença de scores (0 = perfeitamente fair)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Similaridade baseada em atributos não-protegidos</span>
+    <span class="n">diff_exp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">candidato1</span><span class="o">.</span><span class="n">experiencia_anos</span> <span class="o">-</span> <span class="n">candidato2</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="p">)</span> <span class="o">/</span> <span class="mi">40</span>  <span class="c1"># normalizado por max</span>
+    <span class="n">diff_edu</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">candidato1</span><span class="o">.</span><span class="n">educacao</span> <span class="o">-</span> <span class="n">candidato2</span><span class="o">.</span><span class="n">educacao</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span>
+    <span class="n">diff_hab_tec</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">candidato1</span><span class="o">.</span><span class="n">habilidades_tecnicas</span> <span class="o">-</span> <span class="n">candidato2</span><span class="o">.</span><span class="n">habilidades_tecnicas</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+    <span class="n">diff_hab_soft</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">candidato1</span><span class="o">.</span><span class="n">habilidades_soft</span> <span class="o">-</span> <span class="n">candidato2</span><span class="o">.</span><span class="n">habilidades_soft</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+    
+    <span class="n">similaridade</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">diff_exp</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">diff_edu</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">diff_hab_tec</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">diff_hab_soft</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">diff_score</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">score1</span> <span class="o">-</span> <span class="n">score2</span><span class="p">)</span>
+    
+    <span class="c1"># Se candidatos são similares, scores devem ser similares</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">similaridade</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">diff_score</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calcular_counterfactual_fairness</span><span class="p">(</span><span class="n">candidato</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">,</span>
+                                     <span class="n">fitness_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula Counterfactual Fairness: score não deve mudar se mudarmos atributo protegido.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        candidato: Candidato original</span>
+<span class="sd">        vaga: Vaga avaliada</span>
+<span class="sd">        fitness_func: Função de fitness a testar</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Diferença máxima de score entre contrafactuais (0 = perfeitamente fair)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">score_original</span> <span class="o">=</span> <span class="n">fitness_func</span><span class="p">(</span><span class="n">candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">score_original</span><span class="p">]</span>
+    
+    <span class="c1"># Criar contrafactuais variando gênero</span>
+    <span class="k">for</span> <span class="n">genero</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">]:</span>
+        <span class="n">cand_cf</span> <span class="o">=</span> <span class="n">Candidato</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="n">experiencia_anos</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="p">,</span>
+            <span class="n">educacao</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">educacao</span><span class="p">,</span>
+            <span class="n">habilidades_tecnicas</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span><span class="p">,</span>
+            <span class="n">habilidades_soft</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_soft</span><span class="p">,</span>
+            <span class="n">genero</span><span class="o">=</span><span class="n">genero</span><span class="p">,</span>  <span class="c1"># Variando</span>
+            <span class="n">etnia</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">etnia</span><span class="p">,</span>
+            <span class="n">idade</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">idade</span>
+        <span class="p">)</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fitness_func</span><span class="p">(</span><span class="n">cand_cf</span><span class="p">,</span> <span class="n">vaga</span><span class="p">))</span>
+    
+    <span class="c1"># Criar contrafactuais variando etnia</span>
+    <span class="k">for</span> <span class="n">etnia</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Branca&#39;</span><span class="p">,</span> <span class="s1">&#39;Parda&#39;</span><span class="p">,</span> <span class="s1">&#39;Preta&#39;</span><span class="p">]:</span>
+        <span class="n">cand_cf</span> <span class="o">=</span> <span class="n">Candidato</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="n">experiencia_anos</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="p">,</span>
+            <span class="n">educacao</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">educacao</span><span class="p">,</span>
+            <span class="n">habilidades_tecnicas</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span><span class="p">,</span>
+            <span class="n">habilidades_soft</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_soft</span><span class="p">,</span>
+            <span class="n">genero</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">genero</span><span class="p">,</span>
+            <span class="n">etnia</span><span class="o">=</span><span class="n">etnia</span><span class="p">,</span>  <span class="c1"># Variando</span>
+            <span class="n">idade</span><span class="o">=</span><span class="n">candidato</span><span class="o">.</span><span class="n">idade</span>
+        <span class="p">)</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fitness_func</span><span class="p">(</span><span class="n">cand_cf</span><span class="p">,</span> <span class="n">vaga</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✅ Métricas de fairness implementadas:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - Demographic Parity (paridade demográfica)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - Disparate Impact (impacto desproporcional)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - Individual Fairness (justiça individual)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - Counterfactual Fairness (justiça contrafactual)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Métricas de fairness implementadas:
+  - Demographic Parity (paridade demográfica)
+  - Disparate Impact (impacto desproporcional)
+  - Individual Fairness (justiça individual)
+  - Counterfactual Fairness (justiça contrafactual)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 4: Framework de Auditoria Ética</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">realizar_auditoria_etica</span><span class="p">(</span><span class="n">fitness_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+                             <span class="n">candidatos</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Candidato</span><span class="p">],</span>
+                             <span class="n">vagas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Vaga</span><span class="p">],</span>
+                             <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Realiza auditoria ética completa de uma função de fitness.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        fitness_func: Função de fitness a auditar</span>
+<span class="sd">        candidatos: Lista de candidatos</span>
+<span class="sd">        vagas: Lista de vagas</span>
+<span class="sd">        threshold: Limiar para considerar recomendado</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Relatório completo de auditoria</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Gerar recomendações</span>
+    <span class="n">recomendacoes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">cand</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="p">[:</span><span class="mi">100</span><span class="p">]:</span>  <span class="c1"># Sample para performance</span>
+        <span class="k">for</span> <span class="n">vaga</span> <span class="ow">in</span> <span class="n">vagas</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>  <span class="c1"># Sample de vagas</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">fitness_func</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga</span><span class="p">)</span>
+            <span class="n">recomendacoes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ResultadoRecomendacao</span><span class="p">(</span>
+                <span class="n">candidato_id</span><span class="o">=</span><span class="n">cand</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="n">vaga_id</span><span class="o">=</span><span class="n">vaga</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="n">score</span><span class="o">=</span><span class="n">score</span><span class="p">,</span>
+                <span class="n">recomendado</span><span class="o">=</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="n">threshold</span>
+            <span class="p">))</span>
+    
+    <span class="c1"># Calcular métricas de fairness</span>
+    <span class="n">taxas_genero</span> <span class="o">=</span> <span class="n">calcular_demographic_parity</span><span class="p">(</span><span class="n">recomendacoes</span><span class="p">,</span> <span class="n">candidatos</span><span class="p">,</span> <span class="s1">&#39;genero&#39;</span><span class="p">)</span>
+    <span class="n">taxas_etnia</span> <span class="o">=</span> <span class="n">calcular_demographic_parity</span><span class="p">(</span><span class="n">recomendacoes</span><span class="p">,</span> <span class="n">candidatos</span><span class="p">,</span> <span class="s1">&#39;etnia&#39;</span><span class="p">)</span>
+    
+    <span class="n">di_genero</span> <span class="o">=</span> <span class="n">calcular_disparate_impact</span><span class="p">(</span><span class="n">taxas_genero</span><span class="p">)</span>
+    <span class="n">di_etnia</span> <span class="o">=</span> <span class="n">calcular_disparate_impact</span><span class="p">(</span><span class="n">taxas_etnia</span><span class="p">)</span>
+    
+    <span class="c1"># Counterfactual fairness (sample)</span>
+    <span class="n">cf_scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">cand</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="p">[:</span><span class="mi">20</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">vaga</span> <span class="ow">in</span> <span class="n">vagas</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+            <span class="n">cf_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calcular_counterfactual_fairness</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga</span><span class="p">,</span> <span class="n">fitness_func</span><span class="p">))</span>
+    
+    <span class="n">cf_media</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cf_scores</span><span class="p">)</span>
+    <span class="n">cf_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cf_scores</span><span class="p">)</span>
+    
+    <span class="n">relatorio</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;demographic_parity&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;genero&#39;</span><span class="p">:</span> <span class="n">taxas_genero</span><span class="p">,</span>
+            <span class="s1">&#39;etnia&#39;</span><span class="p">:</span> <span class="n">taxas_etnia</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;disparate_impact&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;genero&#39;</span><span class="p">:</span> <span class="n">di_genero</span><span class="p">,</span>
+            <span class="s1">&#39;etnia&#39;</span><span class="p">:</span> <span class="n">di_etnia</span><span class="p">,</span>
+            <span class="s1">&#39;genero_aprovado&#39;</span><span class="p">:</span> <span class="n">di_genero</span> <span class="o">&gt;=</span> <span class="mf">0.8</span><span class="p">,</span>
+            <span class="s1">&#39;etnia_aprovado&#39;</span><span class="p">:</span> <span class="n">di_etnia</span> <span class="o">&gt;=</span> <span class="mf">0.8</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;counterfactual_fairness&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;media&#39;</span><span class="p">:</span> <span class="n">cf_media</span><span class="p">,</span>
+            <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="n">cf_max</span><span class="p">,</span>
+            <span class="s1">&#39;aprovado&#39;</span><span class="p">:</span> <span class="n">cf_max</span> <span class="o">&lt;</span> <span class="mf">0.1</span>  <span class="c1"># Diferença &lt; 10% considerada aceitável</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;total_recomendacoes&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">recomendacoes</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">recomendado</span><span class="p">]),</span>
+        <span class="s1">&#39;avaliacao_geral&#39;</span><span class="p">:</span> <span class="s1">&#39;APROVADO&#39;</span> <span class="k">if</span> <span class="p">(</span><span class="n">di_genero</span> <span class="o">&gt;=</span> <span class="mf">0.8</span> <span class="ow">and</span> <span class="n">di_etnia</span> <span class="o">&gt;=</span> <span class="mf">0.8</span> <span class="ow">and</span> <span class="n">cf_max</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;REPROVADO&#39;</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">relatorio</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✅ Framework de auditoria ética implementado&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">🔍 Testando as funções de fitness problemáticas...</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Auditar cada função</span>
+<span class="n">funcoes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;Cliques&#39;</span><span class="p">,</span> <span class="n">fitness_cliques</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Contratação&#39;</span><span class="p">,</span> <span class="n">fitness_contratacao</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Fit Cultural&#39;</span><span class="p">,</span> <span class="n">fitness_fit_cultural</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Balanced&#39;</span><span class="p">,</span> <span class="n">fitness_balanced</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">nome</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">funcoes</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;📋 Auditoria: </span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="n">relatorio</span> <span class="o">=</span> <span class="n">realizar_auditoria_etica</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">candidatos</span><span class="p">,</span> <span class="n">vagas</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Disparate Impact (Gênero): </span><span class="si">{</span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;genero&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;✅&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;genero_aprovado&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;❌&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Disparate Impact (Etnia): </span><span class="si">{</span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;etnia&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;✅&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;etnia_aprovado&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;❌&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Counterfactual Fairness (max): </span><span class="si">{</span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;counterfactual_fairness&#39;</span><span class="p">][</span><span class="s1">&#39;max&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;✅&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;counterfactual_fairness&#39;</span><span class="p">][</span><span class="s1">&#39;aprovado&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;❌&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🏆 Avaliação Geral: </span><span class="si">{</span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;avaliacao_geral&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">⚠️ Observe como diferentes funções violam diferentes critérios de fairness!&#39;</span><span class="p">)</span>
+<span class="c1"># Saída Esperada: Relatórios mostrando violações éticas em cada função</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Framework de auditoria ética implementado
+
+🔍 Testando as funções de fitness problemáticas...
+
+
+============================================================
+📋 Auditoria: Cliques
+============================================================
+
+Disparate Impact (Gênero): 0.675 ❌
+Disparate Impact (Etnia): 0.000 ❌
+Counterfactual Fairness (max): 0.000 ✅
+
+🏆 Avaliação Geral: REPROVADO
+
+============================================================
+📋 Auditoria: Contratação
+============================================================
+
+Disparate Impact (Gênero): 1.000 ✅
+Disparate Impact (Etnia): 1.000 ✅
+Counterfactual Fairness (max): 0.000 ✅
+
+🏆 Avaliação Geral: APROVADO
+
+============================================================
+📋 Auditoria: Fit Cultural
+============================================================
+
+Disparate Impact (Gênero): 1.000 ✅
+Disparate Impact (Etnia): 1.000 ✅
+Counterfactual Fairness (max): 0.375 ❌
+
+🏆 Avaliação Geral: REPROVADO
+
+============================================================
+📋 Auditoria: Balanced
+============================================================
+
+Disparate Impact (Gênero): 0.998 ✅
+Disparate Impact (Etnia): 0.950 ✅
+Counterfactual Fairness (max): 0.000 ✅
+
+🏆 Avaliação Geral: APROVADO
+
+⚠️ Observe como diferentes funções violam diferentes critérios de fairness!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 5: Red Team Exercise - Ataques Adversariais</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gaming_attack</span><span class="p">(</span><span class="n">fitness_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">,</span> 
+                  <span class="n">atributos_protegidos</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Candidato</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ataque de gaming: criar perfil sintético que maximiza score injustamente.</span>
+<span class="sd">    </span>
+<span class="sd">    Usa algoritmo genético para encontrar candidato &#39;ótimo&#39; com</span>
+<span class="sd">    atributos protegidos fixos.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        fitness_func: Função alvo</span>
+<span class="sd">        vaga: Vaga alvo</span>
+<span class="sd">        atributos_protegidos: Dict com genero e etnia fixos</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Candidato otimizado para &#39;gaming&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Setup DEAP</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">creator</span><span class="p">,</span> <span class="s1">&#39;FitnessMax&#39;</span><span class="p">):</span>
+        <span class="k">del</span> <span class="n">creator</span><span class="o">.</span><span class="n">FitnessMax</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">creator</span><span class="p">,</span> <span class="s1">&#39;Individual&#39;</span><span class="p">):</span>
+        <span class="k">del</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span>
+    
+    <span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;FitnessMax&#39;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,))</span>
+    <span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;Individual&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMax</span><span class="p">)</span>
+    
+    <span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+    
+    <span class="c1"># Genes: [experiencia, educacao, hab_tec, hab_soft, idade]</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;exp&#39;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;edu&#39;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;hab_tec&#39;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;hab_soft&#39;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;idade&#39;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+    
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;individual&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initCycle</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">,</span>
+                     <span class="p">(</span><span class="n">toolbox</span><span class="o">.</span><span class="n">exp</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">edu</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">hab_tec</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">hab_soft</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">idade</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">eval_gaming</span><span class="p">(</span><span class="n">individual</span><span class="p">):</span>
+        <span class="n">cand</span> <span class="o">=</span> <span class="n">Candidato</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="mi">9999</span><span class="p">,</span>
+            <span class="n">experiencia_anos</span><span class="o">=</span><span class="n">individual</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">educacao</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">individual</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">habilidades_tecnicas</span><span class="o">=</span><span class="n">individual</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">habilidades_soft</span><span class="o">=</span><span class="n">individual</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="n">genero</span><span class="o">=</span><span class="n">atributos_protegidos</span><span class="p">[</span><span class="s1">&#39;genero&#39;</span><span class="p">],</span>
+            <span class="n">etnia</span><span class="o">=</span><span class="n">atributos_protegidos</span><span class="p">[</span><span class="s1">&#39;etnia&#39;</span><span class="p">],</span>
+            <span class="n">idade</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">individual</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">fitness_func</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga</span><span class="p">),)</span>
+    
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;evaluate&#39;</span><span class="p">,</span> <span class="n">eval_gaming</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;mate&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxTwoPoint</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;mutate&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutGaussian</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span> <span class="n">tournsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="c1"># Evoluir</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mutpb</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ngen</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="c1"># Melhor indivíduo</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">selBest</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Candidato</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="mi">9999</span><span class="p">,</span>
+        <span class="n">experiencia_anos</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">educacao</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">habilidades_tecnicas</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">habilidades_soft</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">genero</span><span class="o">=</span><span class="n">atributos_protegidos</span><span class="p">[</span><span class="s1">&#39;genero&#39;</span><span class="p">],</span>
+        <span class="n">etnia</span><span class="o">=</span><span class="n">atributos_protegidos</span><span class="p">[</span><span class="s1">&#39;etnia&#39;</span><span class="p">],</span>
+        <span class="n">idade</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;🚨 Red Team Exercise: Testando vulnerabilidades</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">vaga_alvo</span> <span class="o">=</span> <span class="n">vagas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Vaga alvo: </span><span class="si">{</span><span class="n">vaga_alvo</span><span class="o">.</span><span class="n">requisito_exp_min</span><span class="si">}</span><span class="s1"> anos, edu </span><span class="si">{</span><span class="n">vaga_alvo</span><span class="o">.</span><span class="n">requisito_educacao</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Testar gaming attack na função de &#39;Fit Cultural&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">🎯 Gaming Attack na função &quot;Fit Cultural&quot; (enviesada)...&#39;</span><span class="p">)</span>
+<span class="n">perfil_gaming</span> <span class="o">=</span> <span class="n">gaming_attack</span><span class="p">(</span>
+    <span class="n">fitness_fit_cultural</span><span class="p">,</span>
+    <span class="n">vaga_alvo</span><span class="p">,</span>
+    <span class="p">{</span><span class="s1">&#39;genero&#39;</span><span class="p">:</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;etnia&#39;</span><span class="p">:</span> <span class="s1">&#39;Preta&#39;</span><span class="p">}</span>  <span class="c1"># Grupo desfavorecido</span>
+<span class="p">)</span>
+
+<span class="n">score_gaming</span> <span class="o">=</span> <span class="n">fitness_fit_cultural</span><span class="p">(</span><span class="n">perfil_gaming</span><span class="p">,</span> <span class="n">vaga_alvo</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Perfil otimizado (gaming): Exp=</span><span class="si">{</span><span class="n">perfil_gaming</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="si">}</span><span class="s1">, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;Edu=</span><span class="si">{</span><span class="n">perfil_gaming</span><span class="o">.</span><span class="n">educacao</span><span class="si">}</span><span class="s1">, Hab Tec=</span><span class="si">{</span><span class="n">perfil_gaming</span><span class="o">.</span><span class="n">habilidades_tecnicas</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Score obtido: </span><span class="si">{</span><span class="n">score_gaming</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Comparar com candidato real equivalente</span>
+<span class="n">real_similar</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidatos</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">genero</span> <span class="o">==</span> <span class="s1">&#39;F&#39;</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">etnia</span> <span class="o">==</span> <span class="s1">&#39;Preta&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">score_real</span> <span class="o">=</span> <span class="n">fitness_fit_cultural</span><span class="p">(</span><span class="n">real_similar</span><span class="p">,</span> <span class="n">vaga_alvo</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Candidato real similar: Score=</span><span class="si">{</span><span class="n">score_real</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">⚠️ Ganho com gaming: </span><span class="si">{</span><span class="p">((</span><span class="n">score_gaming</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">score_real</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">score_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">💡 Insight: Gaming attacks expõem como funções podem ser manipuladas!&#39;</span><span class="p">)</span>
+<span class="c1"># Saída Esperada: Perfil sintético com score artificialmente inflado</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🚨 Red Team Exercise: Testando vulnerabilidades
+
+Vaga alvo: 9.9 anos, edu 2
+
+🎯 Gaming Attack na função &quot;Fit Cultural&quot; (enviesada)...
+
+Perfil otimizado (gaming): Exp=32.3, Edu=5, Hab Tec=40.5
+Score obtido: 0.896
+
+Candidato real similar: Score=0.750
+
+⚠️ Ganho com gaming: 19.3%
+
+💡 Insight: Gaming attacks expõem como funções podem ser manipuladas!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 6: Estratégias de Mitigação</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness_constraint_based</span><span class="p">(</span><span class="n">candidato</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Approach 1: Constraint-Based Optimization.&quot;&quot;&quot;</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">fitness_balanced</span><span class="p">(</span><span class="n">candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">)</span>
+    <span class="n">scores_cf</span> <span class="o">=</span> <span class="p">[</span><span class="n">score</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">gen</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">]:</span>
+        <span class="n">cand_cf</span> <span class="o">=</span> <span class="n">Candidato</span><span class="p">(</span>
+            <span class="n">candidato</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">educacao</span><span class="p">,</span>
+            <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_soft</span><span class="p">,</span>
+            <span class="n">gen</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">etnia</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">idade</span>
+        <span class="p">)</span>
+        <span class="n">scores_cf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fitness_balanced</span><span class="p">(</span><span class="n">cand_cf</span><span class="p">,</span> <span class="n">vaga</span><span class="p">))</span>
+    <span class="n">variacao</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores_cf</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">scores_cf</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">variacao</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">*=</span> <span class="mf">0.5</span>
+    <span class="k">return</span> <span class="n">score</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fitness_adversarial_debiasing</span><span class="p">(</span><span class="n">candidato</span><span class="p">:</span> <span class="n">Candidato</span><span class="p">,</span> <span class="n">vaga</span><span class="p">:</span> <span class="n">Vaga</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Approach 2: Adversarial Debiasing - marginaliza atributos protegidos.&quot;&quot;&quot;</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">gen</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">etn</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Branca&#39;</span><span class="p">,</span> <span class="s1">&#39;Parda&#39;</span><span class="p">,</span> <span class="s1">&#39;Preta&#39;</span><span class="p">]:</span>
+            <span class="n">cand_debiased</span> <span class="o">=</span> <span class="n">Candidato</span><span class="p">(</span>
+                <span class="n">candidato</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">experiencia_anos</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">educacao</span><span class="p">,</span>
+                <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_tecnicas</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">habilidades_soft</span><span class="p">,</span>
+                <span class="n">gen</span><span class="p">,</span> <span class="n">etn</span><span class="p">,</span> <span class="n">candidato</span><span class="o">.</span><span class="n">idade</span>
+            <span class="p">)</span>
+            <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fitness_balanced</span><span class="p">(</span><span class="n">cand_debiased</span><span class="p">,</span> <span class="n">vaga</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✅ Estratégias de mitigação implementadas&#39;</span><span class="p">)</span>
+<span class="n">cand_teste</span> <span class="o">=</span> <span class="n">candidatos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">vaga_teste</span> <span class="o">=</span> <span class="n">vagas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Teste com </span><span class="si">{</span><span class="n">cand_teste</span><span class="o">.</span><span class="n">genero</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">cand_teste</span><span class="o">.</span><span class="n">etnia</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Balanced:              </span><span class="si">{</span><span class="n">fitness_balanced</span><span class="p">(</span><span class="n">cand_teste</span><span class="p">,</span><span class="w"> </span><span class="n">vaga_teste</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Constraint-Based:      </span><span class="si">{</span><span class="n">fitness_constraint_based</span><span class="p">(</span><span class="n">cand_teste</span><span class="p">,</span><span class="w"> </span><span class="n">vaga_teste</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Adversarial Debiasing: </span><span class="si">{</span><span class="n">fitness_adversarial_debiasing</span><span class="p">(</span><span class="n">cand_teste</span><span class="p">,</span><span class="w"> </span><span class="n">vaga_teste</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># Saída Esperada: Scores mostrando efeito de cada mitigação</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Estratégias de mitigação implementadas
+
+Teste com M, Amarela:
+  Balanced:              0.621
+  Constraint-Based:      0.621
+  Adversarial Debiasing: 0.621
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 7: Análise de Trade-offs</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">analisar_tradeoffs</span><span class="p">():</span>
+    <span class="n">abordagens</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;Balanced&#39;</span><span class="p">,</span> <span class="n">fitness_balanced</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Fit Cultural (Enviesado)&#39;</span><span class="p">,</span> <span class="n">fitness_fit_cultural</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Constraint-Based&#39;</span><span class="p">,</span> <span class="n">fitness_constraint_based</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Adversarial Debiasing&#39;</span><span class="p">,</span> <span class="n">fitness_adversarial_debiasing</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">resultados</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">nome</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">abordagens</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Analisando: </span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">)</span>
+        <span class="n">relatorio</span> <span class="o">=</span> <span class="n">realizar_auditoria_etica</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">candidatos</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">vagas</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+        <span class="n">scores_perf</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cand</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="p">[:</span><span class="mi">50</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">vaga</span> <span class="ow">in</span> <span class="n">vagas</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="n">scores_perf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">cand</span><span class="p">,</span> <span class="n">vaga</span><span class="p">))</span>
+        <span class="n">resultados</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Abordagem&#39;</span><span class="p">:</span> <span class="n">nome</span><span class="p">,</span>
+            <span class="s1">&#39;DI Gênero&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;genero&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s1">&#39;DI Etnia&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;etnia&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s1">&#39;CF Max&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;counterfactual_fairness&#39;</span><span class="p">][</span><span class="s1">&#39;max&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s1">&#39;Performance&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores_perf</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="n">relatorio</span><span class="p">[</span><span class="s1">&#39;avaliacao_geral&#39;</span><span class="p">]</span>
+        <span class="p">})</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ANÁLISE COMPARATIVA DE TRADE-OFFS&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">💡 Observe o trade-off fundamental entre performance e fairness!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">df_analise</span> <span class="o">=</span> <span class="n">analisar_tradeoffs</span><span class="p">()</span>
+<span class="c1"># Saída Esperada: Tabela comparativa de todas as abordagens</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Analisando: Balanced...
+Analisando: Fit Cultural (Enviesado)...
+Analisando: Constraint-Based...
+Analisando: Adversarial Debiasing...
+
+======================================================================
+ANÁLISE COMPARATIVA DE TRADE-OFFS
+======================================================================
+               Abordagem  DI Gênero  DI Etnia  CF Max  Performance    Status
+                Balanced      0.998      0.95   0.000        0.878  APROVADO
+Fit Cultural (Enviesado)      1.000      1.00   0.375        0.869 REPROVADO
+        Constraint-Based      0.998      0.95   0.000        0.878  APROVADO
+   Adversarial Debiasing      0.998      0.95   0.000        0.878  APROVADO
+
+💡 Observe o trade-off fundamental entre performance e fairness!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parte 8: Relatório de Auditoria Ética Automatizado</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gerar_relatorio_final</span><span class="p">(</span><span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fitness_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">rel</span> <span class="o">=</span> <span class="n">realizar_auditoria_etica</span><span class="p">(</span><span class="n">fitness_func</span><span class="p">,</span> <span class="n">candidatos</span><span class="p">,</span> <span class="n">vagas</span><span class="p">)</span>
+    
+    <span class="n">md</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;# RELATÓRIO DE AUDITORIA ÉTICA</span><span class="se">\n</span><span class="s1">## </span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;**Avaliação Geral:** </span><span class="si">{</span><span class="n">rel</span><span class="p">[</span><span class="s1">&#39;avaliacao_geral&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;### Métricas de Fairness:</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;- Disparate Impact (Gênero): </span><span class="si">{</span><span class="n">rel</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;genero&#39;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39; (</span><span class="si">{</span><span class="s1">&#39;✅&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">rel</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;genero_aprovado&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;❌&#39;</span><span class="si">}</span><span class="s1">)</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;- Disparate Impact (Etnia): </span><span class="si">{</span><span class="n">rel</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;etnia&#39;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39; (</span><span class="si">{</span><span class="s1">&#39;✅&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">rel</span><span class="p">[</span><span class="s1">&#39;disparate_impact&#39;</span><span class="p">][</span><span class="s1">&#39;etnia_aprovado&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;❌&#39;</span><span class="si">}</span><span class="s1">)</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;- Counterfactual Fairness: </span><span class="si">{</span><span class="n">rel</span><span class="p">[</span><span class="s1">&#39;counterfactual_fairness&#39;</span><span class="p">][</span><span class="s1">&#39;max&#39;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">md</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39; (</span><span class="si">{</span><span class="s1">&#39;✅&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">rel</span><span class="p">[</span><span class="s1">&#39;counterfactual_fairness&#39;</span><span class="p">][</span><span class="s1">&#39;aprovado&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;❌&#39;</span><span class="si">}</span><span class="s1">)</span><span class="se">\n\n</span><span class="s1">&#39;&#39;&#39;</span>
+    
+    <span class="k">if</span> <span class="n">rel</span><span class="p">[</span><span class="s1">&#39;avaliacao_geral&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;REPROVADO&#39;</span><span class="p">:</span>
+        <span class="n">md</span> <span class="o">+=</span> <span class="s1">&#39;&#39;&#39;### Recomendações:</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+        <span class="n">md</span> <span class="o">+=</span> <span class="s1">&#39;&#39;&#39;1. Implementar constraint-based mitigation</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+        <span class="n">md</span> <span class="o">+=</span> <span class="s1">&#39;&#39;&#39;2. Considerar multi-objective optimization</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+        <span class="n">md</span> <span class="o">+=</span> <span class="s1">&#39;&#39;&#39;3. Aplicar adversarial debiasing</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+        <span class="n">md</span> <span class="o">+=</span> <span class="s1">&#39;&#39;&#39;4. Estabelecer monitoramento contínuo</span><span class="se">\n</span><span class="s1">&#39;&#39;&#39;</span>
+    
+    <span class="k">return</span> <span class="n">md</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;📄 Gerando relatório de auditoria ética...</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">relatorio</span> <span class="o">=</span> <span class="n">gerar_relatorio_final</span><span class="p">(</span>
+    <span class="s1">&#39;Sistema de Recomendação - Fit Cultural&#39;</span><span class="p">,</span>
+    <span class="n">fitness_fit_cultural</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">relatorio</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">✅ Auditoria ética completa!&#39;</span><span class="p">)</span>
+<span class="c1"># Saída Esperada: Relatório profissional em Markdown</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📄 Gerando relatório de auditoria ética...
+
+# RELATÓRIO DE AUDITORIA ÉTICA
+## Sistema de Recomendação - Fit Cultural
+
+**Avaliação Geral:** REPROVADO
+
+### Métricas de Fairness:
+- Disparate Impact (Gênero): 1.000 (✅)
+- Disparate Impact (Etnia): 1.000 (✅)
+- Counterfactual Fairness: 0.375 (❌)
+
+### Recomendações:
+1. Implementar constraint-based mitigation
+2. Considerar multi-objective optimization
+3. Aplicar adversarial debiasing
+4. Estabelecer monitoramento contínuo
+
+
+✅ Auditoria ética completa!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusoes-e-proximos-passos">
+<h2>🎓 Conclusões e Próximos Passos<a class="headerlink" href="#conclusoes-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="o-que-aprendemos">
+<h3>O que aprendemos:<a class="headerlink" href="#o-que-aprendemos" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>A Lei de Goodhart é real:</strong> Métricas otimizadas podem ter consequências não intencionais</p></li>
+<li><p><strong>Fairness é multidimensional:</strong> Múltiplas métricas capturam aspectos diferentes</p></li>
+<li><p><strong>Red team é essencial:</strong> Testes adversariais revelam vulnerabilidades</p></li>
+<li><p><strong>Mitigações têm custos:</strong> Trade-off fundamental entre performance e fairness</p></li>
+</ol>
+</section>
+<section id="checklist-para-seus-projetos">
+<h3>Checklist para seus projetos:<a class="headerlink" href="#checklist-para-seus-projetos" title="Link to this heading">#</a></h3>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Testar demographic parity e counterfactual fairness</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Realizar red team exercises</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Documentar trade-offs entre performance e ética</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Estabelecer monitoramento contínuo de fairness</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Agendar re-auditorias periódicas</p></li>
+</ul>
+</section>
+<section id="recursos">
+<h3>Recursos:<a class="headerlink" href="#recursos" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Livros:</strong> “Fairness and Machine Learning” (<a class="reference external" href="http://fairmlbook.org">fairmlbook.org</a>)</p></li>
+<li><p><strong>Ferramentas:</strong> AI Fairness 360 (IBM), Fairlearn (Microsoft)</p></li>
+<li><p><strong>Regulações:</strong> EU AI Act, GDPR Article 22</p></li>
+</ul>
+</section>
+<section id="mensagem-final">
+<h3>Mensagem final:<a class="headerlink" href="#mensagem-final" title="Link to this heading">#</a></h3>
+<p>Como engenheiro de otimização, você tem poder sobre sistemas que afetam vidas.<br />
+<strong>Não basta não ser enviesado - é preciso ser anti-viés.</strong><br />
+Construa sistemas que tornem o mundo melhor. 🚀</p>
+<hr class="docutils" />
+<p><strong>Aula 14 - Workshop Prático de Ética em Otimização</strong><br />
+<strong>Duração:</strong> 3.5 horas | <strong>Nível:</strong> Avançado</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-14-etica-lado-sombrio-otimizacao"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../aula-15-16-projeto-final-desenvolvimento/README.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contexto-e-objetivo">Contexto e Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-voce-vai-aprender">O que você vai aprender:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrutura-do-workshop-210-min">Estrutura do Workshop (210 min)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusoes-e-proximos-passos">🎓 Conclusões e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-aprendemos">O que aprendemos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checklist-para-seus-projetos">Checklist para seus projetos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos">Recursos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mensagem-final">Mensagem final:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

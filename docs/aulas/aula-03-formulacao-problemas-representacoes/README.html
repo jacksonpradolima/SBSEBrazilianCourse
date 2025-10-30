@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 3: A Arte de Formular Problemas em SBSE &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-03-formulacao-problemas-representacoes/README';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Workshop Prático: Da Formulação à Solução com DEAP" href="workshop.html" />
+    <link rel="prev" title="Workshop Prático: Técnicas de Otimização em SBSE" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Aula 3: A Arte de Formular Problemas em SBSE</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 3: A Arte de Formular Problemas em SBSE</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos">Seção 2: Fundamentos Teóricos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-arte-da-representacao-ensinando-o-computador-a-ver-solucoes">2.1. A Arte da Representação: Ensinando o Computador a “Ver” Soluções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projetando-a-funcao-de-fitness-a-bussola-da-otimizacao">2.2. Projetando a Função de Fitness: A Bússola da Otimização</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lidando-com-restricoes-a-abordagem-da-funcao-de-penalidade">Lidando com Restrições: A Abordagem da Função de Penalidade</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplos-objetivos-a-abordagem-da-soma-ponderada">Múltiplos Objetivos: A Abordagem da Soma Ponderada</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-discussao-dos-resultados">Seção 4: Análise e Discussão dos Resultados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacao-para-o-proximo-bloco">5.2. Preparação para o Próximo Bloco</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-3-a-arte-de-formular-problemas-em-sbse">
+<h1>Aula 3: A Arte de Formular Problemas em SBSE<a class="headerlink" href="#aula-3-a-arte-de-formular-problemas-em-sbse" title="Link to this heading">#</a></h1>
+<section id="secao-1-abertura-e-engajamento">
+<h2>Seção 1: Abertura e Engajamento<a class="headerlink" href="#secao-1-abertura-e-engajamento" title="Link to this heading">#</a></h2>
+<section id="problema-motivador">
+<h3>1.1. Problema Motivador<a class="headerlink" href="#problema-motivador" title="Link to this heading">#</a></h3>
+<p>Imagine que você é o líder técnico de um grande projeto de e-commerce. A equipe de produto chega com uma lista de 20 novas <em>features</em> que gostariam de implementar no próximo trimestre. O orçamento, no entanto, só permite o desenvolvimento de uma fração delas. Cada <em>feature</em> tem um valor de negócio estimado (quanto dinheiro ela pode gerar), um custo de implementação (horas de desenvolvimento) e algumas dependem de outras para funcionar.</p>
+<p>Como você escolheria o subconjunto de <em>features</em> que maximiza o valor de negócio sem estourar o orçamento e respeitando as dependências? Uma escolha manual é complexa, demorada e provavelmente sub-ótima. E se, em vez de escolher, pudéssemos “pedir” a um computador para encontrar a combinação perfeita para nós? É exatamente essa a ponte que a formulação de problemas em SBSE nos permite construir.</p>
+</section>
+<section id="objetivos-deste-capitulo">
+<h3>1.2. Objetivos deste Capítulo<a class="headerlink" href="#objetivos-deste-capitulo" title="Link to this heading">#</a></h3>
+<p>Ao final desta aula, você será capaz de:</p>
+<ol class="arabic simple">
+<li><p><strong>Traduzir um problema de engenharia de software</strong> em seus componentes fundamentais de SBSE: representação e função de fitness.</p></li>
+<li><p><strong>Selecionar a representação de solução adequada</strong> (binária, permutação ou numérica) para diferentes tipos de problemas.</p></li>
+<li><p><strong>Projetar uma função de fitness</strong> que guie a busca, incorporando objetivos de negócio e restrições técnicas através de funções de penalidade.</p></li>
+</ol>
+</section>
+</section>
+<section id="secao-2-fundamentos-teoricos">
+<h2>Seção 2: Fundamentos Teóricos<a class="headerlink" href="#secao-2-fundamentos-teoricos" title="Link to this heading">#</a></h2>
+<p>Na aula anterior, vimos o “o quê” e o “porquê” da SBSE. Agora, vamos mergulhar no “como”. A mágica de transformar um problema de software em um problema de busca solucionável por um computador reside em duas etapas críticas: <strong>Representação</strong> e <strong>Função de Fitness</strong>.</p>
+<section id="a-arte-da-representacao-ensinando-o-computador-a-ver-solucoes">
+<h3>2.1. A Arte da Representação: Ensinando o Computador a “Ver” Soluções<a class="headerlink" href="#a-arte-da-representacao-ensinando-o-computador-a-ver-solucoes" title="Link to this heading">#</a></h3>
+<p>A representação (ou codificação) é a maneira como traduzimos uma solução candidata do mundo real para uma estrutura de dados que um algoritmo de busca possa manipular. A escolha da representação é talvez a decisão mais importante no design de uma solução SBSE.</p>
+<pre  class="mermaid">
+        graph TD
+    subgraph Problema do Mundo Real
+        A[&quot;Quais features implementar?&quot;]
+        B[&quot;Qual a melhor ordem de testes?&quot;]
+        C[&quot;Quais os melhores parâmetros?&quot;]
+    end
+
+    subgraph Representação Computacional
+        D[&quot;[1, 0, 1, 1, 0, ...] (Binária)&quot;]
+        E[&quot;[T3, T1, T5, T2, T4] (Permutação)&quot;]
+        F[&quot;[0.01, 256, 0.9] (Numérica)&quot;]
+    end
+
+    A --&gt; D
+    B --&gt; E
+    C --&gt; F
+    </pre><p>Existem três tipos principais de representação:</p>
+<ol class="arabic simple">
+<li><p><strong>Representação Binária:</strong></p>
+<ul class="simple">
+<li><p><strong>O quê:</strong> Um vetor de 0s e 1s.</p></li>
+<li><p><strong>Quando usar:</strong> Para problemas de <strong>seleção</strong> ou <strong>inclusão/exclusão</strong>. Cada posição no vetor corresponde a um item, e o valor (1 ou 0) indica se ele está presente na solução.</p></li>
+<li><p><strong>Exemplo Prático:</strong> O problema das <em>features</em> do nosso e-commerce. Um vetor de 20 posições, onde <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">...,</span> <span class="pre">1]</span></code> significa “implementar a primeira e a última feature, mas não a segunda”.</p></li>
+</ul>
+</li>
+<li><p><strong>Representação por Permutação:</strong></p>
+<ul class="simple">
+<li><p><strong>O quê:</strong> Uma lista ordenada de itens, onde cada item aparece exatamente uma vez.</p></li>
+<li><p><strong>Quando usar:</strong> Para problemas de <strong>ordenação</strong> ou <strong>sequenciamento</strong>.</p></li>
+<li><p><strong>Exemplo Prático:</strong> Otimizar a ordem de execução de uma suíte de testes de regressão para encontrar falhas o mais rápido possível. A solução <code class="docutils literal notranslate"><span class="pre">[T3,</span> <span class="pre">T1,</span> <span class="pre">T5,</span> <span class="pre">...]</span></code> define a sequência exata em que os testes serão executados.</p></li>
+</ul>
+</li>
+<li><p><strong>Representação Numérica (Inteira ou Real):</strong></p>
+<ul class="simple">
+<li><p><strong>O quê:</strong> Um vetor de números inteiros ou de ponto flutuante.</p></li>
+<li><p><strong>Quando usar:</strong> Para problemas de <strong>configuração</strong> ou <strong>ajuste de parâmetros</strong>.</p></li>
+<li><p><strong>Exemplo Prático:</strong> Encontrar os hiperparâmetros ótimos para um modelo de Machine Learning. A solução <code class="docutils literal notranslate"><span class="pre">[0.001,</span> <span class="pre">512,</span> <span class="pre">0.5]</span></code> poderia representar a taxa de aprendizado, o tamanho do batch e a taxa de dropout.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="projetando-a-funcao-de-fitness-a-bussola-da-otimizacao">
+<h3>2.2. Projetando a Função de Fitness: A Bússola da Otimização<a class="headerlink" href="#projetando-a-funcao-de-fitness-a-bussola-da-otimizacao" title="Link to this heading">#</a></h3>
+<p>Se a representação é o mapa, a função de fitness (ou função de avaliação/objetivo) é a bússola. Ela recebe uma solução candidata (na sua forma representada) e retorna um valor numérico que quantifica sua “qualidade”. O objetivo do algoritmo de busca é encontrar a solução que <strong>maximiza</strong> (ou minimiza) este valor.</p>
+<p>Uma boa função de fitness deve ser:</p>
+<ul class="simple">
+<li><p><strong>Precisa:</strong> Refletir o verdadeiro objetivo do problema.</p></li>
+<li><p><strong>Eficiente:</strong> Ser rápida de calcular, pois será executada milhares ou milhões de vezes.</p></li>
+</ul>
+<section id="lidando-com-restricoes-a-abordagem-da-funcao-de-penalidade">
+<h4>Lidando com Restrições: A Abordagem da Função de Penalidade<a class="headerlink" href="#lidando-com-restricoes-a-abordagem-da-funcao-de-penalidade" title="Link to this heading">#</a></h4>
+<p>Raramente os problemas do mundo real são irrestritos. No nosso exemplo das <em>features</em>, temos uma restrição de orçamento. Como ensinamos isso ao algoritmo?</p>
+<p>A técnica mais comum é a <strong>função de penalidade</strong>. Modificamos a função de fitness para “punir” soluções que violam as restrições.</p>
+<p><strong>Exemplo (Pseudocódigo):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">função</span> <span class="n">calcular_fitness</span><span class="p">(</span><span class="n">solucao</span><span class="p">):</span>
+    <span class="n">valor_total</span> <span class="o">=</span> <span class="n">calcular_valor_das_features</span><span class="p">(</span><span class="n">solucao</span><span class="p">)</span>
+    <span class="n">custo_total</span> <span class="o">=</span> <span class="n">calcular_custo_das_features</span><span class="p">(</span><span class="n">solucao</span><span class="p">)</span>
+    
+    <span class="n">penalidade</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">custo_total</span> <span class="o">&gt;</span> <span class="n">ORCAMENTO_MAXIMO</span><span class="p">:</span>
+        <span class="n">excesso</span> <span class="o">=</span> <span class="n">custo_total</span> <span class="o">-</span> <span class="n">ORCAMENTO_MAXIMO</span>
+        <span class="n">penalidade</span> <span class="o">=</span> <span class="n">excesso</span> <span class="o">*</span> <span class="n">FATOR_DE_PENALIDADE</span>  <span class="o">//</span> <span class="n">Penalidade</span> <span class="n">proporcional</span> <span class="n">ao</span> <span class="n">excesso</span>
+        
+    <span class="k">return</span> <span class="n">valor_total</span> <span class="o">-</span> <span class="n">penalidade</span>
+</pre></div>
+</div>
+<p>Uma solução que estoura o orçamento terá seu fitness drasticamente reduzido, tornando-a menos atraente para o algoritmo de busca.</p>
+</section>
+<section id="multiplos-objetivos-a-abordagem-da-soma-ponderada">
+<h4>Múltiplos Objetivos: A Abordagem da Soma Ponderada<a class="headerlink" href="#multiplos-objetivos-a-abordagem-da-soma-ponderada" title="Link to this heading">#</a></h4>
+<p>E se quisermos maximizar o valor de negócio E minimizar o risco técnico ao mesmo tempo? Quando temos múltiplos objetivos, uma abordagem inicial (e mais simples) é a <strong>soma ponderada</strong>.</p>
+<p>Convertemos múltiplos objetivos em um único valor de fitness, atribuindo um “peso” a cada um.</p>
+<p><strong>Exemplo (Pseudocódigo):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">função</span> <span class="n">calcular_fitness_multiobjetivo</span><span class="p">(</span><span class="n">solucao</span><span class="p">):</span>
+    <span class="n">valor_negocio</span> <span class="o">=</span> <span class="n">calcular_valor</span><span class="p">(</span><span class="n">solucao</span><span class="p">)</span>      <span class="o">//</span> <span class="n">Objetivo</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Maximizar</span>
+    <span class="n">risco_tecnico</span> <span class="o">=</span> <span class="n">calcular_risco</span><span class="p">(</span><span class="n">solucao</span><span class="p">)</span>      <span class="o">//</span> <span class="n">Objetivo</span> <span class="mi">2</span><span class="p">:</span> <span class="n">Minimizar</span>
+    
+    <span class="o">//</span> <span class="n">Normalizar</span> <span class="n">valores</span> <span class="n">para</span> <span class="n">a</span> <span class="n">mesma</span> <span class="n">escala</span> <span class="p">(</span><span class="n">ex</span><span class="p">:</span> <span class="mi">0</span> <span class="n">a</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">valor_normalizado</span> <span class="o">=</span> <span class="n">normalizar</span><span class="p">(</span><span class="n">valor_negocio</span><span class="p">)</span>
+    <span class="n">risco_normalizado</span> <span class="o">=</span> <span class="n">normalizar</span><span class="p">(</span><span class="n">risco_tecnico</span><span class="p">)</span>
+    
+    <span class="n">peso_valor</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="n">peso_risco</span> <span class="o">=</span> <span class="mf">0.3</span>
+    
+    <span class="n">fitness_final</span> <span class="o">=</span> <span class="p">(</span><span class="n">valor_normalizado</span> <span class="o">*</span> <span class="n">peso_valor</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">risco_normalizado</span> <span class="o">*</span> <span class="n">peso_risco</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">fitness_final</span>
+</pre></div>
+</div>
+<p><strong>Atenção:</strong> A soma ponderada é uma simplificação. A escolha dos pesos é subjetiva e nem sempre captura o <em>trade-off</em> real entre os objetivos. Na Aula 13, veremos uma abordagem muito mais poderosa: a otimização multi-objetivo real.</p>
+</section>
+</section>
+</section>
+<section id="secao-3-exemplo-ilustrativo">
+<h2>Seção 3: Exemplo Ilustrativo<a class="headerlink" href="#secao-3-exemplo-ilustrativo" title="Link to this heading">#</a></h2>
+<p>Vamos solidificar os conceitos com o problema das <em>features</em> do e-commerce.</p>
+<p><strong>Problema:</strong> Escolher um subconjunto de 4 features para maximizar o valor, respeitando um orçamento de 25 “pontos” de custo.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Feature</p></th>
+<th class="head text-left"><p>Valor (k R$)</p></th>
+<th class="head text-left"><p>Custo (pontos)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>F1: Login Social</p></td>
+<td class="text-left"><p>15</p></td>
+<td class="text-left"><p>10</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>F2: Lista de Desejos</p></td>
+<td class="text-left"><p>20</p></td>
+<td class="text-left"><p>8</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>F3: Pagamento Rápido</p></td>
+<td class="text-left"><p>25</p></td>
+<td class="text-left"><p>15</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>F4: Recomendações</p></td>
+<td class="text-left"><p>30</p></td>
+<td class="text-left"><p>20</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic">
+<li><p><strong>Representação:</strong> Binária, com um vetor de 4 posições. <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0]</span></code> significa “implementar F1 e F2”.</p></li>
+<li><p><strong>Função de Fitness (com penalidade):</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calcular_fitness</span><span class="p">(</span><span class="n">solucao</span><span class="p">):</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
+    <span class="n">orcamento_max</span> <span class="o">=</span> <span class="mi">25</span>
+    
+    <span class="n">valor_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">solucao</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">features</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">custo_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">solucao</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">features</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="n">custo_total</span> <span class="o">&gt;</span> <span class="n">orcamento_max</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="c1"># Penalidade severa: fitness zero se estourar o orçamento</span>
+    
+    <span class="k">return</span> <span class="n">valor_total</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Avaliando Soluções Candidatas:</strong></p>
+<ul class="simple">
+<li><p><strong>Solução A: <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0]</span></code></strong></p>
+<ul>
+<li><p>Custo: 10 + 8 = 18 (&lt;= 25, Válida)</p></li>
+<li><p>Valor: 15 + 20 = 35</p></li>
+<li><p><strong>Fitness = 35</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Solução B: <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">1]</span></code></strong></p>
+<ul>
+<li><p>Custo: 15 + 20 = 35 (&gt; 25, Inválida)</p></li>
+<li><p><strong>Fitness = 0</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Solução C: <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">0]</span></code></strong></p>
+<ul>
+<li><p>Custo: 8 + 15 = 23 (&lt;= 25, Válida)</p></li>
+<li><p>Valor: 20 + 25 = 45</p></li>
+<li><p><strong>Fitness = 45</strong> (Melhor que a Solução A)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>O algoritmo de busca usaria essa função de fitness para navegar pelo espaço de 2⁴ = 16 soluções possíveis e convergir para a solução C (ou outra com fitness igual ou maior).</p>
+</section>
+<section id="secao-4-analise-e-discussao-dos-resultados">
+<h2>Seção 4: Análise e Discussão dos Resultados<a class="headerlink" href="#secao-4-analise-e-discussao-dos-resultados" title="Link to this heading">#</a></h2>
+<p>A formulação do problema é um ato de modelagem e, como toda modelagem, envolve simplificações.</p>
+<ul class="simple">
+<li><p><strong>O “Porquê” da Penalidade Severa:</strong> No nosso exemplo, usamos <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">0</span></code> para qualquer solução inválida. Por que não uma penalidade mais branda? Uma penalidade severa força a busca a permanecer <strong>exclusivamente</strong> no espaço de soluções viáveis. Uma penalidade mais branda poderia permitir que a busca explorasse temporariamente soluções inviáveis na esperança de que seus “filhos” (no AG) se tornem viáveis e bons. A escolha depende do problema: se o espaço viável é muito pequeno ou difícil de encontrar, uma penalidade branda pode ser melhor.</p></li>
+<li><p><strong>O Risco da Soma Ponderada:</strong> Imagine que <code class="docutils literal notranslate"><span class="pre">valor_negocio</span></code> varia de 1.000 a 100.000 e <code class="docutils literal notranslate"><span class="pre">risco_tecnico</span></code> de 1 a 10. Sem <strong>normalização</strong>, o <code class="docutils literal notranslate"><span class="pre">valor_negocio</span></code> dominaria completamente a função de fitness, tornando o <code class="docutils literal notranslate"><span class="pre">risco_tecnico</span></code> irrelevante, independentemente dos pesos. A normalização (colocar todos os objetivos na mesma escala, como [0, 1]) é crucial.</p></li>
+<li><p><strong>Representação e Operadores de Busca:</strong> A escolha da representação impacta diretamente os operadores de busca (crossover, mutação) que podemos usar. Uma mutação para uma representação binária pode ser simplesmente inverter um bit (<code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">-&gt;</span> <span class="pre">1</span></code>). Para uma permutação, uma mutação poderia ser trocar a posição de dois itens. Usar operadores inadequados para a representação pode gerar soluções inválidas constantemente, tornando a busca ineficiente.</p></li>
+</ul>
+</section>
+<section id="secao-5-sintese-e-proximos-passos">
+<h2>Seção 5: Síntese e Próximos Passos<a class="headerlink" href="#secao-5-sintese-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="resumo-do-capitulo">
+<h3>5.1. Resumo do Capítulo<a class="headerlink" href="#resumo-do-capitulo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Formular um problema de SBSE consiste em definir uma <strong>representação</strong> para as soluções e uma <strong>função de fitness</strong> para avaliá-las.</p></li>
+<li><p>A <strong>representação binária</strong> é ideal para problemas de seleção, a de <strong>permutação</strong> para ordenação e a <strong>numérica</strong> para configuração.</p></li>
+<li><p>A <strong>função de fitness</strong> é a bússola da busca; ela deve ser rápida e refletir o objetivo real do problema.</p></li>
+<li><p><strong>Funções de penalidade</strong> são usadas para guiar a busca para longe de soluções que violam restrições importantes (como orçamento ou dependências).</p></li>
+<li><p>A <strong>soma ponderada</strong> é uma técnica simples para combinar múltiplos objetivos em um único valor de fitness, mas requer cuidado com a normalização e a escolha dos pesos.</p></li>
+</ul>
+</section>
+<section id="preparacao-para-o-proximo-bloco">
+<h3>5.2. Preparação para o Próximo Bloco<a class="headerlink" href="#preparacao-para-o-proximo-bloco" title="Link to this heading">#</a></h3>
+<p>Agora que sabemos como <em>formular</em> um problema, precisamos de uma ferramenta poderosa para <em>resolvê-lo</em>. Na próxima aula, sairemos da teoria e entraremos na prática com a <strong>DEAP (Distributed Evolutionary Algorithms in Python)</strong>, uma biblioteca padrão da indústria para computação evolutiva. Reimplementaremos o “Problema da Mochila” (análogo ao nosso problema de features) usando DEAP, aprendendo como sua estrutura nos permite focar na formulação do problema enquanto a biblioteca cuida dos detalhes do algoritmo genético.</p>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-03-formulacao-problemas-representacoes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../aula-02-tecnicas-otimizacao-sbse/workshop.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Workshop Prático: Técnicas de Otimização em SBSE</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workshop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Workshop Prático: Da Formulação à Solução com DEAP</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos">Seção 2: Fundamentos Teóricos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-arte-da-representacao-ensinando-o-computador-a-ver-solucoes">2.1. A Arte da Representação: Ensinando o Computador a “Ver” Soluções</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projetando-a-funcao-de-fitness-a-bussola-da-otimizacao">2.2. Projetando a Função de Fitness: A Bússola da Otimização</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lidando-com-restricoes-a-abordagem-da-funcao-de-penalidade">Lidando com Restrições: A Abordagem da Função de Penalidade</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplos-objetivos-a-abordagem-da-soma-ponderada">Múltiplos Objetivos: A Abordagem da Soma Ponderada</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-discussao-dos-resultados">Seção 4: Análise e Discussão dos Resultados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacao-para-o-proximo-bloco">5.2. Preparação para o Próximo Bloco</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

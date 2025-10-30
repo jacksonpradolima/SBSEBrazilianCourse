@@ -1,0 +1,737 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-08-refatoracao-busca/README';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Workshop Prático: Refatoração Baseada em Busca — Aula 08" href="workshop.html" />
+    <link rel="prev" title="Workshop Prático — Aula 7: SBST com DEAP" href="../aula-07-sbst-lab/workshop.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-tripe-da-refatoracao-baseada-em-busca">O Tripé da Refatoração Baseada em Busca</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-papel-do-llm-o-oraculo-de-sugestoes">O Papel do LLM: O Oráculo de Sugestões</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo-antes-e-depois">Seção 3: Exemplo Ilustrativo: Antes e Depois</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-desafio-da-refatoracao-semantica">O Desafio da Refatoração Semântica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refatoracao-multi-objetivo">Refatoração Multi-Objetivo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-8-refatoracao-baseada-em-busca-pagando-a-divida-tecnica-com-otimizacao">
+<h1>Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização<a class="headerlink" href="#aula-8-refatoracao-baseada-em-busca-pagando-a-divida-tecnica-com-otimizacao" title="Link to this heading">#</a></h1>
+<section id="secao-1-abertura-e-engajamento">
+<h2>Seção 1: Abertura e Engajamento<a class="headerlink" href="#secao-1-abertura-e-engajamento" title="Link to this heading">#</a></h2>
+<section id="problema-motivador">
+<h3>1.1. Problema Motivador<a class="headerlink" href="#problema-motivador" title="Link to this heading">#</a></h3>
+<p>Todo engenheiro de software já passou por isso: você herda um projeto e encontra “aquela” classe. Uma classe monstruosa de 3.000 linhas, apelidada de <code class="docutils literal notranslate"><span class="pre">GerenciadorUtils</span></code>, que lida com conexões de banco de dados, formatação de datas, lógica de negócio, envio de e-mails e, por algum motivo, também calcula o seno de um ângulo. Essa é uma “God Class”, um dos muitos “code smells” (maus cheiros de código) que indicam profunda dívida técnica.</p>
+<p>A decisão de refatorar é fácil. A pergunta difícil é: <em>como</em>? Qual o primeiro passo? Extrair uma classe <code class="docutils literal notranslate"><span class="pre">DatabaseManager</span></code>? Ou uma <code class="docutils literal notranslate"><span class="pre">EmailService</span></code>? E se movermos o método A para a nova classe B, isso não aumenta perigosamente o acoplamento com a classe C? A refatoração manual é uma arte delicada, cheia de trade-offs e com alto risco de introduzir novos bugs. E se pudéssemos transformar essa arte em uma ciência? E se um algoritmo pudesse analisar milhares de sequências de refatoração possíveis e nos apresentar a que produz o código mais coeso, menos acoplado e mais simples? Bem-vindo à Refatoração Baseada em Busca.</p>
+</section>
+<section id="objetivos-deste-capitulo">
+<h3>1.2. Objetivos deste Capítulo<a class="headerlink" href="#objetivos-deste-capitulo" title="Link to this heading">#</a></h3>
+<p>Ao final deste capítulo, você será capaz de:</p>
+<ul class="simple">
+<li><p><strong>Quantificar a Dívida Técnica:</strong> Traduzir o conceito abstrato de “código ruim” em métricas de software objetivas e calculáveis (Coesão, Acoplamento, Complexidade).</p></li>
+<li><p><strong>Formular a Refatoração como Busca:</strong> Modelar o problema de encontrar a melhor sequência de refatorações como um problema de otimização.</p></li>
+<li><p><strong>Integrar IA no Processo:</strong> Utilizar um LLM como um “arquiteto de software assistente” para sugerir possíveis refatorações e, em seguida, usar um algoritmo de busca para avaliar e classificar essas sugestões.</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-2-fundamentos-teoricos-versao-expressa">
+<h2>Seção 2: Fundamentos Teóricos (Versão Expressa)<a class="headerlink" href="#secao-2-fundamentos-teoricos-versao-expressa" title="Link to this heading">#</a></h2>
+<p>Refatoração Baseada em Busca (Search-Based Refactoring) trata a melhoria da qualidade do software como um problema de otimização. O objetivo é encontrar uma sequência de transformações no código que otimize um conjunto de métricas de qualidade.</p>
+<section id="o-tripe-da-refatoracao-baseada-em-busca">
+<h3>O Tripé da Refatoração Baseada em Busca<a class="headerlink" href="#o-tripe-da-refatoracao-baseada-em-busca" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Representação (O Indivíduo):</strong> O que estamos otimizando?</p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> Um indivíduo representa uma sequência de operações de refatoração.</p></li>
+<li><p><strong>Exemplo:</strong> Uma lista de tuplas como <code class="docutils literal notranslate"><span class="pre">[('move_method',</span> <span class="pre">'metodo_A',</span> <span class="pre">'classe_X',</span> <span class="pre">'classe_Y'),</span> <span class="pre">('extract_class',</span> <span class="pre">'classe_Z',</span> <span class="pre">['metodo_B',</span> <span class="pre">'metodo_C'])]</span></code>. Cada tupla é uma operação de refatoração.</p></li>
+</ul>
+</li>
+<li><p><strong>Função de Fitness (A Bússola da Qualidade):</strong> Como medimos se uma refatoração foi “boa”?</p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> Uma função que calcula um score de qualidade do código <em>após</em> a aplicação da sequência de refatoração. Geralmente é uma combinação de várias métricas.</p></li>
+<li><p><strong>Métricas Chave:</strong></p>
+<ul>
+<li><p><strong>Coesão (Maximizar):</strong> Mede o quão focada e relacionada é a responsabilidade de uma classe. Uma classe coesa faz uma coisa só e a faz bem. Métrica comum: <strong>LCOM4 (Lack of Cohesion in Methods)</strong>. Queremos minimizar o LCOM4.</p></li>
+<li><p><strong>Acoplamento (Minimizar):</strong> Mede o grau de dependência entre as classes. Baixo acoplamento é desejável, pois torna o sistema mais modular e fácil de manter. Métrica comum: <strong>CBO (Coupling Between Objects)</strong>.</p></li>
+<li><p><strong>Complexidade (Minimizar):</strong> Mede a complexidade lógica de um método. Métodos complexos são difíceis de entender e testar. Métrica comum: <strong>Complexidade Ciclomática (WMC - Weighted Methods per Class)</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Busca (O Motor da Refatoração):</strong></p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> Um algoritmo (geralmente um Algoritmo Genético) que explora o vasto espaço de possíveis sequências de refatoração para encontrar aquela que produz o melhor score de fitness.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="o-papel-do-llm-o-oraculo-de-sugestoes">
+<h3>O Papel do LLM: O Oráculo de Sugestões<a class="headerlink" href="#o-papel-do-llm-o-oraculo-de-sugestoes" title="Link to this heading">#</a></h3>
+<p>O espaço de busca para refatoração é infinito. Um AG pode aplicar uma sequência aleatória de “Mover Método”, mas isso é ineficiente. Aqui, o LLM atua como um “oráculo” que poda a árvore de busca, sugerindo apenas as refatorações que fazem sentido semanticamente.</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+    A[Código com &quot;Code Smells&quot;] --&gt; B{LLM: &quot;Aja como um arquiteto de software...&quot;};
+    B --&gt; C[&quot;Sugestão 1: Extrair Classe &#39;DB&#39;&quot;];
+    B --&gt; D[&quot;Sugestão 2: Mover método &#39;send&#39;&quot;];
+    B --&gt; E[&quot;Sugestão 3: Renomear método &#39;proc&#39;&quot;];
+    C --&gt; F[Otimizador SBSE];
+    D --&gt; F;
+    E --&gt; F;
+    F -- Avalia Fitness (Coesão, Acoplamento) de cada sugestão --&gt; G[Ranking: Sugestão 1 é a melhor];
+    G --&gt; H[Código Refatorado];
+</pre></div>
+</div>
+</section>
+</section>
+<section id="secao-3-exemplo-ilustrativo-antes-e-depois">
+<h2>Seção 3: Exemplo Ilustrativo: Antes e Depois<a class="headerlink" href="#secao-3-exemplo-ilustrativo-antes-e-depois" title="Link to this heading">#</a></h2>
+<p>Vamos analisar uma “God Class” e o efeito de uma refatoração na coesão.</p>
+<p><strong>Antes: Baixa Coesão (LCOM4 alto)</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DataProcessor</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_from_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="c1"># ... código de banco de dados ...</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="c1"># ... código de I/O de arquivo ...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># ... código de estatística ...</span>
+        <span class="k">return</span> <span class="n">stats</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_report_email</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report</span><span class="p">):</span>
+        <span class="c1"># ... código de envio de email ...</span>
+</pre></div>
+</div>
+<p>Nesta classe, <code class="docutils literal notranslate"><span class="pre">read_from_db</span></code> e <code class="docutils literal notranslate"><span class="pre">write_to_file</span></code> não compartilham nenhum atributo de instância com <code class="docutils literal notranslate"><span class="pre">calculate_stats</span></code> ou <code class="docutils literal notranslate"><span class="pre">send_report_email</span></code>. Eles são grupos de métodos desconexos, indicando baixa coesão.</p>
+<p><strong>Depois: Alta Coesão (LCOM4 baixo)</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DatabaseReader</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection_string</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ReportGenerator</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span> <span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">EmailService</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smtp_server</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report</span><span class="p">):</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>Após a refatoração “Extrair Classe”, cada classe tem uma responsabilidade única e seus métodos são altamente relacionados. A qualidade do código, medida pelas métricas, melhorou objetivamente.</p>
+</section>
+<section id="secao-4-analise-e-topicos-avancados">
+<h2>Seção 4: Análise e Tópicos Avançados<a class="headerlink" href="#secao-4-analise-e-topicos-avancados" title="Link to this heading">#</a></h2>
+<section id="o-desafio-da-refatoracao-semantica">
+<h3>O Desafio da Refatoração Semântica<a class="headerlink" href="#o-desafio-da-refatoracao-semantica" title="Link to this heading">#</a></h3>
+<p>Uma grande limitação da refatoração puramente baseada em métricas é que ela não entende o <em>significado</em> do código. Um algoritmo pode sugerir mover um método que melhora a coesão, mas que quebra a lógica de negócio de uma forma sutil. É por isso que a sinergia com LLMs é tão promissora: o LLM entende a semântica e sugere refatorações que fazem sentido, enquanto o SBSE avalia objetivamente o impacto estrutural dessas sugestões.</p>
+</section>
+<section id="refatoracao-multi-objetivo">
+<h3>Refatoração Multi-Objetivo<a class="headerlink" href="#refatoracao-multi-objetivo" title="Link to this heading">#</a></h3>
+<p>Raramente otimizamos para uma única métrica. Muitas vezes, queremos <strong>maximizar a coesão</strong> e <strong>minimizar o acoplamento</strong> ao mesmo tempo. Esses objetivos podem ser conflitantes. Uma refatoração que melhora a coesão de uma classe pode acidentalmente aumentar seu acoplamento com outras. Este é um problema de otimização multi-objetivo, onde a solução não é um único valor, mas uma <strong>Fronteira de Pareto</strong> de soluções de trade-off, exatamente como vimos na Aula 13.</p>
+</section>
+</section>
+<section id="secao-5-sintese-e-proximos-passos">
+<h2>Seção 5: Síntese e Próximos Passos<a class="headerlink" href="#secao-5-sintese-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="resumo-do-capitulo">
+<h3>5.1. Resumo do Capítulo<a class="headerlink" href="#resumo-do-capitulo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A Refatoração Baseada em Busca (SBSE) transforma a melhoria da qualidade do código em um problema de otimização.</p></li>
+<li><p>“Code smells” como “God Class” podem ser quantificados através de métricas de software como <strong>Coesão (LCOM4)</strong>, <strong>Acoplamento (CBO)</strong> e <strong>Complexidade (WMC)</strong>.</p></li>
+<li><p>A função de fitness em um problema de refatoração é um score de qualidade derivado dessas métricas.</p></li>
+<li><p>LLMs podem atuar como “oráculos de sugestão”, propondo refatorações semanticamente coerentes, que são então avaliadas e classificadas por um otimizador SBSE.</p></li>
+<li><p>A refatoração é frequentemente um problema multi-objetivo, buscando um equilíbrio (trade-off) entre diferentes métricas de qualidade.</p></li>
+</ul>
+</section>
+<section id="ponte-e-briefing-para-o-workshop-pratico-ipynb">
+<h3>5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)<a class="headerlink" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb" title="Link to this heading">#</a></h3>
+<p><strong>Teaser para o Aluno:</strong> Chega de falar sobre dívida técnica, é hora de pagá-la! No workshop prático, você será o arquiteto de software encarregado de limpar um código problemático. Você usará o poder de um LLM para obter conselhos de refatoração e implementará um otimizador para provar, com números, qual conselho é o melhor.</p>
+<p><strong>Briefing para o Agente de Prática (Geração do <code class="docutils literal notranslate"><span class="pre">workshop.ipynb</span></code>):</strong></p>
+<p>O notebook deve implementar um sistema que usa um LLM para sugerir refatorações e as avalia com base em métricas de qualidade.</p>
+<ol class="arabic simple">
+<li><p><strong>Código-Alvo:</strong> Forneça uma classe Python <code class="docutils literal notranslate"><span class="pre">GodClass.py</span></code> que exiba múltiplos “code smells”. Ela deve ter métodos que lidam com responsabilidades distintas (ex: manipulação de strings, cálculos matemáticos, formatação de dados) e baixa coesão.</p></li>
+<li><p><strong>Cálculo de Métricas:</strong></p>
+<ul class="simple">
+<li><p>Implemente funções para calcular métricas de qualidade de software em um arquivo Python. Use uma biblioteca como <code class="docutils literal notranslate"><span class="pre">radon</span></code> para calcular a <strong>Complexidade Ciclomática</strong> e o <strong>Índice de Manutenibilidade</strong>.</p></li>
+<li><p>Crie uma função para calcular uma aproximação da <strong>Coesão (LCOM4)</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Interação com LLM:</strong></p>
+<ul class="simple">
+<li><p>Crie uma célula que lê o código da <code class="docutils literal notranslate"><span class="pre">GodClass.py</span></code>.</p></li>
+<li><p>Use um prompt de “Persona” (“Aja como um Arquiteto de Software Sênior…”) para pedir ao LLM que analise a classe e sugira <strong>três operações de refatoração específicas</strong> (ex: “Extraia os métodos X e Y para uma nova classe chamada ‘StringUtil’”). As sugestões devem ser retornadas em um formato estruturado (ex: JSON).</p></li>
+</ul>
+</li>
+<li><p><strong>Simulação e Avaliação:</strong></p>
+<ul class="simple">
+<li><p>Para cada uma das três sugestões do LLM:</p>
+<ul>
+<li><p><strong>Simule a refatoração:</strong> Crie uma representação em memória do código como ele seria <em>após</em> a refatoração (não precisa modificar os arquivos em disco, pode ser uma manipulação de strings ou AST).</p></li>
+<li><p><strong>Calcule as métricas:</strong> Execute as funções de cálculo de métricas no código refatorado simulado.</p></li>
+<li><p><strong>Calcule o Fitness:</strong> Crie uma função de fitness que combine as métricas (ex: <code class="docutils literal notranslate"><span class="pre">score</span> <span class="pre">=</span> <span class="pre">(w1</span> <span class="pre">*</span> <span class="pre">coesao)</span> <span class="pre">-</span> <span class="pre">(w2</span> <span class="pre">*</span> <span class="pre">acoplamento)</span> <span class="pre">-</span> <span class="pre">(w3</span> <span class="pre">*</span> <span class="pre">complexidade)</span></code>).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Análise e Conclusão:</strong></p>
+<ul class="simple">
+<li><p>Apresente uma tabela comparando o score de fitness do código “Antes” com o score de cada uma das três sugestões de refatoração “Depois”.</p></li>
+<li><p>Declare qual sugestão do LLM foi a vencedora com base na melhoria objetiva das métricas.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-08-refatoracao-busca"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../aula-07-sbst-lab/workshop.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Workshop Prático — Aula 7: SBST com DEAP</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workshop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Workshop Prático: Refatoração Baseada em Busca — Aula 08</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-tripe-da-refatoracao-baseada-em-busca">O Tripé da Refatoração Baseada em Busca</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-papel-do-llm-o-oraculo-de-sugestoes">O Papel do LLM: O Oráculo de Sugestões</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo-antes-e-depois">Seção 3: Exemplo Ilustrativo: Antes e Depois</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-desafio-da-refatoracao-semantica">O Desafio da Refatoração Semântica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refatoracao-multi-objetivo">Refatoração Multi-Objetivo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

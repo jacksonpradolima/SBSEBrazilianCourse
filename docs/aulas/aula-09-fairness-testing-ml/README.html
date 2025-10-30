@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-09-fairness-testing-ml/README';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Workshop Prático: Fairness Testing com SBSE" href="workshop.html" />
+    <link rel="prev" title="Workshop Prático: Refatoração Baseada em Busca — Aula 08" href="../aula-08-refatoracao-busca/workshop.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-tripe-do-fairness-testing-com-sbse">O Tripé do Fairness Testing com SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-fairness-e-como-testa-los">Tipos de Fairness e Como Testá-los</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-desafio-do-oraculo-de-fairness">O Desafio do “Oráculo de Fairness”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness-vs-accuracy-o-dilema-fundamental">Fairness vs. Accuracy: O Dilema Fundamental</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitacoes-e-armadilhas">Limitações e Armadilhas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-9-teste-de-justica-em-ia-cacando-vieses-com-sbse">
+<h1>Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE<a class="headerlink" href="#aula-9-teste-de-justica-em-ia-cacando-vieses-com-sbse" title="Link to this heading">#</a></h1>
+<section id="secao-1-abertura-e-engajamento">
+<h2>Seção 1: Abertura e Engajamento<a class="headerlink" href="#secao-1-abertura-e-engajamento" title="Link to this heading">#</a></h2>
+<section id="problema-motivador">
+<h3>1.1. Problema Motivador<a class="headerlink" href="#problema-motivador" title="Link to this heading">#</a></h3>
+<p>Em 2018, a Amazon descobriu que seu sistema de IA para triagem de currículos estava sistematicamente discriminando candidatas mulheres. O algoritmo, treinado em dados históricos de contratação (onde homens eram majoritariamente contratados em áreas técnicas), aprendeu que ser mulher era um “sinal negativo” e penalizava currículos que continham palavras como “capitã do time feminino de xadrez” ou que vinham de universidades exclusivamente femininas.</p>
+<p>Este não é um caso isolado. Modelos de aprovação de crédito discriminam contra minorias étnicas, sistemas de reconhecimento facial falham drasticamente para pessoas de pele escura, e algoritmos de recomendação de vagas perpetuam segregação ocupacional. O problema é insidioso: esses vieses são difíceis de detectar porque estão enterrados nas estatísticas complexas de modelos com milhões de parâmetros.</p>
+<p>Como podemos testar sistematicamente se um modelo de IA é justo? Como encontrar os casos específicos onde ele discrimina? Testes manuais são impraticáveis – há infinitas combinações de atributos para testar. É aqui que SBSE brilha: podemos usar algoritmos de busca para automaticamente “provocar” um modelo de IA até ele revelar seus vieses ocultos.</p>
+</section>
+<section id="objetivos-deste-capitulo">
+<h3>1.2. Objetivos deste Capítulo<a class="headerlink" href="#objetivos-deste-capitulo" title="Link to this heading">#</a></h3>
+<p>Ao final deste capítulo, você será capaz de:</p>
+<ul class="simple">
+<li><p><strong>Adaptar SBSE para IA:</strong> Compreender os desafios únicos de testar sistemas baseados em aprendizado de máquina, incluindo não-determinismo e ausência de oráculos claros.</p></li>
+<li><p><strong>Detectar Viés Automaticamente:</strong> Formular a detecção de discriminação como um problema de busca, definindo representações e funções de fitness que maximizem a descoberta de comportamentos injustos.</p></li>
+<li><p><strong>Implementar Fairness Testing:</strong> Construir um sistema completo que usa algoritmos genéticos para gerar casos de teste sintéticos que expõem vieses em modelos pré-treinados.</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-2-fundamentos-teoricos-versao-expressa">
+<h2>Seção 2: Fundamentos Teóricos (Versão Expressa)<a class="headerlink" href="#secao-2-fundamentos-teoricos-versao-expressa" title="Link to this heading">#</a></h2>
+<p>O teste de justiça (fairness testing) em IA representa um novo paradigma de teste de software. Diferente do código tradicional, onde sabemos exatamente o que uma função deveria retornar, modelos de IA são “caixas pretas” probabilísticas cujo comportamento correto é definido por princípios éticos, não especificações técnicas.</p>
+<section id="o-tripe-do-fairness-testing-com-sbse">
+<h3>O Tripé do Fairness Testing com SBSE<a class="headerlink" href="#o-tripe-do-fairness-testing-com-sbse" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Representação (O Perfil Individual):</strong> O que é um “caso de teste” para um modelo de IA?</p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> Um caso de teste é um perfil individual sintético – um conjunto de atributos que seria submetido ao modelo.</p></li>
+<li><p><strong>Exemplo:</strong> Para um modelo de aprovação de crédito, um indivíduo poderia ser representado como <code class="docutils literal notranslate"><span class="pre">[idade:</span> <span class="pre">35,</span> <span class="pre">salario:</span> <span class="pre">50000,</span> <span class="pre">genero:</span> <span class="pre">'F',</span> <span class="pre">etnia:</span> <span class="pre">'negra',</span> <span class="pre">score_credito:</span> <span class="pre">720]</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Função de Fitness (A Detector de Discriminação):</strong> Como medimos se um caso de teste “expõe viés”?</p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> A fitness mede o grau de discriminação que um par de casos de teste revela. Geralmente comparamos dois indivíduos que diferem apenas em um atributo sensível (gênero, etnia, idade).</p></li>
+<li><p><strong>Técnica Comum:</strong> <strong>Individual Fairness</strong> – Indivíduos similares devem receber tratamento similar. A fitness é a diferença de probabilidade de aprovação entre dois perfis quase idênticos.</p></li>
+</ul>
+</li>
+<li><p><strong>Busca (O Explorador de Vieses):</strong> Como encontramos os casos mais discriminatórios?</p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> Um algoritmo genético que evolui pares de perfis para maximizar a diferença de tratamento entre eles.</p></li>
+<li><p><strong>Insight:</strong> O AG não procura por um resultado “correto”, mas pelo caso que mais evidencia inconsistência no modelo.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="tipos-de-fairness-e-como-testa-los">
+<h3>Tipos de Fairness e Como Testá-los<a class="headerlink" href="#tipos-de-fairness-e-como-testa-los" title="Link to this heading">#</a></h3>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+    A[Fairness Testing] --&gt; B[Individual Fairness];
+    A --&gt; C[Group Fairness];
+    A --&gt; D[Causal Fairness];
+    
+    B --&gt; B1[&quot;Indivíduos similares → tratamento similar&quot;];
+    B --&gt; B2[&quot;Fitness: diferença entre casos quase idênticos&quot;];
+    
+    C --&gt; C1[&quot;Grupos protegidos → taxas similares&quot;];
+    C --&gt; C2[&quot;Fitness: diferença de aprovação entre grupos&quot;];
+    
+    D --&gt; D1[&quot;Atributo sensível não deve causar discriminação&quot;];
+    D --&gt; D2[&quot;Fitness: impacto de mudança de um atributo&quot;];
+</pre></div>
+</div>
+</section>
+</section>
+<section id="secao-3-exemplo-ilustrativo">
+<h2>Seção 3: Exemplo Ilustrativo<a class="headerlink" href="#secao-3-exemplo-ilustrativo" title="Link to this heading">#</a></h2>
+<p>Vamos considerar um modelo simples de aprovação de empréstimo e ver como detectar viés de gênero.</p>
+<p><strong>Cenário:</strong> Um banco treinou um modelo que aprova/rejeita empréstimos baseado em <code class="docutils literal notranslate"><span class="pre">[idade,</span> <span class="pre">salário,</span> <span class="pre">score_crédito,</span> <span class="pre">gênero]</span></code>. Suspeitamos que ele discrimina contra mulheres.</p>
+<p><strong>Representação SBSE:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Individual = [idade, salario, score_credito, genero]  </span>
+<span class="c1"># Exemplo: [35, 50000, 720, &#39;M&#39;]</span>
+</pre></div>
+</div>
+<p><strong>Função de Fitness:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fitness_gender_bias</span><span class="p">(</span><span class="n">individual</span><span class="p">):</span>
+    <span class="c1"># Criar dois perfis idênticos, diferindo apenas no gênero</span>
+    <span class="n">profile_male</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">profile_male</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;M&#39;</span>  <span class="c1"># Gênero masculino</span>
+    
+    <span class="n">profile_female</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  
+    <span class="n">profile_female</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>  <span class="c1"># Gênero feminino</span>
+    
+    <span class="c1"># Obter probabilidades de aprovação do modelo</span>
+    <span class="n">prob_male</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([</span><span class="n">profile_male</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">prob_female</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([</span><span class="n">profile_female</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="c1"># Fitness = diferença de probabilidade (queremos maximizar)</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">prob_male</span> <span class="o">-</span> <span class="n">prob_female</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Resultado Esperado:</strong> O AG evoluirá perfis que maximizam essa diferença. Se o modelo for enviesado, encontrará casos como <code class="docutils literal notranslate"><span class="pre">[45,</span> <span class="pre">75000,</span> <span class="pre">800,</span> <span class="pre">_]</span></code> onde a probabilidade de aprovação para homens é 90% e para mulheres é 60% – evidência clara de discriminação.</p>
+</section>
+<section id="secao-4-analise-e-topicos-avancados">
+<h2>Seção 4: Análise e Tópicos Avançados<a class="headerlink" href="#secao-4-analise-e-topicos-avancados" title="Link to this heading">#</a></h2>
+<section id="o-desafio-do-oraculo-de-fairness">
+<h3>O Desafio do “Oráculo de Fairness”<a class="headerlink" href="#o-desafio-do-oraculo-de-fairness" title="Link to this heading">#</a></h3>
+<p>Diferente de testes tradicionais, fairness testing não tem um oráculo claro. Não existe uma resposta “correta” para “este perfil deveria ser aprovado?”. O que temos são princípios éticos:</p>
+<ul class="simple">
+<li><p><strong>Consistência:</strong> Casos similares devem ter resultados similares.</p></li>
+<li><p><strong>Não-discriminação:</strong> Atributos sensíveis não devem influenciar decisões.</p></li>
+<li><p><strong>Proporcionalidade:</strong> A representação de grupos deve ser preservada.</p></li>
+</ul>
+<p>Isso torna o SBSE ideal: não precisamos saber a resposta certa, apenas encontrar os casos mais “suspeitos”.</p>
+</section>
+<section id="fairness-vs-accuracy-o-dilema-fundamental">
+<h3>Fairness vs. Accuracy: O Dilema Fundamental<a class="headerlink" href="#fairness-vs-accuracy-o-dilema-fundamental" title="Link to this heading">#</a></h3>
+<p>Existe um trade-off inerente entre justiça e acurácia. Um modelo perfeitamente justo (que ignora completamente gênero e etnia) pode ter performance inferior a um modelo que usa essas informações de forma estatisticamente válida. SBSE pode nos ajudar a navegar esse trade-off, encontrando soluções Pareto-ótimas que balanceiam os dois objetivos.</p>
+</section>
+<section id="limitacoes-e-armadilhas">
+<h3>Limitações e Armadilhas<a class="headerlink" href="#limitacoes-e-armadilhas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Proxies e Correlações:</strong> Mesmo removendo atributos sensíveis, o modelo pode usar proxies (ex: CEP como indicador de etnia). SBSE pode descobrir essas correlações indiretas.</p></li>
+<li><p><strong>Fairness Washing:</strong> Organizações podem “otimizar para as métricas” sem resolver problemas fundamentais. É crucial testar além das métricas oficiais.</p></li>
+<li><p><strong>Contexto Cultural:</strong> Definições de “justiça” variam entre culturas e contextos. O que é justo em um país pode não ser em outro.</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-5-sintese-e-proximos-passos">
+<h2>Seção 5: Síntese e Próximos Passos<a class="headerlink" href="#secao-5-sintese-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="resumo-do-capitulo">
+<h3>5.1. Resumo do Capítulo<a class="headerlink" href="#resumo-do-capitulo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Novo Paradigma:</strong> Fairness testing em IA representa uma evolução do teste de software tradicional, focando em princípios éticos ao invés de especificações técnicas.</p></li>
+<li><p><strong>SBSE como Ferramenta:</strong> Algoritmos de busca são ideais para detectar viés porque podem explorar sistematicamente o espaço de casos de teste, encontrando os exemplos mais discriminatórios.</p></li>
+<li><p><strong>Representação e Fitness:</strong> O sucesso do fairness testing depende de modelar adequadamente os perfis individuais e definir métricas que capturem diferentes tipos de discriminação.</p></li>
+<li><p><strong>Complexidade Ética:</strong> Fairness não é binária – existe um espectro de trade-offs entre justiça e performance que devem ser navegados conscientemente.</p></li>
+</ul>
+</section>
+<section id="ponte-e-briefing-para-o-workshop-pratico-ipynb">
+<h3>5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)<a class="headerlink" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb" title="Link to this heading">#</a></h3>
+<p><strong>Teaser para o Aluno:</strong> Teoria é importante, mas agora você vai colocar a mão na massa! No laboratório prático, você receberá um modelo de aprovação de crédito “contaminado” com viés de gênero. Sua missão será construir um detector de discriminação automatizado usando DEAP. Você verá como pequenas variações nos atributos podem revelar padrões preocupantes de discriminação que passariam despercebidos em testes manuais.</p>
+<p><strong>Briefing para o Agente de Prática (Geração do <code class="docutils literal notranslate"><span class="pre">workshop.ipynb</span></code>):</strong></p>
+<p>O notebook deve implementar um sistema completo de <strong>fairness testing usando SBSE</strong> com as seguintes especificações técnicas:</p>
+<ol class="arabic simple">
+<li><p><strong>Modelo-Alvo:</strong> Crie um modelo de classificação pré-treinado (usando scikit-learn) que simula aprovação de crédito. O modelo deve ser intencionalmente enviesado contra um grupo protegido (ex: mulheres ou uma etnia específica). Use um dataset sintético com atributos como <code class="docutils literal notranslate"><span class="pre">[idade,</span> <span class="pre">salario,</span> <span class="pre">score_credito,</span> <span class="pre">anos_experiencia,</span> <span class="pre">genero,</span> <span class="pre">etnia]</span></code>.</p></li>
+<li><p><strong>Representação SBSE:</strong></p>
+<ul class="simple">
+<li><p>Use o <code class="docutils literal notranslate"><span class="pre">creator</span></code> do DEAP para definir um <code class="docutils literal notranslate"><span class="pre">Individual</span></code> que representa um perfil de solicitante.</p></li>
+<li><p>Cada gene do cromossomo corresponde a um atributo (alguns numéricos, outros categóricos).</p></li>
+<li><p>Implemente geradores adequados para cada tipo de atributo (ex: <code class="docutils literal notranslate"><span class="pre">randint</span></code> para idade, <code class="docutils literal notranslate"><span class="pre">choice</span></code> para gênero).</p></li>
+</ul>
+</li>
+<li><p><strong>Função de Fitness:</strong></p>
+<ul class="simple">
+<li><p>Implemente múltiplas funções de fitness para detectar diferentes tipos de viés:</p>
+<ul>
+<li><p><strong>Individual Fairness:</strong> Compara pares de perfis que diferem apenas no atributo sensível.</p></li>
+<li><p><strong>Group Fairness:</strong> Mede disparidade nas taxas de aprovação entre grupos.</p></li>
+</ul>
+</li>
+<li><p>A fitness deve retornar a magnitude da discriminação detectada (maior = mais discriminatório).</p></li>
+</ul>
+</li>
+<li><p><strong>Estrutura com DEAP:</strong></p>
+<ul class="simple">
+<li><p>Configure a <code class="docutils literal notranslate"><span class="pre">toolbox</span></code> com operadores adequados para dados mistos (numéricos + categóricos).</p></li>
+<li><p>Use operadores de crossover e mutação que preservem a validade dos perfis gerados.</p></li>
+<li><p>Execute o algoritmo <code class="docutils literal notranslate"><span class="pre">eaSimple</span></code> para evoluir casos de teste discriminatórios.</p></li>
+</ul>
+</li>
+<li><p><strong>Análise e Visualização:</strong></p>
+<ul class="simple">
+<li><p>Apresente os casos de teste mais discriminatórios encontrados pelo AG.</p></li>
+<li><p>Compare os resultados com uma busca aleatória para demonstrar a eficácia do SBSE.</p></li>
+<li><p>Crie visualizações que mostrem as diferenças de probabilidade entre grupos.</p></li>
+<li><p>Calcule métricas de fairness padrão (Equalized Odds, Demographic Parity) nos casos encontrados.</p></li>
+</ul>
+</li>
+<li><p><strong>Discussão Ética:</strong></p>
+<ul class="simple">
+<li><p>Inclua uma seção final que discuta os achados e suas implicações.</p></li>
+<li><p>Analise se os vieses encontrados são justificáveis ou problemáticos.</p></li>
+<li><p>Proponha estratégias de mitigação baseadas nos resultados.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-09-fairness-testing-ml"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../aula-08-refatoracao-busca/workshop.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Workshop Prático: Refatoração Baseada em Busca — Aula 08</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workshop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Workshop Prático: Fairness Testing com SBSE</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-tripe-do-fairness-testing-com-sbse">O Tripé do Fairness Testing com SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-fairness-e-como-testa-los">Tipos de Fairness e Como Testá-los</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-desafio-do-oraculo-de-fairness">O Desafio do “Oráculo de Fairness”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness-vs-accuracy-o-dilema-fundamental">Fairness vs. Accuracy: O Dilema Fundamental</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitacoes-e-armadilhas">Limitações e Armadilhas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

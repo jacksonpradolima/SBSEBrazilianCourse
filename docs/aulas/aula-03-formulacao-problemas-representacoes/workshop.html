@@ -1,0 +1,995 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Workshop Prático: Da Formulação à Solução com DEAP &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-03-formulacao-problemas-representacoes/workshop';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Aula 4: Acelerando a Otimização com a Biblioteca DEAP" href="../aula-04-laboratorio-deap/README.html" />
+    <link rel="prev" title="Aula 3: A Arte de Formular Problemas em SBSE" href="README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Workshop Prático: Da Formulação à Solução com DEAP</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-1-configuracao-do-ambiente">Parte 1: Configuração do Ambiente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-2-definicao-do-problema">Parte 2: Definição do Problema</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-3-formulacao-do-problema-com-deap">Parte 3: Formulação do Problema com DEAP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-funcao-de-fitness">3.1. A Função de Fitness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-dos-operadores-geneticos">3.2. Registro dos Operadores Genéticos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-4-execucao-do-algoritmo-genetico">Parte 4: Execução do Algoritmo Genético</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-5-analise-da-melhor-solucao">Parte 5: Análise da Melhor Solução</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="workshop-pratico-da-formulacao-a-solucao-com-deap">
+<h1>Workshop Prático: Da Formulação à Solução com DEAP<a class="headerlink" href="#workshop-pratico-da-formulacao-a-solucao-com-deap" title="Link to this heading">#</a></h1>
+<p><strong>Objetivo:</strong> Aplicar os conceitos de formulação de problemas (representação e função de fitness) para resolver um problema clássico de otimização, o “Problema da Mochila”, utilizando a biblioteca DEAP.</p>
+<p><strong>Problema:</strong> Dado um conjunto de itens, cada um com um peso e um valor, determinar o subconjunto de itens a serem incluídos em uma mochila de forma que o valor total seja maximizado, sem que a soma dos pesos exceda a capacidade da mochila.</p>
+<hr class="docutils" />
+<section id="parte-1-configuracao-do-ambiente">
+<h2>Parte 1: Configuração do Ambiente<a class="headerlink" href="#parte-1-configuracao-do-ambiente" title="Link to this heading">#</a></h2>
+<p>Primeiro, vamos instalar a biblioteca <code class="docutils literal notranslate"><span class="pre">deap</span></code>, que fornecerá todas as ferramentas para construir nosso algoritmo genético.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Instalação e importação das bibliotecas</span>
+
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>deap<span class="w"> </span>-q
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.2</span> -&gt; <span class=" -Color -Color-Green">25.3</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">creator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">algorithms</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Ambiente configurado com DEAP!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Ambiente configurado com DEAP!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parte-2-definicao-do-problema">
+<h2>Parte 2: Definição do Problema<a class="headerlink" href="#parte-2-definicao-do-problema" title="Link to this heading">#</a></h2>
+<p>Vamos definir os parâmetros do nosso problema: os itens disponíveis (com seus nomes, valores e pesos) e a capacidade máxima da nossa mochila.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Parâmetros do Problema da Mochila</span>
+
+<span class="c1"># Dicionário de itens: {nome: (valor, peso)}</span>
+<span class="n">ITENS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Laptop&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1500</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="s2">&quot;Livro&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;Garrafa de Água&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="s2">&quot;Câmera&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+    <span class="s2">&quot;Casaco&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;Lanche&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+    <span class="s2">&quot;Carregador Portátil&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span>
+    <span class="s2">&quot;Fone de Ouvido&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Capacidade máxima da mochila em kg</span>
+<span class="n">CAPACIDADE_MAXIMA</span> <span class="o">=</span> <span class="mf">4.0</span>
+
+<span class="c1"># Extrair listas de nomes, valores e pesos para facilitar o acesso</span>
+<span class="n">nomes_itens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ITENS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">valores_itens</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ITENS</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<span class="n">pesos_itens</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ITENS</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<span class="n">n_itens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ITENS</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🎒 Problema da Mochila definido:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - </span><span class="si">{</span><span class="n">n_itens</span><span class="si">}</span><span class="s2"> itens disponíveis.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Capacidade máxima: </span><span class="si">{</span><span class="n">CAPACIDADE_MAXIMA</span><span class="si">}</span><span class="s2"> kg.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🎒 Problema da Mochila definido:
+   - 8 itens disponíveis.
+   - Capacidade máxima: 4.0 kg.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parte-3-formulacao-do-problema-com-deap">
+<h2>Parte 3: Formulação do Problema com DEAP<a class="headerlink" href="#parte-3-formulacao-do-problema-com-deap" title="Link to this heading">#</a></h2>
+<p>Aqui traduzimos os conceitos de <strong>representação</strong> e <strong>função de fitness</strong> para a estrutura do DEAP.</p>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">creator</span></code></strong>: Usamos para criar as classes base do nosso problema. Criaremos <code class="docutils literal notranslate"><span class="pre">FitnessMax</span></code>, uma classe de fitness que busca maximizar um único objetivo, e <code class="docutils literal notranslate"><span class="pre">Individual</span></code>, que será nossa representação (um indivíduo da população), baseada em uma lista com um atributo de fitness.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">toolbox</span></code></strong>: É uma caixa de ferramentas onde registramos as funções que o algoritmo genético usará para criar a população e realizar as operações genéticas (seleção, crossover, mutação).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Configuração do `creator` e `toolbox`</span>
+
+<span class="c1"># 1. Usando o `creator` para definir a estrutura do fitness e do indivíduo</span>
+<span class="c1"># Queremos maximizar o valor, então os pesos do fitness são positivos (1.0).</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMax&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,))</span>
+
+<span class="c1"># Nosso indivíduo será uma lista de 0s e 1s (representação binária).</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individual&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMax</span><span class="p">)</span>
+
+<span class="c1"># 2. Usando a `toolbox` para registrar as funções genéticas</span>
+<span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+
+<span class="c1"># -- Geração de Indivíduos e População --</span>
+
+<span class="c1"># Função `attr_bool`: gera um gene (0 ou 1). É o bloco de construção do nosso indivíduo.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;attr_bool&quot;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Função `individual`: cria um indivíduo completo (cromossomo).</span>
+<span class="c1"># Usa `tools.initRepeat` para chamar `attr_bool` n_itens vezes.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">attr_bool</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_itens</span><span class="p">)</span>
+
+<span class="c1"># Função `population`: cria a população inicial, uma lista de indivíduos.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🛠️  `creator` e `toolbox` configurados.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Fitness: Maximizar um objetivo.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Representação do Indivíduo: Lista binária (0s e 1s).&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🛠️  `creator` e `toolbox` configurados.
+   - Fitness: Maximizar um objetivo.
+   - Representação do Indivíduo: Lista binária (0s e 1s).
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-funcao-de-fitness">
+<h3>3.1. A Função de Fitness<a class="headerlink" href="#a-funcao-de-fitness" title="Link to this heading">#</a></h3>
+<p>Esta é a parte mais crucial. A função <code class="docutils literal notranslate"><span class="pre">evalKnapsack</span></code> recebe um indivíduo (uma lista de 0s e 1s) e calcula sua qualidade.</p>
+<ul class="simple">
+<li><p>Ela calcula o peso total e o valor total dos itens selecionados (onde o gene é 1).</p></li>
+<li><p><strong>Implementa a restrição:</strong> Se o peso total exceder a capacidade da mochila, o fitness é zerado. Esta é a <strong>função de penalidade</strong> que discutimos na teoria.</p></li>
+<li><p>Se a solução for válida, ela retorna o valor total como fitness.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Implementação da Função de Fitness</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evalKnapsack</span><span class="p">(</span><span class="n">individual</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Função de fitness para o Problema da Mochila.</span>
+
+<span class="sd">    Calcula o valor total dos itens no indivíduo. Se o peso total exceder</span>
+<span class="sd">    a capacidade, retorna um fitness de 0 (penalidade).</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        individual: Uma lista de 0s e 1s representando a solução.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Um tuple contendo o valor total (o fitness).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">valor_total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">peso_total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">individual</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">valor_total</span> <span class="o">+=</span> <span class="n">valores_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">peso_total</span> <span class="o">+=</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="c1"># Aplica a penalidade se a restrição de peso for violada</span>
+    <span class="k">if</span> <span class="n">peso_total</span> <span class="o">&gt;</span> <span class="n">CAPACIDADE_MAXIMA</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Retorna uma tupla, pois o DEAP espera isso</span>
+
+    <span class="k">return</span> <span class="n">valor_total</span><span class="p">,</span>
+
+<span class="c1"># Testando a função com um indivíduo de exemplo</span>
+<span class="n">teste_ind</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># Laptop, Livro, Câmera</span>
+<span class="n">teste_peso</span> <span class="o">=</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">teste_valor</span> <span class="o">=</span> <span class="n">valores_itens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">valores_itens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">valores_itens</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Indivíduo de teste: </span><span class="si">{</span><span class="n">teste_ind</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peso: </span><span class="si">{</span><span class="n">teste_peso</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kg (inválido, &gt; </span><span class="si">{</span><span class="n">CAPACIDADE_MAXIMA</span><span class="si">}</span><span class="s2"> kg)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness esperado: 0 (devido à penalidade)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness calculado: </span><span class="si">{</span><span class="n">evalKnapsack</span><span class="p">(</span><span class="n">teste_ind</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">teste_ind_valido</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># Livro, Garrafa, Câmera, Casaco, Lanche</span>
+<span class="n">teste_peso_valido</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pesos_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Indivíduo de teste válido: </span><span class="si">{</span><span class="n">teste_ind_valido</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peso: </span><span class="si">{</span><span class="n">teste_peso_valido</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kg (válido)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness calculado: </span><span class="si">{</span><span class="n">evalKnapsack</span><span class="p">(</span><span class="n">teste_ind_valido</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Indivíduo de teste: [1, 1, 0, 1, 0, 0, 0, 0]
+Peso: 4.50 kg (inválido, &gt; 4.0 kg)
+Fitness esperado: 0 (devido à penalidade)
+Fitness calculado: (0,)
+
+Indivíduo de teste válido: [0, 1, 1, 1, 1, 1, 0, 0]
+Peso: 4.20 kg (válido)
+Fitness calculado: (0,)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="registro-dos-operadores-geneticos">
+<h3>3.2. Registro dos Operadores Genéticos<a class="headerlink" href="#registro-dos-operadores-geneticos" title="Link to this heading">#</a></h3>
+<p>Agora, registramos as funções para <strong>crossover</strong>, <strong>mutação</strong> e <strong>seleção</strong> na nossa <code class="docutils literal notranslate"><span class="pre">toolbox</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Registro dos operadores na `toolbox`</span>
+
+<span class="c1"># Função de avaliação (fitness)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">evalKnapsack</span><span class="p">)</span>
+
+<span class="c1"># Operador de Crossover (Recombinação)</span>
+<span class="c1"># `cxTwoPoint` combina dois indivíduos trocando um segmento entre dois pontos.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxTwoPoint</span><span class="p">)</span>
+
+<span class="c1"># Operador de Mutação</span>
+<span class="c1"># `mutFlipBit` inverte o valor de um ou mais bits (genes) em um indivídu-o.</span>
+<span class="c1"># `indpb=0.05` significa que cada gene tem 5% de chance de ser invertido.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutFlipBit</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+
+<span class="c1"># Operador de Seleção</span>
+<span class="c1"># `selTournament` seleciona os melhores indivíduos através de um &quot;torneio&quot;.</span>
+<span class="c1"># `tournsize=3` significa que 3 indivíduos são escolhidos aleatoriamente, e o melhor deles vence.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span> <span class="n">tournsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Operadores genéticos registrados:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Avaliação: evalKnapsack&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Crossover: Two Point&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Mutação: Flip Bit (5</span><span class="si">% d</span><span class="s2">e chance por gene)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Seleção: Torneio (tamanho 3)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Operadores genéticos registrados:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   - Avaliação: evalKnapsack
+   - Crossover: Two Point
+   - Mutação: Flip Bit (5% de chance por gene)
+   - Seleção: Torneio (tamanho 3)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="parte-4-execucao-do-algoritmo-genetico">
+<h2>Parte 4: Execução do Algoritmo Genético<a class="headerlink" href="#parte-4-execucao-do-algoritmo-genetico" title="Link to this heading">#</a></h2>
+<p>Com tudo configurado, podemos executar o algoritmo. O DEAP oferece algoritmos prontos, como o <code class="docutils literal notranslate"><span class="pre">eaSimple</span></code>, que implementa um fluxo padrão de um AG.</p>
+<p>Para acompanhar o progresso, usamos o <code class="docutils literal notranslate"><span class="pre">Statistics</span></code> para coletar métricas a cada geração (média, desvio padrão, mínimo e máximo do fitness).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Execução e análise dos resultados</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># Para reprodutibilidade</span>
+
+    <span class="c1"># Cria a população inicial</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> <span class="c1"># 300 indivíduos</span>
+
+    <span class="c1"># HallOfFame armazena o melhor indivíduo encontrado durante a evolução</span>
+    <span class="n">hof</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">HallOfFame</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Configura as estatísticas que queremos coletar</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;std&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+
+    <span class="c1"># Executa o algoritmo genético</span>
+    <span class="c1"># CXPB: Probabilidade de Crossover</span>
+    <span class="c1"># MUTPB: Probabilidade de Mutação</span>
+    <span class="c1"># NGEN: Número de Gerações</span>
+    <span class="n">pop</span><span class="p">,</span> <span class="n">log</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mutpb</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ngen</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> 
+                                   <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pop</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">hof</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">pop</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">hof</span> <span class="o">=</span> <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	avg    	std    	min	max 
+0  	300   	963.333	1007.32	0  	3400
+1  	167   	1633   	938.924	0  	3400
+2  	181   	1983.33	940.357	0  	3400
+3  	166   	2242.17	885.116	0  	3400
+4  	202   	2193   	1041.15	0  	3400
+5  	180   	2342.5 	1053.43	0  	3400
+6  	160   	2562.5 	1095.93	0  	3400
+7  	189   	2920.33	973.8  	0  	3400
+8  	199   	3270.67	594.312	0  	3400
+9  	184   	3224.67	708.231	0  	3400
+10 	172   	3115.5 	898.407	0  	3400
+11 	185   	3239.33	701.607	0  	3400
+12 	195   	3264.33	629.678	0  	3400
+13 	170   	3317.67	490.022	0  	3400
+14 	188   	3193.67	761.66 	0  	3400
+15 	169   	3247   	660.372	0  	3400
+16 	161   	3300.67	510.555	0  	3400
+17 	174   	3290.83	540.023	0  	3400
+18 	189   	3269.5 	622.504	0  	3400
+19 	193   	3223.67	711.716	0  	3400
+20 	174   	3279.33	557.291	0  	3400
+21 	181   	3266.67	606.923	0  	3400
+22 	189   	3272.33	623.593	0  	3400
+23 	168   	3234.33	672.3  	0  	3400
+24 	185   	3240   	703.562	0  	3400
+25 	192   	3237.67	655.907	0  	3400
+26 	175   	3254.33	663.738	0  	3400
+27 	195   	3273   	599.142	0  	3400
+28 	164   	3284.67	592.141	0  	3400
+29 	174   	3257.83	640.934	0  	3400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 	177   	3219.33	727.204	0  	3400
+31 	181   	3213.33	717    	0  	3400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32 	168   	3303.67	507.3  	0  	3400
+33 	172   	3229.67	707.121	0  	3400
+34 	183   	3297   	533.564	0  	3400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>35 	180   	3250.67	660.227	0  	3400
+36 	165   	3271.33	622.183	0  	3400
+37 	199   	3294.83	536.888	0  	3400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38 	202   	3284.5 	558.153	0  	3400
+39 	185   	3190   	737.631	0  	3400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>40 	197   	3147   	832.801	0  	3400
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parte-5-analise-da-melhor-solucao">
+<h2>Parte 5: Análise da Melhor Solução<a class="headerlink" href="#parte-5-analise-da-melhor-solucao" title="Link to this heading">#</a></h2>
+<p>O <code class="docutils literal notranslate"><span class="pre">HallOfFame</span></code> (<code class="docutils literal notranslate"><span class="pre">hof</span></code>) guardou a melhor solução encontrada. Vamos inspecioná-la para ver quais itens o algoritmo escolheu.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Inspeção da melhor solução encontrada</span>
+
+<span class="n">best_solution</span> <span class="o">=</span> <span class="n">hof</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🏆 Melhor Solução Encontrada:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Representação: </span><span class="si">{</span><span class="n">best_solution</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Fitness (Valor Total): </span><span class="si">{</span><span class="n">best_solution</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> R$&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🎒 Itens na Mochila:&quot;</span><span class="p">)</span>
+<span class="n">valor_final</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">peso_final</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_solution</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">best_solution</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">nome</span> <span class="o">=</span> <span class="n">nomes_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">valor</span> <span class="o">=</span> <span class="n">valores_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">peso</span> <span class="o">=</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - </span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s2"> (Valor: </span><span class="si">{</span><span class="n">valor</span><span class="si">}</span><span class="s2">, Peso: </span><span class="si">{</span><span class="n">peso</span><span class="si">}</span><span class="s2"> kg)&quot;</span><span class="p">)</span>
+        <span class="n">valor_final</span> <span class="o">+=</span> <span class="n">valor</span>
+        <span class="n">peso_final</span> <span class="o">+=</span> <span class="n">peso</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📊 Resumo Final:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Valor Total: </span><span class="si">{</span><span class="n">valor_final</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> R$&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Peso Total: </span><span class="si">{</span><span class="n">peso_final</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kg (Capacidade: </span><span class="si">{</span><span class="n">CAPACIDADE_MAXIMA</span><span class="si">}</span><span class="s2"> kg)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🏆 Melhor Solução Encontrada:
+   - Representação: [1, 0, 0, 1, 0, 1, 0, 1]
+   - Fitness (Valor Total): 3400.00 R$
+
+🎒 Itens na Mochila:
+   - Laptop (Valor: 1500, Peso: 2 kg)
+   - Câmera (Valor: 1200, Peso: 1.5 kg)
+   - Lanche (Valor: 100, Peso: 0.2 kg)
+   - Fone de Ouvido (Valor: 600, Peso: 0.3 kg)
+
+📊 Resumo Final:
+   - Valor Total: 3400.00 R$
+   - Peso Total: 4.00 kg (Capacidade: 4.0 kg)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Implementação da Função de Fitness</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evalKnapsack</span><span class="p">(</span><span class="n">individual</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Função de fitness para o Problema da Mochila.</span>
+
+<span class="sd">    Calcula o valor total dos itens no indivíduo. Se o peso total exceder</span>
+<span class="sd">    a capacidade, retorna um fitness de 0 (penalidade).</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        individual: Uma lista de 0s e 1s representando a solução.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Um tuple contendo o valor total (o fitness).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">valor_total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">peso_total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">individual</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">valor_total</span> <span class="o">+=</span> <span class="n">valores_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">peso_total</span> <span class="o">+=</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="c1"># Aplica a penalidade se a restrição de peso for violada</span>
+    <span class="k">if</span> <span class="n">peso_total</span> <span class="o">&gt;</span> <span class="n">CAPACIDADE_MAXIMA</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Retorna uma tupla, pois o DEAP espera isso</span>
+
+    <span class="k">return</span> <span class="n">valor_total</span><span class="p">,</span>
+
+<span class="c1"># Testando a função com um indivíduo de exemplo</span>
+<span class="n">teste_ind</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># Laptop, Livro, Câmera</span>
+<span class="n">teste_peso</span> <span class="o">=</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">pesos_itens</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">teste_valor</span> <span class="o">=</span> <span class="n">valores_itens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">valores_itens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">valores_itens</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Indivíduo de teste: </span><span class="si">{</span><span class="n">teste_ind</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peso: </span><span class="si">{</span><span class="n">teste_peso</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kg (inválido, &gt; </span><span class="si">{</span><span class="n">CAPACIDADE_MAXIMA</span><span class="si">}</span><span class="s2"> kg)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness esperado: 0 (devido à penalidade)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness calculado: </span><span class="si">{</span><span class="n">evalKnapsack</span><span class="p">(</span><span class="n">teste_ind</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">teste_ind_valido</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># Livro, Garrafa, Câmera, Casaco, Lanche</span>
+<span class="n">teste_peso_valido</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pesos_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Indivíduo de teste válido: </span><span class="si">{</span><span class="n">teste_ind_valido</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peso: </span><span class="si">{</span><span class="n">teste_peso_valido</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kg (válido)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness calculado: </span><span class="si">{</span><span class="n">evalKnapsack</span><span class="p">(</span><span class="n">teste_ind_valido</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Indivíduo de teste: [1, 1, 0, 1, 0, 0, 0, 0]
+Peso: 4.50 kg (inválido, &gt; 4.0 kg)
+Fitness esperado: 0 (devido à penalidade)
+Fitness calculado: (0,)
+
+Indivíduo de teste válido: [0, 1, 1, 1, 1, 1, 0, 0]
+Peso: 4.20 kg (válido)
+Fitness calculado: (0,)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-03-formulacao-problemas-representacoes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Aula 3: A Arte de Formular Problemas em SBSE</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../aula-04-laboratorio-deap/README.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-1-configuracao-do-ambiente">Parte 1: Configuração do Ambiente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-2-definicao-do-problema">Parte 2: Definição do Problema</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-3-formulacao-do-problema-com-deap">Parte 3: Formulação do Problema com DEAP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-funcao-de-fitness">3.1. A Função de Fitness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-dos-operadores-geneticos">3.2. Registro dos Operadores Genéticos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-4-execucao-do-algoritmo-genetico">Parte 4: Execução do Algoritmo Genético</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-5-analise-da-melhor-solucao">Parte 5: Análise da Melhor Solução</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

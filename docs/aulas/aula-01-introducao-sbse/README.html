@@ -1,0 +1,891 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introdução à Engenharia de Software Baseada em Busca (SBSE) &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-01-introducao-sbse/README';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético" href="workshop.html" />
+    <link rel="prev" title="Engenharia de Software Baseada em Busca na Era da IA" href="../../../README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introdução à Engenharia de Software Baseada em Busca (SBSE)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos">Seção 2: Fundamentos Teóricos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-engenharia-de-software-baseada-em-busca-sbse">2.1. O que é Engenharia de Software Baseada em Busca (SBSE)?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-sbse-funciona-para-problemas-de-software">2.2. Por que SBSE Funciona para Problemas de Software?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-evolucao-historica-da-sbse">2.3. A Evolução Histórica da SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#componentes-essenciais-de-uma-abordagem-sbse">2.4. Componentes Essenciais de uma Abordagem SBSE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-pratico-geracao-automatica-de-dados-de-teste">3.1. Caso Prático: Geração Automática de Dados de Teste</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomia-de-aplicacoes-em-sbse">4.1. Taxonomia de Aplicações em SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desafios-e-limitacoes">4.2. Desafios e Limitações</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estado-da-arte-e-tendencias-emergentes">4.3. Estado da Arte e Tendências Emergentes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-de-sucesso-em-sbse">4.4. Métricas de Sucesso em SBSE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introducao-a-engenharia-de-software-baseada-em-busca-sbse">
+<h1>Introdução à Engenharia de Software Baseada em Busca (SBSE)<a class="headerlink" href="#introducao-a-engenharia-de-software-baseada-em-busca-sbse" title="Link to this heading">#</a></h1>
+<section id="secao-1-abertura-e-engajamento">
+<h2>Seção 1: Abertura e Engajamento<a class="headerlink" href="#secao-1-abertura-e-engajamento" title="Link to this heading">#</a></h2>
+<section id="problema-motivador">
+<h3>1.1. Problema Motivador<a class="headerlink" href="#problema-motivador" title="Link to this heading">#</a></h3>
+<p>Imagine que você é um engenheiro de software trabalhando em uma empresa de desenvolvimento de aplicativos móveis. Sua equipe precisa criar uma suite de testes para um novo aplicativo bancário que possui milhares de linhas de código, dezenas de classes e centenas de métodos. Manualmente, seria necessário escrever milhares de casos de teste, um processo que levaria meses e ainda assim poderia deixar partes críticas do código sem cobertura.</p>
+<p>Agora considere outro cenário: você precisa refatorar um sistema legado com mais de 50.000 linhas de código, movendo métodos entre classes para melhorar a coesão e reduzir o acoplamento. Existem literalmente milhões de combinações possíveis de onde cada método poderia estar localizado. Como encontrar a melhor configuração?</p>
+<p>Estes são exemplos típicos de problemas em engenharia de software que possuem características peculiares: um espaço de busca imenso (muitas soluções possíveis), múltiplos objetivos conflitantes (cobertura vs. tempo de execução, coesão vs. simplicidade), e a necessidade de encontrar soluções “boas o suficiente” em tempo razoável, ao invés de soluções perfeitas que podem nunca ser encontradas.</p>
+</section>
+<section id="objetivos-deste-capitulo">
+<h3>1.2. Objetivos deste Capítulo<a class="headerlink" href="#objetivos-deste-capitulo" title="Link to this heading">#</a></h3>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul class="simple">
+<li><p><strong>Definir SBSE</strong> e explicar como ela difere de abordagens tradicionais de resolução de problemas em engenharia de software</p></li>
+<li><p><strong>Identificar características</strong> que tornam um problema de engenharia de software adequado para técnicas de busca</p></li>
+<li><p><strong>Reconhecer aplicações práticas</strong> da SBSE em diferentes domínios da engenharia de software e avaliar seus benefícios</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-2-fundamentos-teoricos">
+<h2>Seção 2: Fundamentos Teóricos<a class="headerlink" href="#secao-2-fundamentos-teoricos" title="Link to this heading">#</a></h2>
+<section id="o-que-e-engenharia-de-software-baseada-em-busca-sbse">
+<h3>2.1. O que é Engenharia de Software Baseada em Busca (SBSE)?<a class="headerlink" href="#o-que-e-engenharia-de-software-baseada-em-busca-sbse" title="Link to this heading">#</a></h3>
+<p><strong>Intuição Inicial:</strong> Pense na SBSE como um “GPS inteligente” para problemas de engenharia de software. Assim como um GPS encontra a melhor rota entre dois pontos considerando múltiplos fatores (distância, trânsito, pedágios), a SBSE usa algoritmos de busca para encontrar as melhores soluções para problemas complexos de software, considerando múltiplos critérios simultaneamente.</p>
+<p><strong>Definição Formal:</strong> Search-Based Software Engineering (SBSE) é a aplicação de técnicas de otimização e algoritmos de busca para resolver problemas de engenharia de software. Foi formalmente definida por Mark Harman em 2001 como uma abordagem que reformula problemas de engenharia de software como problemas de otimização.</p>
+<p><strong>O que é Otimização?</strong> Otimização é o processo de encontrar uma ou mais soluções válidas para um problema a partir de um conjunto de soluções possíveis, levando em consideração restrições e objetivos.
+Envolve a identificação dos valores ideais (ou ótimos) de uma ou mais variáveis, geralmente minimizando ou maximizando uma função objetivo.</p>
+</section>
+<section id="por-que-sbse-funciona-para-problemas-de-software">
+<h3>2.2. Por que SBSE Funciona para Problemas de Software?<a class="headerlink" href="#por-que-sbse-funciona-para-problemas-de-software" title="Link to this heading">#</a></h3>
+<p>Problemas de engenharia de software frequentemente compartilham características que os tornam ideais para técnicas de busca:</p>
+<pre  class="mermaid">
+        mindmap
+  root((Características dos Problemas de ES))
+    Espaço de Busca Vasto
+      Milhões de configurações possíveis
+      Crescimento exponencial com tamanho
+    Múltiplos Objetivos
+      Funcionalidade vs Performance
+      Qualidade vs Custo vs Tempo
+    Soluções Aproximadas Aceitáveis
+      &quot;Bom o suficiente&quot; vs &quot;Perfeito&quot;
+      Trade-offs são naturais
+    Avaliação Automatizável
+      Métricas objetivas disponíveis
+      Feedback computacional possível
+    </pre></section>
+<section id="a-evolucao-historica-da-sbse">
+<h3>2.3. A Evolução Histórica da SBSE<a class="headerlink" href="#a-evolucao-historica-da-sbse" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Período</p></th>
+<th class="head"><p>Marco</p></th>
+<th class="head"><p>Contribuição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1992</strong></p></td>
+<td><p>Primeiros trabalhos</p></td>
+<td><p>Uso de algoritmos genéticos para teste de software</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2001</strong></p></td>
+<td><p><strong>Marco Fundamental</strong></p></td>
+<td><p>Mark Harman cunha o termo “SBSE”</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>2004-2010</strong></p></td>
+<td><p><strong>Expansão</strong></p></td>
+<td><p>Aplicação em refatoração, design, manutenção</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2010-2015</strong></p></td>
+<td><p><strong>Maturidade</strong></p></td>
+<td><p>Ferramentas industriais, conferências especializadas</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>2015-Presente</strong></p></td>
+<td><p><strong>Diversificação</strong></p></td>
+<td><p>ML/IA híbrido, DevOps, arquiteturas modernas</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="componentes-essenciais-de-uma-abordagem-sbse">
+<h3>2.4. Componentes Essenciais de uma Abordagem SBSE<a class="headerlink" href="#componentes-essenciais-de-uma-abordagem-sbse" title="Link to this heading">#</a></h3>
+<p>Toda solução SBSE possui três componentes fundamentais:</p>
+<ol class="arabic simple">
+<li><p><strong>Representação da Solução:</strong> Como codificar uma solução candidata</p></li>
+<li><p><strong>Função de Fitness:</strong> Como avaliar a qualidade de uma solução</p></li>
+<li><p><strong>Algoritmo de Busca:</strong> Como navegar pelo espaço de soluções</p></li>
+</ol>
+<pre  class="mermaid">
+        flowchart TD
+    A[Problema de ES] --&gt; B[Representação]
+    B --&gt; C[Função de Fitness]
+    C --&gt; D[Algoritmo de Busca]
+    D --&gt; E[Soluções Candidatas]
+    E --&gt; F{Critério de Parada?}
+    F --&gt;|Não| G[Avaliar Fitness]
+    G --&gt; H[Gerar Novas Soluções]
+    H --&gt; E
+    F --&gt;|Sim| I[Melhor Solução]
+    </pre></section>
+</section>
+<section id="secao-3-exemplo-ilustrativo">
+<h2>Seção 3: Exemplo Ilustrativo<a class="headerlink" href="#secao-3-exemplo-ilustrativo" title="Link to this heading">#</a></h2>
+<section id="caso-pratico-geracao-automatica-de-dados-de-teste">
+<h3>3.1. Caso Prático: Geração Automática de Dados de Teste<a class="headerlink" href="#caso-pratico-geracao-automatica-de-dados-de-teste" title="Link to this heading">#</a></h3>
+<p>Vamos illustrar os conceitos com um exemplo concreto e simplificado:</p>
+<p><strong>Problema:</strong> Gerar dados de teste para cobrir todos os caminhos de execução do seguinte método Java:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TriangleClassifier</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">classify</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;Invalid&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;Not a triangle&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;Equilateral&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;Isosceles&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;Scalene&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Abordagem SBSE:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Representação:</strong> Cada solução é um trio de inteiros (a, b, c)</p></li>
+<li><p><strong>Função de Fitness:</strong> Número de caminhos de execução cobertos</p></li>
+<li><p><strong>Algoritmo:</strong> Algoritmo Genético simples</p></li>
+</ol>
+<p><strong>Pseudocódigo do Processo:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># População inicial: conjuntos aleatórios de (a, b, c)</span>
+<span class="n">população</span> <span class="o">=</span> <span class="n">gerar_população_aleatória</span><span class="p">(</span><span class="n">tamanho</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">geração</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="c1"># Avaliar cada indivíduo</span>
+    <span class="k">for</span> <span class="n">indivíduo</span> <span class="ow">in</span> <span class="n">população</span><span class="p">:</span>
+        <span class="n">fitness</span><span class="p">[</span><span class="n">indivíduo</span><span class="p">]</span> <span class="o">=</span> <span class="n">contar_caminhos_cobertos</span><span class="p">(</span><span class="n">indivíduo</span><span class="p">)</span>
+    
+    <span class="c1"># Seleção dos melhores</span>
+    <span class="n">pais</span> <span class="o">=</span> <span class="n">selecionar_melhores</span><span class="p">(</span><span class="n">população</span><span class="p">,</span> <span class="n">fitness</span><span class="p">)</span>
+    
+    <span class="c1"># Gerar nova população</span>
+    <span class="n">nova_população</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tamanho_população</span><span class="p">):</span>
+        <span class="n">pai1</span><span class="p">,</span> <span class="n">pai2</span> <span class="o">=</span> <span class="n">escolher_pais_aleatórios</span><span class="p">(</span><span class="n">pais</span><span class="p">)</span>
+        <span class="n">filho</span> <span class="o">=</span> <span class="n">crossover</span><span class="p">(</span><span class="n">pai1</span><span class="p">,</span> <span class="n">pai2</span><span class="p">)</span>
+        <span class="n">filho</span> <span class="o">=</span> <span class="n">mutação</span><span class="p">(</span><span class="n">filho</span><span class="p">,</span> <span class="n">taxa</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">nova_população</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filho</span><span class="p">)</span>
+    
+    <span class="n">população</span> <span class="o">=</span> <span class="n">nova_população</span>
+
+<span class="c1"># Resultado: conjunto de dados de teste que maximiza cobertura</span>
+</pre></div>
+</div>
+<p><strong>Resultado Esperado:</strong> Após 100 gerações, o algoritmo encontra conjuntos como:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">5,</span> <span class="pre">5)</span></code> → “Invalid”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">5)</span></code> → “Not a triangle”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code> → “Equilateral”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">4)</span></code> → “Isosceles”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4,</span> <span class="pre">5)</span></code> → “Scalene”</p></li>
+</ul>
+<p>Cobrindo todos os 5 caminhos de execução automaticamente!</p>
+</section>
+</section>
+<section id="secao-4-analise-e-topicos-avancados">
+<h2>Seção 4: Análise e Tópicos Avançados<a class="headerlink" href="#secao-4-analise-e-topicos-avancados" title="Link to this heading">#</a></h2>
+<section id="taxonomia-de-aplicacoes-em-sbse">
+<h3>4.1. Taxonomia de Aplicações em SBSE<a class="headerlink" href="#taxonomia-de-aplicacoes-em-sbse" title="Link to this heading">#</a></h3>
+<p>A SBSE tem sido aplicada em praticamente todas as fases do ciclo de vida do software:</p>
+<pre  class="mermaid">
+        graph TD
+    A[SBSE Applications] --&gt; B[Requirements Engineering]
+    A --&gt; C[Design &amp; Architecture]
+    A --&gt; D[Implementation]
+    A --&gt; E[Testing]
+    A --&gt; F[Maintenance]
+    A --&gt; G[Project Management]
+    
+    B --&gt; B1[Requirements Selection]
+    B --&gt; B2[Requirements Prioritization]
+    
+    C --&gt; C1[Software Architecture]
+    C --&gt; C2[Design Patterns]
+    C --&gt; C3[Module Clustering]
+    
+    D --&gt; D1[Code Generation]
+    D --&gt; D2[Program Repair]
+    
+    E --&gt; E1[Test Data Generation]
+    E --&gt; E2[Test Case Prioritization]
+    E --&gt; E3[Test Suite Minimization]
+    
+    F --&gt; F1[Refactoring]
+    F --&gt; F2[Bug Localization]
+    F --&gt; F3[Code Smells Detection]
+    
+    G --&gt; G1[Project Scheduling]
+    G --&gt; G2[Resource Allocation]
+    </pre></section>
+<section id="desafios-e-limitacoes">
+<h3>4.2. Desafios e Limitações<a class="headerlink" href="#desafios-e-limitacoes" title="Link to this heading">#</a></h3>
+<p>Apesar dos sucessos, a SBSE enfrenta desafios importantes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Desafio</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Estratégias de Mitigação</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Escalabilidade</strong></p></td>
+<td><p>Problemas reais têm espaços de busca imensos</p></td>
+<td><p>Técnicas híbridas, paralelização</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Representação</strong></p></td>
+<td><p>Dificuldade em codificar soluções complexas</p></td>
+<td><p>Co-evolução, representações multi-nível</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Fitness Functions</strong></p></td>
+<td><p>Métricas podem não capturar qualidade real</p></td>
+<td><p>Validação empírica, múltiplos objetivos</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Interpretabilidade</strong></p></td>
+<td><p>Soluções podem ser difíceis de entender</p></td>
+<td><p>Visualização, explicabilidade</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="estado-da-arte-e-tendencias-emergentes">
+<h3>4.3. Estado da Arte e Tendências Emergentes<a class="headerlink" href="#estado-da-arte-e-tendencias-emergentes" title="Link to this heading">#</a></h3>
+<p><strong>Direções Atuais de Pesquisa:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Hibridização com ML/IA:</strong> Combinar SBSE com aprendizado de máquina</p></li>
+<li><p><strong>SBSE para DevOps:</strong> Otimização de pipelines CI/CD</p></li>
+<li><p><strong>Multi-objetivo Avançado:</strong> Técnicas como NSGA-III para 4+ objetivos</p></li>
+<li><p><strong>SBSE Interativa:</strong> Incorporar feedback do desenvolvedor no loop de otimização</p></li>
+</ol>
+</section>
+<section id="metricas-de-sucesso-em-sbse">
+<h3>4.4. Métricas de Sucesso em SBSE<a class="headerlink" href="#metricas-de-sucesso-em-sbse" title="Link to this heading">#</a></h3>
+<p>Para avaliar o sucesso de uma abordagem SBSE, consideramos:</p>
+<ul class="simple">
+<li><p><strong>Eficácia:</strong> A solução resolve o problema?</p></li>
+<li><p><strong>Eficiência:</strong> Quão rápido a solução é encontrada?</p></li>
+<li><p><strong>Escalabilidade:</strong> Funciona em problemas reais?</p></li>
+<li><p><strong>Robustez:</strong> Consistência entre execuções</p></li>
+<li><p><strong>Interpretabilidade:</strong> Desenvolvedores entendem a solução?</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-5-sintese-e-proximos-passos">
+<h2>Seção 5: Síntese e Próximos Passos<a class="headerlink" href="#secao-5-sintese-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="resumo-do-capitulo">
+<h3>5.1. Resumo do Capítulo<a class="headerlink" href="#resumo-do-capitulo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>SBSE reformula problemas de ES como problemas de otimização</strong>, permitindo o uso de algoritmos de busca poderosos para encontrar soluções em espaços complexos</p></li>
+<li><p><strong>Características dos problemas de software</strong> (espaços vastos, múltiplos objetivos, soluções aproximadas aceitáveis) os tornam naturalmente adequados para técnicas de busca</p></li>
+<li><p><strong>Aplicações abrangem todo o ciclo de vida do software</strong>, desde engenharia de requisitos até manutenção, com sucessos documentados na indústria</p></li>
+<li><p><strong>Componentes essenciais</strong> incluem representação adequada, função de fitness bem definida, e escolha apropriada do algoritmo de busca</p></li>
+<li><p><strong>Tendências emergentes</strong> incluem hibridização com IA/ML e aplicação em contextos modernos como DevOps</p></li>
+</ul>
+</section>
+<section id="ponte-e-briefing-para-o-workshop-pratico-ipynb">
+<h3>5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)<a class="headerlink" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb" title="Link to this heading">#</a></h3>
+<p><strong>Teaser para o Aluno:</strong> Agora que você compreende os fundamentos da SBSE, é hora de colocar a mão na massa! No laboratório prático, você implementará do zero um sistema completo de geração automática de dados de teste usando algoritmo genético. Você verá como os conceitos teóricos se traduzem em código Python e experimentará como pequenas mudanças nos parâmetros podem impactar drasticamente os resultados.</p>
+<p><strong>Briefing para o Agente de Prática:</strong></p>
+<p>O notebook deve implementar um <strong>sistema completo de geração de dados de teste</strong> com as seguintes especificações técnicas:</p>
+<ol class="arabic simple">
+<li><p><strong>Problema-alvo:</strong> Implementar a classe <code class="docutils literal notranslate"><span class="pre">TriangleClassifier</span></code> apresentada na teoria e criar um sistema que gere automaticamente dados de teste para maximizar cobertura de caminhos</p></li>
+<li><p><strong>Componentes a implementar:</strong></p>
+<ul class="simple">
+<li><p>Classe <code class="docutils literal notranslate"><span class="pre">Individual</span></code> para representar soluções (trios de inteiros)</p></li>
+<li><p>Função de fitness que execute o código e conte caminhos cobertos</p></li>
+<li><p>Algoritmo genético com operadores de seleção, crossover e mutação</p></li>
+<li><p>Sistema de tracking de progresso e visualização de resultados</p></li>
+</ul>
+</li>
+<li><p><strong>Estrutura do laboratório:</strong></p>
+<ul class="simple">
+<li><p><strong>Parte 1:</strong> Implementação da função-alvo e análise manual dos caminhos</p></li>
+<li><p><strong>Parte 2:</strong> Desenvolvimento do algoritmo genético passo a passo</p></li>
+<li><p><strong>Parte 3:</strong> Experimentação com diferentes parâmetros (população, mutação, gerações)</p></li>
+<li><p><strong>Parte 4:</strong> Análise comparativa entre busca aleatória vs. algoritmo genético</p></li>
+<li><p><strong>Parte 5:</strong> Visualização da evolução da população e convergência</p></li>
+</ul>
+</li>
+<li><p><strong>Resultados esperados:</strong> O aluno deve conseguir gerar automaticamente um conjunto de dados de teste que cubra todos os 5 caminhos de execução do <code class="docutils literal notranslate"><span class="pre">TriangleClassifier</span></code>, observando a superioridade do algoritmo genético sobre busca aleatória</p></li>
+<li><p><strong>Elementos pedagógicos:</strong> Incluir células interativas para modificação de parâmetros, visualizações da evolução da fitness ao longo das gerações, e seções de análise crítica dos resultados obtidos</p></li>
+</ol>
+<p>O foco deve ser na <strong>experiência prática completa</strong> - desde a implementação até a análise de resultados - demonstrando como SBSE resolve problemas reais de forma automatizada e eficiente.</p>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-01-introducao-sbse"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../../README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Engenharia de Software Baseada em Busca na Era da IA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workshop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos">Seção 2: Fundamentos Teóricos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-que-e-engenharia-de-software-baseada-em-busca-sbse">2.1. O que é Engenharia de Software Baseada em Busca (SBSE)?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-sbse-funciona-para-problemas-de-software">2.2. Por que SBSE Funciona para Problemas de Software?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-evolucao-historica-da-sbse">2.3. A Evolução Histórica da SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#componentes-essenciais-de-uma-abordagem-sbse">2.4. Componentes Essenciais de uma Abordagem SBSE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-pratico-geracao-automatica-de-dados-de-teste">3.1. Caso Prático: Geração Automática de Dados de Teste</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomia-de-aplicacoes-em-sbse">4.1. Taxonomia de Aplicações em SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desafios-e-limitacoes">4.2. Desafios e Limitações</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estado-da-arte-e-tendencias-emergentes">4.3. Estado da Arte e Tendências Emergentes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-de-sucesso-em-sbse">4.4. Métricas de Sucesso em SBSE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

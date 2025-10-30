@@ -1,0 +1,1189 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Técnicas de Otimização em SBSE &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-02-tecnicas-otimizacao-sbse/README';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Workshop Prático: Técnicas de Otimização em SBSE" href="workshop.html" />
+    <link rel="prev" title="Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético" href="../aula-01-introducao-sbse/workshop.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Técnicas de Otimização em SBSE</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Técnicas de Otimização em SBSE</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos">Seção 2: Fundamentos Teóricos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-ecossistema-de-algoritmos-de-otimizacao-em-sbse">2.1. O Ecossistema de Algoritmos de Otimização em SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classificacao-por-caracteristicas-de-problema">2.2. Classificação por Características de Problema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmos-geneticos-o-canivete-suico-da-sbse">2.3. Algoritmos Genéticos: O “Canivete Suíço” da SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulated-annealing-o-escalador-inteligente">2.4. Simulated Annealing: O “Escalador Inteligente”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle-swarm-optimization-a-inteligencia-coletiva">2.5. Particle Swarm Optimization: A “Inteligência Coletiva”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-pratico-otimizacao-de-configuracao-de-sistema-web">3.1. Problema Prático: Otimização de Configuração de Sistema Web</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacao-de-convergencia">3.2. Comparação de Convergência</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-de-representacoes-sofisticadas">4.1. Design de Representações Sofisticadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#representacoes-para-problemas-de-arquitetura">4.1.1. Representações para Problemas de Arquitetura</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#representacoes-variaveis-e-estruturais">4.1.2. Representações Variáveis e Estruturais</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-de-fitness-avancadas">4.2. Funções de Fitness Avançadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-objective-fitness-design">4.2.1. Multi-Objective Fitness Design</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-and-adaptive-fitness">4.2.2. Dynamic and Adaptive Fitness</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hibridizacao-e-tecnicas-avancadas">4.3. Hibridização e Técnicas Avançadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#memetic-algorithms-ga-local-search">4.3.1. Memetic Algorithms: GA + Local Search</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-population-e-island-models">4.3.2. Multi-Population e Island Models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analise-de-performance-e-debugging">4.4. Análise de Performance e Debugging</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-de-convergencia">4.4.1. Métricas de Convergência</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tecnicas-de-otimizacao-em-sbse">
+<h1>Técnicas de Otimização em SBSE<a class="headerlink" href="#tecnicas-de-otimizacao-em-sbse" title="Link to this heading">#</a></h1>
+<section id="secao-1-abertura-e-engajamento">
+<h2>Seção 1: Abertura e Engajamento<a class="headerlink" href="#secao-1-abertura-e-engajamento" title="Link to this heading">#</a></h2>
+<section id="problema-motivador">
+<h3>1.1. Problema Motivador<a class="headerlink" href="#problema-motivador" title="Link to this heading">#</a></h3>
+<p>Imagine que você é o arquiteto de software de uma startup fintech que está desenvolvendo um sistema de trading algorítmico. O sistema precisa processar milhões de transações por segundo, mas você tem várias decisões críticas para fazer: Qual estrutura de dados usar para o cache? Como distribuir o processamento entre os microsserviços? Quantos threads alocar para cada componente? Como configurar o garbage collector da JVM para minimizar latência?</p>
+<p>Cada uma dessas decisões tem dezenas de opções possíveis, e elas interagem entre si de forma complexa. Testar todas as combinações manualmente levaria anos. Pior ainda: uma configuração ótima para um padrão de carga pode ser terrível para outro. Como um engenheiro de software encontra a “receita” ideal em um espaço de possibilidades que cresce exponencialmente?</p>
+<p>Este é exatamente o tipo de problema que as técnicas de otimização em SBSE foram projetadas para resolver. Mas aqui está o desafio: não basta conhecer os algoritmos - você precisa saber <strong>como traduzir</strong> problemas de engenharia de software para a linguagem que estes algoritmos compreendem, e <strong>como avaliar</strong> se uma solução é realmente boa na prática.</p>
+</section>
+<section id="objetivos-deste-capitulo">
+<h3>1.2. Objetivos deste Capítulo<a class="headerlink" href="#objetivos-deste-capitulo" title="Link to this heading">#</a></h3>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul class="simple">
+<li><p><strong>Selecionar e aplicar</strong> algoritmos de otimização adequados (Genetic Algorithm, Simulated Annealing, Hill Climbing, PSO) para diferentes tipos de problemas de engenharia de software</p></li>
+<li><p><strong>Projetar representações eficazes</strong> que transformem problemas complexos de ES em formatos que algoritmos de busca possam manipular</p></li>
+<li><p><strong>Construir funções de fitness robustas</strong> que capturem objetivos reais de qualidade de software e guiem a busca de forma eficiente</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-2-fundamentos-teoricos">
+<h2>Seção 2: Fundamentos Teóricos<a class="headerlink" href="#secao-2-fundamentos-teoricos" title="Link to this heading">#</a></h2>
+<section id="o-ecossistema-de-algoritmos-de-otimizacao-em-sbse">
+<h3>2.1. O Ecossistema de Algoritmos de Otimização em SBSE<a class="headerlink" href="#o-ecossistema-de-algoritmos-de-otimizacao-em-sbse" title="Link to this heading">#</a></h3>
+<p><strong>Analogia Inicial:</strong> Pense nos algoritmos de otimização como diferentes “estratégias de exploração” em um território desconhecido. Cada algoritmo é como um explorador com personalidade e habilidades distintas navegando pela paisagem de soluções.</p>
+<pre  class="mermaid">
+        mindmap
+  root((Algoritmos de Otimização))
+    Baseados em População
+      Algoritmos Genéticos
+        Crossover + Mutação
+        Seleção por Fitness
+        Diversidade Genética
+      Particle Swarm Optimization
+        Inteligência de Enxame
+        Velocidade + Posição
+        Memória Social
+      Differential Evolution
+        Mutação Diferencial
+        Recombinação
+    Busca Local
+      Hill Climbing
+        Greedy Local
+        Rápido mas Local Optima
+      Simulated Annealing
+        Aceita Pioras Temporárias
+        &quot;Resfriamento&quot; Gradual
+      Tabu Search
+        Memória de Movimentos
+        Evita Ciclos
+    Híbridos
+      Memetic Algorithms
+        GA + Busca Local
+      Multi-Start
+        Múltiplas Inicializações
+    </pre></section>
+<section id="classificacao-por-caracteristicas-de-problema">
+<h3>2.2. Classificação por Características de Problema<a class="headerlink" href="#classificacao-por-caracteristicas-de-problema" title="Link to this heading">#</a></h3>
+<p>Diferentes algoritmos se destacam em diferentes características do problema:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Característica do Problema</p></th>
+<th class="head"><p>Algoritmo Recomendado</p></th>
+<th class="head"><p>Porquê</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Espaço contínuo, suave</strong></p></td>
+<td><p>Hill Climbing, Gradient-based</p></td>
+<td><p>Gradientes bem definidos</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Espaço discreto, combinatorial</strong></p></td>
+<td><p>Algoritmos Genéticos, Tabu Search</p></td>
+<td><p>Operadores de combinação</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Múltiplos ótimos locais</strong></p></td>
+<td><p>Simulated Annealing, PSO</p></td>
+<td><p>Mecanismos de escape</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Avaliação custosa</strong></p></td>
+<td><p>Surrogate-based, memetic</p></td>
+<td><p>Minimiza avaliações</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Múltiplos objetivos</strong></p></td>
+<td><p>NSGA-II, SPEA2</p></td>
+<td><p>Pareto-optimality</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Restrições complexas</strong></p></td>
+<td><p>Penalty methods, repair</p></td>
+<td><p>Tratamento de infeasibilidade</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="algoritmos-geneticos-o-canivete-suico-da-sbse">
+<h3>2.3. Algoritmos Genéticos: O “Canivete Suíço” da SBSE<a class="headerlink" href="#algoritmos-geneticos-o-canivete-suico-da-sbse" title="Link to this heading">#</a></h3>
+<p><strong>Por que GA domina SBSE?</strong> Algoritmos Genéticos são amplamente usados porque:</p>
+<ol class="arabic simple">
+<li><p><strong>Flexibilidade de Representação:</strong> Podem codificar praticamente qualquer estrutura</p></li>
+<li><p><strong>Robustez:</strong> Funcionam bem mesmo com funções de fitness “ruidosas”</p></li>
+<li><p><strong>Paralelização Natural:</strong> População permite processamento paralelo</p></li>
+<li><p><strong>Interpretabilidade:</strong> Soluções intermediárias são analisáveis</p></li>
+</ol>
+<p><strong>Componentes Essenciais:</strong></p>
+<pre  class="mermaid">
+        flowchart TD
+    A[População Inicial] --&gt; B[Avaliação de Fitness]
+    B --&gt; C{Critério de Parada?}
+    C --&gt;|Não| D[Seleção de Pais]
+    D --&gt; E[Crossover]
+    E --&gt; F[Mutação]
+    F --&gt; G[Substituição]
+    G --&gt; B
+    C --&gt;|Sim| H[Melhor Solução]
+    
+    style A fill:#e1f5fe
+    style H fill:#c8e6c9
+    style C fill:#fff3e0
+    </pre></section>
+<section id="simulated-annealing-o-escalador-inteligente">
+<h3>2.4. Simulated Annealing: O “Escalador Inteligente”<a class="headerlink" href="#simulated-annealing-o-escalador-inteligente" title="Link to this heading">#</a></h3>
+<p><strong>Intuição:</strong> Como um alpinista que ocasionalmente desce para evitar ficar preso em picos menores, buscando a montanha mais alta.</p>
+<p><strong>Vantagens em SBSE:</strong></p>
+<ul class="simple">
+<li><p><strong>Simplicidade:</strong> Fácil implementação e debugging</p></li>
+<li><p><strong>Garantias Teóricas:</strong> Convergência assegurada sob condições adequadas</p></li>
+<li><p><strong>Eficiência:</strong> Apenas uma solução por iteração (baixo overhead)</p></li>
+</ul>
+</section>
+<section id="particle-swarm-optimization-a-inteligencia-coletiva">
+<h3>2.5. Particle Swarm Optimization: A “Inteligência Coletiva”<a class="headerlink" href="#particle-swarm-optimization-a-inteligencia-coletiva" title="Link to this heading">#</a></h3>
+<p><strong>Analogia:</strong> Como um bando de pássaros procurando comida - cada indivíduo segue sua própria experiência mas também aprende com o grupo.</p>
+<p><strong>Aplicações em SBSE:</strong></p>
+<ul class="simple">
+<li><p>Otimização de parâmetros de configuração</p></li>
+<li><p>Tuning de algoritmos de machine learning</p></li>
+<li><p>Alocação de recursos em sistemas distribuídos</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-3-exemplo-ilustrativo">
+<h2>Seção 3: Exemplo Ilustrativo<a class="headerlink" href="#secao-3-exemplo-ilustrativo" title="Link to this heading">#</a></h2>
+<section id="problema-pratico-otimizacao-de-configuracao-de-sistema-web">
+<h3>3.1. Problema Prático: Otimização de Configuração de Sistema Web<a class="headerlink" href="#problema-pratico-otimizacao-de-configuracao-de-sistema-web" title="Link to this heading">#</a></h3>
+<p>Vamos resolver um problema real: otimizar a configuração de um servidor web para maximizar throughput e minimizar latência.</p>
+<p><strong>Variáveis de Decisão:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">max_connections</span></code>: 50-500 (inteiro)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">thread_pool_size</span></code>: 10-100 (inteiro)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache_size_mb</span></code>: 64-1024 (inteiro)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code>: 1000-30000 (inteiro)</p></li>
+</ul>
+<p><strong>Representação como Cromossomo:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Representação direta (real-valued encoding)</span>
+<span class="n">chromosome</span> <span class="o">=</span> <span class="p">[</span><span class="n">max_connections</span><span class="p">,</span> <span class="n">thread_pool_size</span><span class="p">,</span> <span class="n">cache_size_mb</span><span class="p">,</span> <span class="n">timeout_ms</span><span class="p">]</span>
+<span class="c1"># Exemplo: [200, 50, 512, 5000]</span>
+
+<span class="c1"># Representação binária (para espaços discretos pequenos)</span>
+<span class="c1"># max_connections (50-500) precisa de 9 bits: 2^9 = 512 &gt; 450</span>
+<span class="n">binary_chromosome</span> <span class="o">=</span> <span class="s2">&quot;001100100&quot;</span> <span class="o">+</span> <span class="s2">&quot;0110010&quot;</span> <span class="o">+</span> <span class="s2">&quot;1000000000&quot;</span> <span class="o">+</span> <span class="s2">&quot;0001001110101000&quot;</span>
+</pre></div>
+</div>
+<p><strong>Função de Fitness Ilustrativa:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_web_server_config</span><span class="p">(</span><span class="n">chromosome</span><span class="p">):</span>
+    <span class="n">max_conn</span><span class="p">,</span> <span class="n">threads</span><span class="p">,</span> <span class="n">cache</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="n">chromosome</span>
+    
+    <span class="c1"># Simular throughput (requests/second)</span>
+    <span class="n">throughput</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">max_conn</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">threads</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">cache</span><span class="o">/</span><span class="mi">2048</span><span class="p">)</span>
+    
+    <span class="c1"># Simular latência média (ms)</span>
+    <span class="n">latency</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="p">(</span><span class="n">max_conn</span> <span class="o">/</span> <span class="n">threads</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">5000</span> <span class="o">-</span> <span class="n">timeout</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span>
+    
+    <span class="c1"># Penalizar configurações inválidas</span>
+    <span class="k">if</span> <span class="n">threads</span> <span class="o">&gt;</span> <span class="n">max_conn</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">:</span>  <span class="c1"># Muitos threads para poucas conexões</span>
+        <span class="n">throughput</span> <span class="o">*=</span> <span class="mf">0.7</span>
+    
+    <span class="c1"># Função objetivo composta (maximizar throughput, minimizar latência)</span>
+    <span class="n">fitness</span> <span class="o">=</span> <span class="n">throughput</span> <span class="o">/</span> <span class="p">(</span><span class="n">latency</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Normalização</span>
+    
+    <span class="k">return</span> <span class="n">fitness</span>
+</pre></div>
+</div>
+<p><strong>Operadores Genéticos Especializados:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">crossover_web_config</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Crossover uniforme com constraints de domínio&quot;&quot;&quot;</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent1</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+    <span class="c1"># Aplicar constraints</span>
+    <span class="n">child</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">child</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># threads &lt;= connections/3</span>
+    
+    <span class="k">return</span> <span class="n">child</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mutate_web_config</span><span class="p">(</span><span class="n">chromosome</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mutação gaussiana com bounds&quot;&quot;&quot;</span>
+    <span class="n">ranges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">)]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chromosome</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">mutation_rate</span><span class="p">:</span>
+            <span class="c1"># Mutação gaussiana com 10% do range</span>
+            <span class="n">std_dev</span> <span class="o">=</span> <span class="p">(</span><span class="n">ranges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ranges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.1</span>
+            <span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">random</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">)</span>
+            
+            <span class="c1"># Aplicar bounds</span>
+            <span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ranges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
+                              <span class="nb">min</span><span class="p">(</span><span class="n">ranges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+    
+    <span class="k">return</span> <span class="n">chromosome</span>
+</pre></div>
+</div>
+</section>
+<section id="comparacao-de-convergencia">
+<h3>3.2. Comparação de Convergência<a class="headerlink" href="#comparacao-de-convergencia" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pseudocódigo de comparação</span>
+<span class="n">algorithms</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;hill_climbing&#39;</span><span class="p">:</span> <span class="n">HillClimbing</span><span class="p">(</span><span class="n">neighbor_func</span><span class="o">=</span><span class="n">mutate_web_config</span><span class="p">),</span>
+    <span class="s1">&#39;simulated_annealing&#39;</span><span class="p">:</span> <span class="n">SimulatedAnnealing</span><span class="p">(</span><span class="n">temp_schedule</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;genetic_algorithm&#39;</span><span class="p">:</span> <span class="n">GeneticAlgorithm</span><span class="p">(</span><span class="n">pop_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">crossover_rate</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+    <span class="s1">&#39;particle_swarm&#39;</span><span class="p">:</span> <span class="n">ParticleSwarm</span><span class="p">(</span><span class="n">n_particles</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">inertia</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">algo</span> <span class="ow">in</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">best_solution</span><span class="p">,</span> <span class="n">fitness_history</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+        <span class="n">fitness_func</span><span class="o">=</span><span class="n">evaluate_web_server_config</span><span class="p">,</span>
+        <span class="n">max_evaluations</span><span class="o">=</span><span class="mi">2000</span>
+    <span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;best_fitness&#39;</span><span class="p">:</span> <span class="n">best_solution</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span>
+        <span class="s1">&#39;convergence_speed&#39;</span><span class="p">:</span> <span class="n">generations_to_95_percent</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">),</span>
+        <span class="s1">&#39;final_config&#39;</span><span class="p">:</span> <span class="n">best_solution</span><span class="o">.</span><span class="n">genes</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="secao-4-analise-e-topicos-avancados">
+<h2>Seção 4: Análise e Tópicos Avançados<a class="headerlink" href="#secao-4-analise-e-topicos-avancados" title="Link to this heading">#</a></h2>
+<section id="design-de-representacoes-sofisticadas">
+<h3>4.1. Design de Representações Sofisticadas<a class="headerlink" href="#design-de-representacoes-sofisticadas" title="Link to this heading">#</a></h3>
+<p><strong>Escolha da Representação é Crítica:</strong> A representação define o espaço de busca e determina quais soluções são alcançáveis.</p>
+<section id="representacoes-para-problemas-de-arquitetura">
+<h4>4.1.1. Representações para Problemas de Arquitetura<a class="headerlink" href="#representacoes-para-problemas-de-arquitetura" title="Link to this heading">#</a></h4>
+<p><strong>Problema:</strong> Design automático de arquitetura de microsserviços</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Representação matricial para decomposição de serviços</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MicroserviceArchitecture</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">max_services</span><span class="p">):</span>
+        <span class="c1"># Matrix onde element[i][j] = 1 se classe i está no serviço j</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assignment_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">max_services</span><span class="p">))</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_chromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Converte para cromossomo linear&quot;&quot;&quot;</span>
+        <span class="c1"># Cada gene representa o serviço da classe i</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">assignment_matrix</span><span class="p">]</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_chromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reconstrói matriz a partir do cromossomo&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assignment_matrix</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">class_idx</span><span class="p">,</span> <span class="n">service_idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chromosome</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assignment_matrix</span><span class="p">[</span><span class="n">class_idx</span><span class="p">][</span><span class="n">service_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_cohesion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Métrica de coesão intra-serviço&quot;&quot;&quot;</span>
+        <span class="n">cohesion_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">service_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_services</span><span class="p">):</span>
+            <span class="n">classes_in_service</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">assignment_matrix</span><span class="p">[:,</span> <span class="n">service_idx</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes_in_service</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Calcular coesão baseada em dependências</span>
+                <span class="n">internal_deps</span> <span class="o">=</span> <span class="n">count_internal_dependencies</span><span class="p">(</span><span class="n">classes_in_service</span><span class="p">)</span>
+                <span class="n">possible_deps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes_in_service</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes_in_service</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cohesion_sum</span> <span class="o">+=</span> <span class="n">internal_deps</span> <span class="o">/</span> <span class="n">possible_deps</span> <span class="k">if</span> <span class="n">possible_deps</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">cohesion_sum</span>
+</pre></div>
+</div>
+</section>
+<section id="representacoes-variaveis-e-estruturais">
+<h4>4.1.2. Representações Variáveis e Estruturais<a class="headerlink" href="#representacoes-variaveis-e-estruturais" title="Link to this heading">#</a></h4>
+<p><strong>Desafio:</strong> Nem todos os problemas têm tamanho fixo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Representação de tamanho variável para sequência de refatorações</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RefactoringSequence</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Lista de (tipo_refactoring, target_class, params)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">crossover_variable_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crossover que preserva dependências entre refatorações&quot;&quot;&quot;</span>
+        <span class="c1"># Identificar subsequências válidas</span>
+        <span class="n">valid_subseqs_self</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_independent_subsequences</span><span class="p">()</span>
+        <span class="n">valid_subseqs_other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">find_independent_subsequences</span><span class="p">()</span>
+        
+        <span class="c1"># Combinar subsequências respeitando precedência</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">RefactoringSequence</span><span class="p">()</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_preserving_dependencies</span><span class="p">(</span>
+            <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">valid_subseqs_self</span><span class="p">),</span>
+            <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">valid_subseqs_other</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">child</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">mutate_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mutação que pode adicionar, remover ou modificar operações&quot;&quot;&quot;</span>
+        <span class="n">mutation_type</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="s1">&#39;remove&#39;</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">mutation_type</span> <span class="o">==</span> <span class="s1">&#39;add&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">MAX_SEQUENCE_LENGTH</span><span class="p">:</span>
+            <span class="n">insertion_point</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">))</span>
+            <span class="n">new_operation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_compatible_operation</span><span class="p">(</span><span class="n">insertion_point</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">insertion_point</span><span class="p">,</span> <span class="n">new_operation</span><span class="p">)</span>
+            
+        <span class="k">elif</span> <span class="n">mutation_type</span> <span class="o">==</span> <span class="s1">&#39;remove&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">removal_point</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">removal_point</span><span class="p">)</span>
+            <span class="c1"># Verificar e reparar dependências quebradas</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repair_broken_dependencies</span><span class="p">(</span><span class="n">removed</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="funcoes-de-fitness-avancadas">
+<h3>4.2. Funções de Fitness Avançadas<a class="headerlink" href="#funcoes-de-fitness-avancadas" title="Link to this heading">#</a></h3>
+<section id="multi-objective-fitness-design">
+<h4>4.2.1. Multi-Objective Fitness Design<a class="headerlink" href="#multi-objective-fitness-design" title="Link to this heading">#</a></h4>
+<p><strong>Desafio:</strong> Balancear objetivos conflitantes sem introduzir bias.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SoftwareQualityFitness</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span> <span class="ow">or</span> <span class="p">{</span>
+            <span class="s1">&#39;maintainability&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+            <span class="s1">&#39;performance&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+            <span class="s1">&#39;security&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+            <span class="s1">&#39;testability&#39;</span><span class="p">:</span> <span class="mf">0.2</span>
+        <span class="p">}</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">software_design</span><span class="p">):</span>
+        <span class="n">objectives</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;maintainability&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_maintainability</span><span class="p">(</span><span class="n">software_design</span><span class="p">),</span>
+            <span class="s1">&#39;performance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_performance</span><span class="p">(</span><span class="n">software_design</span><span class="p">),</span>
+            <span class="s1">&#39;security&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">assess_security_risks</span><span class="p">(</span><span class="n">software_design</span><span class="p">),</span> 
+            <span class="s1">&#39;testability&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure_testability</span><span class="p">(</span><span class="n">software_design</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="c1"># Abordagem 1: Weighted Sum (Single-objective)</span>
+        <span class="n">weighted_fitness</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">obj</span><span class="p">]</span> <span class="o">*</span> <span class="n">value</span> 
+            <span class="k">for</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">objectives</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Abordagem 2: Pareto Ranking (Multi-objective)</span>
+        <span class="n">pareto_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_pareto_rank</span><span class="p">(</span><span class="n">objectives</span><span class="p">)</span>
+        
+        <span class="c1"># Abordagem 3: Constraint-based (penalty)</span>
+        <span class="n">penalty</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">objectives</span><span class="p">[</span><span class="s1">&#39;security&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">MINIMUM_SECURITY_THRESHOLD</span><span class="p">:</span>
+            <span class="n">penalty</span> <span class="o">+=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="n">MINIMUM_SECURITY_THRESHOLD</span> <span class="o">-</span> <span class="n">objectives</span><span class="p">[</span><span class="s1">&#39;security&#39;</span><span class="p">])</span>
+            
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;weighted&#39;</span><span class="p">:</span> <span class="n">weighted_fitness</span> <span class="o">-</span> <span class="n">penalty</span><span class="p">,</span>
+            <span class="s1">&#39;pareto_rank&#39;</span><span class="p">:</span> <span class="n">pareto_rank</span><span class="p">,</span>
+            <span class="s1">&#39;objectives&#39;</span><span class="p">:</span> <span class="n">objectives</span><span class="p">,</span>
+            <span class="s1">&#39;penalty&#39;</span><span class="p">:</span> <span class="n">penalty</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="dynamic-and-adaptive-fitness">
+<h4>4.2.2. Dynamic and Adaptive Fitness<a class="headerlink" href="#dynamic-and-adaptive-fitness" title="Link to this heading">#</a></h4>
+<p><strong>Problema:</strong> Como lidar com objetivos que mudam durante a evolução?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">AdaptiveFitnessFunction</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evaluation_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diversity_pressure</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">difficulty_adjustment</span> <span class="o">=</span> <span class="mf">1.0</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_with_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">,</span> <span class="n">generation</span><span class="p">,</span> <span class="n">population</span><span class="p">):</span>
+        <span class="c1"># Fitness base</span>
+        <span class="n">base_fitness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_evaluation</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+        
+        <span class="c1"># Pressure por diversidade (penalizar soluções muito similares)</span>
+        <span class="n">diversity_bonus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_diversity_bonus</span><span class="p">(</span><span class="n">solution</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span>
+        
+        <span class="c1"># Adaptive difficulty (aumentar standards ao longo do tempo)</span>
+        <span class="n">adjusted_fitness</span> <span class="o">=</span> <span class="n">base_fitness</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">difficulty_adjustment</span>
+        
+        <span class="c1"># Novelty search component (recompensar soluções diferentes)</span>
+        <span class="n">novelty_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_novelty</span><span class="p">(</span><span class="n">solution</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluation_history</span><span class="p">)</span>
+        
+        <span class="n">final_fitness</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">adjusted_fitness</span> <span class="o">+</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">diversity_pressure</span> <span class="o">*</span> <span class="n">diversity_bonus</span> <span class="o">+</span>
+            <span class="mf">0.1</span> <span class="o">*</span> <span class="n">novelty_score</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Update history e adaptive parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evaluation_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">generation</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_difficulty_adjustment</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">final_fitness</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_difficulty_adjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Aumenta difficulty se população está convergindo muito rápido&quot;&quot;&quot;</span>
+        <span class="n">avg_fitness</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">ind</span><span class="o">.</span><span class="n">fitness</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">population</span><span class="p">])</span>
+        <span class="n">fitness_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="n">ind</span><span class="o">.</span><span class="n">fitness</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">population</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">fitness_std</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">avg_fitness</span><span class="p">:</span>  <span class="c1"># Baixa diversidade</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">difficulty_adjustment</span> <span class="o">*=</span> <span class="mf">1.1</span>
+        <span class="k">elif</span> <span class="n">fitness_std</span> <span class="o">&gt;</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">avg_fitness</span><span class="p">:</span>  <span class="c1"># Alta diversidade</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">difficulty_adjustment</span> <span class="o">*=</span> <span class="mf">0.95</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="hibridizacao-e-tecnicas-avancadas">
+<h3>4.3. Hibridização e Técnicas Avançadas<a class="headerlink" href="#hibridizacao-e-tecnicas-avancadas" title="Link to this heading">#</a></h3>
+<section id="memetic-algorithms-ga-local-search">
+<h4>4.3.1. Memetic Algorithms: GA + Local Search<a class="headerlink" href="#memetic-algorithms-ga-local-search" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MemeticAlgorithm</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga_params</span><span class="p">,</span> <span class="n">local_search_params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">genetic_algorithm</span> <span class="o">=</span> <span class="n">GeneticAlgorithm</span><span class="p">(</span><span class="o">**</span><span class="n">ga_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_search</span> <span class="o">=</span> <span class="n">LocalSearch</span><span class="p">(</span><span class="o">**</span><span class="n">local_search_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_search_frequency</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># 20% dos indivíduos</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">evolve_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">):</span>
+        <span class="c1"># Fase 1: Evolução genética padrão</span>
+        <span class="n">new_population</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genetic_algorithm</span><span class="o">.</span><span class="n">evolve_generation</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+        
+        <span class="c1"># Fase 2: Busca local em indivíduos selecionados</span>
+        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">new_population</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_search_frequency</span><span class="p">:</span>
+                <span class="n">improved</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_search</span><span class="o">.</span><span class="n">improve</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">improved</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&gt;</span> <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span><span class="p">:</span>
+                    <span class="n">individual</span> <span class="o">=</span> <span class="n">improved</span>
+                    
+        <span class="k">return</span> <span class="n">new_population</span>
+</pre></div>
+</div>
+</section>
+<section id="multi-population-e-island-models">
+<h4>4.3.2. Multi-Population e Island Models<a class="headerlink" href="#multi-population-e-island-models" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">IslandGeneticAlgorithm</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_islands</span><span class="p">,</span> <span class="n">migration_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">islands</span> <span class="o">=</span> <span class="p">[</span><span class="n">GeneticAlgorithm</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_islands</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">migration_rate</span> <span class="o">=</span> <span class="n">migration_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">migration_topology</span> <span class="o">=</span> <span class="s1">&#39;ring&#39;</span>  <span class="c1"># ring, star, fully_connected</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_evolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generations</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">generation</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">generations</span><span class="p">):</span>
+            <span class="c1"># Evolve each island independently</span>
+            <span class="k">for</span> <span class="n">island</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">islands</span><span class="p">:</span>
+                <span class="n">island</span><span class="o">.</span><span class="n">evolve_generation</span><span class="p">()</span>
+                
+            <span class="c1"># Migration every 10 generations</span>
+            <span class="k">if</span> <span class="n">generation</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">perform_migration</span><span class="p">()</span>
+                
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Exchange best individuals between islands&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">migration_topology</span> <span class="o">==</span> <span class="s1">&#39;ring&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">islands</span><span class="p">)):</span>
+                <span class="n">next_island</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">islands</span><span class="p">)</span>
+                <span class="n">migrants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">islands</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">select_migrants</span><span class="p">(</span>
+                    <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">islands</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">population</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">migration_rate</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">islands</span><span class="p">[</span><span class="n">next_island</span><span class="p">]</span><span class="o">.</span><span class="n">accept_migrants</span><span class="p">(</span><span class="n">migrants</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="analise-de-performance-e-debugging">
+<h3>4.4. Análise de Performance e Debugging<a class="headerlink" href="#analise-de-performance-e-debugging" title="Link to this heading">#</a></h3>
+<section id="metricas-de-convergencia">
+<h4>4.4.1. Métricas de Convergência<a class="headerlink" href="#metricas-de-convergencia" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_algorithm_performance</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analisa características de convergência do algoritmo&quot;&quot;&quot;</span>
+    
+    <span class="c1"># 1. Convergence Speed</span>
+    <span class="n">target_fitness</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.95</span>
+    <span class="n">convergence_generation</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span> <span class="o">&gt;=</span> <span class="n">target_fitness</span><span class="p">),</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># 2. Diversity Loss Rate  </span>
+    <span class="n">diversity_over_time</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">calculate_population_diversity</span><span class="p">(</span><span class="n">generation</span><span class="p">)</span> 
+        <span class="k">for</span> <span class="n">generation</span> <span class="ow">in</span> <span class="n">fitness_history</span>
+    <span class="p">]</span>
+    <span class="n">diversity_slope</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diversity_over_time</span><span class="p">)),</span> <span class="n">diversity_over_time</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># 3. Exploration vs Exploitation Balance</span>
+    <span class="n">improvement_frequency</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="mi">1</span> <span class="k">if</span> <span class="n">fitness_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">fitness_history</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">))</span>
+    <span class="p">]</span>
+    <span class="n">exploration_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">improvement_frequency</span><span class="p">)</span>
+    
+    <span class="c1"># 4. Premature Convergence Detection</span>
+    <span class="n">plateau_threshold</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># gerações sem melhoria significativa</span>
+    <span class="n">current_plateau</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">max_plateau</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">fitness_history</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">0.001</span><span class="p">:</span>
+            <span class="n">current_plateau</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">max_plateau</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_plateau</span><span class="p">,</span> <span class="n">current_plateau</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_plateau</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;convergence_speed&#39;</span><span class="p">:</span> <span class="n">convergence_generation</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">),</span>
+        <span class="s1">&#39;diversity_retention&#39;</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">diversity_slope</span><span class="p">),</span>
+        <span class="s1">&#39;exploration_ratio&#39;</span><span class="p">:</span> <span class="n">exploration_ratio</span><span class="p">,</span>
+        <span class="s1">&#39;max_plateau_length&#39;</span><span class="p">:</span> <span class="n">max_plateau</span><span class="p">,</span>
+        <span class="s1">&#39;premature_convergence&#39;</span><span class="p">:</span> <span class="n">max_plateau</span> <span class="o">&gt;</span> <span class="n">plateau_threshold</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="secao-5-sintese-e-proximos-passos">
+<h2>Seção 5: Síntese e Próximos Passos<a class="headerlink" href="#secao-5-sintese-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="resumo-do-capitulo">
+<h3>5.1. Resumo do Capítulo<a class="headerlink" href="#resumo-do-capitulo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Diferentes algoritmos servem diferentes necessidades</strong>: Algoritmos Genéticos para problemas combinatoriais complexos, Simulated Annealing para escape de ótimos locais, PSO para espaços contínuos, e técnicas híbridas para maximizar pontos fortes</p></li>
+<li><p><strong>A representação determina o sucesso</strong>: A escolha de como codificar soluções impacta diretamente a eficácia do algoritmo - representações bem projetadas facilitam a busca e respeitam constraints do domínio</p></li>
+<li><p><strong>Funções de fitness são arte e ciência</strong>: Devem capturar objetivos reais, balancear trade-offs, evitar bias, e potencialmente adaptar-se durante a evolução para guiar efetivamente a busca</p></li>
+<li><p><strong>Hibridização multiplica capacidades</strong>: Combinar diferentes técnicas (GA + busca local, multi-population, adaptive parameters) frequentemente supera abordagens “puras”</p></li>
+<li><p><strong>Análise e debugging são essenciais</strong>: Métricas de convergência, diversidade e performance revelam comportamentos algoritmos e direcionam ajustes para problemas específicos</p></li>
+</ul>
+</section>
+<section id="ponte-e-briefing-para-o-workshop-pratico-ipynb">
+<h3>5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)<a class="headerlink" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb" title="Link to this heading">#</a></h3>
+<p><strong>Teaser para o Aluno:</strong> Chegou a hora de colocar a teoria em prática! No laboratório, você implementará e comparará diferentes algoritmos de otimização resolvendo um problema real: <strong>otimização automatizada da arquitetura de microsserviços</strong>. Você verá como pequenas mudanças na representação ou função de fitness podem levar a soluções drasticamente diferentes, e experimentará firsthand o trade-off entre exploration e exploitation.</p>
+<p><strong>Briefing para o Agente de Prática:</strong></p>
+<p>O notebook deve implementar um <strong>sistema completo de otimização de arquitetura de microsserviços</strong> com as seguintes especificações técnicas:</p>
+<ol class="arabic simple">
+<li><p><strong>Problema-alvo:</strong> Dado um conjunto de classes Java (representado como grafo de dependências), encontrar a melhor decomposição em microsserviços que maximize coesão interna e minimize acoplamento entre serviços</p></li>
+<li><p><strong>Implementações obrigatórias:</strong></p>
+<ul class="simple">
+<li><p><strong>Representação:</strong> Classe <code class="docutils literal notranslate"><span class="pre">MicroserviceArchitecture</span></code> com encoding por assignment vector (cada gene = serviço da classe i)</p></li>
+<li><p><strong>Função de fitness multi-objetivo:</strong> Calcular coesão, acoplamento, e balanceamento de carga entre serviços</p></li>
+<li><p><strong>Algoritmos:</strong> Implementar do zero Genetic Algorithm, Simulated Annealing, e Hill Climbing</p></li>
+<li><p><strong>Operadores especializados:</strong> Crossover que preserva constraints de dependência, mutação com repair de soluções inválidas</p></li>
+</ul>
+</li>
+<li><p><strong>Estrutura do laboratório:</strong></p>
+<ul class="simple">
+<li><p><strong>Parte 1:</strong> Implementação da representação e função de fitness com dataset sintético</p></li>
+<li><p><strong>Parte 2:</strong> Desenvolvimento dos 3 algoritmos de otimização step-by-step</p></li>
+<li><p><strong>Parte 3:</strong> Experimentos comparativos variando parâmetros (population size, mutation rate, temperature schedule)</p></li>
+<li><p><strong>Parte 4:</strong> Análise de convergência e visualização da evolução das soluções</p></li>
+<li><p><strong>Parte 5:</strong> Extensão com hibridização (Memetic Algorithm = GA + busca local)</p></li>
+</ul>
+</li>
+<li><p><strong>Dataset:</strong> Criar um sistema exemplo com 15-20 classes Java e matriz de dependências conhecida, permitindo validação manual dos resultados</p></li>
+<li><p><strong>Visualizações esperadas:</strong> Gráficos de convergência, heatmaps de assignment matrix, network graphs da arquitetura resultante, e comparações side-by-side dos algoritmos</p></li>
+<li><p><strong>Elementos pedagógicos:</strong> Incluir células interativas para modificação de parâmetros, debugging step-by-step da função de fitness, e seções de análise crítica dos trade-offs observados</p></li>
+</ol>
+<p>O foco deve ser na <strong>experiência hands-on completa</strong> - desde a implementação de representações até a interpretação de resultados - demonstrando como teoria de otimização resolve problemas práticos de arquitetura de software de forma automatizada e eficiente.</p>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-02-tecnicas-otimizacao-sbse"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../aula-01-introducao-sbse/workshop.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workshop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Workshop Prático: Técnicas de Otimização em SBSE</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos">Seção 2: Fundamentos Teóricos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-ecossistema-de-algoritmos-de-otimizacao-em-sbse">2.1. O Ecossistema de Algoritmos de Otimização em SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classificacao-por-caracteristicas-de-problema">2.2. Classificação por Características de Problema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmos-geneticos-o-canivete-suico-da-sbse">2.3. Algoritmos Genéticos: O “Canivete Suíço” da SBSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulated-annealing-o-escalador-inteligente">2.4. Simulated Annealing: O “Escalador Inteligente”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle-swarm-optimization-a-inteligencia-coletiva">2.5. Particle Swarm Optimization: A “Inteligência Coletiva”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-pratico-otimizacao-de-configuracao-de-sistema-web">3.1. Problema Prático: Otimização de Configuração de Sistema Web</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacao-de-convergencia">3.2. Comparação de Convergência</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-de-representacoes-sofisticadas">4.1. Design de Representações Sofisticadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#representacoes-para-problemas-de-arquitetura">4.1.1. Representações para Problemas de Arquitetura</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#representacoes-variaveis-e-estruturais">4.1.2. Representações Variáveis e Estruturais</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-de-fitness-avancadas">4.2. Funções de Fitness Avançadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-objective-fitness-design">4.2.1. Multi-Objective Fitness Design</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-and-adaptive-fitness">4.2.2. Dynamic and Adaptive Fitness</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hibridizacao-e-tecnicas-avancadas">4.3. Hibridização e Técnicas Avançadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#memetic-algorithms-ga-local-search">4.3.1. Memetic Algorithms: GA + Local Search</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-population-e-island-models">4.3.2. Multi-Population e Island Models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analise-de-performance-e-debugging">4.4. Análise de Performance e Debugging</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-de-convergencia">4.4.1. Métricas de Convergência</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

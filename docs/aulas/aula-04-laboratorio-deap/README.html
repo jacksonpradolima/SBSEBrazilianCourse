@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 4: Acelerando a Otimização com a Biblioteca DEAP &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-04-laboratorio-deap/README';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n" href="workshop.html" />
+    <link rel="prev" title="Workshop Prático: Da Formulação à Solução com DEAP" href="../aula-03-formulacao-problemas-representacoes/workshop.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 4: Acelerando a Otimização com a Biblioteca DEAP</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-laboratorio-pratico-guiado-google-colab">Seção 3: Laboratório Prático Guiado (Google Colab)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roteiro-do-notebook-workshop-ipynb">3.1. Roteiro do Notebook: <code class="docutils literal notranslate"><span class="pre">workshop.ipynb</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estrutura-do-laboratorio">3.2. Estrutura do Laboratório</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-discussao-dos-resultados">Seção 4: Análise e Discussão dos Resultados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretando-os-resultados">4.1. Interpretando os Resultados</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-porque-das-decisoes">4.2. O “Porquê” das Decisões</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacao-para-o-proximo-bloco">5.2. Preparação para o Próximo Bloco</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-4-acelerando-a-otimizacao-com-a-biblioteca-deap">
+<h1>Aula 4: Acelerando a Otimização com a Biblioteca DEAP<a class="headerlink" href="#aula-4-acelerando-a-otimizacao-com-a-biblioteca-deap" title="Link to this heading">#</a></h1>
+<section id="secao-1-abertura-e-engajamento">
+<h2>Seção 1: Abertura e Engajamento<a class="headerlink" href="#secao-1-abertura-e-engajamento" title="Link to this heading">#</a></h2>
+<section id="problema-motivador">
+<h3>1.1. Problema Motivador<a class="headerlink" href="#problema-motivador" title="Link to this heading">#</a></h3>
+<p>Nas aulas anteriores, construímos algoritmos de otimização “do zero”. Embora seja um exercício fundamental para entender os mecanismos internos de um Algoritmo Genético ou Simulated Annealing, você deve ter notado a quantidade de código repetitivo e propenso a erros: gerenciar a população, implementar operadores de crossover e mutação, garantir que os formatos dos dados sejam consistentes, etc.</p>
+<p>Imagine agora que você é um engenheiro de software em uma equipe ágil. Sua tarefa não é pesquisar novos algoritmos, mas sim <strong>aplicar a otimização para resolver um problema real da empresa</strong>, como alocar centenas de tarefas para dezenas de desenvolvedores, otimizando o tempo de entrega e o balanceamento da carga de trabalho. Escrever tudo do zero seria inviável, ineficiente e difícil de manter. Como podemos passar da teoria para a prática de forma rápida e robusta, focando no problema de negócio em vez de na infraestrutura do algoritmo?</p>
+</section>
+<section id="objetivos-deste-capitulo">
+<h3>1.2. Objetivos deste Capítulo<a class="headerlink" href="#objetivos-deste-capitulo" title="Link to this heading">#</a></h3>
+<p>Ao final deste capítulo, você será capaz de:</p>
+<ul class="simple">
+<li><p><strong>Estruturar um problema de otimização</strong> utilizando os componentes principais da biblioteca DEAP (<code class="docutils literal notranslate"><span class="pre">creator</span></code>, <code class="docutils literal notranslate"><span class="pre">toolbox</span></code>).</p></li>
+<li><p><strong>Configurar e executar um algoritmo evolutivo completo</strong> com poucas linhas de código, utilizando os operadores e algoritmos pré-definidos do DEAP.</p></li>
+<li><p><strong>Modelar um problema de alocação de recursos</strong> (um desafio comum em engenharia de software) e encontrar soluções ótimas usando o DEAP.</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-2-fundamentos-teoricos-versao-expressa">
+<h2>Seção 2: Fundamentos Teóricos (Versão Expressa)<a class="headerlink" href="#secao-2-fundamentos-teoricos-versao-expressa" title="Link to this heading">#</a></h2>
+<p>DEAP (Distributed Evolutionary Algorithms in Python) é um framework que nos permite focar na <strong>formulação do problema</strong>, em vez de na mecânica do algoritmo de otimização. Ele trata os componentes de um algoritmo evolutivo como “blocos de montar” que podemos configurar e conectar.</p>
+<p>A filosofia do DEAP gira em torno de dois conceitos centrais: o <code class="docutils literal notranslate"><span class="pre">creator</span></code> e a <code class="docutils literal notranslate"><span class="pre">toolbox</span></code>.</p>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">creator</span></code> (O Arquiteto):</strong> Define a <strong>estrutura</strong> das suas soluções. Ele cria “fábricas” de classes. Você o usa para definir duas coisas essenciais:</p>
+<ul class="simple">
+<li><p><strong>A Fitness:</strong> Como a qualidade de uma solução será medida (ex: <code class="docutils literal notranslate"><span class="pre">FitnessMin</span></code> para minimizar um valor, <code class="docutils literal notranslate"><span class="pre">FitnessMax</span></code> para maximizar).</p></li>
+<li><p><strong>O Indivíduo:</strong> A estrutura de dados que representa uma solução (ex: uma lista de 0s e 1s, uma permutação de inteiros, etc.), já associada à sua Fitness.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">toolbox</span></code> (A Caixa de Ferramentas):</strong> Armazena as <strong>funções (operadores)</strong> que atuarão sobre os indivíduos. É um contêiner para os “verbos” do seu algoritmo. Nela, você “registra” as ferramentas que irá usar:</p>
+<ul class="simple">
+<li><p><strong>Geradores de Genes e Indivíduos:</strong> Funções para criar valores aleatórios (ex: <code class="docutils literal notranslate"><span class="pre">random.randint(0,</span> <span class="pre">1)</span></code>) e para popular um indivíduo com esses genes.</p></li>
+<li><p><strong>Operadores Evolutivos:</strong> As funções de <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> (sua função de fitness), <code class="docutils literal notranslate"><span class="pre">mate</span></code> (crossover), <code class="docutils literal notranslate"><span class="pre">mutate</span></code> (mutação) e <code class="docutils literal notranslate"><span class="pre">select</span></code> (seleção).</p></li>
+</ul>
+</li>
+</ol>
+<p>Com a estrutura definida no <code class="docutils literal notranslate"><span class="pre">creator</span></code> e as ferramentas registradas na <code class="docutils literal notranslate"><span class="pre">toolbox</span></code>, basta escolher um dos <code class="docutils literal notranslate"><span class="pre">algorithms</span></code> prontos do DEAP (como <code class="docutils literal notranslate"><span class="pre">eaSimple</span></code>, <code class="docutils literal notranslate"><span class="pre">eaMuPlusLambda</span></code>), passar a <code class="docutils literal notranslate"><span class="pre">toolbox</span></code> para ele, e o framework orquestra todo o fluxo evolutivo para você.</p>
+</section>
+<section id="secao-3-laboratorio-pratico-guiado-google-colab">
+<h2>Seção 3: Laboratório Prático Guiado (Google Colab)<a class="headerlink" href="#secao-3-laboratorio-pratico-guiado-google-colab" title="Link to this heading">#</a></h2>
+<section id="roteiro-do-notebook-workshop-ipynb">
+<h3>3.1. Roteiro do Notebook: <code class="docutils literal notranslate"><span class="pre">workshop.ipynb</span></code><a class="headerlink" href="#roteiro-do-notebook-workshop-ipynb" title="Link to this heading">#</a></h3>
+<p>No laboratório prático, vamos parar de reinventar a roda e usar o poder do DEAP para resolver problemas de otimização de forma profissional. Primeiro, revisitaremos o <strong>Problema da Mochila</strong> para entender como a mesma lógica que implementamos manualmente pode ser expressa de forma muito mais concisa com o DEAP. Em seguida, aplicaremos esse conhecimento a um problema mais realista de engenharia de software: <strong>alocar tarefas a desenvolvedores</strong> para minimizar o tempo de conclusão e maximizar o balanceamento da carga de trabalho.</p>
+</section>
+<section id="estrutura-do-laboratorio">
+<h3>3.2. Estrutura do Laboratório<a class="headerlink" href="#estrutura-do-laboratorio" title="Link to this heading">#</a></h3>
+<p>O notebook será dividido nas seguintes partes:</p>
+<ul class="simple">
+<li><p><strong>Parte 1: Configuração do Ambiente:</strong> Instalação da biblioteca <code class="docutils literal notranslate"><span class="pre">deap</span></code>.</p></li>
+<li><p><strong>Parte 2: DEAP em Ação - O Problema da Mochila:</strong></p>
+<ul>
+<li><p>Definição da estrutura (<code class="docutils literal notranslate"><span class="pre">creator</span></code>) para a Fitness e o Indivíduo (mochila).</p></li>
+<li><p>Registro dos operadores (<code class="docutils literal notranslate"><span class="pre">toolbox</span></code>): geração de itens, avaliação, crossover, mutação e seleção.</p></li>
+<li><p>Execução do algoritmo <code class="docutils literal notranslate"><span class="pre">eaSimple</span></code> e análise dos resultados.</p></li>
+</ul>
+</li>
+<li><p><strong>Parte 3: Problema de Engenharia de Software - Alocação de Tarefas:</strong></p>
+<ul>
+<li><p>Modelagem do problema: tarefas com estimativas de tempo e desenvolvedores.</p></li>
+<li><p>Definição de uma nova estrutura de Indivíduo (uma lista onde o índice é a tarefa e o valor é o desenvolvedor alocado).</p></li>
+<li><p>Criação de uma função de fitness mais complexa que penaliza o desbalanceamento de carga.</p></li>
+</ul>
+</li>
+<li><p><strong>Parte 4: Otimização e Análise dos Resultados:</strong></p>
+<ul>
+<li><p>Execução do algoritmo para encontrar a melhor alocação de tarefas.</p></li>
+<li><p>Visualização da distribuição de trabalho na melhor solução encontrada, comparando-a com uma alocação aleatória.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="secao-4-analise-e-discussao-dos-resultados">
+<h2>Seção 4: Análise e Discussão dos Resultados<a class="headerlink" href="#secao-4-analise-e-discussao-dos-resultados" title="Link to this heading">#</a></h2>
+<section id="interpretando-os-resultados">
+<h3>4.1. Interpretando os Resultados<a class="headerlink" href="#interpretando-os-resultados" title="Link to this heading">#</a></h3>
+<p>Ao final do notebook, teremos dois resultados principais:</p>
+<ol class="arabic simple">
+<li><p><strong>Solução da Mochila:</strong> O DEAP encontrará uma combinação de itens que maximiza o valor sem exceder o peso da mochila. O log de saída mostrará a evolução da melhor fitness (valor) ao longo das gerações. Por que a convergência não é sempre linear?</p></li>
+<li><p><strong>Plano de Alocação de Tarefas:</strong> A solução será um plano de trabalho ótimo. O resultado não será apenas um número de fitness, mas uma distribuição de tarefas legível. Vamos analisar: A solução encontrada parece “justa”? Existe algum desenvolvedor sobrecarregado ou ocioso? Como a função de fitness que projetamos influenciou esse resultado?</p></li>
+</ol>
+</section>
+<section id="o-porque-das-decisoes">
+<h3>4.2. O “Porquê” das Decisões<a class="headerlink" href="#o-porque-das-decisoes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Por que usar <code class="docutils literal notranslate"><span class="pre">creator</span></code>?</strong> Ele padroniza a criação de indivíduos e fitness, garantindo que todos os operadores da <code class="docutils literal notranslate"><span class="pre">toolbox</span></code> recebam e retornem objetos no formato esperado. É o “contrato” que une o ecossistema DEAP.</p></li>
+<li><p><strong>Por que registrar funções na <code class="docutils literal notranslate"><span class="pre">toolbox</span></code> em vez de chamá-las diretamente?</strong> A <code class="docutils literal notranslate"><span class="pre">toolbox</span></code> permite que os algoritmos do DEAP sejam genéricos. O <code class="docutils literal notranslate"><span class="pre">eaSimple</span></code>, por exemplo, não sabe <em>qual</em> função de crossover ele vai usar; ele apenas sabe que deve chamar <code class="docutils literal notranslate"><span class="pre">toolbox.mate</span></code>. Isso permite trocar um operador <code class="docutils literal notranslate"><span class="pre">cxTwoPoint</span></code> por um <code class="docutils literal notranslate"><span class="pre">cxOnePoint</span></code> sem alterar uma linha do código do algoritmo principal, promovendo alta coesão e baixo acoplamento.</p></li>
+<li><p><strong>Por que a função de fitness da alocação de tarefas é mais complexa?</strong> Problemas do mundo real raramente têm um único objetivo. Nossa função de fitness combina dois objetivos: minimizar o tempo total (makespan) e minimizar a variação da carga de trabalho entre os desenvolvedores. Essa é uma introdução prática a problemas multi-objetivo, que exploraremos mais a fundo no futuro.</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-5-sintese-e-proximos-passos">
+<h2>Seção 5: Síntese e Próximos Passos<a class="headerlink" href="#secao-5-sintese-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="resumo-do-capitulo">
+<h3>5.1. Resumo do Capítulo<a class="headerlink" href="#resumo-do-capitulo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Frameworks como o DEAP abstraem a implementação de baixo nível de algoritmos evolutivos, permitindo focar na modelagem do problema.</p></li>
+<li><p>A arquitetura do DEAP é baseada em um <code class="docutils literal notranslate"><span class="pre">creator</span></code> para definir a estrutura dos dados (indivíduos) e uma <code class="docutils literal notranslate"><span class="pre">toolbox</span></code> para registrar as operações (operadores).</p></li>
+<li><p>É possível modelar problemas complexos de engenharia de software, como alocação de recursos, definindo uma representação de indivíduo e uma função de fitness adequadas.</p></li>
+<li><p>A troca de operadores (crossover, mutação) é trivial no DEAP, facilitando a experimentação para encontrar a melhor configuração para um problema.</p></li>
+</ul>
+</section>
+<section id="preparacao-para-o-proximo-bloco">
+<h3>5.2. Preparação para o Próximo Bloco<a class="headerlink" href="#preparacao-para-o-proximo-bloco" title="Link to this heading">#</a></h3>
+<p>Nesta aula, usamos o DEAP para encontrar uma única solução ótima. No entanto, muitos problemas do mundo real, como o <em>Next Release Problem</em> (NRP), envolvem <strong>trade-offs inerentes</strong>. Por exemplo, queremos maximizar o valor para o cliente, mas ao mesmo tempo minimizar o custo de desenvolvimento. Não existe uma única “melhor” solução, mas sim um conjunto de soluções ótimas que representam diferentes balanços entre esses objetivos. Na próxima aula, exploraremos a <strong>Otimização Multi-Objetivo</strong> e como algoritmos como o NSGA-II nos ajudam a encontrar a “Fronteira de Pareto” de soluções de trade-off.</p>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-04-laboratorio-deap"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../aula-03-formulacao-problemas-representacoes/workshop.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Workshop Prático: Da Formulação à Solução com DEAP</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workshop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-deste-capitulo">1.2. Objetivos deste Capítulo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-laboratorio-pratico-guiado-google-colab">Seção 3: Laboratório Prático Guiado (Google Colab)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roteiro-do-notebook-workshop-ipynb">3.1. Roteiro do Notebook: <code class="docutils literal notranslate"><span class="pre">workshop.ipynb</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estrutura-do-laboratorio">3.2. Estrutura do Laboratório</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-discussao-dos-resultados">Seção 4: Análise e Discussão dos Resultados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretando-os-resultados">4.1. Interpretando os Resultados</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-porque-das-decisoes">4.2. O “Porquê” das Decisões</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-do-capitulo">5.1. Resumo do Capítulo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacao-para-o-proximo-bloco">5.2. Preparação para o Próximo Bloco</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

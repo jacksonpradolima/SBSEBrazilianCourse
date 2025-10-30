@@ -1,0 +1,1335 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-04-laboratorio-deap/workshop';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Aula 5: Sinergia com IA - Potencializando SBSE com LLMs" href="../aula-05-sinergia-ia/README.html" />
+    <link rel="prev" title="Aula 4: Acelerando a Otimização com a Biblioteca DEAP" href="README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-12-projeto-final-especificacao/README.html">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-12-projeto-final-especificacao/workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-1-configuracao-do-ambiente-n">Parte 1: Configuração do Ambiente\n</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-2-deap-em-acao-o-problema-da-mochila-n">Parte 2: DEAP em Ação - O Problema da Mochila\n</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicao-do-problema-e-da-estrutura-com-creator">2.1. Definição do Problema e da Estrutura com <code class="docutils literal notranslate"><span class="pre">creator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-dos-operadores-na-toolbox">2.2. Registro dos Operadores na <code class="docutils literal notranslate"><span class="pre">toolbox</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#execucao-do-algoritmo-e-analise">2.3. Execução do Algoritmo e Análise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-3-problema-de-engenharia-de-software-alocacao-de-tarefas">Parte 3: Problema de Engenharia de Software - Alocação de Tarefas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-4-otimizacao-e-analise-dos-resultados-alocacao-de-tarefas">Parte 4: Otimização e Análise dos Resultados (Alocação de Tarefas)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="workshop-pratico-acelerando-a-otimizacao-com-a-biblioteca-deap-n">
+<h1>Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n<a class="headerlink" href="#workshop-pratico-acelerando-a-otimizacao-com-a-biblioteca-deap-n" title="Link to this heading">#</a></h1>
+<p>\n
+<strong>Objetivo:</strong> Utilizar a biblioteca DEAP para resolver problemas de otimização de forma eficiente e estruturada, abstraindo a complexidade da implementação de algoritmos evolutivos.\n
+\n
+<strong>Problemas:</strong>\n</p>
+<ol class="arabic simple">
+<li><p>Reimplementação do Problema da Mochila com DEAP.\n</p></li>
+<li><p>Resolução de um problema de alocação de tarefas a desenvolvedores.</p></li>
+</ol>
+<section id="parte-1-configuracao-do-ambiente-n">
+<h2>Parte 1: Configuração do Ambiente\n<a class="headerlink" href="#parte-1-configuracao-do-ambiente-n" title="Link to this heading">#</a></h2>
+<p>Primeiro, vamos instalar a biblioteca <code class="docutils literal notranslate"><span class="pre">deap</span></code>, que fornecerá todas as ferramentas para construir nossos algoritmos evolutivos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Instalação e importação das bibliotecas\n</span>
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>deap<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>-q
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.2</span> -&gt; <span class=" -Color -Color-Green">25.3</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">creator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deap</span><span class="w"> </span><span class="kn">import</span> <span class="n">algorithms</span>
+
+<span class="c1"># Configura a seed para garantir a reprodutibilidade dos resultados</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Ambiente configurado com DEAP!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Ambiente configurado com DEAP!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parte-2-deap-em-acao-o-problema-da-mochila-n">
+<h2>Parte 2: DEAP em Ação - O Problema da Mochila\n<a class="headerlink" href="#parte-2-deap-em-acao-o-problema-da-mochila-n" title="Link to this heading">#</a></h2>
+<p>\n
+Vamos revisitar o Problema da Mochila, mas desta vez, em vez de implementar tudo do zero, usaremos a arquitetura do DEAP para definir o problema e resolvê-lo.</p>
+<section id="definicao-do-problema-e-da-estrutura-com-creator">
+<h3>2.1. Definição do Problema e da Estrutura com <code class="docutils literal notranslate"><span class="pre">creator</span></code><a class="headerlink" href="#definicao-do-problema-e-da-estrutura-com-creator" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Definição dos dados do problema da mochila</span>
+
+<span class="c1"># Dicionário de itens: {nome: (valor, peso)}</span>
+<span class="n">ITENS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;notebook&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">),</span>
+    <span class="s2">&quot;livro&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="s2">&quot;carregador&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+    <span class="s2">&quot;garrafa&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+    <span class="s2">&quot;casaco&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span>
+    <span class="s2">&quot;camera&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1500</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span>
+    <span class="s2">&quot;headphone&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
+    <span class="s2">&quot;tablet&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="s2">&quot;lanche&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">CAPACIDADE_MAXIMA</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">nomes_itens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ITENS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">n_itens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ITENS</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🎒 Problema da Mochila definido:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - </span><span class="si">{</span><span class="n">n_itens</span><span class="si">}</span><span class="s2"> itens disponíveis.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Capacidade máxima: </span><span class="si">{</span><span class="n">CAPACIDADE_MAXIMA</span><span class="si">}</span><span class="s2"> kg.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🎒 Problema da Mochila definido:
+   - 9 itens disponíveis.
+   - Capacidade máxima: 4.0 kg.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Uso do `creator` para definir a Fitness e o Indivíduo</span>
+
+<span class="c1"># 1. Definir a Fitness</span>
+<span class="c1"># Queremos maximizar o valor, então usamos weights=(1.0,). </span>
+<span class="c1"># Se quiséssemos minimizar, usaríamos (-1.0,).</span>
+<span class="c1"># A vírgula indica que é uma tupla, preparando para otimização multi-objetivo.</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMax&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,))</span>
+
+<span class="c1"># 2. Definir o Indivíduo</span>
+<span class="c1"># Um indivíduo será uma lista de 0s e 1s (representação binária).</span>
+<span class="c1"># Associamos a estrutura do indivíduo (list) com a fitness que acabamos de criar.</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individual&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMax</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🏛️ Arquitetura DEAP criada:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - `creator.FitnessMax` para maximização de um objetivo.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - `creator.Individual` como uma lista associada à FitnessMax.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🏛️ Arquitetura DEAP criada:
+   - `creator.FitnessMax` para maximização de um objetivo.
+   - `creator.Individual` como uma lista associada à FitnessMax.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="registro-dos-operadores-na-toolbox">
+<h3>2.2. Registro dos Operadores na <code class="docutils literal notranslate"><span class="pre">toolbox</span></code><a class="headerlink" href="#registro-dos-operadores-na-toolbox" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Configuração da `toolbox` com as ferramentas genéticas</span>
+
+<span class="c1"># A toolbox é um contêiner para armazenar as funções que usaremos.</span>
+<span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+
+<span class="c1"># Geração de Genes: um gene será 0 ou 1.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;attr_bool&quot;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Geração de Indivíduos: um indivíduo é criado chamando `attr_bool` n_itens vezes.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">attr_bool</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_itens</span><span class="p">)</span>
+
+<span class="c1"># Geração de População: uma população é uma lista de indivíduos.</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🛠️ Toolbox configurada para geração de população:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - `attr_bool`: Gera 0 ou 1.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - `individual`: Cria um indivíduo com N genes `attr_bool`.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - `population`: Cria uma lista de indivíduos.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🛠️ Toolbox configurada para geração de população:
+   - `attr_bool`: Gera 0 ou 1.
+   - `individual`: Cria um indivíduo com N genes `attr_bool`.
+   - `population`: Cria uma lista de indivíduos.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Função de Avaliação (Fitness Function)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evalKnapsack</span><span class="p">(</span><span class="n">individual</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Função de fitness para o problema da mochila.</span>
+<span class="sd">    Calcula o valor total dos itens na mochila e penaliza se o peso exceder a capacidade.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">valor_total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">peso_total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">individual</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">individual</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">item_info</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ITENS</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">valor_total</span> <span class="o">+=</span> <span class="n">item_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">peso_total</span> <span class="o">+=</span> <span class="n">item_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="c1"># Penalidade: se o peso exceder a capacidade, o fitness é 0.</span>
+    <span class="k">if</span> <span class="n">peso_total</span> <span class="o">&gt;</span> <span class="n">CAPACIDADE_MAXIMA</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># Retorna uma tupla, como esperado pela Fitness</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">valor_total</span><span class="p">,</span>
+
+<span class="c1"># Teste da função de fitness</span>
+<span class="n">teste_ind</span> <span class="o">=</span> <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">fitness_val</span> <span class="o">=</span> <span class="n">evalKnapsack</span><span class="p">(</span><span class="n">teste_ind</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Função de fitness registrada e testada.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness do indivíduo de teste: </span><span class="si">{</span><span class="n">fitness_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Função de fitness registrada e testada.
+Fitness do indivíduo de teste: 0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Registro dos operadores genéticos na `toolbox`</span>
+
+<span class="c1"># Função de avaliação</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">evalKnapsack</span><span class="p">)</span>
+
+<span class="c1"># Operador de Crossover (Two Point)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxTwoPoint</span><span class="p">)</span>
+
+<span class="c1"># Operador de Mutação (Flip Bit com 5% de chance por gene)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutFlipBit</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+
+<span class="c1"># Operador de Seleção (Torneio com tamanho 3)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span> <span class="n">tournsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Operadores genéticos registrados na toolbox:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Avaliação: evalKnapsack&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Crossover: Two Point&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Mutação: Flip Bit (5</span><span class="si">% d</span><span class="s2">e chance)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Seleção: Torneio (tamanho 3)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Operadores genéticos registrados na toolbox:
+   - Avaliação: evalKnapsack
+   - Crossover: Two Point
+   - Mutação: Flip Bit (5% de chance)
+   - Seleção: Torneio (tamanho 3)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="execucao-do-algoritmo-e-analise">
+<h3>2.3. Execução do Algoritmo e Análise<a class="headerlink" href="#execucao-do-algoritmo-e-analise" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Execução do algoritmo `eaSimple`</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_knapsack_ga</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Executa o algoritmo genético para o problema da mochila.&quot;&quot;&quot;</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">hof</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">HallOfFame</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Armazena o melhor indivíduo</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+    
+    <span class="c1"># O algoritmo eaSimple orquestra todo o processo evolutivo</span>
+    <span class="n">pop</span><span class="p">,</span> <span class="n">log</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mutpb</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ngen</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> 
+                                   <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">pop</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">hof</span>
+
+<span class="n">pop</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">hof</span> <span class="o">=</span> <span class="n">run_knapsack_ga</span><span class="p">()</span>
+
+<span class="c1"># Saída de Célula Esperada:</span>
+<span class="c1"># gen	nevals	avg    	max    </span>
+<span class="c1"># 0  	300   	1479.17	5550   </span>
+<span class="c1"># 1  	148   	2289.67	5550   </span>
+<span class="c1"># ... (várias gerações) ...</span>
+<span class="c1"># 50 	162   	5499.17	5550   </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	avg    	max 
+0  	300   	2035.87	6530
+1  	168   	3296.1 	6530
+2  	177   	4114.57	6700
+3  	184   	4540.73	6700
+4  	191   	4858.23	6700
+5  	177   	5047.23	6700
+6  	184   	5133.47	6700
+7  	175   	5479.67	6700
+8  	181   	6153.6 	6700
+9  	178   	6239.47	6700
+10 	178   	6370.43	6700
+11 	186   	6301.67	6700
+12 	188   	6462.5 	6700
+13 	184   	6397.5 	6700
+14 	184   	6296.67	6700
+15 	172   	6365.67	6700
+16 	173   	6529.5 	6700
+17 	186   	6436.33	6700
+18 	183   	6417.93	6700
+19 	191   	6378.77	6700
+20 	188   	6380.93	6700
+21 	175   	6333.77	6700
+22 	178   	6339.5 	6700
+23 	175   	6469.43	6700
+24 	164   	6514.5 	6700
+25 	192   	6334.27	6700
+26 	171   	6302.5 	6700
+27 	194   	6291.27	6700
+28 	183   	6407.83	6700
+29 	176   	6290.6 	6700
+30 	184   	6397.37	6700
+31 	172   	6360.83	6700
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32 	193   	6389.93	6700
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>33 	190   	6393.37	6700
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>34 	195   	6231.67	6700
+35 	180   	6434   	6700
+36 	179   	6422.13	6700
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>37 	172   	6396.17	6700
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38 	195   	6326.17	6700
+39 	199   	6433.93	6700
+40 	190   	6425.33	6700
+41 	182   	6479   	6700
+42 	175   	6360.37	6700
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43 	169   	6338.77	6700
+44 	187   	6352.77	6700
+45 	173   	6281   	6700
+46 	188   	6300.5 	6700
+47 	193   	6360.93	6700
+48 	181   	6265.17	6700
+49 	187   	6443.77	6700
+50 	164   	6481.13	6700
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Análise da melhor solução encontrada</span>
+
+<span class="n">best_ind</span> <span class="o">=</span> <span class="n">hof</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🏆 Melhor Solução Encontrada:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Indivíduo: </span><span class="si">{</span><span class="n">best_ind</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Fitness (Valor): </span><span class="si">{</span><span class="n">best_ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🎒 Itens na Mochila:&quot;</span><span class="p">)</span>
+<span class="n">peso_final</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">valor_final</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_ind</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">best_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">nome</span> <span class="o">=</span> <span class="n">nomes_itens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">valor</span><span class="p">,</span> <span class="n">peso</span> <span class="o">=</span> <span class="n">ITENS</span><span class="p">[</span><span class="n">nome</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - </span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s2">: Valor R$</span><span class="si">{</span><span class="n">valor</span><span class="si">}</span><span class="s2">, Peso </span><span class="si">{</span><span class="n">peso</span><span class="si">}</span><span class="s2">kg&quot;</span><span class="p">)</span>
+        <span class="n">valor_final</span> <span class="o">+=</span> <span class="n">valor</span>
+        <span class="n">peso_final</span> <span class="o">+=</span> <span class="n">peso</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total: Valor R$</span><span class="si">{</span><span class="n">valor_final</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Peso </span><span class="si">{</span><span class="n">peso_final</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">kg (Capacidade: </span><span class="si">{</span><span class="n">CAPACIDADE_MAXIMA</span><span class="si">}</span><span class="s2">kg)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Saída de Célula Esperada:</span>
+<span class="c1"># 🏆 Melhor Solução Encontrada:</span>
+<span class="c1">#    - Indivíduo: [1, 0, 1, 0, 0, 1, 1, 0, 1]</span>
+<span class="c1">#    - Fitness (Valor): 5580.00</span>
+<span class="c1"># </span>
+<span class="c1"># 🎒 Itens na Mochila:</span>
+<span class="c1">#    - notebook: Valor R$3000, Peso 1.8kg</span>
+<span class="c1">#    - carregador: Valor R$200, Peso 0.3kg</span>
+<span class="c1">#    - camera: Valor R$1500, Peso 0.9kg</span>
+<span class="c1">#    - headphone: Valor R$800, Peso 0.4kg</span>
+<span class="c1">#    - lanche: Valor R$30, Peso 0.2kg</span>
+<span class="c1"># </span>
+<span class="c1"># Total: Valor R$5580.00, Peso 3.60kg (Capacidade: 4.0kg)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🏆 Melhor Solução Encontrada:
+   - Indivíduo: [1, 0, 1, 0, 0, 1, 0, 1, 0]
+   - Fitness (Valor): 6700.00
+
+🎒 Itens na Mochila:
+   - notebook: Valor R$3000, Peso 1.8kg
+   - carregador: Valor R$200, Peso 0.3kg
+   - camera: Valor R$1500, Peso 0.9kg
+   - tablet: Valor R$2000, Peso 1.0kg
+
+Total: Valor R$6700.00, Peso 4.00kg (Capacidade: 4.0kg)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="parte-3-problema-de-engenharia-de-software-alocacao-de-tarefas">
+<h2>Parte 3: Problema de Engenharia de Software - Alocação de Tarefas<a class="headerlink" href="#parte-3-problema-de-engenharia-de-software-alocacao-de-tarefas" title="Link to this heading">#</a></h2>
+<p>Agora, vamos modelar um problema mais prático: alocar uma lista de tarefas, cada uma com uma estimativa de tempo, a um grupo de desenvolvedores. O objetivo é duplo:</p>
+<ol class="arabic simple">
+<li><p><strong>Minimizar o tempo total de conclusão</strong> (o tempo do desenvolvedor mais sobrecarregado, também conhecido como <em>makespan</em>).</p></li>
+<li><p><strong>Maximizar o balanceamento da carga</strong>, ou seja, fazer com que todos trabalhem uma quantidade de horas parecida.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Definição dos dados do problema de alocação</span>
+
+<span class="n">NUM_DEVS</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c1"># Lista de tarefas com estimativa de tempo em horas</span>
+<span class="n">TAREFAS_TEMPO</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">NUM_TAREFAS</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">TAREFAS_TEMPO</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;👷 Problema de Alocação de Tarefas:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - </span><span class="si">{</span><span class="n">NUM_TAREFAS</span><span class="si">}</span><span class="s2"> tarefas para alocar.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - </span><span class="si">{</span><span class="n">NUM_DEVS</span><span class="si">}</span><span class="s2"> desenvolvedores disponíveis.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Carga total de trabalho: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">TAREFAS_TEMPO</span><span class="p">)</span><span class="si">}</span><span class="s2"> horas.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>👷 Problema de Alocação de Tarefas:
+   - 20 tarefas para alocar.
+   - 4 desenvolvedores disponíveis.
+   - Carga total de trabalho: 114 horas.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Nova definição de Fitness e Indivíduo</span>
+
+<span class="c1"># Desta vez, temos dois objetivos para minimizar: makespan e desbalanceamento.</span>
+<span class="c1"># Por isso, `weights` é uma tupla com dois valores negativos.</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMinMulti&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+
+<span class="c1"># A representação será uma lista de inteiros.</span>
+<span class="c1"># O índice da lista é a tarefa, e o valor é o ID do desenvolvedor alocado.</span>
+<span class="c1"># Ex: [0, 1, 0, 2] -&gt; Tarefa 0 para Dev 0, Tarefa 1 para Dev 1, etc.</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;IndividualTask&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMinMulti</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🏛️ Nova arquitetura DEAP criada:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - `creator.FitnessMinMulti` para minimização de dois objetivos.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - `creator.IndividualTask` como uma lista de inteiros.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🏛️ Nova arquitetura DEAP criada:
+   - `creator.FitnessMinMulti` para minimização de dois objetivos.
+   - `creator.IndividualTask` como uma lista de inteiros.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Atualização da `toolbox` para o novo problema</span>
+
+<span class="n">toolbox_task</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+
+<span class="c1"># Gene: um inteiro de 0 a (NUM_DEVS - 1)</span>
+<span class="n">toolbox_task</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;attr_dev&quot;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NUM_DEVS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Indivíduo: uma lista de genes, um para cada tarefa</span>
+<span class="n">toolbox_task</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="n">creator</span><span class="o">.</span><span class="n">IndividualTask</span><span class="p">,</span> <span class="n">toolbox_task</span><span class="o">.</span><span class="n">attr_dev</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">NUM_TAREFAS</span><span class="p">)</span>
+
+<span class="c1"># População</span>
+<span class="n">toolbox_task</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox_task</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🛠️ Nova toolbox (`toolbox_task`) configurada.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🛠️ Nova toolbox (`toolbox_task`) configurada.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Nova Função de Avaliação (Alocação de Tarefas)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evalTaskAllocation</span><span class="p">(</span><span class="n">individual</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Função de fitness para alocação de tarefas.</span>
+<span class="sd">    Retorna dois valores a serem minimizados:</span>
+<span class="sd">    1. Makespan: O tempo total do desenvolvedor mais ocupado.</span>
+<span class="sd">    2. Desbalanceamento: O desvio padrão da carga de trabalho entre os devs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">carga_por_dev</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">NUM_DEVS</span>
+    <span class="k">for</span> <span class="n">tarefa_id</span><span class="p">,</span> <span class="n">dev_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">individual</span><span class="p">):</span>
+        <span class="n">carga_por_dev</span><span class="p">[</span><span class="n">dev_id</span><span class="p">]</span> <span class="o">+=</span> <span class="n">TAREFAS_TEMPO</span><span class="p">[</span><span class="n">tarefa_id</span><span class="p">]</span>
+    
+    <span class="n">makespan</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">carga_por_dev</span><span class="p">)</span>
+    <span class="n">desbalanceamento</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">carga_por_dev</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">makespan</span><span class="p">,</span> <span class="n">desbalanceamento</span>
+
+<span class="c1"># Registro dos novos operadores</span>
+<span class="n">toolbox_task</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">evalTaskAllocation</span><span class="p">)</span>
+<span class="n">toolbox_task</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxTwoPoint</span><span class="p">)</span>
+<span class="n">toolbox_task</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutUniformInt</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">up</span><span class="o">=</span><span class="n">NUM_DEVS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">indpb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">toolbox_task</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span> <span class="n">tournsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Novos operadores registrados na `toolbox_task`.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Novos operadores registrados na `toolbox_task`.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parte-4-otimizacao-e-analise-dos-resultados-alocacao-de-tarefas">
+<h2>Parte 4: Otimização e Análise dos Resultados (Alocação de Tarefas)<a class="headerlink" href="#parte-4-otimizacao-e-analise-dos-resultados-alocacao-de-tarefas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Execução do algoritmo para alocação de tarefas</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_task_ga</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Executa o algoritmo genético para o problema de alocação de tarefas.&quot;&quot;&quot;</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox_task</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">hof</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">HallOfFame</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Usamos um algoritmo um pouco diferente, eaMuPlusLambda, que é bom para</span>
+    <span class="c1"># problemas com restrições ou múltiplos objetivos.</span>
+    <span class="n">pop</span><span class="p">,</span> <span class="n">log</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaMuPlusLambda</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">toolbox_task</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">lambda_</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> 
+                                         <span class="n">cxpb</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">mutpb</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ngen</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                         <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pop</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">hof</span>
+
+<span class="n">pop_task</span><span class="p">,</span> <span class="n">log_task</span><span class="p">,</span> <span class="n">hof_task</span> <span class="o">=</span> <span class="n">run_task_ga</span><span class="p">()</span>
+
+<span class="c1"># Saída de Célula Esperada:</span>
+<span class="c1"># gen	nevals	avg          	min          </span>
+<span class="c1"># 0  	500   	[36.24  4.81]	[29.   1.09]</span>
+<span class="c1"># 1  	493   	[32.11  3.45]	[29.   1.09]</span>
+<span class="c1"># ... (várias gerações) ...</span>
+<span class="c1"># 100	498   	[29.     1.27]	[29.    1.09]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	avg                      	min        
+0  	500   	[43.172      10.93597118]	[30.   1.5]
+1  	447   	[37.91        7.73381545]	[29.   0.5]
+2  	454   	[34.842       5.49815539]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3  	445   	[33.224       4.22037813]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4  	447   	[32.256       3.36696867]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5  	455   	[31.478       2.64788702]	[29.   0.5]
+6  	447   	[30.938      2.2164471]  	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7  	451   	[30.386      1.7081385]  	[29.   0.5]
+8  	460   	[29.81        1.18981647]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9  	449   	[29.44        0.88472486]	[29.   0.5]
+10 	447   	[29.08        0.57430553]	[29.   0.5]
+11 	453   	[29.046       0.53533265]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12 	446   	[29.014       0.51324695]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13 	446   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14 	452   	[29.   0.5]              	[29.   0.5]
+15 	446   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16 	452   	[29.01        0.50681025]	[29.   0.5]
+17 	449   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18 	458   	[29.014       0.50963015]	[29.   0.5]
+19 	452   	[29.018       0.51294987]	[29.   0.5]
+20 	450   	[29.008       0.50474456]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21 	448   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>22 	448   	[29.008       0.50540312]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>23 	453   	[29.006  0.504]          	[29.   0.5]
+24 	452   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25 	456   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>26 	459   	[29.008       0.50540312]	[29.   0.5]
+27 	452   	[29.022       0.51504159]	[29.   0.5]
+28 	443   	[29.006  0.504]          	[29.   0.5]
+29 	454   	[29.006  0.504]          	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 	446   	[29.01       0.5073589]  	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31 	447   	[29.034       0.52118928]	[29.   0.5]
+32 	454   	[29.018      0.5158525]  	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>33 	451   	[29.   0.5]              	[29.   0.5]
+34 	458   	[29.012       0.50948913]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>35 	451   	[29.   0.5]              	[29.   0.5]
+36 	458   	[29.   0.5]              	[29.   0.5]
+37 	445   	[29.   0.5]              	[29.   0.5]
+38 	449   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>39 	449   	[29.   0.5]              	[29.   0.5]
+40 	448   	[29.008       0.50540312]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>41 	452   	[29.016       0.51081025]	[29.   0.5]
+42 	448   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43 	447   	[29.028      0.5181501]  	[29.   0.5]
+44 	461   	[29.028      0.5189029]  	[29.   0.5]
+45 	453   	[29.   0.5]              	[29.   0.5]
+46 	464   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>47 	436   	[29.006  0.504]          	[29.   0.5]
+48 	442   	[29.006  0.504]          	[29.   0.5]
+49 	465   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 	445   	[29.   0.5]              	[29.   0.5]
+51 	457   	[29.008       0.50540312]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>52 	447   	[29.   0.5]              	[29.   0.5]
+53 	448   	[29.026       0.51649925]	[29.   0.5]
+54 	462   	[29.012       0.50894987]	[29.   0.5]
+55 	463   	[29.008       0.50540312]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>56 	456   	[29.   0.5]              	[29.   0.5]
+57 	448   	[29.018       0.51245362]	[29.   0.5]
+58 	453   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>59 	459   	[29.012       0.51104159]	[29.   0.5]
+60 	456   	[29.01       0.5073589]  	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>61 	439   	[29.018       0.51679095]	[29.   0.5]
+62 	448   	[29.01        0.50614143]	[29.   0.5]
+63 	459   	[29.012       0.51078983]	[29.   0.5]
+64 	469   	[29.016       0.51104159]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>65 	449   	[29.012       0.50874456]	[29.   0.5]
+66 	454   	[29.008       0.50540312]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>67 	456   	[29.008       0.50540312]	[29.   0.5]
+68 	439   	[29.006  0.504]          	[29.   0.5]
+69 	459   	[29.008       0.50540312]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>70 	458   	[29.018       0.51276202]	[29.   0.5]
+71 	444   	[29.   0.5]              	[29.   0.5]
+72 	444   	[29.01       0.5120767]  	[29.   0.5]
+73 	440   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>74 	449   	[29.   0.5]              	[29.   0.5]
+75 	447   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>76 	445   	[29.   0.5]              	[29.   0.5]
+77 	455   	[29.   0.5]              	[29.   0.5]
+78 	452   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>79 	452   	[29.026       0.51748927]	[29.   0.5]
+80 	450   	[29.014       0.50950033]	[29.   0.5]
+81 	452   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>82 	450   	[29.   0.5]              	[29.   0.5]
+83 	448   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>84 	457   	[29.01        0.51053256]	[29.   0.5]
+85 	456   	[29.   0.5]              	[29.   0.5]
+86 	447   	[29.008       0.50540312]	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>87 	450   	[29.   0.5]              	[29.   0.5]
+88 	453   	[29.006  0.504]          	[29.   0.5]
+89 	459   	[29.006  0.504]          	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>90 	456   	[29.   0.5]              	[29.   0.5]
+91 	450   	[29.   0.5]              	[29.   0.5]
+92 	452   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>93 	457   	[29.028       0.52058693]	[29.   0.5]
+94 	449   	[29.   0.5]              	[29.   0.5]
+95 	446   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>96 	450   	[29.002       0.50073205]	[29.   0.5]
+97 	457   	[29.   0.5]              	[29.   0.5]
+98 	436   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>99 	444   	[29.   0.5]              	[29.   0.5]
+100	445   	[29.   0.5]              	[29.   0.5]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Análise da melhor alocação encontrada</span>
+
+<span class="n">best_allocation</span> <span class="o">=</span> <span class="n">hof_task</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">makespan</span><span class="p">,</span> <span class="n">desvio</span> <span class="o">=</span> <span class="n">best_allocation</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🏆 Melhor Alocação Encontrada:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Makespan (tempo do dev mais ocupado): </span><span class="si">{</span><span class="o">-</span><span class="n">makespan</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> horas&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Desvio Padrão da Carga: </span><span class="si">{</span><span class="o">-</span><span class="n">desvio</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> horas&quot;</span><span class="p">)</span>
+
+<span class="n">carga_final</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">NUM_DEVS</span>
+<span class="n">tarefas_por_dev</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_DEVS</span><span class="p">)}</span>
+
+<span class="k">for</span> <span class="n">tarefa_id</span><span class="p">,</span> <span class="n">dev_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">best_allocation</span><span class="p">):</span>
+    <span class="n">carga_final</span><span class="p">[</span><span class="n">dev_id</span><span class="p">]</span> <span class="o">+=</span> <span class="n">TAREFAS_TEMPO</span><span class="p">[</span><span class="n">tarefa_id</span><span class="p">]</span>
+    <span class="n">tarefas_por_dev</span><span class="p">[</span><span class="n">dev_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TAREFAS_TEMPO</span><span class="p">[</span><span class="n">tarefa_id</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📊 Distribuição Final do Trabalho:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_DEVS</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Dev </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">carga_final</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> horas (tarefas: </span><span class="si">{</span><span class="n">tarefas_por_dev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualização</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">dev_labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Dev </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_DEVS</span><span class="p">)]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">dev_labels</span><span class="p">,</span> <span class="n">carga_final</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">carga_final</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Média: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">carga_final</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">h&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Carga de Trabalho por Desenvolvedor na Solução Otimizada&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Horas de Trabalho&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">carga_final</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># [GRÁFICO DE BARRAS MOSTRANDO 4 BARRAS COM ALTURAS MUITO PRÓXIMAS, PERTO DA LINHA VERMELHA DA MÉDIA]</span>
+
+<span class="c1"># Saída de Célula Esperada:</span>
+<span class="c1"># 🏆 Melhor Alocação Encontrada:</span>
+<span class="c1">#    - Makespan (tempo do dev mais ocupado): 29.00 horas</span>
+<span class="c1">#    - Desvio Padrão da Carga: 1.09 horas</span>
+<span class="c1"># </span>
+<span class="c1"># 📊 Distribuição Final do Trabalho:</span>
+<span class="c1">#    - Dev 0: 29 horas (tarefas: [6, 5, 8, 8, 2])</span>
+<span class="c1">#    - Dev 1: 28 horas (tarefas: [7, 9, 5, 4, 3])</span>
+<span class="c1">#    - Dev 2: 30 horas (tarefas: [4, 6, 5, 9, 6])</span>
+<span class="c1">#    - Dev 3: 29 horas (tarefas: [8, 7, 5, 4, 5])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🏆 Melhor Alocação Encontrada:
+   - Makespan (tempo do dev mais ocupado): -29.00 horas
+   - Desvio Padrão da Carga: -0.50 horas
+
+📊 Distribuição Final do Trabalho:
+   - Dev 0: 28 horas (tarefas: [3, 4, 3, 7, 6, 5])
+   - Dev 1: 28 horas (tarefas: [8, 9, 2, 9])
+   - Dev 2: 29 horas (tarefas: [6, 5, 4, 6, 8])
+   - Dev 3: 29 horas (tarefas: [7, 5, 5, 8, 4])
+</pre></div>
+</div>
+<img alt="../../../_images/ada1824fbe57e0e15ce4c7cbaf333abfdd0c9a9dcbfe3f63f927b6c8a339b006.png" src="../../../_images/ada1824fbe57e0e15ce4c7cbaf333abfdd0c9a9dcbfe3f63f927b6c8a339b006.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-04-laboratorio-deap"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../aula-05-sinergia-ia/README.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-1-configuracao-do-ambiente-n">Parte 1: Configuração do Ambiente\n</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-2-deap-em-acao-o-problema-da-mochila-n">Parte 2: DEAP em Ação - O Problema da Mochila\n</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicao-do-problema-e-da-estrutura-com-creator">2.1. Definição do Problema e da Estrutura com <code class="docutils literal notranslate"><span class="pre">creator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-dos-operadores-na-toolbox">2.2. Registro dos Operadores na <code class="docutils literal notranslate"><span class="pre">toolbox</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#execucao-do-algoritmo-e-analise">2.3. Execução do Algoritmo e Análise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-3-problema-de-engenharia-de-software-alocacao-de-tarefas">Parte 3: Problema de Engenharia de Software - Alocação de Tarefas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-4-otimizacao-e-analise-dos-resultados-alocacao-de-tarefas">Parte 4: Otimização e Análise dos Resultados (Alocação de Tarefas)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

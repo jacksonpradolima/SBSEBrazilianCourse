@@ -1,0 +1,946 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA &#8212; Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=a8e58a58"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-12-projeto-final-especificacao/README';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="🎯 Workshop de Planejamento: Projeto Final SBSE+IA" href="workshop.html" />
+    <link rel="prev" title="Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    Engenharia de Software Baseada em Busca na Era da IA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Aulas da Disciplina</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-01-introducao-sbse/README.html">Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-01-introducao-sbse/workshop.html">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/README.html">Técnicas de Otimização em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-02-tecnicas-otimizacao-sbse/workshop.html">Workshop Prático: Técnicas de Otimização em SBSE</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/README.html">Aula 3: A Arte de Formular Problemas em SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-03-formulacao-problemas-representacoes/workshop.html">Workshop Prático: Da Formulação à Solução com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-05-sinergia-ia/workshop.html">Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-06-teste-baseado-busca/README.html">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-06-teste-baseado-busca/workshop.html">Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-07-sbst-lab/README.html">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-07-sbst-lab/workshop.html">Workshop Prático — Aula 7: SBST com DEAP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-08-refatoracao-busca/README.html">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-08-refatoracao-busca/workshop.html">Workshop Prático: Refatoração Baseada em Busca — Aula 08</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-09-fairness-testing-ml/README.html">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-09-fairness-testing-ml/workshop.html">Workshop Prático: Fairness Testing com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-10-fairness-testing-lab/README.html">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-10-fairness-testing-lab/workshop.html">Workshop Prático: Laboratório de Fairness Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/README.html">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="workshop.html">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/README.html">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-13-otimizacao-multi-objetivo-pymoo/workshop.html">Workshop Prático: Otimização Multi-Objetivo com Pymoo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/README.html">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aula-14-etica-lado-sombrio-otimizacao/workshop.html">Workshop Prático: Auditoria Ética de Sistemas de Otimização</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../aula-15-16-projeto-final-desenvolvimento/README.html">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-desta-aula">1.2. Objetivos desta Aula</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-framework-conceitual-do-projeto">O Framework Conceitual do Projeto</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomia-de-projetos-sbse-ia">Taxonomia de Projetos SBSE+IA</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projeto-exemplo-otimizador-inteligente-de-pipelines-de-ci-cd">Projeto Exemplo: “Otimizador Inteligente de Pipelines de CI/CD”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#criterios-de-avaliacao-detalhados">Critérios de Avaliação Detalhados</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formulacao-do-problema-20">1. Formulação do Problema (20%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacao-tecnica-25">2. Implementação Técnica (25%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#integracao-sbse-ia-20">3. Integração SBSE+IA (20%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#validacao-experimental-15">4. Validação Experimental (15%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#documentacao-e-comunicacao-10">5. Documentação e Comunicação (10%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apresentacao-em-video-10">6. Apresentação em Vídeo (10%)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cronograma-e-marcos-intermediarios">Cronograma e Marcos Intermediários</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilhas-comuns-e-como-evita-las">Armadilhas Comuns e Como Evitá-las</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-1-projeto-muito-ambicioso">Armadilha 1: “Projeto Muito Ambicioso”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-2-ia-cosmetica">Armadilha 2: “IA Cosmética”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-3-falta-de-validacao">Armadilha 3: “Falta de Validação”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-4-procrastinacao-da-implementacao">Armadilha 4: “Procrastinação da Implementação”</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-da-aula">5.1. Resumo da Aula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aula-12-projeto-final-especificacao-e-planejamento-estrategico-de-sbse-ia">
+<h1>Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA<a class="headerlink" href="#aula-12-projeto-final-especificacao-e-planejamento-estrategico-de-sbse-ia" title="Link to this heading">#</a></h1>
+<section id="secao-1-abertura-e-engajamento">
+<h2>Seção 1: Abertura e Engajamento<a class="headerlink" href="#secao-1-abertura-e-engajamento" title="Link to this heading">#</a></h2>
+<section id="problema-motivador">
+<h3>1.1. Problema Motivador<a class="headerlink" href="#problema-motivador" title="Link to this heading">#</a></h3>
+<p>Chegamos ao momento crucial da disciplina: transformar todo o conhecimento adquirido em um projeto real e inovador. Ao longo das últimas 11 aulas, você dominou os fundamentos da SBSE, implementou algoritmos genéticos do zero, aplicou técnicas de busca a problemas clássicos de engenharia de software e explorou a fronteira da pesquisa em fairness testing, otimização de hiperparâmetros e engenharia de prompts.</p>
+<p>Agora, imagine que você é um consultor de tecnologia contratado por uma empresa de ponta para resolver um problema crítico que combina engenharia de software tradicional com os desafios da era da IA. Pode ser otimizar a configuração de um sistema de CI/CD para reduzir tempo de build e consumo de energia, pode ser criar um sistema de detecção de viés em modelos de contratação, ou pode ser desenvolver um otimizador automático de prompts para melhorar a qualidade de um chatbot de atendimento ao cliente.</p>
+<p>O Projeto Final é sua oportunidade de demonstrar maestria técnica, criatividade na formulação de problemas e capacidade de integrar SBSE com as tecnologias mais avançadas de IA. Não é apenas uma avaliação – é o começo do seu portfólio profissional na interseção entre otimização e inteligência artificial.</p>
+</section>
+<section id="objetivos-desta-aula">
+<h3>1.2. Objetivos desta Aula<a class="headerlink" href="#objetivos-desta-aula" title="Link to this heading">#</a></h3>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul class="simple">
+<li><p><strong>Dominar os Requisitos do Projeto:</strong> Compreender completamente a especificação, os critérios de avaliação e o cronograma de entrega do Projeto Final.</p></li>
+<li><p><strong>Formular seu Problema:</strong> Identificar e definir um problema específico que integre SBSE com IA, seguindo os critérios de originalidade, viabilidade e relevância.</p></li>
+<li><p><strong>Planejar a Execução:</strong> Elaborar um cronograma detalhado de desenvolvimento, definindo marcos intermediários e estratégias de implementação.</p></li>
+</ul>
+</section>
+</section>
+<section id="secao-2-fundamentos-teoricos-versao-expressa">
+<h2>Seção 2: Fundamentos Teóricos (Versão Expressa)<a class="headerlink" href="#secao-2-fundamentos-teoricos-versao-expressa" title="Link to this heading">#</a></h2>
+<p>O Projeto Final não é uma tarefa isolada, mas a síntese de todo o conteúdo da disciplina aplicada a um problema real e relevante. Vamos revisar rapidamente os pilares conceituais que fundamentam um projeto de SBSE+IA de alta qualidade.</p>
+<section id="o-framework-conceitual-do-projeto">
+<h3>O Framework Conceitual do Projeto<a class="headerlink" href="#o-framework-conceitual-do-projeto" title="Link to this heading">#</a></h3>
+<p>Um projeto exemplar de SBSE+IA deve integrar harmoniosamente quatro dimensões:</p>
+<ol class="arabic simple">
+<li><p><strong>Problema de Base (Engenharia de Software):</strong></p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> Um desafio real da engenharia de software que se beneficia de otimização automatizada.</p></li>
+<li><p><strong>Exemplos:</strong> Configuração de sistemas, alocação de recursos, geração de testes, refatoração de código, detecção de vulnerabilidades.</p></li>
+</ul>
+</li>
+<li><p><strong>Técnica de SBSE (Motor de Otimização):</strong></p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> O algoritmo de busca que explorará o espaço de soluções de forma inteligente.</p></li>
+<li><p><strong>Implementação:</strong> Usar DEAP ou Pymoo para algoritmos genéticos, evolution strategies, ou otimização multi-objetivo.</p></li>
+</ul>
+</li>
+<li><p><strong>Componente de IA (Elemento Inovador):</strong></p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> A integração de LLMs, modelos de ML, ou técnicas de IA que amplificam ou melhoram a solução.</p></li>
+<li><p><strong>Formas de Integração:</strong> Oráculo de fitness, geração de heurísticas, assistente de formulação de problemas, ou objeto de otimização.</p></li>
+</ul>
+</li>
+<li><p><strong>Validação e Análise (Demonstração de Valor):</strong></p>
+<ul class="simple">
+<li><p><strong>O que é?</strong> Evidências empíricas de que a solução SBSE+IA é superior a abordagens tradicionais.</p></li>
+<li><p><strong>Metodologia:</strong> Comparação com baselines, análise estatística, estudos de caso, métricas de qualidade.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="taxonomia-de-projetos-sbse-ia">
+<h3>Taxonomia de Projetos SBSE+IA<a class="headerlink" href="#taxonomia-de-projetos-sbse-ia" title="Link to this heading">#</a></h3>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+    A[Projetos SBSE+IA] --&gt; B[IA como Assistente];
+    A --&gt; C[IA como Objeto de Otimização];
+    A --&gt; D[IA como Oráculo];
+    
+    B --&gt; B1[LLM sugere métricas de fitness];
+    B --&gt; B2[LLM gera operadores de busca];
+    B --&gt; B3[LLM formula representações];
+    
+    C --&gt; C1[Otimizar hiperparâmetros de ML];
+    C --&gt; C2[Otimizar arquitetura de redes neurais];
+    C --&gt; C3[Otimizar prompts de LLMs];
+    
+    D --&gt; D1[IA avalia qualidade de soluções];
+    D --&gt; D2[IA detecta padrões em resultados];
+    D --&gt; D3[IA classifica tipos de problemas];
+</pre></div>
+</div>
+</section>
+</section>
+<section id="secao-3-exemplo-ilustrativo">
+<h2>Seção 3: Exemplo Ilustrativo<a class="headerlink" href="#secao-3-exemplo-ilustrativo" title="Link to this heading">#</a></h2>
+<p>Para demonstrar como os conceitos se traduzem em um projeto concreto, vamos analisar um exemplo detalhado.</p>
+<section id="projeto-exemplo-otimizador-inteligente-de-pipelines-de-ci-cd">
+<h3>Projeto Exemplo: “Otimizador Inteligente de Pipelines de CI/CD”<a class="headerlink" href="#projeto-exemplo-otimizador-inteligente-de-pipelines-de-ci-cd" title="Link to this heading">#</a></h3>
+<p><strong>Problema de Base:</strong> Empresas de software gastam milhões de horas anuais esperando builds e testes automatizados. A configuração ótima de um pipeline de CI/CD (parallelismo, ordem de execução de testes, alocação de recursos) é um problema complexo de otimização multi-objetivo.</p>
+<p><strong>Representação:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Individual representa uma configuração de pipeline</span>
+<span class="c1"># [n_workers, test_order, cache_strategy, resource_allocation]</span>
+<span class="n">exemplo_individuo</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;aggressive&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p><strong>Função de Fitness Multi-Objetivo:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">avaliar_pipeline</span><span class="p">(</span><span class="n">configuracao</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;tempo_execucao&#39;</span><span class="p">:</span> <span class="n">executar_pipeline</span><span class="p">(</span><span class="n">configuracao</span><span class="p">),</span>
+        <span class="s1">&#39;uso_recursos&#39;</span><span class="p">:</span> <span class="n">calcular_consumo</span><span class="p">(</span><span class="n">configuracao</span><span class="p">),</span>
+        <span class="s1">&#39;taxa_deteccao&#39;</span><span class="p">:</span> <span class="n">validar_qualidade</span><span class="p">(</span><span class="n">configuracao</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Componente de IA:</strong> Um LLM atua como consultor de DevOps, sugerindo configurações iniciais baseadas nas características do projeto:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Aja como um especialista em DevOps. Dado um projeto Python com </span>
+<span class="s2">150 testes unitários, 50 testes de integração e deploy em AWS, sugira </span>
+<span class="s2">configurações iniciais para otimização de pipeline de CI/CD.&quot;&quot;&quot;</span>
+
+<span class="n">sugestoes_llm</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">prompt</span> <span class="o">+</span> <span class="n">detalhes_projeto</span><span class="p">)</span>
+<span class="n">populacao_inicial</span> <span class="o">=</span> <span class="n">transformar_sugestoes</span><span class="p">(</span><span class="n">sugestoes_llm</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Validação:</strong> Comparar com configurações manuais de desenvolvedores e com ferramentas comerciais de otimização de CI/CD.</p>
+</section>
+</section>
+<section id="secao-4-analise-e-topicos-avancados">
+<h2>Seção 4: Análise e Tópicos Avançados<a class="headerlink" href="#secao-4-analise-e-topicos-avancados" title="Link to this heading">#</a></h2>
+<section id="criterios-de-avaliacao-detalhados">
+<h3>Critérios de Avaliação Detalhados<a class="headerlink" href="#criterios-de-avaliacao-detalhados" title="Link to this heading">#</a></h3>
+<p>O Projeto Final será avaliado em seis dimensões principais, cada uma contribuindo para a nota final:</p>
+<section id="formulacao-do-problema-20">
+<h4>1. Formulação do Problema (20%)<a class="headerlink" href="#formulacao-do-problema-20" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Originalidade:</strong> O problema é novo ou apresenta uma perspectiva inédita?</p></li>
+<li><p><strong>Relevância:</strong> A solução tem impacto prático na engenharia de software?</p></li>
+<li><p><strong>Complexidade:</strong> O problema apresenta desafios técnicos adequados ao nível da disciplina?</p></li>
+</ul>
+</section>
+<section id="implementacao-tecnica-25">
+<h4>2. Implementação Técnica (25%)<a class="headerlink" href="#implementacao-tecnica-25" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Correção:</strong> O código funciona sem erros e produz resultados válidos?</p></li>
+<li><p><strong>Qualidade:</strong> O código segue boas práticas (PEP 8, type hints, documentação)?</p></li>
+<li><p><strong>Eficiência:</strong> A implementação é otimizada e utiliza as bibliotecas adequadamente?</p></li>
+</ul>
+</section>
+<section id="integracao-sbse-ia-20">
+<h4>3. Integração SBSE+IA (20%)<a class="headerlink" href="#integracao-sbse-ia-20" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Sinergia:</strong> A IA realmente melhora a solução SBSE, ou é apenas decorativa?</p></li>
+<li><p><strong>Inovação:</strong> A forma de integração é criativa e bem justificada?</p></li>
+<li><p><strong>Implementação:</strong> A integração é tecnicamente sólida?</p></li>
+</ul>
+</section>
+<section id="validacao-experimental-15">
+<h4>4. Validação Experimental (15%)<a class="headerlink" href="#validacao-experimental-15" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Metodologia:</strong> Os experimentos são bem desenhados e estatisticamente válidos?</p></li>
+<li><p><strong>Baselines:</strong> As comparações são justas e relevantes?</p></li>
+<li><p><strong>Análise:</strong> Os resultados são interpretados corretamente?</p></li>
+</ul>
+</section>
+<section id="documentacao-e-comunicacao-10">
+<h4>5. Documentação e Comunicação (10%)<a class="headerlink" href="#documentacao-e-comunicacao-10" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Clareza:</strong> O notebook é bem estruturado e fácil de seguir?</p></li>
+<li><p><strong>Reprodutibilidade:</strong> Outro desenvolvedor conseguiria replicar os resultados?</p></li>
+<li><p><strong>Visualizações:</strong> Gráficos e tabelas comunicam os resultados efetivamente?</p></li>
+</ul>
+</section>
+<section id="apresentacao-em-video-10">
+<h4>6. Apresentação em Vídeo (10%)<a class="headerlink" href="#apresentacao-em-video-10" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Conteúdo:</strong> A apresentação cobre todos os aspectos importantes?</p></li>
+<li><p><strong>Didática:</strong> A explicação é clara e envolvente?</p></li>
+<li><p><strong>Demonstração:</strong> A solução é mostrada funcionando na prática?</p></li>
+</ul>
+</section>
+</section>
+<section id="cronograma-e-marcos-intermediarios">
+<h3>Cronograma e Marcos Intermediários<a class="headerlink" href="#cronograma-e-marcos-intermediarios" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Semana</p></th>
+<th class="head"><p>Marco</p></th>
+<th class="head"><p>Entrega</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Semana 1</strong></p></td>
+<td><p>Definição do Problema</p></td>
+<td><p>Documento de 1 página descrevendo o problema escolhido</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Semana 2</strong></p></td>
+<td><p>Prototipação</p></td>
+<td><p>Implementação básica da representação e fitness</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Semana 3</strong></p></td>
+<td><p>Integração IA</p></td>
+<td><p>Primeira versão da integração SBSE+IA funcionando</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Semana 4</strong></p></td>
+<td><p>Validação</p></td>
+<td><p>Experimentos preliminares e comparações</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Semana 5</strong></p></td>
+<td><p>Finalização</p></td>
+<td><p>Notebook completo e gravação do vídeo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="armadilhas-comuns-e-como-evita-las">
+<h3>Armadilhas Comuns e Como Evitá-las<a class="headerlink" href="#armadilhas-comuns-e-como-evita-las" title="Link to this heading">#</a></h3>
+<section id="armadilha-1-projeto-muito-ambicioso">
+<h4>Armadilha 1: “Projeto Muito Ambicioso”<a class="headerlink" href="#armadilha-1-projeto-muito-ambicioso" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Problema:</strong> Tentar resolver múltiplos problemas complexos simultaneamente.</p></li>
+<li><p><strong>Solução:</strong> Escolha UM problema específico e resolva-o muito bem.</p></li>
+</ul>
+</section>
+<section id="armadilha-2-ia-cosmetica">
+<h4>Armadilha 2: “IA Cosmética”<a class="headerlink" href="#armadilha-2-ia-cosmetica" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Problema:</strong> Adicionar IA apenas para cumprir o requisito, sem valor real.</p></li>
+<li><p><strong>Solução:</strong> A IA deve ser fundamental para a solução, não opcional.</p></li>
+</ul>
+</section>
+<section id="armadilha-3-falta-de-validacao">
+<h4>Armadilha 3: “Falta de Validação”<a class="headerlink" href="#armadilha-3-falta-de-validacao" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Problema:</strong> Implementar uma solução sem provar que ela funciona.</p></li>
+<li><p><strong>Solução:</strong> Sempre compare com pelo menos uma baseline simples.</p></li>
+</ul>
+</section>
+<section id="armadilha-4-procrastinacao-da-implementacao">
+<h4>Armadilha 4: “Procrastinação da Implementação”<a class="headerlink" href="#armadilha-4-procrastinacao-da-implementacao" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Problema:</strong> Passar muito tempo planejando e pouco tempo codificando.</p></li>
+<li><p><strong>Solução:</strong> Comece codificando uma versão simples o quanto antes.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="secao-5-sintese-e-proximos-passos">
+<h2>Seção 5: Síntese e Próximos Passos<a class="headerlink" href="#secao-5-sintese-e-proximos-passos" title="Link to this heading">#</a></h2>
+<section id="resumo-da-aula">
+<h3>5.1. Resumo da Aula<a class="headerlink" href="#resumo-da-aula" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Especificação Clara:</strong> O Projeto Final integra SBSE com IA para resolver um problema real de engenharia de software, sendo avaliado em seis dimensões principais.</p></li>
+<li><p><strong>Framework Conceitual:</strong> Um projeto exemplar combina problema de base, técnica de SBSE, componente de IA e validação empírica de forma harmoniosa.</p></li>
+<li><p><strong>Cronograma Estruturado:</strong> O desenvolvimento segue marcos semanais claros, evitando procrastinação e garantindo progresso constante.</p></li>
+<li><p><strong>Critérios Objetivos:</strong> A avaliação é transparente e focada em originalidade, implementação técnica, integração inovadora e validação rigorosa.</p></li>
+</ul>
+</section>
+<section id="ponte-e-briefing-para-o-workshop-pratico-ipynb">
+<h3>5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)<a class="headerlink" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb" title="Link to this heading">#</a></h3>
+<p><strong>Teaser para o Aluno:</strong> Agora é hora de colocar a mão na massa! No workshop desta aula, você não escreverá código, mas algo igualmente importante: um <strong>Plano de Projeto Detalhado</strong>. Você utilizará um framework estruturado para definir seu problema, desenhar sua solução, e criar um cronograma de execução. Ao final, terá um roadmap claro para as próximas 5 semanas de desenvolvimento.</p>
+<p><strong>Briefing para o Agente de Prática (Geração do <code class="docutils literal notranslate"><span class="pre">workshop.ipynb</span></code>):</strong></p>
+<p>O notebook deve ser um <strong>Workshop de Planejamento de Projeto Interativo</strong> com as seguintes especificações:</p>
+<ol class="arabic simple">
+<li><p><strong>Parte 1: Exploração de Ideias</strong></p>
+<ul class="simple">
+<li><p>Crie uma seção interativa onde o aluno pode explorar diferentes categorias de problemas.</p></li>
+<li><p>Forneça templates de problemas em 4 categorias:</p>
+<ul>
+<li><p><strong>Categoria A:</strong> IA como Assistente (LLM sugere fitness/operadores)</p></li>
+<li><p><strong>Categoria B:</strong> IA como Objeto (otimizar hiperparâmetros/prompts)</p></li>
+<li><p><strong>Categoria C:</strong> IA como Oráculo (IA avalia soluções)</p></li>
+<li><p><strong>Categoria D:</strong> Híbrido (combinação das anteriores)</p></li>
+</ul>
+</li>
+<li><p>Para cada categoria, forneça 3-4 exemplos concretos com descrição de 2-3 linhas.</p></li>
+</ul>
+</li>
+<li><p><strong>Parte 2: Definição do Problema Específico</strong></p>
+<ul class="simple">
+<li><p>Crie um formulário estruturado (usando células Markdown interativas) onde o aluno define:</p>
+<ul>
+<li><p><strong>Título do Projeto:</strong> Nome conciso e descritivo</p></li>
+<li><p><strong>Problema de Base:</strong> Descrição de 100-200 palavras</p></li>
+<li><p><strong>Justificativa:</strong> Por que este problema é importante?</p></li>
+<li><p><strong>Objetivos:</strong> 2-3 objetivos específicos e mensuráveis</p></li>
+<li><p><strong>Escopo:</strong> O que está incluído e o que está fora do escopo</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Parte 3: Design da Solução SBSE+IA</strong></p>
+<ul class="simple">
+<li><p>Template estruturado para definir:</p>
+<ul>
+<li><p><strong>Representação:</strong> Como codificar uma solução?</p></li>
+<li><p><strong>Função de Fitness:</strong> Como medir qualidade? (incluir pseudocódigo)</p></li>
+<li><p><strong>Algoritmo de Busca:</strong> AG, multi-objetivo, outro?</p></li>
+<li><p><strong>Integração IA:</strong> Qual papel da IA? Como será implementada?</p></li>
+<li><p><strong>Datasets/Ferramentas:</strong> Que dados e bibliotecas serão usados?</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Parte 4: Plano de Validação</strong></p>
+<ul class="simple">
+<li><p>Guiar o aluno a definir:</p>
+<ul>
+<li><p><strong>Baselines:</strong> Com o que comparar a solução?</p></li>
+<li><p><strong>Métricas:</strong> Como medir sucesso?</p></li>
+<li><p><strong>Experimentos:</strong> Que testes realizar?</p></li>
+<li><p><strong>Critérios de Sucesso:</strong> Quando o projeto será considerado bem-sucedido?</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Parte 5: Cronograma Detalhado</strong></p>
+<ul class="simple">
+<li><p>Fornecer um template de cronograma de 5 semanas.</p></li>
+<li><p>Para cada semana, definir:</p>
+<ul>
+<li><p><strong>Objetivo da Semana</strong></p></li>
+<li><p><strong>Tarefas Específicas</strong> (3-5 tarefas)</p></li>
+<li><p><strong>Entregável da Semana</strong></p></li>
+<li><p><strong>Riscos e Mitigações</strong></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Parte 6: Autoavaliação e Feedback</strong></p>
+<ul class="simple">
+<li><p>Checklist de qualidade do plano:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> O problema é específico e bem definido?</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> A integração IA+SBSE é clara e justificada?</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> O plano é viável em 5 semanas?</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Os critérios de sucesso são mensuráveis?</p></li>
+</ul>
+</li>
+<li><p>Seção para o aluno registrar dúvidas e próximos passos.</p></li>
+</ul>
+</li>
+<li><p><strong>Parte 7: Galeria de Exemplos Inspiradores</strong></p>
+<ul class="simple">
+<li><p>Mostre 3-4 exemplos fictícios de projetos de alta qualidade (diferentes categorias).</p></li>
+<li><p>Para cada exemplo, inclua: título, resumo do problema, abordagem SBSE+IA, e resultados esperados.</p></li>
+<li><p>Use estes exemplos para calibrar as expectativas dos alunos.</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Requisitos Técnicos:</strong></p>
+<ul class="simple">
+<li><p>Use células Markdown para criar formulários interativos (checkbox, listas).</p></li>
+<li><p>Inclua código Python apenas para templates/exemplos de representação e fitness.</p></li>
+<li><p>Crie visualizações (diagramas Mermaid) para ilustrar arquiteturas de soluções.</p></li>
+<li><p>Adicione seções de “💡 Dica” e “⚠️ Cuidado” ao longo do notebook.</p></li>
+<li><p>O notebook deve ser autocontido e permitir que o aluno saia com um plano completo.</p></li>
+</ul>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/aulas/aula-12-projeto-final-especificacao"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../aula-11-otimizacao-hiperparametros-prompts/workshop.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workshop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🎯 Workshop de Planejamento: Projeto Final SBSE+IA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-1-abertura-e-engajamento">Seção 1: Abertura e Engajamento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-motivador">1.1. Problema Motivador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-desta-aula">1.2. Objetivos desta Aula</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-2-fundamentos-teoricos-versao-expressa">Seção 2: Fundamentos Teóricos (Versão Expressa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-framework-conceitual-do-projeto">O Framework Conceitual do Projeto</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomia-de-projetos-sbse-ia">Taxonomia de Projetos SBSE+IA</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-3-exemplo-ilustrativo">Seção 3: Exemplo Ilustrativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projeto-exemplo-otimizador-inteligente-de-pipelines-de-ci-cd">Projeto Exemplo: “Otimizador Inteligente de Pipelines de CI/CD”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-4-analise-e-topicos-avancados">Seção 4: Análise e Tópicos Avançados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#criterios-de-avaliacao-detalhados">Critérios de Avaliação Detalhados</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formulacao-do-problema-20">1. Formulação do Problema (20%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacao-tecnica-25">2. Implementação Técnica (25%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#integracao-sbse-ia-20">3. Integração SBSE+IA (20%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#validacao-experimental-15">4. Validação Experimental (15%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#documentacao-e-comunicacao-10">5. Documentação e Comunicação (10%)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apresentacao-em-video-10">6. Apresentação em Vídeo (10%)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cronograma-e-marcos-intermediarios">Cronograma e Marcos Intermediários</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilhas-comuns-e-como-evita-las">Armadilhas Comuns e Como Evitá-las</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-1-projeto-muito-ambicioso">Armadilha 1: “Projeto Muito Ambicioso”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-2-ia-cosmetica">Armadilha 2: “IA Cosmética”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-3-falta-de-validacao">Armadilha 3: “Falta de Validação”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#armadilha-4-procrastinacao-da-implementacao">Armadilha 4: “Procrastinação da Implementação”</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secao-5-sintese-e-proximos-passos">Seção 5: Síntese e Próximos Passos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumo-da-aula">5.1. Resumo da Aula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ponte-e-briefing-para-o-workshop-pratico-ipynb">5.2. Ponte e Briefing para o Workshop Prático (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jackson Antonio do Prado Lima
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
