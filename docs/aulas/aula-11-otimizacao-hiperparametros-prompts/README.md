@@ -58,7 +58,7 @@ A aplicação de SBSE para otimização de hiperparâmetros e prompts representa
 
 ### Comparação: Métodos Tradicionais vs. SBSE
 
-```mermaid
+```{mermaid}
 graph TD
     A[Otimização de Hiperparâmetros] --> B[Grid Search];
     A --> C[Random Search];

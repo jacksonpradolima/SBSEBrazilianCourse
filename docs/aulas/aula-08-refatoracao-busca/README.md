@@ -57,7 +57,7 @@ Refatoração Baseada em Busca (Search-Based Refactoring) trata a melhoria da qu
 
 O espaço de busca para refatoração é infinito. Um AG pode aplicar uma sequência aleatória de "Mover Método", mas isso é ineficiente. Aqui, o LLM atua como um "oráculo" que poda a árvore de busca, sugerindo apenas as refatorações que fazem sentido semanticamente.
 
-```mermaid
+```{mermaid}
 graph TD
     A[Código com "Code Smells"] --> B{LLM: "Aja como um arquiteto de software..."};
     B --> C["Sugestão 1: Extrair Classe 'DB'"];

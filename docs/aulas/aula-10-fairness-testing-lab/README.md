@@ -58,7 +58,7 @@ Neste laboratório, aplicaremos os conceitos teóricos da Aula 9 em um sistema p
 
 ### Métricas de Fairness Implementadas
 
-```mermaid
+```{mermaid}
 graph TD
     A[Fairness Testing] --> B[Individual Fairness];
     A --> C[Demographic Parity];

@@ -87,7 +87,7 @@ Na otimização, frequentemente enfrentamos tensões entre duas perspectivas ét
 - **Aplicação em SBSE:** Restrições hard que protegem direitos fundamentais, mesmo que reduzam eficiência.
 - **Problema:** Pode levar a soluções subótimas; direitos podem conflitar entre si.
 
-```mermaid
+```{mermaid}
 graph TD
     A[Problema de Otimização Ética] --> B[Perspectiva Consequencialista];
     A --> C[Perspectiva Deontológica];
@@ -282,7 +282,7 @@ def otimizar_alocacao_entrega(pedidos, entregadores):
 
 Metodologia que incorpora valores humanos em todas as fases do design:
 
-```mermaid
+```{mermaid}
 graph TD
     A[Identificar Stakeholders] --> B[Mapear Valores em Conflito];
     B --> C[Design Participativo];

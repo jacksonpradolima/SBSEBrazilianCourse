@@ -55,7 +55,7 @@ O teste de justiça (fairness testing) em IA representa um novo paradigma de tes
 
 ### Tipos de Fairness e Como Testá-los
 
-```mermaid
+```{mermaid}
 graph TD
     A[Fairness Testing] --> B[Individual Fairness];
     A --> C[Group Fairness];

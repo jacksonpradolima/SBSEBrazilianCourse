@@ -67,7 +67,7 @@ Um projeto final de qualidade deve demonstrar domínio dos quatro pilares fundam
 
 ### Critérios de Excelência
 
-```mermaid
+```{mermaid}
 graph TD
     A[Projeto SBSE+IA Exemplar] --> B[Formulação Clara];
     A --> C[Implementação Sólida];

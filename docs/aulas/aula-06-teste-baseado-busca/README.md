@@ -50,7 +50,7 @@ SBST reformula o teste de software: em vez de ser uma atividade manual de verifi
 
 ### Diagrama do Processo SBST
 
-```mermaid
+```{mermaid}
 graph TD
     A[Início: Definir Função Alvo] --> B{Gerar População Inicial de Testes Aleatórios};
     B --> C{Executar Testes e Calcular Fitness};

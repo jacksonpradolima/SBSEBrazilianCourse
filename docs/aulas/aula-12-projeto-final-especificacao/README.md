@@ -61,7 +61,7 @@ Um projeto exemplar de SBSE+IA deve integrar harmoniosamente quatro dimensões:
 
 ### Taxonomia de Projetos SBSE+IA
 
-```mermaid
+```{mermaid}
 graph TD
     A[Projetos SBSE+IA] --> B[IA como Assistente];
     A --> C[IA como Objeto de Otimização];

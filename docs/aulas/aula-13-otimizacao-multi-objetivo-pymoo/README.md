@@ -63,7 +63,7 @@ O NSGA-II é o algoritmo multi-objetivo mais utilizado na prática. Sua estraté
 2.  **Diversidade através de Crowding Distance:** Prefere soluções que estão em regiões menos populosas da fronteira.
 3.  **Seleção Elitista:** Mantém as melhores soluções de geração para geração.
 
-```mermaid
+```{mermaid}
 graph TD
     A[População Inicial] --> B[Avaliação Multi-Objetivo];
     B --> C[Classificação por Non-Dominance];
