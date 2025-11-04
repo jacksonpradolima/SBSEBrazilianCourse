@@ -193,7 +193,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -428,7 +428,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.2</span> -&gt; <span class=" -Color -Color-Green">25.3</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">25.0.1</span> -&gt; <span class=" -Color -Color-Green">25.3</span>
 <span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
 </pre></div>
 </div>
@@ -503,7 +503,7 @@ document.write(`
 <span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;sk-&#39;</span><span class="p">):</span>
 <span class="g g-Whitespace">     </span><span class="mi">29</span>         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ Chave de API inválida. Deve começar com &#39;sk-&#39;.&quot;</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/ipykernel/kernelbase.py:1370,</span> in <span class="ni">Kernel.getpass</span><span class="nt">(self, prompt, stream)</span>
+<span class="nn">File ~/.local/lib/python3.12/site-packages/ipykernel/kernelbase.py:1370,</span> in <span class="ni">Kernel.getpass</span><span class="nt">(self, prompt, stream)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1368</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_stdin</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1369</span>     <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;getpass was called, but this frontend does not support input requests.&quot;</span>
 <span class="ne">-&gt; </span><span class="mi">1370</span>     <span class="k">raise</span> <span class="n">StdinNotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -708,8 +708,8 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Função de fitness e DEAP configurados.
 
-🧪 Testando um indivíduo aleatório: [3, 2, 1, 3, 1, 1, 2, 2]
-   - Fitness (Makespan, Custo, Penalidade): (60.0, 15740.0, 100.0)
+🧪 Testando um indivíduo aleatório: [3, 2, 2, 1, 1, 3, 3, 1]
+   - Fitness (Makespan, Custo, Penalidade): (62.0, 15560.0, 25.0)
 </pre></div>
 </div>
 </div>
@@ -890,82 +890,86 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gen	nevals	avg                         	min                   
-0  	100   	[   69.78 16029.2     61.5 ]	[   40. 11020.     0.]
-1  	93    	[   64.16 14378.6     83.5 ]	[   40. 11020.     0.]
-2  	88    	[   68.16 13690.4     87.75]	[  40. 9980.    0.]   
-3  	91    	[   66.44 13301.      99.  ]	[  40. 9980.    0.]   
-4  	89    	[   66.42 13009.8     96.5 ]	[  40. 9980.    0.]   
-5  	87    	[   65.   12993.      79.75]	[  40. 9980.    0.]   
+0  	100   	[   64.1  16392.      55.75]	[   40. 11180.     0.]
+1  	86    	[   57.82 15211.4     76.25]	[   40. 11180.     0.]
+2  	84    	[   62.08 14248.      82.75]	[   40. 10700.     0.]
+3  	88    	[   60.92 13892.6     76.25]	[   40. 10220.     0.]
+4  	83    	[   61.72 13562.4     75.5 ]	[   40. 10220.     0.]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6  	87    	[   67.84 12671.2     86.  ]	[  40. 9980.    0.]   
-7  	87    	[   71.92 12264.8     97.  ]	[  40. 9620.    0.]   
-8  	87    	[   71.24 12107.6     91.75]	[  40. 9620.    0.]   
-9  	85    	[   72.82 11961.8     93.5 ]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5  	94    	[   61.8 13437.4    73.5]   	[   40. 10100.     0.]
+6  	91    	[   64.38 12962.6     88.  ]	[   40. 10100.     0.]
+7  	85    	[   65.22 12869.      86.75]	[  40. 9740.    0.]   
+8  	90    	[   65.82 12836.4     82.25]	[  40. 9740.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 	83    	[   73.5 11912.     90. ]   	[  40. 9380.    0.]   
-11 	95    	[   77.38 11761.4     96.75]	[  40. 9380.    0.]   
-12 	91    	[   77.52 11932.8     96.5 ]	[  40. 9380.    0.]   
-13 	91    	[   76.72 11949.8     97.5 ]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9  	88    	[   63.28 13031.      65.  ]	[  40. 9740.    0.]   
+10 	89    	[   65.56 12741.6     61.  ]	[  40. 9500.    0.]   
+11 	90    	[   70.88 12353.2     80.25]	[  40. 9500.    0.]   
+12 	91    	[   75.24 12143.6     89.5 ]	[  40. 9500.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14 	90    	[   76.02 12051.2     96.5 ]	[  40. 9380.    0.]   
-15 	90    	[   75.02 12166.4     97.5 ]	[  40. 9380.    0.]   
-16 	91    	[   82.52 11675.2    101.25]	[  40. 9380.    0.]   
-17 	87    	[   84.94 11592.8    108.75]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13 	90    	[   76.44 12070.6     89.75]	[  40. 9380.    0.]   
+14 	93    	[   75.3 12094.6    86. ]   	[  40. 9380.    0.]   
+15 	88    	[   77.02 11927.4     89.  ]	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18 	89    	[   76.3 12072.6    92. ]   	[  40. 9380.    0.]   
-19 	93    	[   74.32 12150.2     84.25]	[  40. 9380.    0.]   
-20 	90    	[   73.78 12134.4     85.  ]	[  40. 9380.    0.]   
-21 	90    	[   77.04 11872.6     93.  ]	[  40. 9380.    0.]   
-22 	91    	[   77.6  11767.2     96.25]	[  40. 9380.    0.]   
-23 	91    	[   79.72 11601.4     89.75]	[  40. 9380.    0.]   
-24 	91    	[   79.8 11651.4    94. ]   	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16 	90    	[   76.78 12003.      91.  ]	[  40. 9380.    0.]   
+17 	88    	[   78.74 11857.      97.25]	[  40. 9380.    0.]   
+18 	92    	[   75.86 12051.6     89.5 ]	[  40. 9380.    0.]   
+19 	91    	[   79.5 11747.4    98.5]   	[  40. 9380.    0.]   
+20 	86    	[   78.12 11853.2     97.25]	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25 	91    	[   81.26 11576.     100.75]	[  40. 9380.    0.]   
-26 	89    	[   83.12 11442.2    103.  ]	[  40. 9380.    0.]   
-27 	90    	[   81.18 11551.2     99.5 ]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21 	91    	[   78.92 11796.     100.5 ]	[  40. 9380.    0.]   
+22 	96    	[   81.14 11639.      97.75]	[  40. 9380.    0.]   
+23 	89    	[   80.62 11697.4     99.75]	[  40. 9380.    0.]   
+24 	84    	[   80.08 11698.2     99.25]	[  40. 9380.    0.]   
+25 	92    	[   80.9  11665.      95.25]	[  40. 9380.    0.]   
+26 	92    	[   81.14 11596.8    100.  ]	[  40. 9380.    0.]   
+27 	89    	[   83.  11510.2   104. ]   	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>28 	94    	[   82.8 11463.4   102. ]   	[  40. 9380.    0.]   
-29 	93    	[   82.12 11502.2    100.25]	[  40. 9380.    0.]   
-30 	92    	[   81.58 11526.4    100.25]	[  40. 9380.    0.]   
-31 	88    	[   80.8 11614.4   100. ]   	[  40. 9380.    0.]   
-32 	92    	[   81.2  11574.2    101.25]	[  40. 9380.    0.]   
-33 	90    	[   83.68 11451.8    105.25]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>28 	89    	[   82.72 11539.2    104.  ]	[  40. 9380.    0.]   
+29 	86    	[   80.92 11636.2     98.25]	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>34 	92    	[   82.22 11497.6    101.25]	[  40. 9380.    0.]   
-35 	93    	[   84.16 11389.4    105.75]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 	91    	[   80.46 11682.      98.25]	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>36 	94    	[   85.78 11329.     107.5 ]	[  40. 9380.    0.]   
-37 	95    	[   84.32 11439.8    105.75]	[  40. 9380.    0.]   
-38 	90    	[   88.06 11273.2    111.25]	[  40. 9380.    0.]   
-39 	92    	[   86.82 11304.8    110.25]	[  40. 9380.    0.]   
-40 	89    	[   83.   11511.8    102.25]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31 	89    	[   81.6 11600.    100.5]   	[  40. 9380.    0.]   
+32 	87    	[   81.98 11508.     101.75]	[  40. 9380.    0.]   
+33 	86    	[   82.78 11500.4    104.25]	[  40. 9380.    0.]   
+34 	85    	[   81.24 11619.8    104.75]	[  40. 9380.    0.]   
+35 	92    	[   83.4 11518.8   105.5]   	[  40. 9380.    0.]   
+36 	87    	[   86.66 11328.6    109.75]	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>41 	84    	[   84.26 11430.6    103.  ]	[  40. 9380.    0.]   
-42 	91    	[   83.52 11483.     104.25]	[  40. 9380.    0.]   
-43 	94    	[   82.94 11517.8    106.25]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>37 	93    	[   82.82 11550.6    106.  ]	[  40. 9380.    0.]   
+38 	89    	[   80.26 11673.      98.25]	[  40. 9380.    0.]   
+39 	89    	[   80.76 11633.6     98.  ]	[  40. 9380.    0.]   
+40 	88    	[   82.56 11588.2    102.25]	[  40. 9380.    0.]   
+41 	88    	[   81.74 11571.2    101.25]	[  40. 9380.    0.]   
+42 	89    	[   82.08 11591.2    100.25]	[  40. 9380.    0.]   
+43 	88    	[   79.96 11726.      97.5 ]	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>44 	83    	[   83.1  11525.6    101.75]	[  40. 9380.    0.]   
-45 	87    	[   80.1  11653.6     97.25]	[  40. 9380.    0.]   
-46 	89    	[   83.92 11428.8    100.5 ]	[  40. 9380.    0.]   
-47 	94    	[   85.62 11310.     105.  ]	[  40. 9380.    0.]   
-48 	90    	[   85.58 11327.6    105.  ]	[  40. 9380.    0.]   
-49 	88    	[   86.64 11358.     111.  ]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>44 	89    	[   80.92 11693.4     97.  ]	[  40. 9380.    0.]   
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 	82    	[   81.16 11562.6     99.75]	[  40. 9380.    0.]   
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>45 	85    	[   82.12 11564.2     99.25]	[  40. 9380.    0.]   
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46 	95    	[   81.38 11567.8     95.75]	[  40. 9380.    0.]   
+47 	87    	[   83.42 11456.2     99.5 ]	[  40. 9380.    0.]   
+48 	91    	[   82.82 11519.8     93.5 ]	[  40. 9380.    0.]   
+49 	88    	[   82.88 11536.4     98.5 ]	[  40. 9380.    0.]   
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 	92    	[   82.1  11592.4     98.75]	[  40. 9380.    0.]   
 
 🎉 Otimização concluída!
-🏆 Encontradas 78 soluções na Fronteira de Pareto.
+🏆 Encontradas 98 soluções na Fronteira de Pareto.
 </pre></div>
 </div>
 </div>
@@ -1002,69 +1006,87 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Análise das Soluções na Fronteira de Pareto ---
 
 Solução #1:
-  - Fitness: Makespan=40h, Custo=R$15100.00, Penalidade=0
+  - Fitness: Makespan=40h, Custo=R$15040.00, Penalidade=25
   - Alocação:
-    - Ana (Sênior): 34h -&gt; [&#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Ana (Sênior): 40h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;]
     - Bruno (Pleno): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 40h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Daniel (Sênior): 20h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;]
+    - Carla (Júnior): 40h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;]
+    - Daniel (Sênior): 14h -&gt; [&#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
 
 
 Solução #2:
-  - Fitness: Makespan=42h, Custo=R$14960.00, Penalidade=125
+  - Fitness: Makespan=40h, Custo=R$15280.00, Penalidade=0
   - Alocação:
-    - Ana (Sênior): 36h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Bruno (Pleno): 42h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
-    - Daniel (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
+    - Ana (Sênior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
+    - Bruno (Pleno): 36h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 40h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Daniel (Sênior): 18h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Documentar a arquitetura&#39;]
 
 
 Solução #3:
-  - Fitness: Makespan=42h, Custo=R$15020.00, Penalidade=0
+  - Fitness: Makespan=42h, Custo=R$14920.00, Penalidade=100
   - Alocação:
-    - Ana (Sênior): 42h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Bruno (Pleno): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 40h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Ana (Sênior): 40h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Bruno (Pleno): 42h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
     - Daniel (Sênior): 12h -&gt; [&#39;Escrever testes unitários para API&#39;]
 
 
 Solução #4:
-  - Fitness: Makespan=44h, Custo=R$14480.00, Penalidade=100
+  - Fitness: Makespan=42h, Custo=R$14980.00, Penalidade=0
   - Alocação:
-    - Ana (Sênior): 36h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Bruno (Pleno): 44h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;]
-    - Carla (Júnior): 44h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Daniel (Sênior): 10h -&gt; [&#39;Documentar a arquitetura&#39;]
+    - Ana (Sênior): 28h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;]
+    - Bruno (Pleno): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
+    - Carla (Júnior): 42h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 24h -&gt; [&#39;Otimizar query do banco de dados&#39;]
 
 
 Solução #5:
-  - Fitness: Makespan=44h, Custo=R$14740.00, Penalidade=0
+  - Fitness: Makespan=44h, Custo=R$14580.00, Penalidade=100
   - Alocação:
-    - Ana (Sênior): 34h -&gt; [&#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Bruno (Pleno): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 44h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Daniel (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
+    - Ana (Sênior): 26h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Documentar a arquitetura&#39;]
+    - Bruno (Pleno): 44h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 44h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Daniel (Sênior): 20h -&gt; [&#39;Configurar CI/CD&#39;]
 
 
 Solução #6:
-  - Fitness: Makespan=46h, Custo=R$14220.00, Penalidade=0
+  - Fitness: Makespan=44h, Custo=R$14680.00, Penalidade=0
   - Alocação:
-    - Ana (Sênior): 44h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Bruno (Pleno): 44h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Carla (Júnior): 46h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Documentar a arquitetura&#39;]
-    - Daniel (Sênior): 0h -&gt; []
+    - Ana (Sênior): 40h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Bruno (Pleno): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
+    - Carla (Júnior): 44h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Daniel (Sênior): 10h -&gt; [&#39;Documentar a arquitetura&#39;]
 
 
 Solução #7:
-  - Fitness: Makespan=48h, Custo=R$13900.00, Penalidade=25
+  - Fitness: Makespan=44h, Custo=R$14680.00, Penalidade=0
   - Alocação:
-    - Ana (Sênior): 34h -&gt; [&#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Bruno (Pleno): 48h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 48h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;]
-    - Daniel (Sênior): 4h -&gt; [&#39;Corrigir bug visual no mobile&#39;]
+    - Ana (Sênior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
+    - Bruno (Pleno): 40h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 44h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;]
+    - Daniel (Sênior): 10h -&gt; [&#39;Documentar a arquitetura&#39;]
 
 
 Solução #8:
+  - Fitness: Makespan=46h, Custo=R$14260.00, Penalidade=25
+  - Alocação:
+    - Ana (Sênior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
+    - Bruno (Pleno): 44h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 46h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 4h -&gt; [&#39;Corrigir bug visual no mobile&#39;]
+
+
+Solução #9:
+  - Fitness: Makespan=46h, Custo=R$14500.00, Penalidade=0
+  - Alocação:
+    - Ana (Sênior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
+    - Bruno (Pleno): 40h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 46h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 8h -&gt; [&#39;Desenvolver tela de login&#39;]
+
+
+Solução #10:
   - Fitness: Makespan=48h, Custo=R$13960.00, Penalidade=0
   - Alocação:
     - Ana (Sênior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
@@ -1073,115 +1095,124 @@ Solução #8:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #9:
-  - Fitness: Makespan=50h, Custo=R$13900.00, Penalidade=0
+Solução #11:
+  - Fitness: Makespan=48h, Custo=R$13960.00, Penalidade=0
   - Alocação:
     - Ana (Sênior): 40h -&gt; [&#39;Refatorar módulo de pagamento&#39;]
-    - Bruno (Pleno): 44h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Carla (Júnior): 50h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Documentar a arquitetura&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #10:
-  - Fitness: Makespan=52h, Custo=R$13480.00, Penalidade=125
-  - Alocação:
-    - Ana (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
-    - Bruno (Pleno): 52h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Carla (Júnior): 52h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;]
-    - Daniel (Sênior): 14h -&gt; [&#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
-
-
-Solução #11:
-  - Fitness: Makespan=52h, Custo=R$13540.00, Penalidade=0
-  - Alocação:
-    - Ana (Sênior): 34h -&gt; [&#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Bruno (Pleno): 48h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 52h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Bruno (Pleno): 46h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 48h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #12:
-  - Fitness: Makespan=54h, Custo=R$13400.00, Penalidade=125
+  - Fitness: Makespan=50h, Custo=R$13820.00, Penalidade=0
   - Alocação:
-    - Ana (Sênior): 12h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Bruno (Pleno): 54h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 52h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;]
-    - Daniel (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
+    - Ana (Sênior): 24h -&gt; [&#39;Otimizar query do banco de dados&#39;]
+    - Bruno (Pleno): 48h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;]
+    - Carla (Júnior): 50h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 12h -&gt; [&#39;Escrever testes unitários para API&#39;]
 
 
 Solução #13:
-  - Fitness: Makespan=56h, Custo=R$12820.00, Penalidade=100
+  - Fitness: Makespan=52h, Custo=R$13340.00, Penalidade=125
   - Alocação:
-    - Ana (Sênior): 22h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Documentar a arquitetura&#39;]
-    - Bruno (Pleno): 56h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Carla (Júnior): 56h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
+    - Ana (Sênior): 30h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Bruno (Pleno): 52h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 52h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #14:
-  - Fitness: Makespan=56h, Custo=R$12980.00, Penalidade=0
+  - Fitness: Makespan=52h, Custo=R$13520.00, Penalidade=0
   - Alocação:
     - Ana (Sênior): 24h -&gt; [&#39;Otimizar query do banco de dados&#39;]
-    - Bruno (Pleno): 56h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 54h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
-    - Daniel (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 50h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 52h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Daniel (Sênior): 8h -&gt; [&#39;Desenvolver tela de login&#39;]
 
 
 Solução #15:
-  - Fitness: Makespan=58h, Custo=R$12660.00, Penalidade=100
+  - Fitness: Makespan=54h, Custo=R$13180.00, Penalidade=100
   - Alocação:
-    - Ana (Sênior): 20h -&gt; [&#39;Configurar CI/CD&#39;]
-    - Bruno (Pleno): 56h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 58h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Ana (Sênior): 28h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;]
+    - Bruno (Pleno): 52h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;]
+    - Carla (Júnior): 54h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #16:
-  - Fitness: Makespan=60h, Custo=R$12340.00, Penalidade=125
+  - Fitness: Makespan=54h, Custo=R$13180.00, Penalidade=100
   - Alocação:
-    - Ana (Sênior): 10h -&gt; [&#39;Documentar a arquitetura&#39;]
-    - Bruno (Pleno): 60h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Carla (Júnior): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Refatorar módulo de pagamento&#39;]
-    - Daniel (Sênior): 4h -&gt; [&#39;Corrigir bug visual no mobile&#39;]
+    - Ana (Sênior): 28h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;]
+    - Bruno (Pleno): 52h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 54h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #17:
-  - Fitness: Makespan=60h, Custo=R$12400.00, Penalidade=100
+  - Fitness: Makespan=56h, Custo=R$12920.00, Penalidade=100
   - Alocação:
-    - Ana (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
-    - Bruno (Pleno): 58h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Ana (Sênior): 24h -&gt; [&#39;Otimizar query do banco de dados&#39;]
+    - Bruno (Pleno): 54h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 56h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #18:
-  - Fitness: Makespan=60h, Custo=R$12400.00, Penalidade=100
+  - Fitness: Makespan=58h, Custo=R$12720.00, Penalidade=100
   - Alocação:
-    - Ana (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
-    - Bruno (Pleno): 58h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 60h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;]
+    - Ana (Sênior): 20h -&gt; [&#39;Configurar CI/CD&#39;]
+    - Bruno (Pleno): 58h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 56h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #19:
-  - Fitness: Makespan=62h, Custo=R$12140.00, Penalidade=100
+  - Fitness: Makespan=58h, Custo=R$13040.00, Penalidade=0
   - Alocação:
-    - Ana (Sênior): 12h -&gt; [&#39;Escrever testes unitários para API&#39;]
-    - Bruno (Pleno): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Carla (Júnior): 62h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Ana (Sênior): 24h -&gt; [&#39;Otimizar query do banco de dados&#39;]
+    - Bruno (Pleno): 58h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 52h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #20:
-  - Fitness: Makespan=62h, Custo=R$12140.00, Penalidade=100
+  - Fitness: Makespan=60h, Custo=R$12400.00, Penalidade=100
   - Alocação:
-    - Ana (Sênior): 12h -&gt; [&#39;Escrever testes unitários para API&#39;]
-    - Bruno (Pleno): 60h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Carla (Júnior): 62h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Ana (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
+    - Bruno (Pleno): 58h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Refatorar módulo de pagamento&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
 Solução #21:
+  - Fitness: Makespan=60h, Custo=R$12800.00, Penalidade=0
+  - Alocação:
+    - Ana (Sênior): 24h -&gt; [&#39;Otimizar query do banco de dados&#39;]
+    - Bruno (Pleno): 50h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #22:
+  - Fitness: Makespan=62h, Custo=R$12180.00, Penalidade=125
+  - Alocação:
+    - Ana (Sênior): 8h -&gt; [&#39;Desenvolver tela de login&#39;]
+    - Bruno (Pleno): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 62h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 4h -&gt; [&#39;Corrigir bug visual no mobile&#39;]
+
+
+Solução #23:
+  - Fitness: Makespan=62h, Custo=R$12340.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 16h -&gt; [&#39;Criar CRUD de usuários&#39;]
+    - Bruno (Pleno): 56h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 62h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #24:
   - Fitness: Makespan=62h, Custo=R$12740.00, Penalidade=0
   - Alocação:
     - Ana (Sênior): 24h -&gt; [&#39;Otimizar query do banco de dados&#39;]
@@ -1190,7 +1221,16 @@ Solução #21:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #22:
+Solução #25:
+  - Fitness: Makespan=64h, Custo=R$11880.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 8h -&gt; [&#39;Desenvolver tela de login&#39;]
+    - Bruno (Pleno): 62h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 64h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #26:
   - Fitness: Makespan=64h, Custo=R$11940.00, Penalidade=0
   - Alocação:
     - Ana (Sênior): 8h -&gt; [&#39;Desenvolver tela de login&#39;]
@@ -1199,7 +1239,7 @@ Solução #22:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #23:
+Solução #27:
   - Fitness: Makespan=66h, Custo=R$11620.00, Penalidade=25
   - Alocação:
     - Ana (Sênior): 4h -&gt; [&#39;Corrigir bug visual no mobile&#39;]
@@ -1208,16 +1248,7 @@ Solução #23:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #24:
-  - Fitness: Makespan=68h, Custo=R$11360.00, Penalidade=100
-  - Alocação:
-    - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 66h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 68h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #25:
+Solução #28:
   - Fitness: Makespan=68h, Custo=R$11360.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1226,7 +1257,25 @@ Solução #25:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #26:
+Solução #29:
+  - Fitness: Makespan=68h, Custo=R$11360.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 66h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 68h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #30:
+  - Fitness: Makespan=68h, Custo=R$11360.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 66h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 68h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #31:
   - Fitness: Makespan=68h, Custo=R$11420.00, Penalidade=0
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1235,7 +1284,7 @@ Solução #26:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #27:
+Solução #32:
   - Fitness: Makespan=70h, Custo=R$11300.00, Penalidade=0
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1244,25 +1293,7 @@ Solução #27:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #28:
-  - Fitness: Makespan=72h, Custo=R$11240.00, Penalidade=100
-  - Alocação:
-    - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 62h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 72h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #29:
-  - Fitness: Makespan=72h, Custo=R$11240.00, Penalidade=100
-  - Alocação:
-    - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 62h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 72h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #30:
+Solução #33:
   - Fitness: Makespan=72h, Custo=R$11240.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1271,16 +1302,52 @@ Solução #30:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #31:
-  - Fitness: Makespan=74h, Custo=R$11180.00, Penalidade=100
+Solução #34:
+  - Fitness: Makespan=72h, Custo=R$11240.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 60h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Carla (Júnior): 74h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Bruno (Pleno): 62h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 72h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #32:
+Solução #35:
+  - Fitness: Makespan=72h, Custo=R$11240.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 62h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 72h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #36:
+  - Fitness: Makespan=72h, Custo=R$11240.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 62h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 72h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #37:
+  - Fitness: Makespan=74h, Custo=R$11180.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 74h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #38:
+  - Fitness: Makespan=74h, Custo=R$11180.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 60h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;]
+    - Carla (Júnior): 74h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #39:
   - Fitness: Makespan=74h, Custo=R$11180.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1289,16 +1356,7 @@ Solução #32:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #33:
-  - Fitness: Makespan=74h, Custo=R$11180.00, Penalidade=100
-  - Alocação:
-    - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 60h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Carla (Júnior): 74h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #34:
+Solução #40:
   - Fitness: Makespan=76h, Custo=R$11120.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1307,16 +1365,7 @@ Solução #34:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #35:
-  - Fitness: Makespan=76h, Custo=R$11120.00, Penalidade=100
-  - Alocação:
-    - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 58h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 76h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #36:
+Solução #41:
   - Fitness: Makespan=76h, Custo=R$11120.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1325,16 +1374,43 @@ Solução #36:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #37:
-  - Fitness: Makespan=78h, Custo=R$11060.00, Penalidade=100
+Solução #42:
+  - Fitness: Makespan=76h, Custo=R$11120.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 56h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 78h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Bruno (Pleno): 58h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 76h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #38:
+Solução #43:
+  - Fitness: Makespan=78h, Custo=R$11060.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 56h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 78h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #44:
+  - Fitness: Makespan=78h, Custo=R$11060.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 56h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 78h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #45:
+  - Fitness: Makespan=78h, Custo=R$11060.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 56h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Carla (Júnior): 78h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #46:
   - Fitness: Makespan=78h, Custo=R$11060.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1343,7 +1419,7 @@ Solução #38:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #39:
+Solução #47:
   - Fitness: Makespan=80h, Custo=R$11000.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1352,7 +1428,7 @@ Solução #39:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #40:
+Solução #48:
   - Fitness: Makespan=80h, Custo=R$11000.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1361,16 +1437,7 @@ Solução #40:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #41:
-  - Fitness: Makespan=80h, Custo=R$11000.00, Penalidade=100
-  - Alocação:
-    - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 54h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
-    - Carla (Júnior): 80h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #42:
+Solução #49:
   - Fitness: Makespan=80h, Custo=R$11000.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1379,25 +1446,16 @@ Solução #42:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #43:
-  - Fitness: Makespan=82h, Custo=R$10940.00, Penalidade=100
+Solução #50:
+  - Fitness: Makespan=80h, Custo=R$11000.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 52h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Carla (Júnior): 82h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Bruno (Pleno): 54h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 80h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #44:
-  - Fitness: Makespan=82h, Custo=R$10940.00, Penalidade=100
-  - Alocação:
-    - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 52h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
-    - Carla (Júnior): 82h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
-    - Daniel (Sênior): 0h -&gt; []
-
-
-Solução #45:
+Solução #51:
   - Fitness: Makespan=82h, Custo=R$10940.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1406,7 +1464,7 @@ Solução #45:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #46:
+Solução #52:
   - Fitness: Makespan=82h, Custo=R$10940.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1415,7 +1473,25 @@ Solução #46:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #47:
+Solução #53:
+  - Fitness: Makespan=82h, Custo=R$10940.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 52h -&gt; [&#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 82h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #54:
+  - Fitness: Makespan=82h, Custo=R$10940.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 52h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Carla (Júnior): 82h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #55:
   - Fitness: Makespan=84h, Custo=R$10880.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1424,7 +1500,7 @@ Solução #47:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #48:
+Solução #56:
   - Fitness: Makespan=84h, Custo=R$10880.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1433,16 +1509,16 @@ Solução #48:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #49:
-  - Fitness: Makespan=86h, Custo=R$10820.00, Penalidade=100
+Solução #57:
+  - Fitness: Makespan=84h, Custo=R$10880.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 48h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;]
-    - Carla (Júnior): 86h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Bruno (Pleno): 50h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 84h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #50:
+Solução #58:
   - Fitness: Makespan=86h, Custo=R$10820.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1451,7 +1527,25 @@ Solução #50:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #51:
+Solução #59:
+  - Fitness: Makespan=86h, Custo=R$10820.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 48h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Refatorar módulo de pagamento&#39;]
+    - Carla (Júnior): 86h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #60:
+  - Fitness: Makespan=86h, Custo=R$10820.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 48h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 86h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #61:
   - Fitness: Makespan=86h, Custo=R$10820.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1460,7 +1554,7 @@ Solução #51:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #52:
+Solução #62:
   - Fitness: Makespan=88h, Custo=R$10760.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1469,16 +1563,16 @@ Solução #52:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #53:
-  - Fitness: Makespan=90h, Custo=R$10700.00, Penalidade=100
+Solução #63:
+  - Fitness: Makespan=88h, Custo=R$10760.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
-    - Bruno (Pleno): 44h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
-    - Carla (Júnior): 90h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Bruno (Pleno): 46h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 88h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #54:
+Solução #64:
   - Fitness: Makespan=90h, Custo=R$10700.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1487,7 +1581,16 @@ Solução #54:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #55:
+Solução #65:
+  - Fitness: Makespan=90h, Custo=R$10700.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 44h -&gt; [&#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Carla (Júnior): 90h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #66:
   - Fitness: Makespan=90h, Custo=R$10700.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1496,7 +1599,16 @@ Solução #55:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #56:
+Solução #67:
+  - Fitness: Makespan=90h, Custo=R$10700.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 44h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 90h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #68:
   - Fitness: Makespan=92h, Custo=R$10640.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1505,7 +1617,7 @@ Solução #56:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #57:
+Solução #69:
   - Fitness: Makespan=94h, Custo=R$10580.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1514,7 +1626,16 @@ Solução #57:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #58:
+Solução #70:
+  - Fitness: Makespan=94h, Custo=R$10580.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 40h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 94h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #71:
   - Fitness: Makespan=94h, Custo=R$10580.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1523,7 +1644,7 @@ Solução #58:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #59:
+Solução #72:
   - Fitness: Makespan=96h, Custo=R$10520.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1532,7 +1653,16 @@ Solução #59:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #60:
+Solução #73:
+  - Fitness: Makespan=98h, Custo=R$10460.00, Penalidade=100
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 36h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Carla (Júnior): 98h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #74:
   - Fitness: Makespan=98h, Custo=R$10460.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1541,7 +1671,7 @@ Solução #60:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #61:
+Solução #75:
   - Fitness: Makespan=100h, Custo=R$10400.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1550,7 +1680,7 @@ Solução #61:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #62:
+Solução #76:
   - Fitness: Makespan=102h, Custo=R$10340.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1559,7 +1689,7 @@ Solução #62:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #63:
+Solução #77:
   - Fitness: Makespan=104h, Custo=R$10280.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1568,7 +1698,7 @@ Solução #63:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #64:
+Solução #78:
   - Fitness: Makespan=104h, Custo=R$10280.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1577,7 +1707,16 @@ Solução #64:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #65:
+Solução #79:
+  - Fitness: Makespan=104h, Custo=R$10280.00, Penalidade=200
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 30h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 104h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #80:
   - Fitness: Makespan=106h, Custo=R$10220.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1586,7 +1725,7 @@ Solução #65:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #66:
+Solução #81:
   - Fitness: Makespan=108h, Custo=R$10160.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1595,7 +1734,16 @@ Solução #66:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #67:
+Solução #82:
+  - Fitness: Makespan=108h, Custo=R$10160.00, Penalidade=200
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 26h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 108h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #83:
   - Fitness: Makespan=110h, Custo=R$10100.00, Penalidade=100
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1604,7 +1752,16 @@ Solução #67:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #68:
+Solução #84:
+  - Fitness: Makespan=112h, Custo=R$10040.00, Penalidade=200
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 22h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Documentar a arquitetura&#39;]
+    - Carla (Júnior): 112h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #85:
   - Fitness: Makespan=112h, Custo=R$10040.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1613,7 +1770,7 @@ Solução #68:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #69:
+Solução #86:
   - Fitness: Makespan=114h, Custo=R$9980.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1622,7 +1779,7 @@ Solução #69:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #70:
+Solução #87:
   - Fitness: Makespan=114h, Custo=R$9980.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1631,7 +1788,16 @@ Solução #70:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #71:
+Solução #88:
+  - Fitness: Makespan=114h, Custo=R$9980.00, Penalidade=200
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 20h -&gt; [&#39;Desenvolver tela de login&#39;, &#39;Escrever testes unitários para API&#39;]
+    - Carla (Júnior): 114h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #89:
   - Fitness: Makespan=116h, Custo=R$9920.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1640,7 +1806,7 @@ Solução #71:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #72:
+Solução #90:
   - Fitness: Makespan=118h, Custo=R$9860.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1649,7 +1815,16 @@ Solução #72:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #73:
+Solução #91:
+  - Fitness: Makespan=118h, Custo=R$9860.00, Penalidade=200
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 16h -&gt; [&#39;Escrever testes unitários para API&#39;, &#39;Corrigir bug visual no mobile&#39;]
+    - Carla (Júnior): 118h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #92:
   - Fitness: Makespan=120h, Custo=R$9800.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1658,7 +1833,16 @@ Solução #73:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #74:
+Solução #93:
+  - Fitness: Makespan=122h, Custo=R$9740.00, Penalidade=200
+  - Alocação:
+    - Ana (Sênior): 0h -&gt; []
+    - Bruno (Pleno): 12h -&gt; [&#39;Escrever testes unitários para API&#39;]
+    - Carla (Júnior): 122h -&gt; [&#39;Configurar CI/CD&#39;, &#39;Desenvolver tela de login&#39;, &#39;Criar CRUD de usuários&#39;, &#39;Refatorar módulo de pagamento&#39;, &#39;Corrigir bug visual no mobile&#39;, &#39;Otimizar query do banco de dados&#39;, &#39;Documentar a arquitetura&#39;]
+    - Daniel (Sênior): 0h -&gt; []
+
+
+Solução #94:
   - Fitness: Makespan=122h, Custo=R$9740.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1667,7 +1851,7 @@ Solução #74:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #75:
+Solução #95:
   - Fitness: Makespan=124h, Custo=R$9680.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1676,7 +1860,7 @@ Solução #75:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #76:
+Solução #96:
   - Fitness: Makespan=126h, Custo=R$9620.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1685,7 +1869,7 @@ Solução #76:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #77:
+Solução #97:
   - Fitness: Makespan=130h, Custo=R$9500.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []
@@ -1694,7 +1878,7 @@ Solução #77:
     - Daniel (Sênior): 0h -&gt; []
 
 
-Solução #78:
+Solução #98:
   - Fitness: Makespan=134h, Custo=R$9380.00, Penalidade=200
   - Alocação:
     - Ana (Sênior): 0h -&gt; []

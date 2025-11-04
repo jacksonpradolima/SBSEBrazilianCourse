@@ -59,6 +59,14 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-08-refatoracao-busca/README';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
@@ -193,7 +201,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -470,19 +478,18 @@ document.write(`
 <section id="o-papel-do-llm-o-oraculo-de-sugestoes">
 <h3>O Papel do LLM: O Oráculo de Sugestões<a class="headerlink" href="#o-papel-do-llm-o-oraculo-de-sugestoes" title="Link to this heading">#</a></h3>
 <p>O espaço de busca para refatoração é infinito. Um AG pode aplicar uma sequência aleatória de “Mover Método”, mas isso é ineficiente. Aqui, o LLM atua como um “oráculo” que poda a árvore de busca, sugerindo apenas as refatorações que fazem sentido semanticamente.</p>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+<pre  class="mermaid">
+        graph TD
     A[Código com &quot;Code Smells&quot;] --&gt; B{LLM: &quot;Aja como um arquiteto de software...&quot;};
-    B --&gt; C[&quot;Sugestão 1: Extrair Classe &#39;DB&#39;&quot;];
-    B --&gt; D[&quot;Sugestão 2: Mover método &#39;send&#39;&quot;];
-    B --&gt; E[&quot;Sugestão 3: Renomear método &#39;proc&#39;&quot;];
+    B --&gt; C[&quot;Sugestão 1: Extrair Classe 'DB'&quot;];
+    B --&gt; D[&quot;Sugestão 2: Mover método 'send'&quot;];
+    B --&gt; E[&quot;Sugestão 3: Renomear método 'proc'&quot;];
     C --&gt; F[Otimizador SBSE];
     D --&gt; F;
     E --&gt; F;
     F -- Avalia Fitness (Coesão, Acoplamento) de cada sugestão --&gt; G[Ranking: Sugestão 1 é a melhor];
     G --&gt; H[Código Refatorado];
-</pre></div>
-</div>
-</section>
+    </pre></section>
 </section>
 <section id="secao-3-exemplo-ilustrativo-antes-e-depois">
 <h2>Seção 3: Exemplo Ilustrativo: Antes e Depois<a class="headerlink" href="#secao-3-exemplo-ilustrativo-antes-e-depois" title="Link to this heading">#</a></h2>

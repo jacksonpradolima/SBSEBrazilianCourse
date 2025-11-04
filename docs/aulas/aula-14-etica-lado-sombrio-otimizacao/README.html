@@ -61,6 +61,14 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'docs/aulas/aula-14-etica-lado-sombrio-otimizacao/README';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
@@ -195,7 +203,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../aula-04-laboratorio-deap/README.html">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP\n</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aula-04-laboratorio-deap/workshop.html">Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../aula-05-sinergia-ia/README.html">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -540,13 +548,14 @@ document.write(`
 <li><p><strong>Aplicação em SBSE:</strong> Restrições hard que protegem direitos fundamentais, mesmo que reduzam eficiência.</p></li>
 <li><p><strong>Problema:</strong> Pode levar a soluções subótimas; direitos podem conflitar entre si.</p></li>
 </ul>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+<pre  class="mermaid">
+        graph TD
     A[Problema de Otimização Ética] --&gt; B[Perspectiva Consequencialista];
     A --&gt; C[Perspectiva Deontológica];
     
     B --&gt; B1[Maximizar utilidade geral];
     B --&gt; B2[Otimizar métricas agregadas];
-    B --&gt; B3[&quot;Exemplo: Maximizar &#39;felicidade média&#39;&quot;];
+    B --&gt; B3[&quot;Exemplo: Maximizar 'felicidade média'&quot;];
     
     C --&gt; C1[Respeitar direitos individuais];
     C --&gt; C2[Impor restrições éticas];
@@ -555,9 +564,7 @@ document.write(`
     B --&gt; D[Tensão Ética];
     C --&gt; D;
     D --&gt; E[Necessidade de Balance];
-</pre></div>
-</div>
-</section>
+    </pre></section>
 <section id="metricas-de-auditoria-etica">
 <h3>Métricas de Auditoria Ética<a class="headerlink" href="#metricas-de-auditoria-etica" title="Link to this heading">#</a></h3>
 <p>Para construir sistemas de otimização éticos, precisamos de métricas que capturem dimensões morais:</p>
@@ -745,16 +752,15 @@ $<span class="math notranslate nohighlight">\(\text{Score}_{post} = w_1 \cdot \t
 <section id="value-sensitive-design-vsd">
 <h4>1. <strong>Value Sensitive Design (VSD)</strong><a class="headerlink" href="#value-sensitive-design-vsd" title="Link to this heading">#</a></h4>
 <p>Metodologia que incorpora valores humanos em todas as fases do design:</p>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+<pre  class="mermaid">
+        graph TD
     A[Identificar Stakeholders] --&gt; B[Mapear Valores em Conflito];
     B --&gt; C[Design Participativo];
     C --&gt; D[Implementação com Safeguards];
     D --&gt; E[Monitoramento Contínuo];
     E --&gt; F[Iteração Baseada em Feedback];
     F --&gt; A;
-</pre></div>
-</div>
-<p><strong>Aplicação em SBSE:</strong></p>
+    </pre><p><strong>Aplicação em SBSE:</strong></p>
 <ol class="arabic simple">
 <li><p><strong>Phase 1:</strong> Identificar todos os grupos afetados pela otimização</p></li>
 <li><p><strong>Phase 2:</strong> Mapear valores em conflito (eficiência vs. fairness, privacy vs. transparência)</p></li>
