@@ -1,5 +1,5 @@
 ---
-titulo: "Técnicas de Otimização em SBSE"
+titulo: "Aula 2: Técnicas de Otimização em SBSE"
 aula_numero: 2
 carga_horaria: "4 horas"
 foco_principal: "Dominar algoritmos de otimização e técnicas de representação para transformar problemas de engenharia de software em problemas de busca"
@@ -20,7 +20,7 @@ prerequisitos:
   - "Familiaridade com programação Python"
 ---
 
-# Técnicas de Otimização em SBSE
+# Aula 2: Técnicas de Otimização em SBSE
 
 ## Seção 1: Abertura e Engajamento
 

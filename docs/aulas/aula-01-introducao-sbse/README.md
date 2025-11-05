@@ -1,5 +1,5 @@
 ---
-titulo: "Introdução à Engenharia de Software Baseada em Busca"
+titulo: "Aula 1: Introdução à Engenharia de Software Baseada em Busca"
 aula_numero: 1
 carga_horaria: "4 horas"
 foco_principal: "Compreender os fundamentos da SBSE e identificar suas principais aplicações na engenharia de software"
@@ -18,7 +18,7 @@ prerequisitos:
   - "Familiaridade com conceitos de engenharia de software"
 ---
 
-# Introdução à Engenharia de Software Baseada em Busca (SBSE)
+# Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)
 
 ## Seção 1: Abertura e Engajamento
 
