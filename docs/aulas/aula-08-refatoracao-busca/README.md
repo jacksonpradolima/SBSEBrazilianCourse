@@ -59,7 +59,7 @@ O espaço de busca para refatoração é infinito. Um AG pode aplicar uma sequê
 
 ```{mermaid}
 graph TD
-    A[Código com "Code Smells"] --> B{LLM: "Aja como um arquiteto de software..."};
+    A[Código com Code Smells] --> B{LLM: Aja como um arquiteto de software...};
     B --> C["Sugestão 1: Extrair Classe 'DB'"];
     B --> D["Sugestão 2: Mover método 'send'"];
     B --> E["Sugestão 3: Renomear método 'proc'"];

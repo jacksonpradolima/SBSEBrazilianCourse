@@ -29,3 +29,7 @@ sphinx:
     - sphinxcontrib.plantuml
     - sphinxcontrib.tikz
     - sphinxcontrib.blockdiag
+
+exclude_patterns:
+  - "plano_ensino.md"
+  - "LICENSE"
