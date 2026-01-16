@@ -1,14 +1,22 @@
 version: 1
 project:
   title: >-
-    Engenharia de Software Baseada em Busca (Search-Based Software Engineering,
-    SBSE)
+    Search-Based Software Engineering (SBSE) - Curso Brasileiro
   authors:
     - name: Jackson Antonio do Prado Lima
   copyright: '2026'
   exclude:
     - plano_ensino.md
     - LICENSE
+  references:
+    issues: https://github.com/jacksonpradolima/SBSEBrazilianCourse/issues
+  abbreviations:
+    SBSE: Search-Based Software Engineering
+  plugins:
+    - src/xref.mjs
+    - src/landing-page.mjs
+    - src/directives.mjs
+    - src/admonition.mjs
   github: jacksonpradolima/SBSEBrazilianCourse
   toc:
     - file: README.md
