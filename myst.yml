@@ -1,0 +1,66 @@
+version: 1
+project:
+  title: >-
+    Engenharia de Software Baseada em Busca (Search-Based Software Engineering,
+    SBSE)
+  authors:
+    - name: Jackson Antonio do Prado Lima
+  copyright: '2026'
+  exclude:
+    - plano_ensino.md
+    - LICENSE
+  github: jacksonpradolima/SBSEBrazilianCourse
+  toc:
+    - file: README.md
+    - title: Aulas da Disciplina
+      children:
+        - file: docs/aulas/aula-01-introducao-sbse/README.md
+          children:
+            - file: docs/aulas/aula-01-introducao-sbse/workshop.ipynb
+        - file: docs/aulas/aula-02-tecnicas-otimizacao-sbse/README.md
+          children:
+            - file: docs/aulas/aula-02-tecnicas-otimizacao-sbse/workshop.ipynb
+        - file: docs/aulas/aula-03-formulacao-problemas-representacoes/README.md
+          children:
+            - file: >-
+                docs/aulas/aula-03-formulacao-problemas-representacoes/workshop.ipynb
+        - file: docs/aulas/aula-04-laboratorio-deap/README.md
+          children:
+            - file: docs/aulas/aula-04-laboratorio-deap/workshop.ipynb
+        - file: docs/aulas/aula-05-sinergia-ia/README.md
+          children:
+            - file: docs/aulas/aula-05-sinergia-ia/workshop.ipynb
+        - file: docs/aulas/aula-06-teste-baseado-busca/README.md
+          children:
+            - file: docs/aulas/aula-06-teste-baseado-busca/workshop.ipynb
+        - file: docs/aulas/aula-07-sbst-lab/README.md
+          children:
+            - file: docs/aulas/aula-07-sbst-lab/workshop.ipynb
+        - file: docs/aulas/aula-08-refatoracao-busca/README.md
+          children:
+            - file: docs/aulas/aula-08-refatoracao-busca/workshop.ipynb
+        - file: docs/aulas/aula-09-fairness-testing-ml/README.md
+          children:
+            - file: docs/aulas/aula-09-fairness-testing-ml/workshop.ipynb
+        - file: docs/aulas/aula-10-fairness-testing-lab/README.md
+          children:
+            - file: docs/aulas/aula-10-fairness-testing-lab/workshop.ipynb
+        - file: docs/aulas/aula-11-otimizacao-hiperparametros-prompts/README.md
+          children:
+            - file: >-
+                docs/aulas/aula-11-otimizacao-hiperparametros-prompts/workshop.ipynb
+        - file: docs/aulas/aula-12-projeto-final-especificacao/README.md
+          children:
+            - file: docs/aulas/aula-12-projeto-final-especificacao/workshop.ipynb
+        - file: docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/README.md
+          children:
+            - file: >-
+                docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/workshop.ipynb
+        - file: docs/aulas/aula-14-etica-lado-sombrio-otimizacao/README.md
+          children:
+            - file: docs/aulas/aula-14-etica-lado-sombrio-otimizacao/workshop.ipynb
+        - file: docs/aulas/aula-15-16-projeto-final-desenvolvimento/README.md
+site:
+  options:
+    folders: true
+  template: book-theme
