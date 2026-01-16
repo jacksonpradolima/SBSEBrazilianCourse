@@ -151,7 +151,12 @@ O período de desenvolvimento autônomo traz desafios únicos que vão além da 
 #### 2. **Qualidade de Código e Documentação**
 - **Padrões Profissionais:** O código deve estar pronto para revisão por outros desenvolvedores
 - **Reprodutibilidade:** Qualquer pessoa deve conseguir executar seu notebook e obter os mesmos resultados
-- **Documentação como Storytelling:** O notebook deve contar uma história clara da formulação à conclusão
+- **Documentação como Storytelling:** O notebook deve contar uma história clara da formulação à conclusão. Para facilitar a leitura, use Cabeçalhos Markdown (#) explícitos em seu notebook:
+1. `# Metadados`
+2. `# Formulação e Representação`
+3. `# Metodologia SBSE+IA`
+4. `# Experimentos`
+5. `# Validação Estatística` (Comparação com Baseline)
 
 #### 3. **Validação e Experimentação Rigorosa**
 - **Metodologia Científica:** Hipóteses claras, experimentos controlados, análise estatística
@@ -248,13 +253,24 @@ O projeto será avaliado nas seguintes dimensões:
 
 **Checklist de Entrega Final:**
 
-**Artefatos Obrigatórios:**
-- [ ] **Jupyter Notebook completo** (`.ipynb`) com todas as células executadas
-- [ ] **Vídeo de apresentação** (máximo 15 minutos) em formato MP4
-- [ ] **Arquivo README** com instruções de execução e dependências
-- [ ] **Dados e modelos** necessários para reprodução (se aplicável)
+**1. Metadados e Estrutura:**
 
-**Critérios de Qualidade:**
+* [ ] **Metadados:** O arquivo `project_metadata.json` está preenchido e na raiz?
+* [ ] **Estrutura:** O ZIP contém as pastas `/src`, `/data` e `/results`?
+
+**2. Vídeo de Apresentação:**
+
+* [ ] **Tamanho:** O arquivo `.mp4` tem **menos de 90MB**? (Compacte se necessário)
+* [ ] **Backup:** O link alternativo foi incluído no JSON?
+
+**3. Notebook e Código:**
+
+* [ ] **Storytelling:** O Notebook segue a estrutura de seções recomendada (Formulação, Metodologia, Validação)?
+* [ ] **Execução:** O código roda de ponta a ponta sem erros?
+* [ ] **Reprodutibilidade:** As seeds foram fixadas e as dependências listadas no `requirements.txt`?
+* [ ] **Validação:** Existe uma seção explícita comparando sua solução com uma Baseline (Random)?
+
+**4. Critérios de Qualidade:**
 - [ ] Código segue PEP 8 e inclui type hints
 - [ ] Todas as funções têm docstrings adequadas
 - [ ] Notebook executa do início ao fim sem erros

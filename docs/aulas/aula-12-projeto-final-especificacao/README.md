@@ -35,7 +35,62 @@ Ao final desta aula, você será capaz de:
 *   **Formular seu Problema:** Identificar e definir um problema específico que integre SBSE com IA, seguindo os critérios de originalidade, viabilidade e relevância.
 *   **Planejar a Execução:** Elaborar um cronograma detalhado de desenvolvimento, definindo marcos intermediários e estratégias de implementação.
 
-## Seção 2: Fundamentos Teóricos (Versão Expressa)
+
+## Seção 2: Especificação Técnica e Padrões de Entrega (LLM-Ready)
+
+Para garantir uma avaliação justa, rápida e precisa, a entrega do projeto deve seguir **estritamente** os padrões definidos abaixo. A não conformidade com estes padrões pode prejudicar a avaliação do seu trabalho.
+
+### 2.1. O Arquivo de Metadados (`project_metadata.json`)
+
+Todo projeto deve conter obrigatoriamente um arquivo chamado `project_metadata.json` na raiz da pasta. Este arquivo funciona como a "identidade" do projeto para os sistemas de correção.
+
+**Template Obrigatório:**
+
+```json
+{
+  "titulo_projeto": "Nome do Seu Projeto Aqui",
+  "equipe": [
+    "Nome Completo Aluno 1",
+    "Nome Completo Aluno 2",
+    "Nome Completo Aluno 3"
+  ],
+  "tecnica_sbse": "ex: Algoritmo Genético (NSGA-II)",
+  "papel_ia": "ex: IA como Oráculo de Fitness / IA como Gerador de Indivíduos",
+  "resumo_executivo": "Uma descrição concisa de até 3 linhas sobre o problema e a solução.",
+  "metricas_chave": {
+    "melhoria_percentual": "ex: 25% de redução no tempo",
+    "acuracia_final": "ex: 95% de precisão semântica"
+  },
+  "link_video_backup": "Cole aqui o link (YouTube Não-Listado ou Drive Público) caso o arquivo de vídeo falhe."
+}
+
+```
+
+### 2.2. Estrutura de Pastas Padronizada
+
+O arquivo final entregue deve ser um **único arquivo .ZIP** contendo a seguinte estrutura interna. **Não coloque arquivos ZIP dentro do ZIP principal.**
+
+```text
+/ (Raiz do ZIP)
+├── project_metadata.json        (Obrigatório: O arquivo JSON acima)
+├── README.md                    (Instruções de instalação, execução e dependências)
+├── requirements.txt             (Lista de bibliotecas Python)
+├── notebook_principal.ipynb     (O código fonte principal com narrativa)
+├── video_apresentacao.mp4       (Obrigatório: Máximo 90MB)
+├── /src                         (Scripts auxiliares, se houver)
+├── /data                        (Amostra dos dados utilizados - CSV, JSON, etc.)
+└── /results                     (Gráficos gerados, logs e CSVs de métricas finais)
+
+```
+
+### 2.3. Restrições do Vídeo de Apresentação
+
+* **Tamanho Máximo:** **90 MB** (Arquivos maiores serão rejeitados).
+* **Formato:** `.mp4` (Codec H.264 recomendado).
+* **Duração:** 5 a 10 minutos.
+* **Dica:** Utilize ferramentas de compressão (como Handbrake ou compressores online) se o seu vídeo ficar muito grande. Grave em 720p, não é necessário 4K.
+  
+## Seção 3: Fundamentos Teóricos (Versão Expressa)
 
 O Projeto Final não é uma tarefa isolada, mas a síntese de todo o conteúdo da disciplina aplicada a um problema real e relevante. Vamos revisar rapidamente os pilares conceituais que fundamentam um projeto de SBSE+IA de alta qualidade.
 
@@ -80,7 +135,7 @@ graph TD
     D --> D3[IA classifica tipos de problemas];
 ```
 
-## Seção 3: Exemplo Ilustrativo
+## Seção 4: Exemplo Ilustrativo
 
 Para demonstrar como os conceitos se traduzem em um projeto concreto, vamos analisar um exemplo detalhado.
 
@@ -118,7 +173,7 @@ populacao_inicial = transformar_sugestoes(sugestoes_llm)
 
 **Validação:** Comparar com configurações manuais de desenvolvedores e com ferramentas comerciais de otimização de CI/CD.
 
-## Seção 4: Análise e Tópicos Avançados
+## Seção 5: Análise e Tópicos Avançados
 
 ### Critérios de Avaliação Detalhados
 
@@ -182,16 +237,16 @@ O Projeto Final será avaliado em seis dimensões principais, cada uma contribui
 *   **Problema:** Passar muito tempo planejando e pouco tempo codificando.
 *   **Solução:** Comece codificando uma versão simples o quanto antes.
 
-## Seção 5: Síntese e Próximos Passos
+## Seção 6: Síntese e Próximos Passos
 
-### 5.1. Resumo da Aula
+### 6.1. Resumo da Aula
 
 *   **Especificação Clara:** O Projeto Final integra SBSE com IA para resolver um problema real de engenharia de software, sendo avaliado em seis dimensões principais.
 *   **Framework Conceitual:** Um projeto exemplar combina problema de base, técnica de SBSE, componente de IA e validação empírica de forma harmoniosa.
 *   **Cronograma Estruturado:** O desenvolvimento segue marcos semanais claros, evitando procrastinação e garantindo progresso constante.
 *   **Critérios Objetivos:** A avaliação é transparente e focada em originalidade, implementação técnica, integração inovadora e validação rigorosa.
 
-### 5.2. Ponte e Briefing para o Workshop Prático (`.ipynb`)
+### 6.2. Ponte e Briefing para o Workshop Prático (`.ipynb`)
 
 **Teaser para o Aluno:** Agora é hora de colocar a mão na massa! No workshop desta aula, você não escreverá código, mas algo igualmente importante: um **Plano de Projeto Detalhado**. Você utilizará um framework estruturado para definir seu problema, desenhar sua solução, e criar um cronograma de execução. Ao final, terá um roadmap claro para as próximas 5 semanas de desenvolvimento.
 
@@ -208,7 +263,11 @@ O notebook deve ser um **Workshop de Planejamento de Projeto Interativo** com as
         *   **Categoria D:** Híbrido (combinação das anteriores)
     *   Para cada categoria, forneça 3-4 exemplos concretos com descrição de 2-3 linhas.
 
-2.  **Parte 2: Definição do Problema Específico**
+2. **Parte 2: Setup do Projeto (Metadados)**
+   * Guiar a criação do arquivo `project_metadata.json` com os dados iniciais da equipe.
+   * Definir a estrutura de pastas vazia conforme o padrão.
+
+3.  **Parte 3: Definição do Problema Específico**
     *   Crie um formulário estruturado (usando células Markdown interativas) onde o aluno define:
         *   **Título do Projeto:** Nome conciso e descritivo
         *   **Problema de Base:** Descrição de 100-200 palavras
@@ -216,7 +275,7 @@ O notebook deve ser um **Workshop de Planejamento de Projeto Interativo** com as
         *   **Objetivos:** 2-3 objetivos específicos e mensuráveis
         *   **Escopo:** O que está incluído e o que está fora do escopo
 
-3.  **Parte 3: Design da Solução SBSE+IA**
+4.  **Parte 4: Design da Solução SBSE+IA**
     *   Template estruturado para definir:
         *   **Representação:** Como codificar uma solução?
         *   **Função de Fitness:** Como medir qualidade? (incluir pseudocódigo)
@@ -224,14 +283,14 @@ O notebook deve ser um **Workshop de Planejamento de Projeto Interativo** com as
         *   **Integração IA:** Qual papel da IA? Como será implementada?
         *   **Datasets/Ferramentas:** Que dados e bibliotecas serão usados?
 
-4.  **Parte 4: Plano de Validação**
+5.  **Parte 5: Plano de Validação**
     *   Guiar o aluno a definir:
         *   **Baselines:** Com o que comparar a solução?
         *   **Métricas:** Como medir sucesso?
         *   **Experimentos:** Que testes realizar?
         *   **Critérios de Sucesso:** Quando o projeto será considerado bem-sucedido?
 
-5.  **Parte 5: Cronograma Detalhado**
+6.  **Parte 6: Cronograma Detalhado**
     *   Fornecer um template de cronograma de 5 semanas.
     *   Para cada semana, definir:
         *   **Objetivo da Semana**
@@ -239,7 +298,7 @@ O notebook deve ser um **Workshop de Planejamento de Projeto Interativo** com as
         *   **Entregável da Semana**
         *   **Riscos e Mitigações**
 
-6.  **Parte 6: Autoavaliação e Feedback**
+7.  **Parte 7: Autoavaliação e Feedback**
     *   Checklist de qualidade do plano:
         *   [ ] O problema é específico e bem definido?
         *   [ ] A integração IA+SBSE é clara e justificada?
@@ -247,7 +306,7 @@ O notebook deve ser um **Workshop de Planejamento de Projeto Interativo** com as
         *   [ ] Os critérios de sucesso são mensuráveis?
     *   Seção para o aluno registrar dúvidas e próximos passos.
 
-7.  **Parte 7: Galeria de Exemplos Inspiradores**
+8.  **Parte 8: Galeria de Exemplos Inspiradores**
     *   Mostre 3-4 exemplos fictícios de projetos de alta qualidade (diferentes categorias).
     *   Para cada exemplo, inclua: título, resumo do problema, abordagem SBSE+IA, e resultados esperados.
     *   Use estes exemplos para calibrar as expectativas dos alunos.
