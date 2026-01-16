@@ -12,11 +12,6 @@ project:
     issues: https://github.com/jacksonpradolima/SBSEBrazilianCourse/issues
   abbreviations:
     SBSE: Search-Based Software Engineering
-  plugins:
-    - src/xref.mjs
-    - src/landing-page.mjs
-    - src/directives.mjs
-    - src/admonition.mjs
   github: jacksonpradolima/SBSEBrazilianCourse
   toc:
     - file: README.md
