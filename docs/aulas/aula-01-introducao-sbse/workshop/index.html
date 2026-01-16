@@ -1,0 +1,1030 @@
+<!DOCTYPE html><html lang="en" class="" style="scroll-padding:60px"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético - Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</title><meta property="og:title" content="Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético - Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)"/><meta name="generator" content="mystmd"/><meta name="keywords" content=""/><meta name="image" content="/build/a07f2a79547f5af2988dfa2b05356743.svg"/><meta property="og:image" content="/build/a07f2a79547f5af2988dfa2b05356743.svg"/><link rel="stylesheet" href="/build/_assets/app-AIT5GAEP.css"/><link rel="stylesheet" href="/build/_assets/thebe-core-VKVHG5VY.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jupyter-matplotlib@0.11.3/css/mpl_widget.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous"/><link rel="icon" href="/favicon.ico"/><link rel="stylesheet" href="/myst-theme.css"/><script>
+  const savedTheme = localStorage.getItem("myst:theme");
+  const theme = window.matchMedia("(prefers-color-scheme: light)").matches ? 'light' : 'dark';
+  const classes = document.documentElement.classList;
+  const hasAnyTheme = classes.contains('light') || classes.contains('dark');
+  if (!hasAnyTheme) classes.add(savedTheme ?? theme);
+</script></head><body class="m-0 transition-colors duration-500 bg-white dark:bg-stone-900"><div class="myst-skip-to-article fixed top-1 left-1 h-[0px] w-[0px] focus-within:z-40 focus-within:h-auto focus-within:w-auto bg-white overflow-hidden focus-within:p-2 focus-within:ring-1" aria-label="skip to content options"><a href="#skip-to-frontmatter" class="myst-skip-to-link block px-2 py-1 text-black underline">Skip to article frontmatter</a><a href="#skip-to-article" class="myst-skip-to-link block px-2 py-1 text-black underline">Skip to article content</a></div><dialog id="myst-no-css" style="position:fixed;left:0px;top:0px;width:100vw;height:100vh;font-size:4rem;padding:1rem;color:black;background:white"><strong>Site not loading correctly?</strong><p>This may be due to an incorrect <code>BASE_URL</code> configuration. See<!-- --> <a href="https://mystmd.org/guide/deployment#deploy-base-url">the MyST Documentation</a> <!-- -->for reference.</p><script>
+    (() => {
+            // Test for has-styling variable set by the MyST stylesheet
+            const node = document.currentScript.parentNode;
+            const hasCSS = window.getComputedStyle(node).getPropertyValue("--has-styling");
+            if (hasCSS === ""){
+                    node.showModal();
+            }
+
+    })()
+</script></dialog><div class="myst-top-nav bg-white/80 backdrop-blur dark:bg-stone-900/80 shadow dark:shadow-stone-700 p-3 md:px-8 sticky w-screen top-0 z-30 h-[60px]"><nav class="myst-top-nav-bar flex items-center justify-between flex-nowrap max-w-[1440px] mx-auto"><div class="flex flex-row xl:min-w-[19.5rem] mr-2 sm:mr-7 justify-start items-center shrink-0"><div class="block xl:hidden"><button class="myst-top-nav-menu-button flex items-center justify-center border-stone-400 text-stone-800 hover:text-stone-900 dark:text-stone-200 hover:dark:text-stone-100 w-10 h-10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem"><path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"></path></svg><span class="sr-only">Open Menu</span></button></div><a class="myst-home-link flex items-center ml-3 dark:text-white w-fit md:ml-5 xl:ml-7" href="/"><span class="text-md sm:text-xl tracking-tight sm:mr-5">Made with MyST</span></a></div><div class="flex items-center flex-grow w-auto"><div class="flex-grow hidden text-md lg:block"></div><div class="flex-grow block"></div><button type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R75cp:" data-state="closed" class="myst-search-bar flex items-center h-10 aspect-square sm:w-64 text-left text-gray-600 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 myst-search-bar-disabled hover:ring-blue-500 dark:hover:ring-blue-500 hover:border-blue-500 dark:hover:border-blue-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="p-2.5 h-10 w-10 aspect-square"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd"></path></svg><span class="myst-search-text-placeholder hidden sm:block grow">Search</span><div aria-hidden="true" class="myst-search-shortcut items-center hidden mx-1 font-mono text-sm text-gray-600 sm:flex gap-x-1"><kbd class="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:shadow-none hide-mac">CTRL</kbd><kbd class="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:shadow-none show-mac">⌘</kbd><kbd class="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:shadow-none ">K</kbd><script>
+;(() => {
+const script = document.currentScript;
+const root = script.parentElement;
+
+const isMac = /mac/i.test(
+      window.navigator.userAgentData?.platform ?? window.navigator.userAgent,
+    );
+root.querySelectorAll(".hide-mac").forEach(node => {node.classList.add(isMac ? "hidden" : "block")});
+root.querySelectorAll(".show-mac").forEach(node => {node.classList.add(!isMac ? "hidden" : "block")});
+})()</script></div></button><button class="myst-theme-button theme rounded-full aspect-square border border-stone-700 dark:border-white hover:bg-neutral-100 border-solid overflow-hidden text-stone-700 dark:text-white hover:text-stone-500 dark:hover:text-neutral-800 w-10 h-10 mx-3" title="Toggle theme between light and dark mode" aria-label="Toggle theme between light and dark mode"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="myst-theme-moon-icon h-full w-full p-0.5 hidden dark:block"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd"></path></svg><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="myst-theme-sun-icon h-full w-full p-0.5 dark:hidden"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"></path></svg></button><div class="block sm:hidden"></div><div class="hidden sm:block"></div></div></nav></div><div class="myst-primary-sidebar fixed xl:article-grid grid-gap xl:w-screen xl:pointer-events-none overflow-auto max-xl:min-w-[300px] hidden z-10" style="top:60px"><div class="myst-primary-sidebar-pointer pointer-events-auto xl:col-margin-left flex-col overflow-hidden hidden xl:flex"><div class="myst-primary-sidebar-nav flex-grow py-6 overflow-y-auto primary-scrollbar"><nav aria-label="Navigation" class="myst-primary-sidebar-topnav overflow-y-hidden transition-opacity ml-3 xl:ml-0 mr-3 max-w-[350px] lg:hidden"><div class="w-full px-1 dark:text-white font-medium"></div></nav><div class="my-3 border-b-2 lg:hidden"></div><nav aria-label="Table of Contents" class="myst-primary-sidebar-toc flex-grow overflow-y-hidden transition-opacity ml-3 xl:ml-0 mr-3 max-w-[350px]"><div class="myst-toc w-full px-1 dark:text-white"><a title="Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg hover:bg-slate-300/30 font-bold" href="/">Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)</a><div data-state="open" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><div title="Aulas da Disciplina" class="block break-words rounded py-2 grow font-semibold text-blue-800 dark:text-blue-200 cursor-pointer">Aulas da Disciplina</div><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:Rmpsp:" aria-expanded="true" data-state="open"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="open" id="radix-:Rmpsp:" class="pl-3 pr-[2px] collapsible-content"><div data-state="open" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow font-semibold text-blue-800 dark:text-blue-200" href="/docs/aulas/aula-01-introducao-sbse/readme">Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:Rdmpsp:" aria-expanded="true" data-state="open"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="open" id="radix-:Rdmpsp:" class="pl-3 pr-[2px] collapsible-content"><a title="Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético" aria-current="page" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg myst-toc-item-exact bg-blue-300/30 active" href="/docs/aulas/aula-01-introducao-sbse/workshop">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</a></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 2: Técnicas de Otimização em SBSE" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-02-tecnicas-otimizacao-sbse/readme">Aula 2: Técnicas de Otimização em SBSE</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:Rlmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:Rlmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 3: A Arte de Formular Problemas em SBSE" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-03-formulacao-problemas-representacoes/readme">Aula 3: A Arte de Formular Problemas em SBSE</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:Rtmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:Rtmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 4: Acelerando a Otimização com a Biblioteca DEAP" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-04-laboratorio-deap/readme">Aula 4: Acelerando a Otimização com a Biblioteca DEAP</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R15mpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R15mpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 5: Sinergia com IA - Potencializando SBSE com LLMs" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-05-sinergia-ia/readme">Aula 5: Sinergia com IA - Potencializando SBSE com LLMs</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R1dmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R1dmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-06-teste-baseado-busca/readme">Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R1lmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R1lmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 7: Laboratório de Teste Baseado em Busca (SBST)" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-07-sbst-lab/readme">Aula 7: Laboratório de Teste Baseado em Busca (SBST)</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R1tmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R1tmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-08-refatoracao-busca/readme">Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R25mpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R25mpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-09-fairness-testing-ml/readme">Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R2dmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R2dmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-10-fairness-testing-lab/readme">Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R2lmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R2lmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-11-otimizacao-hiperparametros-prompts/readme">Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R2tmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R2tmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-12-projeto-final-especificacao/readme">Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R35mpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R35mpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/readme">Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R3dmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R3dmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 px-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><a title="Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências" class="block break-words focus:outline outline-blue-200 outline-2 rounded py-2 grow" href="/docs/aulas/aula-14-etica-lado-sombrio-otimizacao/readme">Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências</a><button class="self-center flex-none rounded-md group hover:bg-slate-300/30 focus:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R3lmpsp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R3lmpsp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div><a title="Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg hover:bg-slate-300/30" href="/docs/aulas/aula-15-16-projeto-final-desenvolvimento/readme">Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma</a></div></div></div></nav></div><div class="myst-primary-sidebar-footer flex-none py-6 transition-all duration-700 translate-y-6 opacity-0"><a class="myst-made-with-myst flex mx-auto text-gray-700 w-fit hover:text-blue-700 dark:text-gray-200 dark:hover:text-blue-400" href="https://mystmd.org/made-with-myst" target="_blank" rel="noreferrer"><svg style="width:24px;height:24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" stroke="none"><g id="icon"><path fill="currentColor" d="M23.8,54.8v-3.6l4.7-0.8V17.5l-4.7-0.8V13H36l13.4,31.7h0.2l13-31.7h12.6v3.6l-4.7,0.8v32.9l4.7,0.8v3.6h-15
+          v-3.6l4.9-0.8V20.8H65L51.4,53.3h-3.8l-14-32.5h-0.1l0.2,17.4v12.1l5,0.8v3.6H23.8z"></path><path fill="#F37726" d="M47,86.9c0-5.9-3.4-8.8-10.1-8.8h-8.4c-5.2,0-9.4-1.3-12.5-3.8c-3.1-2.5-5.4-6.2-6.8-11l4.8-1.6
+          c1.8,5.6,6.4,8.6,13.8,8.8h9.2c6.4,0,10.8,2.5,13.1,7.5c2.3-5,6.7-7.5,13.1-7.5h8.4c7.8,0,12.7-2.9,14.6-8.7l4.8,1.6
+          c-1.4,4.9-3.6,8.6-6.8,11.1c-3.1,2.5-7.3,3.7-12.4,3.8H63c-6.7,0-10,2.9-10,8.8"></path></g></svg><span class="self-center ml-2 text-sm">Made with MyST</span></a></div></div></div><main class="article-grid grid-gap"><article class="article-grid subgrid-gap col-screen article content"><div class="hidden"></div><div id="skip-to-frontmatter" aria-label="article frontmatter" class="myst-fm-block mb-8 pt-9"><div class="myst-fm-block-header flex items-center mb-5 h-6 text-sm font-light"><div class="flex-grow"></div><div class="myst-fm-block-badges"><a href="https://github.com/jacksonpradolima/SBSEBrazilianCourse" title="GitHub Repository: jacksonpradolima/SBSEBrazilianCourse" target="_blank" rel="noopener noreferrer" class="myst-fm-github-link text-inherit hover:text-inherit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="1.25rem" height="1.25rem" class="myst-fm-github-icon inline-block mr-1 opacity-60 hover:opacity-100"><path d="M12 2.5c-5.4 0-9.8 4.4-9.8 9.7 0 4.3 2.8 8 6.7 9.2.5.1.7-.2.7-.5v-1.8c-2.4.5-3.1-.6-3.3-1.1-.1-.3-.6-1.1-1-1.4-.3-.2-.8-.6 0-.6s1.3.7 1.5 1c.9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.2-.2-4.4-1.1-4.4-4.8 0-1.1.4-1.9 1-2.6-.1-.2-.4-1.2.1-2.6 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.4-.3.8 0 1.7.1 2.4.3 1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.5 1 2.6 0 3.7-2.3 4.6-4.4 4.8.4.3.7.9.7 1.8V21c0 .3.2.6.7.5 3.9-1.3 6.6-4.9 6.6-9.2 0-5.4-4.4-9.8-9.8-9.8z"></path></svg></a></div><a href="https://github.com/jacksonpradolima/SBSEBrazilianCourse/edit/main/docs/aulas/aula-01-introducao-sbse/workshop.ipynb" title="Edit This Page" target="_blank" rel="noopener noreferrer" class="myst-fm-edit-link text-inherit hover:text-inherit"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="1.25rem" height="1.25rem" class="myst-fm-edit-icon inline-block mr-1 opacity-60 hover:opacity-100"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path></svg></a><div class="myst-fm-downloads-dropdown relative flex inline-block mx-1 grow-0" data-headlessui-state=""><button class="myst-fm-downloads-button relative ml-2 -mr-1" id="headlessui-menu-button-:Rs8ucp:" type="button" aria-haspopup="menu" aria-expanded="false" data-headlessui-state=""><span class="sr-only">Downloads</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="1.25rem" height="1.25rem" class="myst-fm-downloads-icon"><title>Download</title><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg></button></div></div><h1 class="myst-fm-block-title mb-0">Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético</h1><header class="myst-fm-authors-affiliations mt-4 not-prose"><div class="myst-fm-authors-list"><span class="myst-fm-author font-semibold text-sm myst-fm-author-item inline-block"><button class="myst-fm-author-popover focus:shadow-[0_0_0_2px] focus:shadow-black outline-none hover:underline" aria-label="Author Details" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R78ucp:" data-state="closed"><span class="myst-fm-author-name">Jackson Antonio do Prado Lima</span></button></span></div></header></div><div class="block my-10 lg:sticky lg:z-10 lg:h-0 lg:pt-0 lg:my-0 lg:ml-10 lg:col-margin-right" style="top:60px"><nav></nav></div><div id="skip-to-article"></div><div id="Itdp2I3ogk" class="myst-jp-nb-block relative group/block"><p><strong>Objetivo:</strong> Implementar do zero um sistema completo de SBSE para geração automática de dados de teste que maximize a cobertura de caminhos de execução.</p><p><strong>Problema-alvo:</strong> Gerar automaticamente dados de teste para a classe <code>TriangleClassifier</code> usando algoritmo genético.</p><hr class="py-2 my-5 translate-y-2"/></div><div id="nnczB8XZCz" class="myst-jp-nb-block relative group/block"><h2 id="configura-o-do-ambiente" class="relative group"><span class="heading-text">Configuração do Ambiente</span><a class="no-underline text-inherit hover:text-inherit inline-block w-0 px-0 translate-x-[10px] font-normal select-none transition-opacity opacity-0 focus:opacity-100 group-hover:opacity-70" href="#configura-o-do-ambiente" title="Link to this Section" aria-label="Link to this Section">¶</a></h2></div><div id="eo3CUmyaC3" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre"># Instalar dependências necessárias
+!pip install matplotlib numpy typing -q</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="sGEfYXSIbV2ureBCXuY5e" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>
+</span><span style="font-weight:bold">[</span><span style="color:rgb(0, 0, 187)">notice</span><span style="font-weight:bold">]</span><span> A new release of pip is available: </span><span style="color:rgb(187, 0, 0)">25.0.1</span><span> -&gt; </span><span style="color:rgb(0, 187, 0)">25.2</span><span>
+</span><span style="font-weight:bold">[</span><span style="color:rgb(0, 0, 187)">notice</span><span style="font-weight:bold">]</span><span> To update, run: </span><span style="color:rgb(0, 187, 0)">pip install --upgrade pip</span><span>
+</span></code></pre></div></div></div></div><div id="L6EdDxOSND" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre"># Configuração do ambiente - silenciar warnings e forçar CPU
+import warnings
+warnings.filterwarnings(&#x27;ignore&#x27;)
+
+# Imports principais
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+from typing import List, Tuple, Dict, Set
+from dataclasses import dataclass
+import copy
+
+# Configurar seed para reprodutibilidade
+random.seed(42)
+np.random.seed(42)
+
+print(&quot;✅ Ambiente configurado com sucesso!&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="cTFkRxy-k3QPiV6-6pGJm" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>✅ Ambiente configurado com sucesso!
+</span></code></pre></div></div></div></div><div id="VKOI6jkbhL" class="myst-jp-nb-block relative group/block"><h2 id="parte-1-implementa-o-da-fun-o-alvo-e-an-lise-manual-dos-caminhos" class="relative group"><span class="heading-text">Parte 1: Implementação da Função-Alvo e Análise Manual dos Caminhos</span><a class="no-underline text-inherit hover:text-inherit inline-block w-0 px-0 translate-x-[10px] font-normal select-none transition-opacity opacity-0 focus:opacity-100 group-hover:opacity-70" href="#parte-1-implementa-o-da-fun-o-alvo-e-an-lise-manual-dos-caminhos" title="Link to this Section" aria-label="Link to this Section">¶</a></h2></div><div id="LjffjPmZVG" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">class TriangleClassifier:
+    &quot;&quot;&quot;Classificador de triângulos que serve como função-alvo para geração de testes.
+    
+    Esta classe implementa a lógica de classificação de triângulos baseada nos 
+    comprimentos dos lados, seguindo diferentes caminhos de execução.
+    &quot;&quot;&quot;
+    
+    @staticmethod
+    def classify(a: int, b: int, c: int) -&gt; str:
+        &quot;&quot;&quot;Classifica um triângulo baseado nos comprimentos dos lados.
+        
+        Parameters:
+            a (int): Comprimento do primeiro lado
+            b (int): Comprimento do segundo lado  
+            c (int): Comprimento do terceiro lado
+            
+        Returns:
+            str: Classificação do triângulo (&#x27;Invalid&#x27;, &#x27;Not a triangle&#x27;, 
+                 &#x27;Equilateral&#x27;, &#x27;Isosceles&#x27;, &#x27;Scalene&#x27;)
+        &quot;&quot;&quot;
+        # Caminho 1: Verificação de valores inválidos
+        if a &lt;= 0 or b &lt;= 0 or c &lt;= 0:
+            return &quot;Invalid&quot;
+        
+        # Caminho 2: Verificação da desigualdade triangular
+        if a + b &lt;= c or a + c &lt;= b or b + c &lt;= a:
+            return &quot;Not a triangle&quot;
+        
+        # Caminho 3: Triângulo equilátero (todos os lados iguais)
+        if a == b and b == c:
+            return &quot;Equilateral&quot;
+        
+        # Caminho 4: Triângulo isósceles (dois lados iguais)
+        if a == b or b == c or a == c:
+            return &quot;Isosceles&quot;
+        
+        # Caminho 5: Triângulo escaleno (todos os lados diferentes)
+        return &quot;Scalene&quot;
+
+# Teste manual dos caminhos de execução
+print(&quot;🔍 Análise Manual dos Caminhos de Execução:&quot;)
+print(&quot;=&quot;*50)
+
+test_cases = [
+    (0, 5, 5, &quot;Invalid&quot;),
+    (1, 1, 5, &quot;Not a triangle&quot;), 
+    (3, 3, 3, &quot;Equilateral&quot;),
+    (3, 3, 4, &quot;Isosceles&quot;),
+    (3, 4, 5, &quot;Scalene&quot;)
+]
+
+for i, (a, b, c, expected) in enumerate(test_cases, 1):
+    result = TriangleClassifier.classify(a, b, c)
+    status = &quot;✅&quot; if result == expected else &quot;❌&quot;
+    print(f&quot;Caminho {i}: ({a}, {b}, {c}) → &#x27;{result}&#x27; {status}&quot;)
+
+print(f&quot;\n📊 Total de caminhos identificados: {len(test_cases)}&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="4li1u6dBVpzfxNTto4L_m" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>🔍 Análise Manual dos Caminhos de Execução:
+==================================================
+Caminho 1: (0, 5, 5) → &#x27;Invalid&#x27; ✅
+Caminho 2: (1, 1, 5) → &#x27;Not a triangle&#x27; ✅
+Caminho 3: (3, 3, 3) → &#x27;Equilateral&#x27; ✅
+Caminho 4: (3, 3, 4) → &#x27;Isosceles&#x27; ✅
+Caminho 5: (3, 4, 5) → &#x27;Scalene&#x27; ✅
+
+📊 Total de caminhos identificados: 5
+</span></code></pre></div></div></div></div><div id="pImojJvcwm" class="myst-jp-nb-block relative group/block"><h2 id="parte-2-desenvolvimento-do-algoritmo-gen-tico-passo-a-passo" class="relative group"><span class="heading-text">Parte 2: Desenvolvimento do Algoritmo Genético Passo a Passo</span><a class="no-underline text-inherit hover:text-inherit inline-block w-0 px-0 translate-x-[10px] font-normal select-none transition-opacity opacity-0 focus:opacity-100 group-hover:opacity-70" href="#parte-2-desenvolvimento-do-algoritmo-gen-tico-passo-a-passo" title="Link to this Section" aria-label="Link to this Section">¶</a></h2></div><div id="EhiwXpSOrG" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">@dataclass
+class Individual:
+    &quot;&quot;&quot;Representa um indivíduo na população do algoritmo genético.
+    
+    Cada indivíduo é uma solução candidata representada por um trio de inteiros
+    que correspondem aos lados de um triângulo.
+    &quot;&quot;&quot;
+    a: int
+    b: int 
+    c: int
+    fitness: float = 0.0
+    
+    def get_genes(self) -&gt; Tuple[int, int, int]:
+        &quot;&quot;&quot;Retorna os genes (lados do triângulo) como tupla.
+        
+        Returns:
+            Tuple[int, int, int]: Trio de valores representando os lados
+        &quot;&quot;&quot;
+        return (self.a, self.b, self.c)
+    
+    def __str__(self) -&gt; str:
+        return f&quot;Individual({self.a}, {self.b}, {self.c}) [fitness: {self.fitness:.2f}]&quot;
+
+
+class GeneticTestGenerator:
+    &quot;&quot;&quot;Implementa um algoritmo genético para geração automática de dados de teste.
+    
+    O objetivo é encontrar um conjunto de dados de teste que maximize a cobertura
+    de caminhos de execução da função TriangleClassifier.classify().
+    &quot;&quot;&quot;
+    
+    def __init__(self, population_size: int = 50, mutation_rate: float = 0.1, 
+                 max_generations: int = 100, gene_range: Tuple[int, int] = (-5, 20)):
+        &quot;&quot;&quot;Inicializa o gerador de testes genético.
+        
+        Parameters:
+            population_size (int): Tamanho da população
+            mutation_rate (float): Taxa de mutação (0.0 a 1.0)
+            max_generations (int): Número máximo de gerações
+            gene_range (Tuple[int, int]): Range dos valores dos genes
+        &quot;&quot;&quot;
+        self.population_size = population_size
+        self.mutation_rate = mutation_rate
+        self.max_generations = max_generations
+        self.gene_min, self.gene_max = gene_range
+        
+        # Tracking para análise de resultados
+        self.fitness_history: List[float] = []
+        self.coverage_history: List[int] = []
+        self.known_paths: Set[str] = set()
+        
+    def create_random_individual(self) -&gt; Individual:
+        &quot;&quot;&quot;Cria um indivíduo com genes aleatórios.
+        
+        Returns:
+            Individual: Novo indivíduo com valores aleatórios
+        &quot;&quot;&quot;
+        a = random.randint(self.gene_min, self.gene_max)
+        b = random.randint(self.gene_min, self.gene_max)
+        c = random.randint(self.gene_min, self.gene_max)
+        return Individual(a, b, c)
+    
+    def initialize_population(self) -&gt; List[Individual]:
+        &quot;&quot;&quot;Cria a população inicial com indivíduos aleatórios.
+        
+        Returns:
+            List[Individual]: Lista com a população inicial
+        &quot;&quot;&quot;
+        return [self.create_random_individual() for _ in range(self.population_size)]
+
+# Demonstração da criação de população inicial
+print(&quot;🧬 Demonstração da Criação de População Inicial:&quot;)
+print(&quot;=&quot;*50)
+
+generator = GeneticTestGenerator(population_size=10)
+initial_pop = generator.initialize_population()
+
+print(&quot;Primeiros 5 indivíduos da população inicial:&quot;)
+for i, individual in enumerate(initial_pop[:5]):
+    print(f&quot;  {i+1}. {individual}&quot;)
+
+print(f&quot;\n📈 População criada com {len(initial_pop)} indivíduos&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="Jm4fHTQAIl3GqJUwnxLbS" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>🧬 Demonstração da Criação de População Inicial:
+==================================================
+Primeiros 5 indivíduos da população inicial:
+  1. Individual(15, -2, -5) [fitness: 0.00]
+  2. Individual(18, 3, 2) [fitness: 0.00]
+  3. Individual(2, -1, 18) [fitness: 0.00]
+  4. Individual(-2, 16, 18) [fitness: 0.00]
+  5. Individual(12, -3, 13) [fitness: 0.00]
+
+📈 População criada com 10 indivíduos
+</span></code></pre></div></div></div></div><div id="Slfu0I3waQ" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">class GeneticTestGenerator(GeneticTestGenerator):  # Extensão da classe anterior
+    &quot;&quot;&quot;Continuação da implementação do algoritmo genético - Função de Fitness.&quot;&quot;&quot;
+    
+    def evaluate_fitness(self, individual: Individual) -&gt; float:
+        &quot;&quot;&quot;Avalia a fitness de um indivíduo baseada na cobertura de caminhos.
+        
+        A fitness é calculada como o número de caminhos únicos descobertos
+        por este indivíduo. Quanto mais caminhos únicos, maior a fitness.
+        
+        Parameters:
+            individual (Individual): Indivíduo a ser avaliado
+            
+        Returns:
+            float: Valor de fitness (número de caminhos cobertos)
+        &quot;&quot;&quot;
+        a, b, c = individual.get_genes()
+        
+        # Executa a função-alvo e obtém o resultado
+        result = TriangleClassifier.classify(a, b, c)
+        
+        # Adiciona o caminho descoberto ao conjunto de caminhos conhecidos
+        self.known_paths.add(result)
+        
+        # A fitness é o número total de caminhos únicos descobertos até agora
+        # (Este é um exemplo simplificado - em cenários reais, seria mais sofisticado)
+        fitness = len(self.known_paths)
+        
+        return float(fitness)
+    
+    def evaluate_population(self, population: List[Individual]) -&gt; None:
+        &quot;&quot;&quot;Avalia a fitness de todos os indivíduos na população.
+        
+        Parameters:
+            population (List[Individual]): População a ser avaliada
+        &quot;&quot;&quot;
+        # Reset dos caminhos conhecidos para esta avaliação
+        self.known_paths.clear()
+        
+        # Primeira passada: executa todos os indivíduos para descobrir caminhos
+        for individual in population:
+            a, b, c = individual.get_genes()
+            result = TriangleClassifier.classify(a, b, c)
+            self.known_paths.add(result)
+        
+        # Segunda passada: atribui fitness baseada no número total de caminhos
+        total_paths = len(self.known_paths)
+        for individual in population:
+            individual.fitness = float(total_paths)
+    
+    def tournament_selection(self, population: List[Individual], 
+                           tournament_size: int = 3) -&gt; Individual:
+        &quot;&quot;&quot;Seleciona um indivíduo usando seleção por torneio.
+        
+        Parameters:
+            population (List[Individual]): População para seleção
+            tournament_size (int): Tamanho do torneio
+            
+        Returns:
+            Individual: Indivíduo vencedor do torneio
+        &quot;&quot;&quot;
+        # Seleciona indivíduos aleatórios para o torneio
+        tournament = random.sample(population, min(tournament_size, len(population)))
+        
+        # Retorna o indivíduo com maior fitness
+        return max(tournament, key=lambda ind: ind.fitness)
+
+# Demonstração da avaliação de fitness
+print(&quot;📊 Demonstração da Função de Fitness:&quot;)
+print(&quot;=&quot;*50)
+
+# Criar alguns indivíduos de teste
+test_individuals = [
+    Individual(0, 5, 5),    # Invalid
+    Individual(1, 1, 5),    # Not a triangle
+    Individual(3, 3, 3),    # Equilateral
+    Individual(3, 3, 4),    # Isosceles
+    Individual(3, 4, 5),    # Scalene
+]
+
+generator = GeneticTestGenerator()
+generator.evaluate_population(test_individuals)
+
+print(&quot;Avaliação de fitness dos indivíduos de teste:&quot;)
+for individual in test_individuals:
+    a, b, c = individual.get_genes()
+    result = TriangleClassifier.classify(a, b, c)
+    print(f&quot;  {individual} → &#x27;{result}&#x27;&quot;)
+
+print(f&quot;\n🎯 Caminhos únicos descobertos: {len(generator.known_paths)}&quot;)
+print(f&quot;📍 Caminhos: {sorted(generator.known_paths)}&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="DdHLQTIcpH4tpoOEWwd1P" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>📊 Demonstração da Função de Fitness:
+==================================================
+Avaliação de fitness dos indivíduos de teste:
+  Individual(0, 5, 5) [fitness: 5.00] → &#x27;Invalid&#x27;
+  Individual(1, 1, 5) [fitness: 5.00] → &#x27;Not a triangle&#x27;
+  Individual(3, 3, 3) [fitness: 5.00] → &#x27;Equilateral&#x27;
+  Individual(3, 3, 4) [fitness: 5.00] → &#x27;Isosceles&#x27;
+  Individual(3, 4, 5) [fitness: 5.00] → &#x27;Scalene&#x27;
+
+🎯 Caminhos únicos descobertos: 5
+📍 Caminhos: [&#x27;Equilateral&#x27;, &#x27;Invalid&#x27;, &#x27;Isosceles&#x27;, &#x27;Not a triangle&#x27;, &#x27;Scalene&#x27;]
+</span></code></pre></div></div></div></div><div id="ER4NM2PBUx" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">class GeneticTestGenerator(GeneticTestGenerator):  # Continuação - Operadores Genéticos
+    &quot;&quot;&quot;Continuação da implementação - Operadores de Crossover e Mutação.&quot;&quot;&quot;
+    
+    def crossover(self, parent1: Individual, parent2: Individual) -&gt; Individual:
+        &quot;&quot;&quot;Realiza crossover de um ponto entre dois pais.
+        
+        Parameters:
+            parent1 (Individual): Primeiro pai
+            parent2 (Individual): Segundo pai
+            
+        Returns:
+            Individual: Filho resultante do crossover
+        &quot;&quot;&quot;
+        # Crossover de um ponto: escolhe aleatoriamente de qual pai vem cada gene
+        genes1 = parent1.get_genes()
+        genes2 = parent2.get_genes()
+        
+        # Cada gene tem 50% de chance de vir de cada pai
+        child_genes = []
+        for i in range(3):
+            if random.random() &lt; 0.5:
+                child_genes.append(genes1[i])
+            else:
+                child_genes.append(genes2[i])
+        
+        return Individual(child_genes[0], child_genes[1], child_genes[2])
+    
+    def mutate(self, individual: Individual) -&gt; Individual:
+        &quot;&quot;&quot;Aplica mutação a um indivíduo.
+        
+        Parameters:
+            individual (Individual): Indivíduo a ser mutado
+            
+        Returns:
+            Individual: Indivíduo mutado
+        &quot;&quot;&quot;
+        mutated = copy.deepcopy(individual)
+        
+        # Cada gene tem chance de sofrer mutação
+        if random.random() &lt; self.mutation_rate:
+            mutated.a = random.randint(self.gene_min, self.gene_max)
+        
+        if random.random() &lt; self.mutation_rate:
+            mutated.b = random.randint(self.gene_min, self.gene_max)
+            
+        if random.random() &lt; self.mutation_rate:
+            mutated.c = random.randint(self.gene_min, self.gene_max)
+        
+        return mutated
+    
+    def create_next_generation(self, population: List[Individual]) -&gt; List[Individual]:
+        &quot;&quot;&quot;Cria a próxima geração usando seleção, crossover e mutação.
+        
+        Parameters:
+            population (List[Individual]): População atual
+            
+        Returns:
+            List[Individual]: Nova geração
+        &quot;&quot;&quot;
+        new_population = []
+        
+        # Elitismo: mantém o melhor indivíduo
+        best_individual = max(population, key=lambda ind: ind.fitness)
+        new_population.append(copy.deepcopy(best_individual))
+        
+        # Gera o resto da população
+        while len(new_population) &lt; self.population_size:
+            # Seleção dos pais
+            parent1 = self.tournament_selection(population)
+            parent2 = self.tournament_selection(population)
+            
+            # Crossover
+            child = self.crossover(parent1, parent2)
+            
+            # Mutação
+            child = self.mutate(child)
+            
+            new_population.append(child)
+        
+        return new_population
+
+# Demonstração dos operadores genéticos
+print(&quot;🧬 Demonstração dos Operadores Genéticos:&quot;)
+print(&quot;=&quot;*50)
+
+# Criar dois pais para teste
+parent1 = Individual(3, 3, 3)
+parent2 = Individual(5, 4, 6)
+
+print(f&quot;Pai 1: {parent1}&quot;)
+print(f&quot;Pai 2: {parent2}&quot;)
+
+generator = GeneticTestGenerator(mutation_rate=0.3)
+
+# Demonstrar crossover
+print(&quot;\n🔀 Crossover:&quot;)
+for i in range(3):
+    child = generator.crossover(parent1, parent2)
+    print(f&quot;  Filho {i+1}: {child}&quot;)
+
+# Demonstrar mutação
+print(&quot;\n🎲 Mutação:&quot;)
+original = Individual(3, 3, 3)
+for i in range(3):
+    mutated = generator.mutate(original)
+    print(f&quot;  Original: {original} → Mutado: {mutated}&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="GgP23dA86XAPX6wS9oa4Z" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>🧬 Demonstração dos Operadores Genéticos:
+==================================================
+Pai 1: Individual(3, 3, 3) [fitness: 0.00]
+Pai 2: Individual(5, 4, 6) [fitness: 0.00]
+
+🔀 Crossover:
+  Filho 1: Individual(3, 3, 3) [fitness: 0.00]
+  Filho 2: Individual(5, 4, 3) [fitness: 0.00]
+  Filho 3: Individual(3, 3, 3) [fitness: 0.00]
+
+🎲 Mutação:
+  Original: Individual(3, 3, 3) [fitness: 0.00] → Mutado: Individual(3, 7, 6) [fitness: 0.00]
+  Original: Individual(3, 3, 3) [fitness: 0.00] → Mutado: Individual(3, 3, 3) [fitness: 0.00]
+  Original: Individual(3, 3, 3) [fitness: 0.00] → Mutado: Individual(3, 3, 3) [fitness: 0.00]
+</span></code></pre></div></div></div></div><div id="Cnp4vQlq41" class="myst-jp-nb-block relative group/block"><h2 id="parte-3-algoritmo-gen-tico-completo-e-experimenta-o-com-par-metros" class="relative group"><span class="heading-text">Parte 3: Algoritmo Genético Completo e Experimentação com Parâmetros</span><a class="no-underline text-inherit hover:text-inherit inline-block w-0 px-0 translate-x-[10px] font-normal select-none transition-opacity opacity-0 focus:opacity-100 group-hover:opacity-70" href="#parte-3-algoritmo-gen-tico-completo-e-experimenta-o-com-par-metros" title="Link to this Section" aria-label="Link to this Section">¶</a></h2></div><div id="P1l3FJSY62" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">class GeneticTestGenerator(GeneticTestGenerator):  # Implementação completa
+    &quot;&quot;&quot;Implementação completa do algoritmo genético para geração de testes.&quot;&quot;&quot;
+    
+    def run_evolution(self, verbose: bool = True) -&gt; Dict:
+        &quot;&quot;&quot;Executa o algoritmo genético completo.
+        
+        Parameters:
+            verbose (bool): Se deve imprimir progresso durante a execução
+            
+        Returns:
+            Dict: Resultados da evolução incluindo melhor solução e histórico
+        &quot;&quot;&quot;
+        # Inicialização
+        population = self.initialize_population()
+        self.fitness_history = []
+        self.coverage_history = []
+        
+        if verbose:
+            print(f&quot;🚀 Iniciando evolução com {self.population_size} indivíduos por {self.max_generations} gerações&quot;)
+            print(f&quot;⚙️  Parâmetros: Taxa de mutação = {self.mutation_rate}&quot;)
+            print(&quot;=&quot;*70)
+        
+        best_coverage = 0
+        generations_without_improvement = 0
+        
+        for generation in range(self.max_generations):
+            # Avaliação da população
+            self.evaluate_population(population)
+            
+            # Estatísticas da geração
+            current_coverage = len(self.known_paths)
+            best_fitness = max(ind.fitness for ind in population)
+            avg_fitness = sum(ind.fitness for ind in population) / len(population)
+            
+            # Armazenar histórico
+            self.fitness_history.append(best_fitness)
+            self.coverage_history.append(current_coverage)
+            
+            # Verificar melhoria
+            if current_coverage &gt; best_coverage:
+                best_coverage = current_coverage
+                generations_without_improvement = 0
+            else:
+                generations_without_improvement += 1
+            
+            # Log do progresso
+            if verbose and (generation % 10 == 0 or generation == self.max_generations - 1):
+                print(f&quot;Geração {generation:3d}: Cobertura = {current_coverage}/5, &quot;
+                      f&quot;Fitness = {best_fitness:.1f}, Avg = {avg_fitness:.1f}&quot;)
+            
+            # Critério de parada: encontrou todos os caminhos
+            if current_coverage &gt;= 5:
+                if verbose:
+                    print(f&quot;\n🎯 Todos os caminhos encontrados na geração {generation}!&quot;)
+                break
+            
+            # Critério de parada: sem melhoria por muitas gerações
+            if generations_without_improvement &gt;= 20:
+                if verbose:
+                    print(f&quot;\n⏹️  Parada por convergência na geração {generation}&quot;)
+                break
+            
+            # Criar próxima geração
+            population = self.create_next_generation(population)
+        
+        # Encontrar conjunto final de teste
+        final_test_suite = self._extract_test_suite(population)
+        
+        return {
+            &#x27;final_population&#x27;: population,
+            &#x27;test_suite&#x27;: final_test_suite,
+            &#x27;paths_covered&#x27;: sorted(self.known_paths),
+            &#x27;coverage_count&#x27;: len(self.known_paths),
+            &#x27;fitness_history&#x27;: self.fitness_history,
+            &#x27;coverage_history&#x27;: self.coverage_history,
+            &#x27;generations_run&#x27;: len(self.fitness_history)
+        }
+    
+    def _extract_test_suite(self, population: List[Individual]) -&gt; List[Tuple[int, int, int, str]]:
+        &quot;&quot;&quot;Extrai um conjunto mínimo de casos de teste que cobrem todos os caminhos.
+        
+        Parameters:
+            population (List[Individual]): População final
+            
+        Returns:
+            List[Tuple[int, int, int, str]]: Lista de casos de teste únicos
+        &quot;&quot;&quot;
+        test_suite = {}
+        
+        for individual in population:
+            a, b, c = individual.get_genes()
+            result = TriangleClassifier.classify(a, b, c)
+            
+            # Manter apenas um exemplo por caminho (o primeiro encontrado)
+            if result not in test_suite:
+                test_suite[result] = (a, b, c, result)
+        
+        return list(test_suite.values())
+
+# Executar o algoritmo genético completo
+print(&quot;🧪 Execução Completa do Algoritmo Genético:&quot;)
+print(&quot;=&quot;*70)
+
+# Configuração padrão
+generator = GeneticTestGenerator(
+    population_size=30,
+    mutation_rate=0.15,
+    max_generations=50
+)
+
+results = generator.run_evolution(verbose=True)
+
+print(&quot;\n📋 Conjunto Final de Casos de Teste:&quot;)
+print(&quot;=&quot;*50)
+for i, (a, b, c, classification) in enumerate(results[&#x27;test_suite&#x27;], 1):
+    print(f&quot;{i}. ({a:2d}, {b:2d}, {c:2d}) → &#x27;{classification}&#x27;&quot;)
+
+print(f&quot;\n📊 Estatísticas Finais:&quot;)
+print(f&quot;   • Caminhos cobertos: {results[&#x27;coverage_count&#x27;]}/5 ({results[&#x27;coverage_count&#x27;]/5*100:.0f}%)&quot;)
+print(f&quot;   • Gerações executadas: {results[&#x27;generations_run&#x27;]}&quot;)
+print(f&quot;   • Caminhos encontrados: {results[&#x27;paths_covered&#x27;]}&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="AQS9jL5AZKL8LwIzlZPS5" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>🧪 Execução Completa do Algoritmo Genético:
+======================================================================
+🚀 Iniciando evolução com 30 indivíduos por 50 gerações
+⚙️  Parâmetros: Taxa de mutação = 0.15
+======================================================================
+Geração   0: Cobertura = 4/5, Fitness = 4.0, Avg = 4.0
+Geração  10: Cobertura = 4/5, Fitness = 4.0, Avg = 4.0
+
+🎯 Todos os caminhos encontrados na geração 15!
+
+📋 Conjunto Final de Casos de Teste:
+==================================================
+1. (12,  4, 15) → &#x27;Scalene&#x27;
+2. (18,  4, -4) → &#x27;Invalid&#x27;
+3. (19,  1, 16) → &#x27;Not a triangle&#x27;
+4. (12, 12, 12) → &#x27;Equilateral&#x27;
+5. (19, 16, 16) → &#x27;Isosceles&#x27;
+
+📊 Estatísticas Finais:
+   • Caminhos cobertos: 5/5 (100%)
+   • Gerações executadas: 16
+   • Caminhos encontrados: [&#x27;Equilateral&#x27;, &#x27;Invalid&#x27;, &#x27;Isosceles&#x27;, &#x27;Not a triangle&#x27;, &#x27;Scalene&#x27;]
+</span></code></pre></div></div></div></div><div id="fMLhbwxNkJ" class="myst-jp-nb-block relative group/block"><h2 id="parte-4-an-lise-comparativa-busca-aleat-ria-vs-algoritmo-gen-tico" class="relative group"><span class="heading-text">Parte 4: Análise Comparativa - Busca Aleatória vs. Algoritmo Genético</span><a class="no-underline text-inherit hover:text-inherit inline-block w-0 px-0 translate-x-[10px] font-normal select-none transition-opacity opacity-0 focus:opacity-100 group-hover:opacity-70" href="#parte-4-an-lise-comparativa-busca-aleat-ria-vs-algoritmo-gen-tico" title="Link to this Section" aria-label="Link to this Section">¶</a></h2></div><div id="bHFBdwUDuA" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">def random_search_baseline(num_evaluations: int = 1500, 
+                          gene_range: Tuple[int, int] = (-5, 20)) -&gt; Dict:
+    &quot;&quot;&quot;Implementa busca aleatória pura como baseline de comparação.
+    
+    Parameters:
+        num_evaluations (int): Número de avaliações aleatórias
+        gene_range (Tuple[int, int]): Range dos valores dos genes
+        
+    Returns:
+        Dict: Resultados da busca aleatória
+    &quot;&quot;&quot;
+    gene_min, gene_max = gene_range
+    found_paths = set()
+    coverage_history = []
+    test_suite = {}
+    
+    print(f&quot;🎲 Executando busca aleatória com {num_evaluations} avaliações...&quot;)
+    
+    for evaluation in range(num_evaluations):
+        # Gerar trio aleatório
+        a = random.randint(gene_min, gene_max)
+        b = random.randint(gene_min, gene_max)
+        c = random.randint(gene_min, gene_max)
+        
+        # Avaliar
+        result = TriangleClassifier.classify(a, b, c)
+        found_paths.add(result)
+        
+        # Manter primeiro exemplo de cada caminho
+        if result not in test_suite:
+            test_suite[result] = (a, b, c, result)
+        
+        # Registrar progresso a cada 50 avaliações
+        if evaluation % 50 == 0:
+            coverage_history.append(len(found_paths))
+        
+        # Parar se encontrar todos os caminhos
+        if len(found_paths) &gt;= 5:
+            print(f&quot;   ✅ Todos os caminhos encontrados após {evaluation + 1} avaliações&quot;)
+            break
+    
+    return {
+        &#x27;test_suite&#x27;: list(test_suite.values()),
+        &#x27;paths_covered&#x27;: sorted(found_paths),
+        &#x27;coverage_count&#x27;: len(found_paths),
+        &#x27;evaluations_used&#x27;: evaluation + 1 if len(found_paths) &gt;= 5 else num_evaluations,
+        &#x27;coverage_history&#x27;: coverage_history
+    }
+
+# Comparação experimental
+print(&quot;⚖️  Comparação Experimental: Busca Aleatória vs. Algoritmo Genético&quot;)
+print(&quot;=&quot;*70)
+
+# Executar busca aleatória
+random.seed(42)  # Mesma seed para comparação justa
+random_results = random_search_baseline(num_evaluations=1500)
+
+print(&quot;\n🎲 Resultados da Busca Aleatória:&quot;)
+print(f&quot;   • Caminhos cobertos: {random_results[&#x27;coverage_count&#x27;]}/5&quot;)
+print(f&quot;   • Avaliações utilizadas: {random_results[&#x27;evaluations_used&#x27;]}&quot;)
+print(f&quot;   • Caminhos: {random_results[&#x27;paths_covered&#x27;]}&quot;)
+
+# Executar algoritmo genético novamente para comparação justa
+print(&quot;\n🧬 Executando Algoritmo Genético para comparação...&quot;)
+random.seed(42)  # Mesma seed
+np.random.seed(42)
+
+ga_generator = GeneticTestGenerator(
+    population_size=30,
+    mutation_rate=0.15, 
+    max_generations=50
+)
+ga_results = ga_generator.run_evolution(verbose=False)
+
+# Estimar número de avaliações do AG (população * gerações)
+ga_evaluations = 30 * ga_results[&#x27;generations_run&#x27;]
+
+print(f&quot;\n🧬 Resultados do Algoritmo Genético:&quot;)
+print(f&quot;   • Caminhos cobertos: {ga_results[&#x27;coverage_count&#x27;]}/5&quot;)
+print(f&quot;   • Estimativa de avaliações: {ga_evaluations}&quot;)
+print(f&quot;   • Gerações: {ga_results[&#x27;generations_run&#x27;]}&quot;)
+print(f&quot;   • Caminhos: {ga_results[&#x27;paths_covered&#x27;]}&quot;)
+
+# Análise comparativa
+print(&quot;\n📊 Análise Comparativa:&quot;)
+print(&quot;=&quot;*50)
+
+if ga_results[&#x27;coverage_count&#x27;] &gt; random_results[&#x27;coverage_count&#x27;]:
+    print(&quot;🏆 Vencedor: Algoritmo Genético (melhor cobertura)&quot;)
+elif ga_results[&#x27;coverage_count&#x27;] &lt; random_results[&#x27;coverage_count&#x27;]:
+    print(&quot;🏆 Vencedor: Busca Aleatória (melhor cobertura)&quot;)
+else:
+    if ga_evaluations &lt; random_results[&#x27;evaluations_used&#x27;]:
+        print(&quot;🏆 Vencedor: Algoritmo Genético (mesma cobertura, menos avaliações)&quot;)
+    else:
+        print(&quot;🏆 Empate ou Busca Aleatória mais eficiente&quot;)
+
+efficiency_ga = ga_results[&#x27;coverage_count&#x27;] / ga_evaluations if ga_evaluations &gt; 0 else 0
+efficiency_random = random_results[&#x27;coverage_count&#x27;] / random_results[&#x27;evaluations_used&#x27;]
+
+print(f&quot;\nEficiência (caminhos/avaliação):&quot;)
+print(f&quot;   • Algoritmo Genético: {efficiency_ga:.6f}&quot;)
+print(f&quot;   • Busca Aleatória: {efficiency_random:.6f}&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="sCvIKKbpCoNHd-qfITWM9" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>⚖️  Comparação Experimental: Busca Aleatória vs. Algoritmo Genético
+======================================================================
+🎲 Executando busca aleatória com 1500 avaliações...
+   ✅ Todos os caminhos encontrados após 200 avaliações
+
+🎲 Resultados da Busca Aleatória:
+   • Caminhos cobertos: 5/5
+   • Avaliações utilizadas: 200
+   • Caminhos: [&#x27;Equilateral&#x27;, &#x27;Invalid&#x27;, &#x27;Isosceles&#x27;, &#x27;Not a triangle&#x27;, &#x27;Scalene&#x27;]
+
+🧬 Executando Algoritmo Genético para comparação...
+
+🧬 Resultados do Algoritmo Genético:
+   • Caminhos cobertos: 3/5
+   • Estimativa de avaliações: 630
+   • Gerações: 21
+   • Caminhos: [&#x27;Invalid&#x27;, &#x27;Not a triangle&#x27;, &#x27;Scalene&#x27;]
+
+📊 Análise Comparativa:
+==================================================
+🏆 Vencedor: Busca Aleatória (melhor cobertura)
+
+Eficiência (caminhos/avaliação):
+   • Algoritmo Genético: 0.004762
+   • Busca Aleatória: 0.025000
+</span></code></pre></div></div></div></div><div id="Iup7acili0" class="myst-jp-nb-block relative group/block"><h2 id="parte-5-visualiza-o-da-evolu-o-e-an-lise-de-converg-ncia" class="relative group"><span class="heading-text">Parte 5: Visualização da Evolução e Análise de Convergência</span><a class="no-underline text-inherit hover:text-inherit inline-block w-0 px-0 translate-x-[10px] font-normal select-none transition-opacity opacity-0 focus:opacity-100 group-hover:opacity-70" href="#parte-5-visualiza-o-da-evolu-o-e-an-lise-de-converg-ncia" title="Link to this Section" aria-label="Link to this Section">¶</a></h2></div><div id="lEYqFydYaM" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">def plot_evolution_analysis(ga_results: Dict, random_results: Dict) -&gt; None:
+    &quot;&quot;&quot;Cria visualizações comparativas da evolução dos algoritmos.
+    
+    Parameters:
+        ga_results (Dict): Resultados do algoritmo genético
+        random_results (Dict): Resultados da busca aleatória
+    &quot;&quot;&quot;
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
+    fig.suptitle(&#x27;Análise Comparativa: Algoritmo Genético vs. Busca Aleatória&#x27;, fontsize=16)
+    
+    # Gráfico 1: Evolução da Fitness (AG)
+    ax1.plot(ga_results[&#x27;fitness_history&#x27;], &#x27;b-&#x27;, linewidth=2, label=&#x27;Melhor Fitness&#x27;)
+    ax1.set_title(&#x27;Evolução da Fitness - Algoritmo Genético&#x27;)
+    ax1.set_xlabel(&#x27;Geração&#x27;)
+    ax1.set_ylabel(&#x27;Fitness&#x27;)
+    ax1.grid(True, alpha=0.3)
+    ax1.legend()
+    
+    # Gráfico 2: Evolução da Cobertura (AG)
+    ax2.plot(ga_results[&#x27;coverage_history&#x27;], &#x27;g-&#x27;, linewidth=2, marker=&#x27;o&#x27;, markersize=4)
+    ax2.set_title(&#x27;Evolução da Cobertura - Algoritmo Genético&#x27;)
+    ax2.set_xlabel(&#x27;Geração&#x27;)
+    ax2.set_ylabel(&#x27;Caminhos Cobertos&#x27;)
+    ax2.set_ylim(0, 5.5)
+    ax2.grid(True, alpha=0.3)
+    
+    # Adicionar linha objetivo
+    ax2.axhline(y=5, color=&#x27;r&#x27;, linestyle=&#x27;--&#x27;, alpha=0.7, label=&#x27;Objetivo (5 caminhos)&#x27;)
+    ax2.legend()
+    
+    # Gráfico 3: Comparação de Eficiência
+    methods = [&#x27;Algoritmo\nGenético&#x27;, &#x27;Busca\nAleatória&#x27;]
+    coverage_counts = [ga_results[&#x27;coverage_count&#x27;], random_results[&#x27;coverage_count&#x27;]]
+    colors = [&#x27;skyblue&#x27;, &#x27;lightcoral&#x27;]
+    
+    bars = ax3.bar(methods, coverage_counts, color=colors, alpha=0.7, edgecolor=&#x27;black&#x27;)
+    ax3.set_title(&#x27;Comparação de Cobertura Final&#x27;)
+    ax3.set_ylabel(&#x27;Caminhos Cobertos&#x27;)
+    ax3.set_ylim(0, 6)
+    
+    # Adicionar valores nas barras
+    for bar, count in zip(bars, coverage_counts):
+        height = bar.get_height()
+        ax3.text(bar.get_x() + bar.get_width()/2., height + 0.1,
+                f&#x27;{count}/5&#x27;, ha=&#x27;center&#x27;, va=&#x27;bottom&#x27;, fontweight=&#x27;bold&#x27;)
+    
+    # Linha objetivo
+    ax3.axhline(y=5, color=&#x27;red&#x27;, linestyle=&#x27;--&#x27;, alpha=0.7, label=&#x27;Objetivo&#x27;)
+    ax3.legend()
+    
+    # Gráfico 4: Convergência da Busca Aleatória (simulada)
+    # Simular progresso da busca aleatória baseado nos resultados
+    random_steps = list(range(0, len(random_results[&#x27;coverage_history&#x27;]) * 50, 50))
+    ax4.plot(random_steps, random_results[&#x27;coverage_history&#x27;], &#x27;r-&#x27;, 
+             linewidth=2, marker=&#x27;s&#x27;, markersize=4, label=&#x27;Busca Aleatória&#x27;)
+    
+    # Comparar com progresso do AG (em termos de avaliações)
+    ga_steps = [i * 30 for i in range(len(ga_results[&#x27;coverage_history&#x27;]))]
+    ax4.plot(ga_steps, ga_results[&#x27;coverage_history&#x27;], &#x27;b-&#x27;, 
+             linewidth=2, marker=&#x27;o&#x27;, markersize=4, label=&#x27;Algoritmo Genético&#x27;)
+    
+    ax4.set_title(&#x27;Convergência por Número de Avaliações&#x27;)
+    ax4.set_xlabel(&#x27;Avaliações Estimadas&#x27;)
+    ax4.set_ylabel(&#x27;Caminhos Cobertos&#x27;)
+    ax4.set_ylim(0, 5.5)
+    ax4.grid(True, alpha=0.3)
+    ax4.legend()
+    
+    plt.tight_layout()
+    plt.show()
+
+# Executar experimento completo com múltiplas configurações
+print(&quot;📈 Análise Detalhada com Diferentes Configurações:&quot;)
+print(&quot;=&quot;*70)
+
+configurations = [
+    {&#x27;pop_size&#x27;: 20, &#x27;mutation_rate&#x27;: 0.1, &#x27;name&#x27;: &#x27;Conservador&#x27;},
+    {&#x27;pop_size&#x27;: 30, &#x27;mutation_rate&#x27;: 0.15, &#x27;name&#x27;: &#x27;Balanceado&#x27;}, 
+    {&#x27;pop_size&#x27;: 40, &#x27;mutation_rate&#x27;: 0.2, &#x27;name&#x27;: &#x27;Agressivo&#x27;}
+]
+
+config_results = []
+
+for config in configurations:
+    print(f&quot;\n🧪 Testando configuração {config[&#x27;name&#x27;]}...&quot;)
+    
+    # Reset das seeds para comparação justa
+    random.seed(42)
+    np.random.seed(42)
+    
+    generator = GeneticTestGenerator(
+        population_size=config[&#x27;pop_size&#x27;],
+        mutation_rate=config[&#x27;mutation_rate&#x27;],
+        max_generations=30
+    )
+    
+    results = generator.run_evolution(verbose=False)
+    config_results.append({
+        &#x27;name&#x27;: config[&#x27;name&#x27;],
+        &#x27;coverage&#x27;: results[&#x27;coverage_count&#x27;],
+        &#x27;generations&#x27;: results[&#x27;generations_run&#x27;],
+        &#x27;evaluations&#x27;: config[&#x27;pop_size&#x27;] * results[&#x27;generations_run&#x27;]
+    })
+    
+    print(f&quot;   Resultado: {results[&#x27;coverage_count&#x27;]}/5 caminhos em {results[&#x27;generations_run&#x27;]} gerações&quot;)
+
+# Visualizar comparação
+print(&quot;\n📊 Criando visualizações comparativas...&quot;)
+plot_evolution_analysis(ga_results, random_results)
+
+# Resumo das configurações testadas
+print(&quot;\n📋 Resumo das Configurações Testadas:&quot;)
+print(&quot;=&quot;*60)
+print(f&quot;{&#x27;Configuração&#x27;:&lt;12} {&#x27;Cobertura&#x27;:&lt;10} {&#x27;Gerações&#x27;:&lt;10} {&#x27;Avaliações&#x27;:&lt;12}&quot;)
+print(&quot;-&quot; * 60)
+for result in config_results:
+    print(f&quot;{result[&#x27;name&#x27;]:&lt;12} {result[&#x27;coverage&#x27;]}/5{&#x27;&#x27;:&lt;6} &quot;
+          f&quot;{result[&#x27;generations&#x27;]:&lt;10} {result[&#x27;evaluations&#x27;]:&lt;12}&quot;)
+
+print(&quot;\n🏆 Melhor configuração: &quot;, end=&quot;&quot;)
+best_config = max(config_results, key=lambda x: (x[&#x27;coverage&#x27;], -x[&#x27;evaluations&#x27;]))
+print(f&quot;{best_config[&#x27;name&#x27;]} (cobertura: {best_config[&#x27;coverage&#x27;]}/5, &quot;
+      f&quot;avaliações: {best_config[&#x27;evaluations&#x27;]})&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="gy41TuooBe8FjhoiLoVd6" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>📈 Análise Detalhada com Diferentes Configurações:
+======================================================================
+
+🧪 Testando configuração Conservador...
+   Resultado: 3/5 caminhos em 30 gerações
+
+🧪 Testando configuração Balanceado...
+   Resultado: 3/5 caminhos em 21 gerações
+
+🧪 Testando configuração Agressivo...
+   Resultado: 4/5 caminhos em 21 gerações
+
+📊 Criando visualizações comparativas...
+</span></code></pre></div></div><div data-name="safe-output-image"><img src="/build/5c937920383dcee900fc48b800b02301.png" alt="&lt;Figure size 1500x1000 with 4 Axes&gt;"/></div><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>
+📋 Resumo das Configurações Testadas:
+============================================================
+Configuração Cobertura  Gerações   Avaliações  
+------------------------------------------------------------
+Conservador  3/5       30         600         
+Balanceado   3/5       21         630         
+Agressivo    4/5       21         840         
+
+🏆 Melhor configuração: Agressivo (cobertura: 4/5, avaliações: 840)
+</span></code></pre></div></div></div></div><div id="HcTc6Um1WZ" class="myst-jp-nb-block relative group/block"><h2 id="an-lise-cr-tica-e-conclus-es" class="relative group"><span class="heading-text">Análise Crítica e Conclusões</span><a class="no-underline text-inherit hover:text-inherit inline-block w-0 px-0 translate-x-[10px] font-normal select-none transition-opacity opacity-0 focus:opacity-100 group-hover:opacity-70" href="#an-lise-cr-tica-e-conclus-es" title="Link to this Section" aria-label="Link to this Section">¶</a></h2></div><div id="CX9XDA76pT" class="myst-jp-nb-block relative group/block"><div class="myst-jp-nb-block-spinner flex sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:hidden"><div class="flex absolute top-0 right-0"></div></div><div class="myst-jp-nb-block sticky top-[115px] z-10 opacity-90 group-hover/block:opacity-100 group-hover/block:flex"><div class="absolute -top-[12px] right-0 flex flex-row rounded bg-white dark:bg-slate-800"></div></div><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 border border-l-4 border-gray-200 border-l-blue-400 dark:border-l-blue-400 dark:border-gray-800"><pre class="block overflow-auto p-3 myst-code-body hljs" style="background-color:unset"><code class="language-python" style="white-space:pre">def generate_final_analysis() -&gt; None:
+    &quot;&quot;&quot;Gera análise final dos resultados e lições aprendidas.&quot;&quot;&quot;
+    
+    print(&quot;🎯 ANÁLISE CRÍTICA DOS RESULTADOS&quot;)
+    print(&quot;=&quot;*70)
+    
+    print(&quot;\n1. 📊 EFICÁCIA DO ALGORITMO GENÉTICO:&quot;)
+    print(&quot;&quot;&quot;
+   ✅ PONTOS FORTES:
+   • Converge rapidamente para soluções de alta qualidade
+   • Explora o espaço de busca de forma sistemática
+   • Elitismo garante que boas soluções não sejam perdidas
+   • Operadores genéticos facilitam descoberta de novos caminhos
+   
+   ⚠️  LIMITAÇÕES OBSERVADAS:
+   • Para problemas simples, pode ser &quot;overkill&quot; comparado à busca aleatória
+   • Requer ajuste de parâmetros (população, mutação, etc.)
+   • Overhead computacional dos operadores genéticos
+    &quot;&quot;&quot;)
+    
+    print(&quot;\n2. 🔍 INSIGHTS SOBRE SBSE:&quot;)
+    print(&quot;&quot;&quot;
+   • REPRESENTAÇÃO: Trios de inteiros são adequados para este problema
+   • FITNESS FUNCTION: Número de caminhos cobertos é uma métrica simples mas eficaz
+   • ESCALABILIDADE: Para funções com mais caminhos, a vantagem do AG seria maior
+   • AUTOMATIZAÇÃO: O processo elimina completamente a necessidade de criação manual
+    &quot;&quot;&quot;)
+    
+    print(&quot;\n3. 🏭 APLICAÇÃO INDUSTRIAL:&quot;)
+    print(&quot;&quot;&quot;
+   CENÁRIOS ONDE SBSE SERIA VANTAJOSA:
+   • Funções com centenas de caminhos de execução
+   • Sistemas com interações complexas entre parâmetros
+   • Necessidade de otimizar múltiplos objetivos (cobertura + tempo + recursos)
+   • Integração com ferramentas de CI/CD para teste contínuo
+    &quot;&quot;&quot;)
+    
+    print(&quot;\n4. 🎓 LIÇÕES APRENDIDAS:&quot;)
+    print(&quot;&quot;&quot;
+   📚 CONCEITUAIS:
+   • SBSE transforma problemas de ES em problemas de otimização
+   • A qualidade da função de fitness é crucial para o sucesso
+   • Parâmetros bem ajustados fazem diferença significativa
+   
+   💻 TÉCNICAS:
+   • Type hints e docstrings melhoram drasticamente a legibilidade
+   • Visualizações são essenciais para entender o comportamento do algoritmo
+   • Comparação com baselines simples valida a eficácia da abordagem
+    &quot;&quot;&quot;)
+    
+    print(&quot;\n5. 🚀 PRÓXIMOS PASSOS:&quot;)
+    print(&quot;&quot;&quot;
+   EXTENSÕES POSSÍVEIS:
+   • Implementar outros algoritmos (Simulated Annealing, PSO)
+   • Adicionar objetivos múltiplos (cobertura + tempo de execução)
+   • Testar em funções mais complexas com estruturas de dados
+   • Integrar com ferramentas reais de teste (JUnit, pytest)
+   • Implementar técnicas híbridas (AG + busca local)
+    &quot;&quot;&quot;)
+
+# Gerar análise final
+generate_final_analysis()
+
+# Demonstração final: aplicar em uma nova função
+print(&quot;\n🎯 DEMONSTRAÇÃO FINAL: Aplicação em Nova Função&quot;)
+print(&quot;=&quot;*70)
+
+def complex_function(x: int, y: int) -&gt; str:
+    &quot;&quot;&quot;Função mais complexa para demonstrar extensibilidade.&quot;&quot;&quot;
+    if x &lt; 0 or y &lt; 0:
+        return &quot;negative&quot;
+    elif x == 0 and y == 0:
+        return &quot;origin&quot;
+    elif x &gt; y:
+        return &quot;x_greater&quot;
+    elif y &gt; x:
+        return &quot;y_greater&quot;
+    else:
+        return &quot;equal&quot;
+
+print(&quot;Nova função para teste:&quot;)
+print(&quot;• complex_function(x, y) com 5 caminhos possíveis&quot;)
+print(&quot;• Demonstra como SBSE pode ser aplicada a qualquer função&quot;)
+
+# Teste rápido da nova função
+test_cases_new = [(-1, 5), (0, 0), (5, 3), (3, 5), (4, 4)]
+print(&quot;\nCaminhos encontrados manualmente:&quot;)
+for x, y in test_cases_new:
+    result = complex_function(x, y)
+    print(f&quot;  complex_function({x}, {y}) → &#x27;{result}&#x27;&quot;)
+
+print(&quot;\n✨ O mesmo framework de AG poderia ser facilmente&quot;)
+print(&quot;   adaptado para esta nova função mudando apenas:&quot;)
+print(&quot;   • Representação: Individual(x, y) ao invés de (a, b, c)&quot;)
+print(&quot;   • Função de avaliação: chamar complex_function ao invés de TriangleClassifier&quot;)
+print(&quot;   • Range dos genes conforme necessário&quot;)
+
+print(&quot;\n🎉 LABORATÓRIO CONCLUÍDO COM SUCESSO!&quot;)
+print(&quot;\nVocê implementou um sistema completo de SBSE e viu na prática como:&quot;)
+print(&quot;• Algoritmos de busca podem automatizar tarefas de engenharia de software&quot;)
+print(&quot;• A representação adequada e função de fitness são cruciais&quot;)
+print(&quot;• Visualização e análise comparativa validam os resultados&quot;)
+print(&quot;• O framework é extensível para outros problemas de ES&quot;)</code></pre><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div><div data-name="outputs-container" data-mdast-node-id="5CG1neSzLSVacDrNTzAN-" class="max-w-full overflow-y-visible overflow-x-auto m-0 group not-prose relative text-left mb-5"><div data-name="safe-output-stream"><div><pre class="myst-jp-stream-output text-sm font-thin font-system"><code><span>🎯 ANÁLISE CRÍTICA DOS RESULTADOS
+======================================================================
+
+1. 📊 EFICÁCIA DO ALGORITMO GENÉTICO:
+
+   ✅ PONTOS FORTES:
+   • Converge rapidamente para soluções de alta qualidade
+   • Explora o espaço de busca de forma sistemática
+   • Elitismo garante que boas soluções não sejam perdidas
+   • Operadores genéticos facilitam descoberta de novos caminhos
+
+   ⚠️  LIMITAÇÕES OBSERVADAS:
+   • Para problemas simples, pode ser &quot;overkill&quot; comparado à busca aleatória
+   • Requer ajuste de parâmetros (população, mutação, etc.)
+   • Overhead computacional dos operadores genéticos
+    
+
+2. 🔍 INSIGHTS SOBRE SBSE:
+
+   • REPRESENTAÇÃO: Trios de inteiros são adequados para este problema
+   • FITNESS FUNCTION: Número de caminhos cobertos é uma métrica simples mas eficaz
+   • ESCALABILIDADE: Para funções com mais caminhos, a vantagem do AG seria maior
+   • AUTOMATIZAÇÃO: O processo elimina completamente a necessidade de criação manual
+    
+
+3. 🏭 APLICAÇÃO INDUSTRIAL:
+
+   CENÁRIOS ONDE SBSE SERIA VANTAJOSA:
+   • Funções com centenas de caminhos de execução
+   • Sistemas com interações complexas entre parâmetros
+   • Necessidade de otimizar múltiplos objetivos (cobertura + tempo + recursos)
+   • Integração com ferramentas de CI/CD para teste contínuo
+    
+
+4. 🎓 LIÇÕES APRENDIDAS:
+
+   📚 CONCEITUAIS:
+   • SBSE transforma problemas de ES em problemas de otimização
+   • A qualidade da função de fitness é crucial para o sucesso
+   • Parâmetros bem ajustados fazem diferença significativa
+
+   💻 TÉCNICAS:
+   • Type hints e docstrings melhoram drasticamente a legibilidade
+   • Visualizações são essenciais para entender o comportamento do algoritmo
+   • Comparação com baselines simples valida a eficácia da abordagem
+    
+
+5. 🚀 PRÓXIMOS PASSOS:
+
+   EXTENSÕES POSSÍVEIS:
+   • Implementar outros algoritmos (Simulated Annealing, PSO)
+   • Adicionar objetivos múltiplos (cobertura + tempo de execução)
+   • Testar em funções mais complexas com estruturas de dados
+   • Integrar com ferramentas reais de teste (JUnit, pytest)
+   • Implementar técnicas híbridas (AG + busca local)
+    
+
+🎯 DEMONSTRAÇÃO FINAL: Aplicação em Nova Função
+======================================================================
+Nova função para teste:
+• complex_function(x, y) com 5 caminhos possíveis
+• Demonstra como SBSE pode ser aplicada a qualquer função
+
+Caminhos encontrados manualmente:
+  complex_function(-1, 5) → &#x27;negative&#x27;
+  complex_function(0, 0) → &#x27;origin&#x27;
+  complex_function(5, 3) → &#x27;x_greater&#x27;
+  complex_function(3, 5) → &#x27;y_greater&#x27;
+  complex_function(4, 4) → &#x27;equal&#x27;
+
+✨ O mesmo framework de AG poderia ser facilmente
+   adaptado para esta nova função mudando apenas:
+   • Representação: Individual(x, y) ao invés de (a, b, c)
+   • Função de avaliação: chamar complex_function ao invés de TriangleClassifier
+   • Range dos genes conforme necessário
+
+🎉 LABORATÓRIO CONCLUÍDO COM SUCESSO!
+
+Você implementou um sistema completo de SBSE e viu na prática como:
+• Algoritmos de busca podem automatizar tarefas de engenharia de software
+• A representação adequada e função de fitness são cruciais
+• Visualização e análise comparativa validam os resultados
+• O framework é extensível para outros problemas de ES
+</span></code></pre></div></div></div></div><div class="myst-backmatter-parts"></div><div class="myst-footer-links flex pt-10 mb-10 space-x-4"><a class="myst-footer-link flex-1 block p-4 font-normal text-gray-600 no-underline border border-gray-200 rounded shadow-sm group hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-100 dark:border-gray-500 hover:shadow-lg dark:shadow-neutral-700 myst-footer-link-prev" href="/docs/aulas/aula-01-introducao-sbse/readme"><div class="flex h-full align-middle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-footer-link-icon self-center transition-transform group-hover:-translate-x-1 shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path></svg><div class="flex-grow text-right"><div class="myst-footer-link-group text-xs text-gray-500 dark:text-gray-400">Aulas da Disciplina</div>Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)</div></div></a><a class="myst-footer-link flex-1 block p-4 font-normal text-gray-600 no-underline border border-gray-200 rounded shadow-sm group hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-100 dark:border-gray-500 hover:shadow-lg dark:shadow-neutral-700 myst-footer-link-next" href="/docs/aulas/aula-02-tecnicas-otimizacao-sbse/readme"><div class="flex h-full align-middle"><div class="flex-grow"><div class="myst-footer-link-group text-xs text-gray-500 dark:text-gray-400">Aulas da Disciplina</div>Aula 2: Técnicas de Otimização em SBSE</div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-footer-link-icon self-center transition-transform group-hover:translate-x-1 shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path></svg></div></a></div></article></main><script>((a,l)=>{if(!window.history.state||!window.history.state.key){let u=Math.random().toString(32).slice(2);window.history.replaceState({key:u},"")}try{let d=JSON.parse(sessionStorage.getItem(a)||"{}")[l||window.history.state.key];typeof d=="number"&&window.scrollTo(0,d)}catch(u){console.error(u),sessionStorage.removeItem(a)}})("positions", null)</script><link rel="modulepreload" href="/build/entry.client-PCJPW7TK.js"/><link rel="modulepreload" href="/build/_shared/chunk-AQ2CODAG.js"/><link rel="modulepreload" href="/build/_shared/chunk-JJXTQVMA.js"/><link rel="modulepreload" href="/build/_shared/chunk-OZE3FFNP.js"/><link rel="modulepreload" href="/build/_shared/chunk-OYMW4E3D.js"/><link rel="modulepreload" href="/build/_shared/chunk-C4DFGG5C.js"/><link rel="modulepreload" href="/build/_shared/chunk-J7TUH54J.js"/><link rel="modulepreload" href="/build/_shared/chunk-FZ2S7OYD.js"/><link rel="modulepreload" href="/build/_shared/chunk-JEM6JXYA.js"/><link rel="modulepreload" href="/build/_shared/chunk-34XIY2DH.js"/><link rel="modulepreload" href="/build/_shared/chunk-KQM5FBHR.js"/><link rel="modulepreload" href="/build/_shared/chunk-OCWQY3HK.js"/><link rel="modulepreload" href="/build/_shared/chunk-7HNKBP4B.js"/><link rel="modulepreload" href="/build/_shared/chunk-CUKUDK3R.js"/><link rel="modulepreload" href="/build/_shared/chunk-3EBOCCHJ.js"/><link rel="modulepreload" href="/build/_shared/chunk-O4VQNZ62.js"/><link rel="modulepreload" href="/build/_shared/chunk-4OEDG4JQ.js"/><link rel="modulepreload" href="/build/_shared/chunk-GUCIBHGO.js"/><link rel="modulepreload" href="/build/root-CXYA7X5D.js"/><link rel="modulepreload" href="/build/_shared/chunk-DATP5P2X.js"/><link rel="modulepreload" href="/build/routes/$-JRBPULBO.js"/><script>window.__remixContext = {"url":"/docs/aulas/aula-01-introducao-sbse/workshop","state":{"loaderData":{"root":{"config":{"version":3,"myst":"1.7.0","options":{"folders":true},"nav":[],"actions":[],"projects":[{"title":"Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)","authors":[{"nameParsed":{"literal":"Jackson Antonio do Prado Lima","given":"Jackson Antonio","non_dropping_particle":"do","family":"Prado Lima"},"name":"Jackson Antonio do Prado Lima","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/jacksonpradolima/SBSEBrazilianCourse","copyright":"2026","toc":[{"file":"README.md"},{"children":[{"children":[{"file":"docs/aulas/aula-01-introducao-sbse/workshop.ipynb"}],"file":"docs/aulas/aula-01-introducao-sbse/README.md"},{"children":[{"file":"docs/aulas/aula-02-tecnicas-otimizacao-sbse/workshop.ipynb"}],"file":"docs/aulas/aula-02-tecnicas-otimizacao-sbse/README.md"},{"children":[{"file":"docs/aulas/aula-03-formulacao-problemas-representacoes/workshop.ipynb"}],"file":"docs/aulas/aula-03-formulacao-problemas-representacoes/README.md"},{"children":[{"file":"docs/aulas/aula-04-laboratorio-deap/workshop.ipynb"}],"file":"docs/aulas/aula-04-laboratorio-deap/README.md"},{"children":[{"file":"docs/aulas/aula-05-sinergia-ia/workshop.ipynb"}],"file":"docs/aulas/aula-05-sinergia-ia/README.md"},{"children":[{"file":"docs/aulas/aula-06-teste-baseado-busca/workshop.ipynb"}],"file":"docs/aulas/aula-06-teste-baseado-busca/README.md"},{"children":[{"file":"docs/aulas/aula-07-sbst-lab/workshop.ipynb"}],"file":"docs/aulas/aula-07-sbst-lab/README.md"},{"children":[{"file":"docs/aulas/aula-08-refatoracao-busca/workshop.ipynb"}],"file":"docs/aulas/aula-08-refatoracao-busca/README.md"},{"children":[{"file":"docs/aulas/aula-09-fairness-testing-ml/workshop.ipynb"}],"file":"docs/aulas/aula-09-fairness-testing-ml/README.md"},{"children":[{"file":"docs/aulas/aula-10-fairness-testing-lab/workshop.ipynb"}],"file":"docs/aulas/aula-10-fairness-testing-lab/README.md"},{"children":[{"file":"docs/aulas/aula-11-otimizacao-hiperparametros-prompts/workshop.ipynb"}],"file":"docs/aulas/aula-11-otimizacao-hiperparametros-prompts/README.md"},{"children":[{"file":"docs/aulas/aula-12-projeto-final-especificacao/workshop.ipynb"}],"file":"docs/aulas/aula-12-projeto-final-especificacao/README.md"},{"children":[{"file":"docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/workshop.ipynb"}],"file":"docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/README.md"},{"children":[{"file":"docs/aulas/aula-14-etica-lado-sombrio-otimizacao/workshop.ipynb"}],"file":"docs/aulas/aula-14-etica-lado-sombrio-otimizacao/README.md"},{"file":"docs/aulas/aula-15-16-projeto-final-desenvolvimento/README.md"}],"title":"Aulas da Disciplina"}],"thumbnail":"/build/a07f2a79547f5af2988dfa2b05356743.svg","exports":[],"bibliography":[],"index":"index","pages":[{"level":1,"title":"Aulas da Disciplina"},{"slug":"docs.aulas.aula-01-introducao-sbse.readme","title":"Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-01-introducao-sbse.workshop","title":"Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-02-tecnicas-otimizacao-sbse.readme","title":"Aula 2: Técnicas de Otimização em SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-02-tecnicas-otimizacao-sbse.workshop","title":"Workshop Prático: Técnicas de Otimização em SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-03-formulacao-problemas-representacoes.readme","title":"Aula 3: A Arte de Formular Problemas em SBSE","description":"Aprenda a traduzir problemas complexos de engenharia de software em representações otimizáveis e a projetar funções de fitness eficazes.","date":"2025-09-28","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":["SBSE","Otimização","Representação","Função de Fitness","Formulação de Problemas"],"level":2},{"slug":"docs.aulas.aula-03-formulacao-problemas-representacoes.workshop","title":"Workshop Prático: Da Formulação à Solução com DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-04-laboratorio-deap.readme","title":"Aula 4: Acelerando a Otimização com a Biblioteca DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-04-laboratorio-deap.workshop","title":"Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-05-sinergia-ia.readme","title":"Aula 5: Sinergia com IA - Potencializando SBSE com LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-05-sinergia-ia.workshop","title":"Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-06-teste-baseado-busca.readme","title":"Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-06-teste-baseado-busca.workshop","title":"Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-07-sbst-lab.readme","title":"Aula 7: Laboratório de Teste Baseado em Busca (SBST)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-07-sbst-lab.workshop","title":"Workshop Prático — Aula 7: SBST com DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-08-refatoracao-busca.readme","title":"Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-08-refatoracao-busca.workshop","title":"Workshop Prático: Refatoração Baseada em Busca — Aula 08","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-09-fairness-testing-ml.readme","title":"Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-09-fairness-testing-ml.workshop","title":"Workshop Prático: Fairness Testing com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-10-fairness-testing-lab.readme","title":"Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-10-fairness-testing-lab.workshop","title":"Workshop Prático: Laboratório de Fairness Testing","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-11-otimizacao-hiperparametros-prompts.readme","title":"Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-11-otimizacao-hiperparametros-prompts.workshop","title":"Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-12-projeto-final-especificacao.readme","title":"Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-12-projeto-final-especificacao.workshop","title":"🎯 Workshop de Planejamento: Projeto Final SBSE+IA","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-13-otimizacao-multi-objetivo-pymoo.readme","title":"Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-13-otimizacao-multi-objetivo-pymoo.workshop","title":"Workshop Prático: Otimização Multi-Objetivo com Pymoo","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-14-etica-lado-sombrio-otimizacao.readme","title":"Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-14-etica-lado-sombrio-otimizacao.workshop","title":"Workshop Prático: Auditoria Ética de Sistemas de Otimização","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-15-16-projeto-final-desenvolvimento.readme","title":"Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2}]}]},"CONTENT_CDN_PORT":"3100","MODE":"static"},"routes/$":{"config":{"version":3,"myst":"1.7.0","options":{"folders":true},"nav":[],"actions":[],"projects":[{"title":"Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)","authors":[{"nameParsed":{"literal":"Jackson Antonio do Prado Lima","given":"Jackson Antonio","non_dropping_particle":"do","family":"Prado Lima"},"name":"Jackson Antonio do Prado Lima","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/jacksonpradolima/SBSEBrazilianCourse","copyright":"2026","toc":[{"file":"README.md"},{"children":[{"children":[{"file":"docs/aulas/aula-01-introducao-sbse/workshop.ipynb"}],"file":"docs/aulas/aula-01-introducao-sbse/README.md"},{"children":[{"file":"docs/aulas/aula-02-tecnicas-otimizacao-sbse/workshop.ipynb"}],"file":"docs/aulas/aula-02-tecnicas-otimizacao-sbse/README.md"},{"children":[{"file":"docs/aulas/aula-03-formulacao-problemas-representacoes/workshop.ipynb"}],"file":"docs/aulas/aula-03-formulacao-problemas-representacoes/README.md"},{"children":[{"file":"docs/aulas/aula-04-laboratorio-deap/workshop.ipynb"}],"file":"docs/aulas/aula-04-laboratorio-deap/README.md"},{"children":[{"file":"docs/aulas/aula-05-sinergia-ia/workshop.ipynb"}],"file":"docs/aulas/aula-05-sinergia-ia/README.md"},{"children":[{"file":"docs/aulas/aula-06-teste-baseado-busca/workshop.ipynb"}],"file":"docs/aulas/aula-06-teste-baseado-busca/README.md"},{"children":[{"file":"docs/aulas/aula-07-sbst-lab/workshop.ipynb"}],"file":"docs/aulas/aula-07-sbst-lab/README.md"},{"children":[{"file":"docs/aulas/aula-08-refatoracao-busca/workshop.ipynb"}],"file":"docs/aulas/aula-08-refatoracao-busca/README.md"},{"children":[{"file":"docs/aulas/aula-09-fairness-testing-ml/workshop.ipynb"}],"file":"docs/aulas/aula-09-fairness-testing-ml/README.md"},{"children":[{"file":"docs/aulas/aula-10-fairness-testing-lab/workshop.ipynb"}],"file":"docs/aulas/aula-10-fairness-testing-lab/README.md"},{"children":[{"file":"docs/aulas/aula-11-otimizacao-hiperparametros-prompts/workshop.ipynb"}],"file":"docs/aulas/aula-11-otimizacao-hiperparametros-prompts/README.md"},{"children":[{"file":"docs/aulas/aula-12-projeto-final-especificacao/workshop.ipynb"}],"file":"docs/aulas/aula-12-projeto-final-especificacao/README.md"},{"children":[{"file":"docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/workshop.ipynb"}],"file":"docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/README.md"},{"children":[{"file":"docs/aulas/aula-14-etica-lado-sombrio-otimizacao/workshop.ipynb"}],"file":"docs/aulas/aula-14-etica-lado-sombrio-otimizacao/README.md"},{"file":"docs/aulas/aula-15-16-projeto-final-desenvolvimento/README.md"}],"title":"Aulas da Disciplina"}],"thumbnail":"/build/a07f2a79547f5af2988dfa2b05356743.svg","exports":[],"bibliography":[],"index":"index","pages":[{"level":1,"title":"Aulas da Disciplina"},{"slug":"docs.aulas.aula-01-introducao-sbse.readme","title":"Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-01-introducao-sbse.workshop","title":"Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-02-tecnicas-otimizacao-sbse.readme","title":"Aula 2: Técnicas de Otimização em SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-02-tecnicas-otimizacao-sbse.workshop","title":"Workshop Prático: Técnicas de Otimização em SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-03-formulacao-problemas-representacoes.readme","title":"Aula 3: A Arte de Formular Problemas em SBSE","description":"Aprenda a traduzir problemas complexos de engenharia de software em representações otimizáveis e a projetar funções de fitness eficazes.","date":"2025-09-28","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":["SBSE","Otimização","Representação","Função de Fitness","Formulação de Problemas"],"level":2},{"slug":"docs.aulas.aula-03-formulacao-problemas-representacoes.workshop","title":"Workshop Prático: Da Formulação à Solução com DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-04-laboratorio-deap.readme","title":"Aula 4: Acelerando a Otimização com a Biblioteca DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-04-laboratorio-deap.workshop","title":"Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-05-sinergia-ia.readme","title":"Aula 5: Sinergia com IA - Potencializando SBSE com LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-05-sinergia-ia.workshop","title":"Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-06-teste-baseado-busca.readme","title":"Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-06-teste-baseado-busca.workshop","title":"Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-07-sbst-lab.readme","title":"Aula 7: Laboratório de Teste Baseado em Busca (SBST)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-07-sbst-lab.workshop","title":"Workshop Prático — Aula 7: SBST com DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-08-refatoracao-busca.readme","title":"Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-08-refatoracao-busca.workshop","title":"Workshop Prático: Refatoração Baseada em Busca — Aula 08","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-09-fairness-testing-ml.readme","title":"Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-09-fairness-testing-ml.workshop","title":"Workshop Prático: Fairness Testing com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-10-fairness-testing-lab.readme","title":"Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-10-fairness-testing-lab.workshop","title":"Workshop Prático: Laboratório de Fairness Testing","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-11-otimizacao-hiperparametros-prompts.readme","title":"Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-11-otimizacao-hiperparametros-prompts.workshop","title":"Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-12-projeto-final-especificacao.readme","title":"Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-12-projeto-final-especificacao.workshop","title":"🎯 Workshop de Planejamento: Projeto Final SBSE+IA","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-13-otimizacao-multi-objetivo-pymoo.readme","title":"Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-13-otimizacao-multi-objetivo-pymoo.workshop","title":"Workshop Prático: Otimização Multi-Objetivo com Pymoo","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-14-etica-lado-sombrio-otimizacao.readme","title":"Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-14-etica-lado-sombrio-otimizacao.workshop","title":"Workshop Prático: Auditoria Ética de Sistemas de Otimização","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-15-16-projeto-final-desenvolvimento.readme","title":"Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2}]}]},"page":{"version":3,"kind":"Notebook","sha256":"dad447d8d299d1fbf9b2f513d7a601ff5b34377ba790c9f73652608d6a1c64d9","slug":"docs.aulas.aula-01-introducao-sbse.workshop","location":"/docs/aulas/aula-01-introducao-sbse/workshop.ipynb","dependencies":[],"frontmatter":{"title":"Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético","content_includes_title":false,"kernelspec":{"name":"python3","display_name":"Python 3","language":"python"},"authors":[{"nameParsed":{"literal":"Jackson Antonio do Prado Lima","given":"Jackson Antonio","non_dropping_particle":"do","family":"Prado Lima"},"name":"Jackson Antonio do Prado Lima","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/jacksonpradolima/SBSEBrazilianCourse","copyright":"2026","numbering":{"title":{"offset":2}},"source_url":"https://github.com/jacksonpradolima/SBSEBrazilianCourse/blob/main/docs/aulas/aula-01-introducao-sbse/workshop.ipynb","edit_url":"https://github.com/jacksonpradolima/SBSEBrazilianCourse/edit/main/docs/aulas/aula-01-introducao-sbse/workshop.ipynb","exports":[{"format":"ipynb","filename":"workshop.ipynb","url":"/build/workshop-c9a0f7d2d1b7219379f54d22cbf601ed.ipynb"}]},"widgets":{},"mdast":{"type":"root","children":[{"type":"block","kind":"notebook-content","children":[{"type":"paragraph","position":{"start":{"line":3,"column":1},"end":{"line":3,"column":1}},"children":[{"type":"strong","position":{"start":{"line":3,"column":1},"end":{"line":3,"column":1}},"children":[{"type":"text","value":"Objetivo:","position":{"start":{"line":3,"column":1},"end":{"line":3,"column":1}},"key":"GwmhzPguv3"}],"key":"ueBYeJLK63"},{"type":"text","value":" Implementar do zero um sistema completo de SBSE para geração automática de dados de teste que maximize a cobertura de caminhos de execução.","position":{"start":{"line":3,"column":1},"end":{"line":3,"column":1}},"key":"bYw1lTCwVa"}],"key":"pjjDlnWaM8"},{"type":"paragraph","position":{"start":{"line":5,"column":1},"end":{"line":5,"column":1}},"children":[{"type":"strong","position":{"start":{"line":5,"column":1},"end":{"line":5,"column":1}},"children":[{"type":"text","value":"Problema-alvo:","position":{"start":{"line":5,"column":1},"end":{"line":5,"column":1}},"key":"RiSHk1tKiJ"}],"key":"Spc98UIgIh"},{"type":"text","value":" Gerar automaticamente dados de teste para a classe ","position":{"start":{"line":5,"column":1},"end":{"line":5,"column":1}},"key":"hz9bT6vdvU"},{"type":"inlineCode","value":"TriangleClassifier","position":{"start":{"line":5,"column":1},"end":{"line":5,"column":1}},"key":"MWB2w5gz46"},{"type":"text","value":" usando algoritmo genético.","position":{"start":{"line":5,"column":1},"end":{"line":5,"column":1}},"key":"mV3UxhEbuu"}],"key":"qO9F1Pcbsd"},{"type":"thematicBreak","position":{"start":{"line":7,"column":1},"end":{"line":7,"column":1}},"key":"OqZHIHBjOF"}],"key":"Itdp2I3ogk"},{"type":"block","kind":"notebook-content","children":[{"type":"heading","depth":2,"position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Configuração do Ambiente","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"yRKY7zewj1"}],"identifier":"configura-o-do-ambiente","label":"Configuração do Ambiente","html_id":"configura-o-do-ambiente","implicit":true,"key":"yc7llUixRT"}],"key":"nnczB8XZCz"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"# Instalar dependências necessárias\n!pip install matplotlib numpy typing -q","key":"ZWF7mIlbcv"},{"type":"outputs","id":"sGEfYXSIbV2ureBCXuY5e","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"\n\u001b[1m[\u001b[0m\u001b[34;49mnotice\u001b[0m\u001b[1;39;49m]\u001b[0m\u001b[39;49m A new release of pip is available: \u001b[0m\u001b[31;49m25.0.1\u001b[0m\u001b[39;49m -\u003e \u001b[0m\u001b[32;49m25.2\u001b[0m\n\u001b[1m[\u001b[0m\u001b[34;49mnotice\u001b[0m\u001b[1;39;49m]\u001b[0m\u001b[39;49m To update, run: \u001b[0m\u001b[32;49mpip install --upgrade pip\u001b[0m\n"},"children":[],"key":"NWDalmoQpV"}],"key":"ubHBJTGP52"}],"key":"eo3CUmyaC3"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"# Configuração do ambiente - silenciar warnings e forçar CPU\nimport warnings\nwarnings.filterwarnings('ignore')\n\n# Imports principais\nimport random\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom typing import List, Tuple, Dict, Set\nfrom dataclasses import dataclass\nimport copy\n\n# Configurar seed para reprodutibilidade\nrandom.seed(42)\nnp.random.seed(42)\n\nprint(\"✅ Ambiente configurado com sucesso!\")","key":"b4wGtHVZST"},{"type":"outputs","id":"cTFkRxy-k3QPiV6-6pGJm","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"✅ Ambiente configurado com sucesso!\n"},"children":[],"key":"Y4hBm5PMH7"}],"key":"NasT0Dar8B"}],"key":"L6EdDxOSND"},{"type":"block","kind":"notebook-content","children":[{"type":"heading","depth":2,"position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Parte 1: Implementação da Função-Alvo e Análise Manual dos Caminhos","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"TEk7ZtNr34"}],"identifier":"parte-1-implementa-o-da-fun-o-alvo-e-an-lise-manual-dos-caminhos","label":"Parte 1: Implementação da Função-Alvo e Análise Manual dos Caminhos","html_id":"parte-1-implementa-o-da-fun-o-alvo-e-an-lise-manual-dos-caminhos","implicit":true,"key":"ikPKIzfA3f"}],"key":"VKOI6jkbhL"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"class TriangleClassifier:\n    \"\"\"Classificador de triângulos que serve como função-alvo para geração de testes.\n    \n    Esta classe implementa a lógica de classificação de triângulos baseada nos \n    comprimentos dos lados, seguindo diferentes caminhos de execução.\n    \"\"\"\n    \n    @staticmethod\n    def classify(a: int, b: int, c: int) -\u003e str:\n        \"\"\"Classifica um triângulo baseado nos comprimentos dos lados.\n        \n        Parameters:\n            a (int): Comprimento do primeiro lado\n            b (int): Comprimento do segundo lado  \n            c (int): Comprimento do terceiro lado\n            \n        Returns:\n            str: Classificação do triângulo ('Invalid', 'Not a triangle', \n                 'Equilateral', 'Isosceles', 'Scalene')\n        \"\"\"\n        # Caminho 1: Verificação de valores inválidos\n        if a \u003c= 0 or b \u003c= 0 or c \u003c= 0:\n            return \"Invalid\"\n        \n        # Caminho 2: Verificação da desigualdade triangular\n        if a + b \u003c= c or a + c \u003c= b or b + c \u003c= a:\n            return \"Not a triangle\"\n        \n        # Caminho 3: Triângulo equilátero (todos os lados iguais)\n        if a == b and b == c:\n            return \"Equilateral\"\n        \n        # Caminho 4: Triângulo isósceles (dois lados iguais)\n        if a == b or b == c or a == c:\n            return \"Isosceles\"\n        \n        # Caminho 5: Triângulo escaleno (todos os lados diferentes)\n        return \"Scalene\"\n\n# Teste manual dos caminhos de execução\nprint(\"🔍 Análise Manual dos Caminhos de Execução:\")\nprint(\"=\"*50)\n\ntest_cases = [\n    (0, 5, 5, \"Invalid\"),\n    (1, 1, 5, \"Not a triangle\"), \n    (3, 3, 3, \"Equilateral\"),\n    (3, 3, 4, \"Isosceles\"),\n    (3, 4, 5, \"Scalene\")\n]\n\nfor i, (a, b, c, expected) in enumerate(test_cases, 1):\n    result = TriangleClassifier.classify(a, b, c)\n    status = \"✅\" if result == expected else \"❌\"\n    print(f\"Caminho {i}: ({a}, {b}, {c}) → '{result}' {status}\")\n\nprint(f\"\\n📊 Total de caminhos identificados: {len(test_cases)}\")","key":"lh0gRVUv9u"},{"type":"outputs","id":"4li1u6dBVpzfxNTto4L_m","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"🔍 Análise Manual dos Caminhos de Execução:\n==================================================\nCaminho 1: (0, 5, 5) → 'Invalid' ✅\nCaminho 2: (1, 1, 5) → 'Not a triangle' ✅\nCaminho 3: (3, 3, 3) → 'Equilateral' ✅\nCaminho 4: (3, 3, 4) → 'Isosceles' ✅\nCaminho 5: (3, 4, 5) → 'Scalene' ✅\n\n📊 Total de caminhos identificados: 5\n"},"children":[],"key":"FnthPs0rqX"}],"key":"NIDhG4uJrf"}],"key":"LjffjPmZVG"},{"type":"block","kind":"notebook-content","children":[{"type":"heading","depth":2,"position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Parte 2: Desenvolvimento do Algoritmo Genético Passo a Passo","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"MUkoJLaV6S"}],"identifier":"parte-2-desenvolvimento-do-algoritmo-gen-tico-passo-a-passo","label":"Parte 2: Desenvolvimento do Algoritmo Genético Passo a Passo","html_id":"parte-2-desenvolvimento-do-algoritmo-gen-tico-passo-a-passo","implicit":true,"key":"iNi3CJ8U2r"}],"key":"pImojJvcwm"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"@dataclass\nclass Individual:\n    \"\"\"Representa um indivíduo na população do algoritmo genético.\n    \n    Cada indivíduo é uma solução candidata representada por um trio de inteiros\n    que correspondem aos lados de um triângulo.\n    \"\"\"\n    a: int\n    b: int \n    c: int\n    fitness: float = 0.0\n    \n    def get_genes(self) -\u003e Tuple[int, int, int]:\n        \"\"\"Retorna os genes (lados do triângulo) como tupla.\n        \n        Returns:\n            Tuple[int, int, int]: Trio de valores representando os lados\n        \"\"\"\n        return (self.a, self.b, self.c)\n    \n    def __str__(self) -\u003e str:\n        return f\"Individual({self.a}, {self.b}, {self.c}) [fitness: {self.fitness:.2f}]\"\n\n\nclass GeneticTestGenerator:\n    \"\"\"Implementa um algoritmo genético para geração automática de dados de teste.\n    \n    O objetivo é encontrar um conjunto de dados de teste que maximize a cobertura\n    de caminhos de execução da função TriangleClassifier.classify().\n    \"\"\"\n    \n    def __init__(self, population_size: int = 50, mutation_rate: float = 0.1, \n                 max_generations: int = 100, gene_range: Tuple[int, int] = (-5, 20)):\n        \"\"\"Inicializa o gerador de testes genético.\n        \n        Parameters:\n            population_size (int): Tamanho da população\n            mutation_rate (float): Taxa de mutação (0.0 a 1.0)\n            max_generations (int): Número máximo de gerações\n            gene_range (Tuple[int, int]): Range dos valores dos genes\n        \"\"\"\n        self.population_size = population_size\n        self.mutation_rate = mutation_rate\n        self.max_generations = max_generations\n        self.gene_min, self.gene_max = gene_range\n        \n        # Tracking para análise de resultados\n        self.fitness_history: List[float] = []\n        self.coverage_history: List[int] = []\n        self.known_paths: Set[str] = set()\n        \n    def create_random_individual(self) -\u003e Individual:\n        \"\"\"Cria um indivíduo com genes aleatórios.\n        \n        Returns:\n            Individual: Novo indivíduo com valores aleatórios\n        \"\"\"\n        a = random.randint(self.gene_min, self.gene_max)\n        b = random.randint(self.gene_min, self.gene_max)\n        c = random.randint(self.gene_min, self.gene_max)\n        return Individual(a, b, c)\n    \n    def initialize_population(self) -\u003e List[Individual]:\n        \"\"\"Cria a população inicial com indivíduos aleatórios.\n        \n        Returns:\n            List[Individual]: Lista com a população inicial\n        \"\"\"\n        return [self.create_random_individual() for _ in range(self.population_size)]\n\n# Demonstração da criação de população inicial\nprint(\"🧬 Demonstração da Criação de População Inicial:\")\nprint(\"=\"*50)\n\ngenerator = GeneticTestGenerator(population_size=10)\ninitial_pop = generator.initialize_population()\n\nprint(\"Primeiros 5 indivíduos da população inicial:\")\nfor i, individual in enumerate(initial_pop[:5]):\n    print(f\"  {i+1}. {individual}\")\n\nprint(f\"\\n📈 População criada com {len(initial_pop)} indivíduos\")","key":"F2guqgQBQf"},{"type":"outputs","id":"Jm4fHTQAIl3GqJUwnxLbS","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"🧬 Demonstração da Criação de População Inicial:\n==================================================\nPrimeiros 5 indivíduos da população inicial:\n  1. Individual(15, -2, -5) [fitness: 0.00]\n  2. Individual(18, 3, 2) [fitness: 0.00]\n  3. Individual(2, -1, 18) [fitness: 0.00]\n  4. Individual(-2, 16, 18) [fitness: 0.00]\n  5. Individual(12, -3, 13) [fitness: 0.00]\n\n📈 População criada com 10 indivíduos\n"},"children":[],"key":"WlB5ftpSbI"}],"key":"JwybhYFcvv"}],"key":"EhiwXpSOrG"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"class GeneticTestGenerator(GeneticTestGenerator):  # Extensão da classe anterior\n    \"\"\"Continuação da implementação do algoritmo genético - Função de Fitness.\"\"\"\n    \n    def evaluate_fitness(self, individual: Individual) -\u003e float:\n        \"\"\"Avalia a fitness de um indivíduo baseada na cobertura de caminhos.\n        \n        A fitness é calculada como o número de caminhos únicos descobertos\n        por este indivíduo. Quanto mais caminhos únicos, maior a fitness.\n        \n        Parameters:\n            individual (Individual): Indivíduo a ser avaliado\n            \n        Returns:\n            float: Valor de fitness (número de caminhos cobertos)\n        \"\"\"\n        a, b, c = individual.get_genes()\n        \n        # Executa a função-alvo e obtém o resultado\n        result = TriangleClassifier.classify(a, b, c)\n        \n        # Adiciona o caminho descoberto ao conjunto de caminhos conhecidos\n        self.known_paths.add(result)\n        \n        # A fitness é o número total de caminhos únicos descobertos até agora\n        # (Este é um exemplo simplificado - em cenários reais, seria mais sofisticado)\n        fitness = len(self.known_paths)\n        \n        return float(fitness)\n    \n    def evaluate_population(self, population: List[Individual]) -\u003e None:\n        \"\"\"Avalia a fitness de todos os indivíduos na população.\n        \n        Parameters:\n            population (List[Individual]): População a ser avaliada\n        \"\"\"\n        # Reset dos caminhos conhecidos para esta avaliação\n        self.known_paths.clear()\n        \n        # Primeira passada: executa todos os indivíduos para descobrir caminhos\n        for individual in population:\n            a, b, c = individual.get_genes()\n            result = TriangleClassifier.classify(a, b, c)\n            self.known_paths.add(result)\n        \n        # Segunda passada: atribui fitness baseada no número total de caminhos\n        total_paths = len(self.known_paths)\n        for individual in population:\n            individual.fitness = float(total_paths)\n    \n    def tournament_selection(self, population: List[Individual], \n                           tournament_size: int = 3) -\u003e Individual:\n        \"\"\"Seleciona um indivíduo usando seleção por torneio.\n        \n        Parameters:\n            population (List[Individual]): População para seleção\n            tournament_size (int): Tamanho do torneio\n            \n        Returns:\n            Individual: Indivíduo vencedor do torneio\n        \"\"\"\n        # Seleciona indivíduos aleatórios para o torneio\n        tournament = random.sample(population, min(tournament_size, len(population)))\n        \n        # Retorna o indivíduo com maior fitness\n        return max(tournament, key=lambda ind: ind.fitness)\n\n# Demonstração da avaliação de fitness\nprint(\"📊 Demonstração da Função de Fitness:\")\nprint(\"=\"*50)\n\n# Criar alguns indivíduos de teste\ntest_individuals = [\n    Individual(0, 5, 5),    # Invalid\n    Individual(1, 1, 5),    # Not a triangle\n    Individual(3, 3, 3),    # Equilateral\n    Individual(3, 3, 4),    # Isosceles\n    Individual(3, 4, 5),    # Scalene\n]\n\ngenerator = GeneticTestGenerator()\ngenerator.evaluate_population(test_individuals)\n\nprint(\"Avaliação de fitness dos indivíduos de teste:\")\nfor individual in test_individuals:\n    a, b, c = individual.get_genes()\n    result = TriangleClassifier.classify(a, b, c)\n    print(f\"  {individual} → '{result}'\")\n\nprint(f\"\\n🎯 Caminhos únicos descobertos: {len(generator.known_paths)}\")\nprint(f\"📍 Caminhos: {sorted(generator.known_paths)}\")","key":"hJLj1iNQfh"},{"type":"outputs","id":"DdHLQTIcpH4tpoOEWwd1P","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"📊 Demonstração da Função de Fitness:\n==================================================\nAvaliação de fitness dos indivíduos de teste:\n  Individual(0, 5, 5) [fitness: 5.00] → 'Invalid'\n  Individual(1, 1, 5) [fitness: 5.00] → 'Not a triangle'\n  Individual(3, 3, 3) [fitness: 5.00] → 'Equilateral'\n  Individual(3, 3, 4) [fitness: 5.00] → 'Isosceles'\n  Individual(3, 4, 5) [fitness: 5.00] → 'Scalene'\n\n🎯 Caminhos únicos descobertos: 5\n📍 Caminhos: ['Equilateral', 'Invalid', 'Isosceles', 'Not a triangle', 'Scalene']\n"},"children":[],"key":"s8BwKbuOhu"}],"key":"C94YzpjSIa"}],"key":"Slfu0I3waQ"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"class GeneticTestGenerator(GeneticTestGenerator):  # Continuação - Operadores Genéticos\n    \"\"\"Continuação da implementação - Operadores de Crossover e Mutação.\"\"\"\n    \n    def crossover(self, parent1: Individual, parent2: Individual) -\u003e Individual:\n        \"\"\"Realiza crossover de um ponto entre dois pais.\n        \n        Parameters:\n            parent1 (Individual): Primeiro pai\n            parent2 (Individual): Segundo pai\n            \n        Returns:\n            Individual: Filho resultante do crossover\n        \"\"\"\n        # Crossover de um ponto: escolhe aleatoriamente de qual pai vem cada gene\n        genes1 = parent1.get_genes()\n        genes2 = parent2.get_genes()\n        \n        # Cada gene tem 50% de chance de vir de cada pai\n        child_genes = []\n        for i in range(3):\n            if random.random() \u003c 0.5:\n                child_genes.append(genes1[i])\n            else:\n                child_genes.append(genes2[i])\n        \n        return Individual(child_genes[0], child_genes[1], child_genes[2])\n    \n    def mutate(self, individual: Individual) -\u003e Individual:\n        \"\"\"Aplica mutação a um indivíduo.\n        \n        Parameters:\n            individual (Individual): Indivíduo a ser mutado\n            \n        Returns:\n            Individual: Indivíduo mutado\n        \"\"\"\n        mutated = copy.deepcopy(individual)\n        \n        # Cada gene tem chance de sofrer mutação\n        if random.random() \u003c self.mutation_rate:\n            mutated.a = random.randint(self.gene_min, self.gene_max)\n        \n        if random.random() \u003c self.mutation_rate:\n            mutated.b = random.randint(self.gene_min, self.gene_max)\n            \n        if random.random() \u003c self.mutation_rate:\n            mutated.c = random.randint(self.gene_min, self.gene_max)\n        \n        return mutated\n    \n    def create_next_generation(self, population: List[Individual]) -\u003e List[Individual]:\n        \"\"\"Cria a próxima geração usando seleção, crossover e mutação.\n        \n        Parameters:\n            population (List[Individual]): População atual\n            \n        Returns:\n            List[Individual]: Nova geração\n        \"\"\"\n        new_population = []\n        \n        # Elitismo: mantém o melhor indivíduo\n        best_individual = max(population, key=lambda ind: ind.fitness)\n        new_population.append(copy.deepcopy(best_individual))\n        \n        # Gera o resto da população\n        while len(new_population) \u003c self.population_size:\n            # Seleção dos pais\n            parent1 = self.tournament_selection(population)\n            parent2 = self.tournament_selection(population)\n            \n            # Crossover\n            child = self.crossover(parent1, parent2)\n            \n            # Mutação\n            child = self.mutate(child)\n            \n            new_population.append(child)\n        \n        return new_population\n\n# Demonstração dos operadores genéticos\nprint(\"🧬 Demonstração dos Operadores Genéticos:\")\nprint(\"=\"*50)\n\n# Criar dois pais para teste\nparent1 = Individual(3, 3, 3)\nparent2 = Individual(5, 4, 6)\n\nprint(f\"Pai 1: {parent1}\")\nprint(f\"Pai 2: {parent2}\")\n\ngenerator = GeneticTestGenerator(mutation_rate=0.3)\n\n# Demonstrar crossover\nprint(\"\\n🔀 Crossover:\")\nfor i in range(3):\n    child = generator.crossover(parent1, parent2)\n    print(f\"  Filho {i+1}: {child}\")\n\n# Demonstrar mutação\nprint(\"\\n🎲 Mutação:\")\noriginal = Individual(3, 3, 3)\nfor i in range(3):\n    mutated = generator.mutate(original)\n    print(f\"  Original: {original} → Mutado: {mutated}\")","key":"xMxLmDAQWa"},{"type":"outputs","id":"GgP23dA86XAPX6wS9oa4Z","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"🧬 Demonstração dos Operadores Genéticos:\n==================================================\nPai 1: Individual(3, 3, 3) [fitness: 0.00]\nPai 2: Individual(5, 4, 6) [fitness: 0.00]\n\n🔀 Crossover:\n  Filho 1: Individual(3, 3, 3) [fitness: 0.00]\n  Filho 2: Individual(5, 4, 3) [fitness: 0.00]\n  Filho 3: Individual(3, 3, 3) [fitness: 0.00]\n\n🎲 Mutação:\n  Original: Individual(3, 3, 3) [fitness: 0.00] → Mutado: Individual(3, 7, 6) [fitness: 0.00]\n  Original: Individual(3, 3, 3) [fitness: 0.00] → Mutado: Individual(3, 3, 3) [fitness: 0.00]\n  Original: Individual(3, 3, 3) [fitness: 0.00] → Mutado: Individual(3, 3, 3) [fitness: 0.00]\n"},"children":[],"key":"nMtuBnHgI5"}],"key":"ccPsvZwSg3"}],"key":"ER4NM2PBUx"},{"type":"block","kind":"notebook-content","children":[{"type":"heading","depth":2,"position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Parte 3: Algoritmo Genético Completo e Experimentação com Parâmetros","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"RK5qAyOPnf"}],"identifier":"parte-3-algoritmo-gen-tico-completo-e-experimenta-o-com-par-metros","label":"Parte 3: Algoritmo Genético Completo e Experimentação com Parâmetros","html_id":"parte-3-algoritmo-gen-tico-completo-e-experimenta-o-com-par-metros","implicit":true,"key":"qvi2ShOPff"}],"key":"Cnp4vQlq41"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"class GeneticTestGenerator(GeneticTestGenerator):  # Implementação completa\n    \"\"\"Implementação completa do algoritmo genético para geração de testes.\"\"\"\n    \n    def run_evolution(self, verbose: bool = True) -\u003e Dict:\n        \"\"\"Executa o algoritmo genético completo.\n        \n        Parameters:\n            verbose (bool): Se deve imprimir progresso durante a execução\n            \n        Returns:\n            Dict: Resultados da evolução incluindo melhor solução e histórico\n        \"\"\"\n        # Inicialização\n        population = self.initialize_population()\n        self.fitness_history = []\n        self.coverage_history = []\n        \n        if verbose:\n            print(f\"🚀 Iniciando evolução com {self.population_size} indivíduos por {self.max_generations} gerações\")\n            print(f\"⚙️  Parâmetros: Taxa de mutação = {self.mutation_rate}\")\n            print(\"=\"*70)\n        \n        best_coverage = 0\n        generations_without_improvement = 0\n        \n        for generation in range(self.max_generations):\n            # Avaliação da população\n            self.evaluate_population(population)\n            \n            # Estatísticas da geração\n            current_coverage = len(self.known_paths)\n            best_fitness = max(ind.fitness for ind in population)\n            avg_fitness = sum(ind.fitness for ind in population) / len(population)\n            \n            # Armazenar histórico\n            self.fitness_history.append(best_fitness)\n            self.coverage_history.append(current_coverage)\n            \n            # Verificar melhoria\n            if current_coverage \u003e best_coverage:\n                best_coverage = current_coverage\n                generations_without_improvement = 0\n            else:\n                generations_without_improvement += 1\n            \n            # Log do progresso\n            if verbose and (generation % 10 == 0 or generation == self.max_generations - 1):\n                print(f\"Geração {generation:3d}: Cobertura = {current_coverage}/5, \"\n                      f\"Fitness = {best_fitness:.1f}, Avg = {avg_fitness:.1f}\")\n            \n            # Critério de parada: encontrou todos os caminhos\n            if current_coverage \u003e= 5:\n                if verbose:\n                    print(f\"\\n🎯 Todos os caminhos encontrados na geração {generation}!\")\n                break\n            \n            # Critério de parada: sem melhoria por muitas gerações\n            if generations_without_improvement \u003e= 20:\n                if verbose:\n                    print(f\"\\n⏹️  Parada por convergência na geração {generation}\")\n                break\n            \n            # Criar próxima geração\n            population = self.create_next_generation(population)\n        \n        # Encontrar conjunto final de teste\n        final_test_suite = self._extract_test_suite(population)\n        \n        return {\n            'final_population': population,\n            'test_suite': final_test_suite,\n            'paths_covered': sorted(self.known_paths),\n            'coverage_count': len(self.known_paths),\n            'fitness_history': self.fitness_history,\n            'coverage_history': self.coverage_history,\n            'generations_run': len(self.fitness_history)\n        }\n    \n    def _extract_test_suite(self, population: List[Individual]) -\u003e List[Tuple[int, int, int, str]]:\n        \"\"\"Extrai um conjunto mínimo de casos de teste que cobrem todos os caminhos.\n        \n        Parameters:\n            population (List[Individual]): População final\n            \n        Returns:\n            List[Tuple[int, int, int, str]]: Lista de casos de teste únicos\n        \"\"\"\n        test_suite = {}\n        \n        for individual in population:\n            a, b, c = individual.get_genes()\n            result = TriangleClassifier.classify(a, b, c)\n            \n            # Manter apenas um exemplo por caminho (o primeiro encontrado)\n            if result not in test_suite:\n                test_suite[result] = (a, b, c, result)\n        \n        return list(test_suite.values())\n\n# Executar o algoritmo genético completo\nprint(\"🧪 Execução Completa do Algoritmo Genético:\")\nprint(\"=\"*70)\n\n# Configuração padrão\ngenerator = GeneticTestGenerator(\n    population_size=30,\n    mutation_rate=0.15,\n    max_generations=50\n)\n\nresults = generator.run_evolution(verbose=True)\n\nprint(\"\\n📋 Conjunto Final de Casos de Teste:\")\nprint(\"=\"*50)\nfor i, (a, b, c, classification) in enumerate(results['test_suite'], 1):\n    print(f\"{i}. ({a:2d}, {b:2d}, {c:2d}) → '{classification}'\")\n\nprint(f\"\\n📊 Estatísticas Finais:\")\nprint(f\"   • Caminhos cobertos: {results['coverage_count']}/5 ({results['coverage_count']/5*100:.0f}%)\")\nprint(f\"   • Gerações executadas: {results['generations_run']}\")\nprint(f\"   • Caminhos encontrados: {results['paths_covered']}\")","key":"And3vaLFsI"},{"type":"outputs","id":"AQS9jL5AZKL8LwIzlZPS5","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"🧪 Execução Completa do Algoritmo Genético:\n======================================================================\n🚀 Iniciando evolução com 30 indivíduos por 50 gerações\n⚙️  Parâmetros: Taxa de mutação = 0.15\n======================================================================\nGeração   0: Cobertura = 4/5, Fitness = 4.0, Avg = 4.0\nGeração  10: Cobertura = 4/5, Fitness = 4.0, Avg = 4.0\n\n🎯 Todos os caminhos encontrados na geração 15!\n\n📋 Conjunto Final de Casos de Teste:\n==================================================\n1. (12,  4, 15) → 'Scalene'\n2. (18,  4, -4) → 'Invalid'\n3. (19,  1, 16) → 'Not a triangle'\n4. (12, 12, 12) → 'Equilateral'\n5. (19, 16, 16) → 'Isosceles'\n\n📊 Estatísticas Finais:\n   • Caminhos cobertos: 5/5 (100%)\n   • Gerações executadas: 16\n   • Caminhos encontrados: ['Equilateral', 'Invalid', 'Isosceles', 'Not a triangle', 'Scalene']\n"},"children":[],"key":"T9rShtV0He"}],"key":"LlSmJGWO0X"}],"key":"P1l3FJSY62"},{"type":"block","kind":"notebook-content","children":[{"type":"heading","depth":2,"position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Parte 4: Análise Comparativa - Busca Aleatória vs. Algoritmo Genético","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"gKQllO32ZJ"}],"identifier":"parte-4-an-lise-comparativa-busca-aleat-ria-vs-algoritmo-gen-tico","label":"Parte 4: Análise Comparativa - Busca Aleatória vs. Algoritmo Genético","html_id":"parte-4-an-lise-comparativa-busca-aleat-ria-vs-algoritmo-gen-tico","implicit":true,"key":"Ayp7eVQ6qx"}],"key":"fMLhbwxNkJ"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"def random_search_baseline(num_evaluations: int = 1500, \n                          gene_range: Tuple[int, int] = (-5, 20)) -\u003e Dict:\n    \"\"\"Implementa busca aleatória pura como baseline de comparação.\n    \n    Parameters:\n        num_evaluations (int): Número de avaliações aleatórias\n        gene_range (Tuple[int, int]): Range dos valores dos genes\n        \n    Returns:\n        Dict: Resultados da busca aleatória\n    \"\"\"\n    gene_min, gene_max = gene_range\n    found_paths = set()\n    coverage_history = []\n    test_suite = {}\n    \n    print(f\"🎲 Executando busca aleatória com {num_evaluations} avaliações...\")\n    \n    for evaluation in range(num_evaluations):\n        # Gerar trio aleatório\n        a = random.randint(gene_min, gene_max)\n        b = random.randint(gene_min, gene_max)\n        c = random.randint(gene_min, gene_max)\n        \n        # Avaliar\n        result = TriangleClassifier.classify(a, b, c)\n        found_paths.add(result)\n        \n        # Manter primeiro exemplo de cada caminho\n        if result not in test_suite:\n            test_suite[result] = (a, b, c, result)\n        \n        # Registrar progresso a cada 50 avaliações\n        if evaluation % 50 == 0:\n            coverage_history.append(len(found_paths))\n        \n        # Parar se encontrar todos os caminhos\n        if len(found_paths) \u003e= 5:\n            print(f\"   ✅ Todos os caminhos encontrados após {evaluation + 1} avaliações\")\n            break\n    \n    return {\n        'test_suite': list(test_suite.values()),\n        'paths_covered': sorted(found_paths),\n        'coverage_count': len(found_paths),\n        'evaluations_used': evaluation + 1 if len(found_paths) \u003e= 5 else num_evaluations,\n        'coverage_history': coverage_history\n    }\n\n# Comparação experimental\nprint(\"⚖️  Comparação Experimental: Busca Aleatória vs. Algoritmo Genético\")\nprint(\"=\"*70)\n\n# Executar busca aleatória\nrandom.seed(42)  # Mesma seed para comparação justa\nrandom_results = random_search_baseline(num_evaluations=1500)\n\nprint(\"\\n🎲 Resultados da Busca Aleatória:\")\nprint(f\"   • Caminhos cobertos: {random_results['coverage_count']}/5\")\nprint(f\"   • Avaliações utilizadas: {random_results['evaluations_used']}\")\nprint(f\"   • Caminhos: {random_results['paths_covered']}\")\n\n# Executar algoritmo genético novamente para comparação justa\nprint(\"\\n🧬 Executando Algoritmo Genético para comparação...\")\nrandom.seed(42)  # Mesma seed\nnp.random.seed(42)\n\nga_generator = GeneticTestGenerator(\n    population_size=30,\n    mutation_rate=0.15, \n    max_generations=50\n)\nga_results = ga_generator.run_evolution(verbose=False)\n\n# Estimar número de avaliações do AG (população * gerações)\nga_evaluations = 30 * ga_results['generations_run']\n\nprint(f\"\\n🧬 Resultados do Algoritmo Genético:\")\nprint(f\"   • Caminhos cobertos: {ga_results['coverage_count']}/5\")\nprint(f\"   • Estimativa de avaliações: {ga_evaluations}\")\nprint(f\"   • Gerações: {ga_results['generations_run']}\")\nprint(f\"   • Caminhos: {ga_results['paths_covered']}\")\n\n# Análise comparativa\nprint(\"\\n📊 Análise Comparativa:\")\nprint(\"=\"*50)\n\nif ga_results['coverage_count'] \u003e random_results['coverage_count']:\n    print(\"🏆 Vencedor: Algoritmo Genético (melhor cobertura)\")\nelif ga_results['coverage_count'] \u003c random_results['coverage_count']:\n    print(\"🏆 Vencedor: Busca Aleatória (melhor cobertura)\")\nelse:\n    if ga_evaluations \u003c random_results['evaluations_used']:\n        print(\"🏆 Vencedor: Algoritmo Genético (mesma cobertura, menos avaliações)\")\n    else:\n        print(\"🏆 Empate ou Busca Aleatória mais eficiente\")\n\nefficiency_ga = ga_results['coverage_count'] / ga_evaluations if ga_evaluations \u003e 0 else 0\nefficiency_random = random_results['coverage_count'] / random_results['evaluations_used']\n\nprint(f\"\\nEficiência (caminhos/avaliação):\")\nprint(f\"   • Algoritmo Genético: {efficiency_ga:.6f}\")\nprint(f\"   • Busca Aleatória: {efficiency_random:.6f}\")","key":"kkiqrWlS7Y"},{"type":"outputs","id":"sCvIKKbpCoNHd-qfITWM9","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"⚖️  Comparação Experimental: Busca Aleatória vs. Algoritmo Genético\n======================================================================\n🎲 Executando busca aleatória com 1500 avaliações...\n   ✅ Todos os caminhos encontrados após 200 avaliações\n\n🎲 Resultados da Busca Aleatória:\n   • Caminhos cobertos: 5/5\n   • Avaliações utilizadas: 200\n   • Caminhos: ['Equilateral', 'Invalid', 'Isosceles', 'Not a triangle', 'Scalene']\n\n🧬 Executando Algoritmo Genético para comparação...\n\n🧬 Resultados do Algoritmo Genético:\n   • Caminhos cobertos: 3/5\n   • Estimativa de avaliações: 630\n   • Gerações: 21\n   • Caminhos: ['Invalid', 'Not a triangle', 'Scalene']\n\n📊 Análise Comparativa:\n==================================================\n🏆 Vencedor: Busca Aleatória (melhor cobertura)\n\nEficiência (caminhos/avaliação):\n   • Algoritmo Genético: 0.004762\n   • Busca Aleatória: 0.025000\n"},"children":[],"key":"kggEtSHe93"}],"key":"XRsMbmCZut"}],"key":"bHFBdwUDuA"},{"type":"block","kind":"notebook-content","children":[{"type":"heading","depth":2,"position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Parte 5: Visualização da Evolução e Análise de Convergência","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"iU64fSv4qX"}],"identifier":"parte-5-visualiza-o-da-evolu-o-e-an-lise-de-converg-ncia","label":"Parte 5: Visualização da Evolução e Análise de Convergência","html_id":"parte-5-visualiza-o-da-evolu-o-e-an-lise-de-converg-ncia","implicit":true,"key":"tdWkDSl2cP"}],"key":"Iup7acili0"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"def plot_evolution_analysis(ga_results: Dict, random_results: Dict) -\u003e None:\n    \"\"\"Cria visualizações comparativas da evolução dos algoritmos.\n    \n    Parameters:\n        ga_results (Dict): Resultados do algoritmo genético\n        random_results (Dict): Resultados da busca aleatória\n    \"\"\"\n    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))\n    fig.suptitle('Análise Comparativa: Algoritmo Genético vs. Busca Aleatória', fontsize=16)\n    \n    # Gráfico 1: Evolução da Fitness (AG)\n    ax1.plot(ga_results['fitness_history'], 'b-', linewidth=2, label='Melhor Fitness')\n    ax1.set_title('Evolução da Fitness - Algoritmo Genético')\n    ax1.set_xlabel('Geração')\n    ax1.set_ylabel('Fitness')\n    ax1.grid(True, alpha=0.3)\n    ax1.legend()\n    \n    # Gráfico 2: Evolução da Cobertura (AG)\n    ax2.plot(ga_results['coverage_history'], 'g-', linewidth=2, marker='o', markersize=4)\n    ax2.set_title('Evolução da Cobertura - Algoritmo Genético')\n    ax2.set_xlabel('Geração')\n    ax2.set_ylabel('Caminhos Cobertos')\n    ax2.set_ylim(0, 5.5)\n    ax2.grid(True, alpha=0.3)\n    \n    # Adicionar linha objetivo\n    ax2.axhline(y=5, color='r', linestyle='--', alpha=0.7, label='Objetivo (5 caminhos)')\n    ax2.legend()\n    \n    # Gráfico 3: Comparação de Eficiência\n    methods = ['Algoritmo\\nGenético', 'Busca\\nAleatória']\n    coverage_counts = [ga_results['coverage_count'], random_results['coverage_count']]\n    colors = ['skyblue', 'lightcoral']\n    \n    bars = ax3.bar(methods, coverage_counts, color=colors, alpha=0.7, edgecolor='black')\n    ax3.set_title('Comparação de Cobertura Final')\n    ax3.set_ylabel('Caminhos Cobertos')\n    ax3.set_ylim(0, 6)\n    \n    # Adicionar valores nas barras\n    for bar, count in zip(bars, coverage_counts):\n        height = bar.get_height()\n        ax3.text(bar.get_x() + bar.get_width()/2., height + 0.1,\n                f'{count}/5', ha='center', va='bottom', fontweight='bold')\n    \n    # Linha objetivo\n    ax3.axhline(y=5, color='red', linestyle='--', alpha=0.7, label='Objetivo')\n    ax3.legend()\n    \n    # Gráfico 4: Convergência da Busca Aleatória (simulada)\n    # Simular progresso da busca aleatória baseado nos resultados\n    random_steps = list(range(0, len(random_results['coverage_history']) * 50, 50))\n    ax4.plot(random_steps, random_results['coverage_history'], 'r-', \n             linewidth=2, marker='s', markersize=4, label='Busca Aleatória')\n    \n    # Comparar com progresso do AG (em termos de avaliações)\n    ga_steps = [i * 30 for i in range(len(ga_results['coverage_history']))]\n    ax4.plot(ga_steps, ga_results['coverage_history'], 'b-', \n             linewidth=2, marker='o', markersize=4, label='Algoritmo Genético')\n    \n    ax4.set_title('Convergência por Número de Avaliações')\n    ax4.set_xlabel('Avaliações Estimadas')\n    ax4.set_ylabel('Caminhos Cobertos')\n    ax4.set_ylim(0, 5.5)\n    ax4.grid(True, alpha=0.3)\n    ax4.legend()\n    \n    plt.tight_layout()\n    plt.show()\n\n# Executar experimento completo com múltiplas configurações\nprint(\"📈 Análise Detalhada com Diferentes Configurações:\")\nprint(\"=\"*70)\n\nconfigurations = [\n    {'pop_size': 20, 'mutation_rate': 0.1, 'name': 'Conservador'},\n    {'pop_size': 30, 'mutation_rate': 0.15, 'name': 'Balanceado'}, \n    {'pop_size': 40, 'mutation_rate': 0.2, 'name': 'Agressivo'}\n]\n\nconfig_results = []\n\nfor config in configurations:\n    print(f\"\\n🧪 Testando configuração {config['name']}...\")\n    \n    # Reset das seeds para comparação justa\n    random.seed(42)\n    np.random.seed(42)\n    \n    generator = GeneticTestGenerator(\n        population_size=config['pop_size'],\n        mutation_rate=config['mutation_rate'],\n        max_generations=30\n    )\n    \n    results = generator.run_evolution(verbose=False)\n    config_results.append({\n        'name': config['name'],\n        'coverage': results['coverage_count'],\n        'generations': results['generations_run'],\n        'evaluations': config['pop_size'] * results['generations_run']\n    })\n    \n    print(f\"   Resultado: {results['coverage_count']}/5 caminhos em {results['generations_run']} gerações\")\n\n# Visualizar comparação\nprint(\"\\n📊 Criando visualizações comparativas...\")\nplot_evolution_analysis(ga_results, random_results)\n\n# Resumo das configurações testadas\nprint(\"\\n📋 Resumo das Configurações Testadas:\")\nprint(\"=\"*60)\nprint(f\"{'Configuração':\u003c12} {'Cobertura':\u003c10} {'Gerações':\u003c10} {'Avaliações':\u003c12}\")\nprint(\"-\" * 60)\nfor result in config_results:\n    print(f\"{result['name']:\u003c12} {result['coverage']}/5{'':\u003c6} \"\n          f\"{result['generations']:\u003c10} {result['evaluations']:\u003c12}\")\n\nprint(\"\\n🏆 Melhor configuração: \", end=\"\")\nbest_config = max(config_results, key=lambda x: (x['coverage'], -x['evaluations']))\nprint(f\"{best_config['name']} (cobertura: {best_config['coverage']}/5, \"\n      f\"avaliações: {best_config['evaluations']})\")","key":"pwm8VOSNLN"},{"type":"outputs","id":"gy41TuooBe8FjhoiLoVd6","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"📈 Análise Detalhada com Diferentes Configurações:\n======================================================================\n\n🧪 Testando configuração Conservador...\n   Resultado: 3/5 caminhos em 30 gerações\n\n🧪 Testando configuração Balanceado...\n   Resultado: 3/5 caminhos em 21 gerações\n\n🧪 Testando configuração Agressivo...\n   Resultado: 4/5 caminhos em 21 gerações\n\n📊 Criando visualizações comparativas...\n"},"children":[],"key":"iBbLo7RKbZ"},{"type":"output","jupyter_data":{"output_type":"display_data","metadata":{},"data":{"image/png":{"content_type":"image/png","hash":"5c937920383dcee900fc48b800b02301","path":"/build/5c937920383dcee900fc48b800b02301.png"},"text/plain":{"content":"\u003cFigure size 1500x1000 with 4 Axes\u003e","content_type":"text/plain"}}},"children":[],"key":"LkZYGhIi6R"},{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"\n📋 Resumo das Configurações Testadas:\n============================================================\nConfiguração Cobertura  Gerações   Avaliações  \n------------------------------------------------------------\nConservador  3/5       30         600         \nBalanceado   3/5       21         630         \nAgressivo    4/5       21         840         \n\n🏆 Melhor configuração: Agressivo (cobertura: 4/5, avaliações: 840)\n"},"children":[],"key":"rQf0T8qbv2"}],"key":"PweSNCtcs4"}],"key":"lEYqFydYaM"},{"type":"block","kind":"notebook-content","children":[{"type":"heading","depth":2,"position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Análise Crítica e Conclusões","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"CxKWwczze3"}],"identifier":"an-lise-cr-tica-e-conclus-es","label":"Análise Crítica e Conclusões","html_id":"an-lise-cr-tica-e-conclus-es","implicit":true,"key":"F5CfANEOGr"}],"key":"HcTc6Um1WZ"},{"type":"block","kind":"notebook-code","children":[{"type":"code","lang":"python","executable":true,"value":"def generate_final_analysis() -\u003e None:\n    \"\"\"Gera análise final dos resultados e lições aprendidas.\"\"\"\n    \n    print(\"🎯 ANÁLISE CRÍTICA DOS RESULTADOS\")\n    print(\"=\"*70)\n    \n    print(\"\\n1. 📊 EFICÁCIA DO ALGORITMO GENÉTICO:\")\n    print(\"\"\"\n   ✅ PONTOS FORTES:\n   • Converge rapidamente para soluções de alta qualidade\n   • Explora o espaço de busca de forma sistemática\n   • Elitismo garante que boas soluções não sejam perdidas\n   • Operadores genéticos facilitam descoberta de novos caminhos\n   \n   ⚠️  LIMITAÇÕES OBSERVADAS:\n   • Para problemas simples, pode ser \"overkill\" comparado à busca aleatória\n   • Requer ajuste de parâmetros (população, mutação, etc.)\n   • Overhead computacional dos operadores genéticos\n    \"\"\")\n    \n    print(\"\\n2. 🔍 INSIGHTS SOBRE SBSE:\")\n    print(\"\"\"\n   • REPRESENTAÇÃO: Trios de inteiros são adequados para este problema\n   • FITNESS FUNCTION: Número de caminhos cobertos é uma métrica simples mas eficaz\n   • ESCALABILIDADE: Para funções com mais caminhos, a vantagem do AG seria maior\n   • AUTOMATIZAÇÃO: O processo elimina completamente a necessidade de criação manual\n    \"\"\")\n    \n    print(\"\\n3. 🏭 APLICAÇÃO INDUSTRIAL:\")\n    print(\"\"\"\n   CENÁRIOS ONDE SBSE SERIA VANTAJOSA:\n   • Funções com centenas de caminhos de execução\n   • Sistemas com interações complexas entre parâmetros\n   • Necessidade de otimizar múltiplos objetivos (cobertura + tempo + recursos)\n   • Integração com ferramentas de CI/CD para teste contínuo\n    \"\"\")\n    \n    print(\"\\n4. 🎓 LIÇÕES APRENDIDAS:\")\n    print(\"\"\"\n   📚 CONCEITUAIS:\n   • SBSE transforma problemas de ES em problemas de otimização\n   • A qualidade da função de fitness é crucial para o sucesso\n   • Parâmetros bem ajustados fazem diferença significativa\n   \n   💻 TÉCNICAS:\n   • Type hints e docstrings melhoram drasticamente a legibilidade\n   • Visualizações são essenciais para entender o comportamento do algoritmo\n   • Comparação com baselines simples valida a eficácia da abordagem\n    \"\"\")\n    \n    print(\"\\n5. 🚀 PRÓXIMOS PASSOS:\")\n    print(\"\"\"\n   EXTENSÕES POSSÍVEIS:\n   • Implementar outros algoritmos (Simulated Annealing, PSO)\n   • Adicionar objetivos múltiplos (cobertura + tempo de execução)\n   • Testar em funções mais complexas com estruturas de dados\n   • Integrar com ferramentas reais de teste (JUnit, pytest)\n   • Implementar técnicas híbridas (AG + busca local)\n    \"\"\")\n\n# Gerar análise final\ngenerate_final_analysis()\n\n# Demonstração final: aplicar em uma nova função\nprint(\"\\n🎯 DEMONSTRAÇÃO FINAL: Aplicação em Nova Função\")\nprint(\"=\"*70)\n\ndef complex_function(x: int, y: int) -\u003e str:\n    \"\"\"Função mais complexa para demonstrar extensibilidade.\"\"\"\n    if x \u003c 0 or y \u003c 0:\n        return \"negative\"\n    elif x == 0 and y == 0:\n        return \"origin\"\n    elif x \u003e y:\n        return \"x_greater\"\n    elif y \u003e x:\n        return \"y_greater\"\n    else:\n        return \"equal\"\n\nprint(\"Nova função para teste:\")\nprint(\"• complex_function(x, y) com 5 caminhos possíveis\")\nprint(\"• Demonstra como SBSE pode ser aplicada a qualquer função\")\n\n# Teste rápido da nova função\ntest_cases_new = [(-1, 5), (0, 0), (5, 3), (3, 5), (4, 4)]\nprint(\"\\nCaminhos encontrados manualmente:\")\nfor x, y in test_cases_new:\n    result = complex_function(x, y)\n    print(f\"  complex_function({x}, {y}) → '{result}'\")\n\nprint(\"\\n✨ O mesmo framework de AG poderia ser facilmente\")\nprint(\"   adaptado para esta nova função mudando apenas:\")\nprint(\"   • Representação: Individual(x, y) ao invés de (a, b, c)\")\nprint(\"   • Função de avaliação: chamar complex_function ao invés de TriangleClassifier\")\nprint(\"   • Range dos genes conforme necessário\")\n\nprint(\"\\n🎉 LABORATÓRIO CONCLUÍDO COM SUCESSO!\")\nprint(\"\\nVocê implementou um sistema completo de SBSE e viu na prática como:\")\nprint(\"• Algoritmos de busca podem automatizar tarefas de engenharia de software\")\nprint(\"• A representação adequada e função de fitness são cruciais\")\nprint(\"• Visualização e análise comparativa validam os resultados\")\nprint(\"• O framework é extensível para outros problemas de ES\")","key":"zINIYQ45pI"},{"type":"outputs","id":"5CG1neSzLSVacDrNTzAN-","children":[{"type":"output","jupyter_data":{"name":"stdout","output_type":"stream","text":"🎯 ANÁLISE CRÍTICA DOS RESULTADOS\n======================================================================\n\n1. 📊 EFICÁCIA DO ALGORITMO GENÉTICO:\n\n   ✅ PONTOS FORTES:\n   • Converge rapidamente para soluções de alta qualidade\n   • Explora o espaço de busca de forma sistemática\n   • Elitismo garante que boas soluções não sejam perdidas\n   • Operadores genéticos facilitam descoberta de novos caminhos\n\n   ⚠️  LIMITAÇÕES OBSERVADAS:\n   • Para problemas simples, pode ser \"overkill\" comparado à busca aleatória\n   • Requer ajuste de parâmetros (população, mutação, etc.)\n   • Overhead computacional dos operadores genéticos\n    \n\n2. 🔍 INSIGHTS SOBRE SBSE:\n\n   • REPRESENTAÇÃO: Trios de inteiros são adequados para este problema\n   • FITNESS FUNCTION: Número de caminhos cobertos é uma métrica simples mas eficaz\n   • ESCALABILIDADE: Para funções com mais caminhos, a vantagem do AG seria maior\n   • AUTOMATIZAÇÃO: O processo elimina completamente a necessidade de criação manual\n    \n\n3. 🏭 APLICAÇÃO INDUSTRIAL:\n\n   CENÁRIOS ONDE SBSE SERIA VANTAJOSA:\n   • Funções com centenas de caminhos de execução\n   • Sistemas com interações complexas entre parâmetros\n   • Necessidade de otimizar múltiplos objetivos (cobertura + tempo + recursos)\n   • Integração com ferramentas de CI/CD para teste contínuo\n    \n\n4. 🎓 LIÇÕES APRENDIDAS:\n\n   📚 CONCEITUAIS:\n   • SBSE transforma problemas de ES em problemas de otimização\n   • A qualidade da função de fitness é crucial para o sucesso\n   • Parâmetros bem ajustados fazem diferença significativa\n\n   💻 TÉCNICAS:\n   • Type hints e docstrings melhoram drasticamente a legibilidade\n   • Visualizações são essenciais para entender o comportamento do algoritmo\n   • Comparação com baselines simples valida a eficácia da abordagem\n    \n\n5. 🚀 PRÓXIMOS PASSOS:\n\n   EXTENSÕES POSSÍVEIS:\n   • Implementar outros algoritmos (Simulated Annealing, PSO)\n   • Adicionar objetivos múltiplos (cobertura + tempo de execução)\n   • Testar em funções mais complexas com estruturas de dados\n   • Integrar com ferramentas reais de teste (JUnit, pytest)\n   • Implementar técnicas híbridas (AG + busca local)\n    \n\n🎯 DEMONSTRAÇÃO FINAL: Aplicação em Nova Função\n======================================================================\nNova função para teste:\n• complex_function(x, y) com 5 caminhos possíveis\n• Demonstra como SBSE pode ser aplicada a qualquer função\n\nCaminhos encontrados manualmente:\n  complex_function(-1, 5) → 'negative'\n  complex_function(0, 0) → 'origin'\n  complex_function(5, 3) → 'x_greater'\n  complex_function(3, 5) → 'y_greater'\n  complex_function(4, 4) → 'equal'\n\n✨ O mesmo framework de AG poderia ser facilmente\n   adaptado para esta nova função mudando apenas:\n   • Representação: Individual(x, y) ao invés de (a, b, c)\n   • Função de avaliação: chamar complex_function ao invés de TriangleClassifier\n   • Range dos genes conforme necessário\n\n🎉 LABORATÓRIO CONCLUÍDO COM SUCESSO!\n\nVocê implementou um sistema completo de SBSE e viu na prática como:\n• Algoritmos de busca podem automatizar tarefas de engenharia de software\n• A representação adequada e função de fitness são cruciais\n• Visualização e análise comparativa validam os resultados\n• O framework é extensível para outros problemas de ES\n"},"children":[],"key":"pezQQrDQCW"}],"key":"Hm2CEJTAhk"}],"key":"CX9XDA76pT"}],"key":"rm5mYz4yyk"},"references":{"cite":{"order":[],"data":{}}},"footer":{"navigation":{"prev":{"title":"Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)","url":"/docs/aulas/aula-01-introducao-sbse/readme","group":"Aulas da Disciplina"},"next":{"title":"Aula 2: Técnicas de Otimização em SBSE","url":"/docs/aulas/aula-02-tecnicas-otimizacao-sbse/readme","group":"Aulas da Disciplina"}}},"domain":"http://localhost:3000"},"project":{"title":"Engenharia de Software Baseada em Busca (Search-Based Software Engineering, SBSE)","authors":[{"nameParsed":{"literal":"Jackson Antonio do Prado Lima","given":"Jackson Antonio","non_dropping_particle":"do","family":"Prado Lima"},"name":"Jackson Antonio do Prado Lima","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/jacksonpradolima/SBSEBrazilianCourse","copyright":"2026","toc":[{"file":"README.md"},{"children":[{"children":[{"file":"docs/aulas/aula-01-introducao-sbse/workshop.ipynb"}],"file":"docs/aulas/aula-01-introducao-sbse/README.md"},{"children":[{"file":"docs/aulas/aula-02-tecnicas-otimizacao-sbse/workshop.ipynb"}],"file":"docs/aulas/aula-02-tecnicas-otimizacao-sbse/README.md"},{"children":[{"file":"docs/aulas/aula-03-formulacao-problemas-representacoes/workshop.ipynb"}],"file":"docs/aulas/aula-03-formulacao-problemas-representacoes/README.md"},{"children":[{"file":"docs/aulas/aula-04-laboratorio-deap/workshop.ipynb"}],"file":"docs/aulas/aula-04-laboratorio-deap/README.md"},{"children":[{"file":"docs/aulas/aula-05-sinergia-ia/workshop.ipynb"}],"file":"docs/aulas/aula-05-sinergia-ia/README.md"},{"children":[{"file":"docs/aulas/aula-06-teste-baseado-busca/workshop.ipynb"}],"file":"docs/aulas/aula-06-teste-baseado-busca/README.md"},{"children":[{"file":"docs/aulas/aula-07-sbst-lab/workshop.ipynb"}],"file":"docs/aulas/aula-07-sbst-lab/README.md"},{"children":[{"file":"docs/aulas/aula-08-refatoracao-busca/workshop.ipynb"}],"file":"docs/aulas/aula-08-refatoracao-busca/README.md"},{"children":[{"file":"docs/aulas/aula-09-fairness-testing-ml/workshop.ipynb"}],"file":"docs/aulas/aula-09-fairness-testing-ml/README.md"},{"children":[{"file":"docs/aulas/aula-10-fairness-testing-lab/workshop.ipynb"}],"file":"docs/aulas/aula-10-fairness-testing-lab/README.md"},{"children":[{"file":"docs/aulas/aula-11-otimizacao-hiperparametros-prompts/workshop.ipynb"}],"file":"docs/aulas/aula-11-otimizacao-hiperparametros-prompts/README.md"},{"children":[{"file":"docs/aulas/aula-12-projeto-final-especificacao/workshop.ipynb"}],"file":"docs/aulas/aula-12-projeto-final-especificacao/README.md"},{"children":[{"file":"docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/workshop.ipynb"}],"file":"docs/aulas/aula-13-otimizacao-multi-objetivo-pymoo/README.md"},{"children":[{"file":"docs/aulas/aula-14-etica-lado-sombrio-otimizacao/workshop.ipynb"}],"file":"docs/aulas/aula-14-etica-lado-sombrio-otimizacao/README.md"},{"file":"docs/aulas/aula-15-16-projeto-final-desenvolvimento/README.md"}],"title":"Aulas da Disciplina"}],"thumbnail":"/build/a07f2a79547f5af2988dfa2b05356743.svg","exports":[],"bibliography":[],"index":"index","pages":[{"level":1,"title":"Aulas da Disciplina"},{"slug":"docs.aulas.aula-01-introducao-sbse.readme","title":"Aula 1: Introdução à Engenharia de Software Baseada em Busca (SBSE)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-01-introducao-sbse.workshop","title":"Workshop Prático: Sistema de Geração Automática de Dados de Teste com Algoritmo Genético","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-02-tecnicas-otimizacao-sbse.readme","title":"Aula 2: Técnicas de Otimização em SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-02-tecnicas-otimizacao-sbse.workshop","title":"Workshop Prático: Técnicas de Otimização em SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-03-formulacao-problemas-representacoes.readme","title":"Aula 3: A Arte de Formular Problemas em SBSE","description":"Aprenda a traduzir problemas complexos de engenharia de software em representações otimizáveis e a projetar funções de fitness eficazes.","date":"2025-09-28","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":["SBSE","Otimização","Representação","Função de Fitness","Formulação de Problemas"],"level":2},{"slug":"docs.aulas.aula-03-formulacao-problemas-representacoes.workshop","title":"Workshop Prático: Da Formulação à Solução com DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-04-laboratorio-deap.readme","title":"Aula 4: Acelerando a Otimização com a Biblioteca DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-04-laboratorio-deap.workshop","title":"Workshop Prático: Acelerando a Otimização com a Biblioteca DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-05-sinergia-ia.readme","title":"Aula 5: Sinergia com IA - Potencializando SBSE com LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-05-sinergia-ia.workshop","title":"Workshop Prático: Sinergia com IA - Potencializando SBSE com LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-06-teste-baseado-busca.readme","title":"Aula 6: Teste Baseado em Busca (SBST) - Automatizando a Caça aos Bugs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-06-teste-baseado-busca.workshop","title":"Workshop Prático: Caça aos Bugs Automatizada com Teste Baseado em Busca (SBST)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-07-sbst-lab.readme","title":"Aula 7: Laboratório de Teste Baseado em Busca (SBST)","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-07-sbst-lab.workshop","title":"Workshop Prático — Aula 7: SBST com DEAP","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-08-refatoracao-busca.readme","title":"Aula 8: Refatoração Baseada em Busca - Pagando a Dívida Técnica com Otimização","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-08-refatoracao-busca.workshop","title":"Workshop Prático: Refatoração Baseada em Busca — Aula 08","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-09-fairness-testing-ml.readme","title":"Aula 9: Teste de Justiça em IA - Caçando Vieses com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-09-fairness-testing-ml.workshop","title":"Workshop Prático: Fairness Testing com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-10-fairness-testing-lab.readme","title":"Aula 10: Laboratório de Fairness Testing - Implementando Detectores de Viés com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-10-fairness-testing-lab.workshop","title":"Workshop Prático: Laboratório de Fairness Testing","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-11-otimizacao-hiperparametros-prompts.readme","title":"Aula 11: Otimização de Hiperparâmetros e Prompts - SBSE na Era dos LLMs","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-11-otimizacao-hiperparametros-prompts.workshop","title":"Workshop Prático: Otimização de Hiperparâmetros e Prompts com SBSE","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-12-projeto-final-especificacao.readme","title":"Aula 12: Projeto Final - Especificação e Planejamento Estratégico de SBSE+IA","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-12-projeto-final-especificacao.workshop","title":"🎯 Workshop de Planejamento: Projeto Final SBSE+IA","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-13-otimizacao-multi-objetivo-pymoo.readme","title":"Aula 13: Laboratório de Otimização Multi-Objetivo com Pymoo - Navegando Trade-offs com a Fronteira de Pareto","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-13-otimizacao-multi-objetivo-pymoo.workshop","title":"Workshop Prático: Otimização Multi-Objetivo com Pymoo","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-14-etica-lado-sombrio-otimizacao.readme","title":"Aula 14: Seminário sobre Ética e o Lado Sombrio da Otimização - A Lei de Goodhart e suas Consequências","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"docs.aulas.aula-14-etica-lado-sombrio-otimizacao.workshop","title":"Workshop Prático: Auditoria Ética de Sistemas de Otimização","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":3},{"slug":"docs.aulas.aula-15-16-projeto-final-desenvolvimento.readme","title":"Aulas 15-16: Período de Desenvolvimento e Entrega do Projeto Final - Aplicando SBSE+IA de Forma Autônoma","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2}]}}},"actionData":null,"errors":null},"future":{"unstable_dev":false,"unstable_postcss":false,"unstable_tailwind":false,"v2_errorBoundary":true,"v2_headers":true,"v2_meta":true,"v2_normalizeFormMethod":true,"v2_routeConvention":true}};</script><script type="module" async="">import "/build/manifest-86A905A4.js";
+import * as route0 from "/build/root-CXYA7X5D.js";
+import * as route1 from "/build/routes/$-JRBPULBO.js";
+window.__remixRouteModules = {"root":route0,"routes/$":route1};
+
+import("/build/entry.client-PCJPW7TK.js");</script></body></html>
