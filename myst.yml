@@ -8,10 +8,6 @@ project:
   exclude:
     - plano_ensino.md
     - LICENSE
-  references:
-    issues: https://github.com/jacksonpradolima/SBSEBrazilianCourse/issues
-  abbreviations:
-    SBSE: Search-Based Software Engineering
   github: jacksonpradolima/SBSEBrazilianCourse
   toc:
     - file: README.md
