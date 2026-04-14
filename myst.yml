@@ -59,7 +59,6 @@ project:
           children:
             - file: docs/aulas/aula-14-etica-lado-sombrio-otimizacao/workshop.ipynb
         - file: docs/aulas/aula-15-16-projeto-final-desenvolvimento/README.md
-        - file: docs/aulas/aula-15-16-projeto-final-desenvolvimento/README.md
         - file: docs/aulas/aula-17-projeto-final-recuperacao/README.md
           children:
             - file: docs/aulas/aula-17-projeto-final-recuperacao/workshop.ipynb
